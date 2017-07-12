@@ -25,3 +25,13 @@ Route::post('clientes/agregar', [
     'uses' => 'ClientController@store',
     'as' => 'client.store'
 ]);
+
+Route::get('clientes/editar/{id}', [
+    'uses' => 'ClientController@edit',
+    'as' => 'client.edit'
+]);
+
+Route::post('clientes/editar', [
+    'uses' => 'ClientController@update',
+    'as' => 'client.update'
+]);
