@@ -11,27 +11,34 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('clientes', [
-    'uses' => 'ClientController@index',
-    'as' => 'client.index'
-]);
+Route::group(['prefix' => 'clientes', 'as' => 'client.'], function () {
+    Route::get('/', [
+        'uses' => 'ClientController@index',
+        'as' => 'index'
+    ]);
 
-Route::get('clientes/agregar', [
-    'uses' => 'ClientController@create',
-    'as' => 'client.create'
-]);
+    Route::get('agregar', [
+        'uses' => 'ClientController@create',
+        'as' => 'create'
+    ]);
 
-Route::post('clientes/agregar', [
-    'uses' => 'ClientController@store',
-    'as' => 'client.store'
-]);
+    Route::post('agregar', [
+        'uses' => 'ClientController@store',
+        'as' => 'store'
+    ]);
 
-Route::get('clientes/editar/{id}', [
-    'uses' => 'ClientController@edit',
-    'as' => 'client.edit'
-]);
+    Route::get('editar/{id}', [
+        'uses' => 'ClientController@edit',
+        'as' => 'edit'
+    ]);
 
-Route::post('clientes/editar', [
-    'uses' => 'ClientController@update',
-    'as' => 'client.update'
-]);
+    Route::post('editar', [
+        'uses' => 'ClientController@update',
+        'as' => 'update'
+    ]);
+
+    Route::get('detalles/{id}', [
+        'uses' => 'ClientController@details',
+        'as' => 'details'
+    ]);
+});

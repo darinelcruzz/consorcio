@@ -55,4 +55,11 @@ class ClientController extends Controller
 
         return redirect(route('client.index'));
     }
+
+    function details($id)
+    {
+        $client = Client::find($id);
+
+        return view('clients.details', compact('client'));
+    }
 }
