@@ -42,3 +42,18 @@ Route::group(['prefix' => 'clientes', 'as' => 'client.'], function () {
         'as' => 'details'
     ]);
 });
+
+Route::get('ventas/cerdo', [
+    'uses' => 'PorkSalesController@index',
+    'as' => 'pork.index'
+]);
+
+Route::get('ventas/cerdo/agregar', [
+    'uses' => 'PorkSalesController@create',
+    'as' => 'pork.create'
+]);
+
+Route::post('ventas/cerdo/agregar', [
+    'uses' => 'PorkSalesController@store',
+    'as' => 'pork.store'
+]);

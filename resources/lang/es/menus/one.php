@@ -16,6 +16,17 @@ return [
         ]
     ],
 
+    'sales' => [
+        'title' => 'Ventas',
+        'icon' => 'fa fa-shopping-cart',
+        'submenu' => [
+            'pork' => [
+                'title' => 'Cerdo',
+                'route' => 'pork.index'
+            ],
+        ]
+    ],
+
     'logout' => [
         'title' => 'Cerrar Sesión',
         'icon' => 'fa fa-sign-out',
