@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Schema;
 use Laravel\Dusk\DuskServiceProvider;
-use App\Http\Composers\SidebarComposer;
+use App\Http\Composers\PorkComposer;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,6 +35,6 @@ class AppServiceProvider extends ServiceProvider
 
     protected function registerViewComposers()
    {
-       View::composer('menus.sidebar', SidebarComposer::class);
+       View::composer('sales.*', PorkComposer::class);
    }
 }

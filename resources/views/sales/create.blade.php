@@ -8,9 +8,9 @@
 
             <solid-box title="Introduzca los datos de la venta"
                 color="{{ 'box-' . $color }}">
-                {!! Form::open(['method' => 'POST', 'route' => 'pork.store']) !!}
+                {!! Form::open(['method' => 'POST', 'route' => $type . '.store']) !!}
                     {!! Field::select('client_id', $clients, null,
-                        ['tpl' => 'templates/withicon', 'empty' => 'Seleccione un cliente'],
+                        ['label' => 'Cliente', 'tpl' => 'templates/withicon', 'empty' => 'Seleccione un cliente'],
                         ['icon' => 'user'])
                     !!}
                     <div class="row">

@@ -1,6 +1,25 @@
 <?php
 
 return [
+    'sales' => [
+        'title' => 'Ventas',
+        'icon' => 'fa fa-shopping-cart',
+        'submenu' => [
+            'alive' => [
+                'title' => 'Vivo',
+                'route' => 'alive.index'
+            ],
+            'fresh' => [
+                'title' => 'Fresco',
+                'route' => 'fresh.index'
+            ],
+            'pork' => [
+                'title' => 'Cerdo',
+                'route' => 'pork.index'
+            ],
+        ]
+    ],
+
     'clients' => [
         'title' => 'Clientes',
         'icon' => 'fa fa-user',
@@ -12,17 +31,6 @@ return [
             'list' => [
                 'title' => 'Lista',
                 'route' => 'client.index'
-            ],
-        ]
-    ],
-
-    'sales' => [
-        'title' => 'Ventas',
-        'icon' => 'fa fa-shopping-cart',
-        'submenu' => [
-            'pork' => [
-                'title' => 'Cerdo',
-                'route' => 'pork.index'
             ],
         ]
     ],

@@ -3,14 +3,14 @@
 @section('main-content')
 
     <row-woc col="col-md-12">
-        <a href="{{ route('pork.create') }}" class="btn btn-app">
+        <a href="{{ route($type . '.create') }}" class="btn btn-app">
             <span class="badge bg-red">+</span>
             <i class="fa fa-shopping-cart"></i> Nueva venta
         </a>
     </row-woc>
 
-    <data-table col="col-md-12" title="Cerdo"
-        example="example1" color="{{ $color }}">
+    <data-table col="col-md-12" title="{{ $types[$type] }}"
+        example="example1" color="{{ 'box-' . $color }}">
 
         <template slot="header">
             <tr>

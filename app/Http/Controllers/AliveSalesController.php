@@ -3,37 +3,37 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\PorkSale;
+use App\AliveSale;
 use App\Client;
 
-class PorkSalesController extends Controller
+class AliveSalesController extends Controller
 {
     function index()
     {
-        $sales = PorkSale::all();
-        $type = 'pork';
-        $color = 'default';
+        $sales = AliveSale::all();
+        $type = 'alive';
+        $color = 'primary';
         return view('sales.index', compact('sales', 'type', 'color'));
     }
 
     function create()
     {
         $clients = $this->getClients();
-        $type = 'pork';
-        $color = 'default';
+        $type = 'alive';
+        $color = 'primary';
         return view('sales.create', compact('clients', 'type', 'color'));
     }
 
     function store(Request $request)
     {
-        PorkSale::create($request->all());
+        AliveSale::create($request->all());
 
-        return redirect('ventas/cerdo');
+        return redirect('ventas/vivo');
     }
 
     function getClients() {
         return Client::all()->filter(function ($item) {
-            return strpos($item->products, 'cerdo');
+            return strpos($item->products, 'vivo');
         })->pluck('name', 'id')->toArray();
     }
 }

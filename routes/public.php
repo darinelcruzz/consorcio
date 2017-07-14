@@ -57,3 +57,33 @@ Route::post('ventas/cerdo/agregar', [
     'uses' => 'PorkSalesController@store',
     'as' => 'pork.store'
 ]);
+
+Route::get('ventas/vivo', [
+    'uses' => 'AliveSalesController@index',
+    'as' => 'alive.index'
+]);
+
+Route::get('ventas/vivo/agregar', [
+    'uses' => 'AliveSalesController@create',
+    'as' => 'alive.create'
+]);
+
+Route::post('ventas/vivo/agregar', [
+    'uses' => 'AliveSalesController@store',
+    'as' => 'alive.store'
+]);
+
+Route::get('ventas/fresco', [
+    'uses' => 'FreshSalesController@index',
+    'as' => 'fresh.index'
+]);
+
+Route::get('ventas/fresco/agregar', [
+    'uses' => 'FreshSalesController@create',
+    'as' => 'fresh.create'
+]);
+
+Route::post('ventas/fresco/agregar', [
+    'uses' => 'FreshSalesController@store',
+    'as' => 'fresh.store'
+]);
