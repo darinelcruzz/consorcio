@@ -87,3 +87,30 @@ Route::post('ventas/fresco/agregar', [
     'uses' => 'FreshSalesController@store',
     'as' => 'fresh.store'
 ]);
+
+// Shippings
+Route::get('embarques', [
+    'uses' => 'ShippingsController@index',
+    'as' => 'shipping.index'
+]);
+
+Route::get('embarques/agregar', [
+    'uses' => 'ShippingsController@create',
+    'as' => 'shipping.create'
+]);
+
+Route::post('embarques/agregar', [
+    'uses' => 'ShippingsController@store',
+    'as' => 'shipping.store'
+]);
+
+// Products
+Route::get('productos', [
+    'uses' => 'ProductsController@index',
+    'as' => 'product.index'
+]);
+
+Route::post('productos', [
+    'uses' => 'ProductsController@store',
+    'as' => 'product.store'
+]);
