@@ -10,7 +10,8 @@
                 color="{{ 'box-' . $color }}">
                 {!! Form::open(['method' => 'POST', 'route' => $type . '.store']) !!}
                     {!! Field::select('client_id', $clients, null,
-                        ['label' => 'Cliente', 'tpl' => 'templates/withicon', 'empty' => 'Seleccione un cliente'],
+                        ['label' => 'Cliente', 'v-model' => 'client_id',
+                        'tpl' => 'templates/withicon', 'empty' => 'Seleccione un cliente'],
                         ['icon' => 'user'])
                     !!}
                     <div class="row">
@@ -55,6 +56,37 @@
 
                 {!! Form::close() !!}
             </solid-box>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <client-info :clients="clients" :client="client_id"></client-info>
+
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                  <i class="fa fa-shopping-cart"></i>
+
+                  <h3 class="box-title">Última venta hecha</h3>
+                </div><!-- /.box-header -->
+
+                <div class="box-body">
+                  <dl class="dl-horizontal">
+                    <dt>Folio</dt>
+                    <dd>1000123</dd>
+                    <dt>Fecha</dt>
+                    <dd>Lunes 17 de julio, 2017</dd>
+                    <dt>Cliente</dt>
+                    <dd>Fulano de Tal</dd>
+                    <dt>Precio</dt>
+                    <dd>$ 20.00</dd>
+                    <dt>Cantidad</dt>
+                    <dd>10.5 kg</dd>
+                    <dt>Importe</dt>
+                    <dd>$ 210.00</dd>
+                  </dl>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
 
         </div>
 
