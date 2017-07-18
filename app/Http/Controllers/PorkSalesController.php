@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\PorkSale;
 use App\Client;
+use App\Product;
 
 class PorkSalesController extends Controller
 {
@@ -21,12 +22,15 @@ class PorkSalesController extends Controller
         $clients = $this->getClients();
         $type = 'pork';
         $color = 'default';
-        return view('sales.create', compact('clients', 'type', 'color'));
+        $lastSale = PorkSale::all()->last();
+        return view('sales.create', compact('clients', 'type', 'color', 'lastSale'));
     }
 
     function store(Request $request)
     {
         PorkSale::create($request->all());
+
+        $this->updateInventory($request->quantity);
 
         return redirect('ventas/cerdo');
     }
@@ -35,5 +39,14 @@ class PorkSalesController extends Controller
         return Client::all()->filter(function ($item) {
             return strpos($item->products, 'cerdo');
         })->pluck('name', 'id')->toArray();
+    }
+
+    function updateInventory($quantity)
+    {
+        $former = Product::where('name', 'cerdo')->first();
+
+        $current = $former->quantity - $quantity;
+
+        $former->update(['quantity' => $current]);
     }
 }

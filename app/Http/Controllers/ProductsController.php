@@ -15,8 +15,12 @@ class ProductsController extends Controller
 
     function store(Request $request)
     {
-        Product::create($request->all());
-        
+        Product::create([
+            'name' => $request->name,
+            'quantity' => $request->quantity,
+            'processed' => empty($request->processed) ? 0: 1,
+        ]);
+
         return back();
     }
 }

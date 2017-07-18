@@ -27,7 +27,7 @@ Route::group(['prefix' => 'clientes', 'as' => 'client.'], function () {
         'as' => 'store'
     ]);
 
-    Route::get('editar/{id}', [
+    Route::get('editar/{client}', [
         'uses' => 'ClientController@edit',
         'as' => 'edit'
     ]);
@@ -37,7 +37,7 @@ Route::group(['prefix' => 'clientes', 'as' => 'client.'], function () {
         'as' => 'update'
     ]);
 
-    Route::get('detalles/{id}', [
+    Route::get('detalles/{client}', [
         'uses' => 'ClientController@details',
         'as' => 'details'
     ]);

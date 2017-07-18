@@ -174,7 +174,8 @@ return [
         'family'                => 'familia',
         'contact'               => 'contacto',
         'advance'               => 'anticipo',
-        'retainer'               => 'anticipo'
+        'retainer'              => 'anticipo',
+        'notes'                 => 'notas',
     ],
 
 ];

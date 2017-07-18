@@ -16,11 +16,17 @@
                     !!}
                     <div class="row">
                         <div class="col-md-6">
-                            {!! Field::number('folio', ['tpl' => 'templates/withicon'], ['icon' => 'barcode']) !!}
+                            {!! Field::number('folio', $lastSale->folio + 1,
+                                ['disabled' => '', 'tpl' => 'templates/withicon'],
+                                ['icon' => 'barcode'])
+                            !!}
                         </div>
 
                         <div class="col-md-6">
-                            {!! Field::text('date', ['tpl' => 'templates/withicon'], ['icon' => 'calendar']) !!}
+                            {!! Field::select('date', $validDates, null,
+                                ['tpl' => 'templates/withicon', 'empty' => 'Seleccione la fecha'],
+                                ['icon' => 'calendar'])
+                            !!}
                         </div>
                     </div>
 
@@ -49,6 +55,7 @@
                         </div>
                     </div>
 
+                    <input type="hidden" name="folio" value="{{ $lastSale->folio + 1 }}">
                     <input type="hidden" name="credit" value="0">
                     <input type="hidden" name="days" value="0">
                     <input type="hidden" name="status" value="pendiente">
@@ -72,18 +79,18 @@
 
                 <div class="box-body">
                   <dl class="dl-horizontal">
-                    <dt>Folio</dt>
-                    <dd>1000123</dd>
-                    <dt>Fecha</dt>
-                    <dd>Lunes 17 de julio, 2017</dd>
                     <dt>Cliente</dt>
-                    <dd>Fulano de Tal</dd>
+                    <dd>{{ $lastSale->client->name }}</dd>
+                    <dt>Folio</dt>
+                    <dd>{{ $lastSale->id }}</dd>
+                    <dt>Fecha</dt>
+                    <dd>{{ $lastSale->date }}</dd>
                     <dt>Precio</dt>
-                    <dd>$ 20.00</dd>
+                    <dd>{{ $lastSale->price }}</dd>
                     <dt>Cantidad</dt>
-                    <dd>10.5 kg</dd>
+                    <dd>{{ $lastSale->quantity }}</dd>
                     <dt>Importe</dt>
-                    <dd>$ 210.00</dd>
+                    <dd>$ {{ $lastSale->amount }}</dd>
                   </dl>
                 </div><!-- /.box-body -->
             </div><!-- /.box -->

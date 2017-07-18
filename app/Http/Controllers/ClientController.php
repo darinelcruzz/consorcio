@@ -28,16 +28,16 @@ class ClientController extends Controller
             'rfc' => $request->rfc,
             'phone' => $request->phone,
             'cellphone' => $request->cellphone,
-            'products' => serialize($request->products)
+            'products' => serialize($request->products),
+            'notes' => $request->notes ? $request->notes: 0,
+            'credit' => empty($request->credit) ? 0: 1,
         ]);
 
         return redirect(route('client.index'));
     }
 
-    function edit($id)
+    function edit(Client $client)
     {
-        $client = Client::find($id);
-
         return view('clients.edit', compact('client'));
     }
 
@@ -50,16 +50,16 @@ class ClientController extends Controller
             'rfc' => $request->rfc,
             'phone' => $request->phone,
             'cellphone' => $request->cellphone,
-            'products' => serialize($request->products)
+            'products' => serialize($request->products),
+            'notes' => empty($request->credit) ? $request->notes: 0,
+            'credit' => empty($request->credit) ? 0: 1,
         ]);
 
         return redirect(route('client.index'));
     }
 
-    function details($id)
+    function details(Client $client)
     {
-        $client = Client::find($id);
-
         return view('clients.details', compact('client'));
     }
 }

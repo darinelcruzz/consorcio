@@ -21,7 +21,8 @@ class AliveSalesController extends Controller
         $clients = $this->getClients();
         $type = 'alive';
         $color = 'primary';
-        return view('sales.create', compact('clients', 'type', 'color'));
+        $lastSale = AliveSale::all()->last();
+        return view('sales.create', compact('clients', 'type', 'color', 'lastSale'));
     }
 
     function store(Request $request)

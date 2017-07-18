@@ -24151,7 +24151,8 @@ var app = new Vue({
     el: '#app',
     data: {
         clients: [],
-        client_id: 0
+        client_id: 0,
+        checked: []
     },
     created: function created() {
         var _this = this;
