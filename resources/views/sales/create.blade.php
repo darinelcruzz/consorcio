@@ -16,7 +16,7 @@
                     !!}
                     <div class="row">
                         <div class="col-md-6">
-                            {!! Field::number('folio', $lastSale->folio + 1,
+                            {!! Field::number('folio', $lastSale ? $lastSale->id: 1,
                                 ['disabled' => '', 'tpl' => 'templates/withicon'],
                                 ['icon' => 'barcode'])
                             !!}
@@ -55,7 +55,7 @@
                         </div>
                     </div>
 
-                    <input type="hidden" name="folio" value="{{ $lastSale->folio + 1 }}">
+                    <input type="hidden" name="folio" value="{{ $lastSale->id or 1 }}">
                     <input type="hidden" name="credit" value="0">
                     <input type="hidden" name="days" value="0">
                     <input type="hidden" name="status" value="pendiente">
@@ -70,30 +70,32 @@
 
             <client-info :clients="clients" :client="client_id"></client-info>
 
-            <div class="box box-solid">
-                <div class="box-header with-border">
-                  <i class="fa fa-shopping-cart"></i>
+            @if ($lastSale)
+                <div class="box box-solid">
+                    <div class="box-header with-border">
+                      <i class="fa fa-shopping-cart"></i>
 
-                  <h3 class="box-title">Última venta hecha</h3>
-                </div><!-- /.box-header -->
+                      <h3 class="box-title">Última venta hecha</h3>
+                    </div><!-- /.box-header -->
 
-                <div class="box-body">
-                  <dl class="dl-horizontal">
-                    <dt>Cliente</dt>
-                    <dd>{{ $lastSale->client->name }}</dd>
-                    <dt>Folio</dt>
-                    <dd>{{ $lastSale->id }}</dd>
-                    <dt>Fecha</dt>
-                    <dd>{{ $lastSale->date }}</dd>
-                    <dt>Precio</dt>
-                    <dd>{{ $lastSale->price }}</dd>
-                    <dt>Cantidad</dt>
-                    <dd>{{ $lastSale->quantity }}</dd>
-                    <dt>Importe</dt>
-                    <dd>$ {{ $lastSale->amount }}</dd>
-                  </dl>
-                </div><!-- /.box-body -->
-            </div><!-- /.box -->
+                    <div class="box-body">
+                      <dl class="dl-horizontal">
+                        <dt>Cliente</dt>
+                        <dd>{{ $lastSale->client->name }}</dd>
+                        <dt>Folio</dt>
+                        <dd>{{ $lastSale->id }}</dd>
+                        <dt>Fecha</dt>
+                        <dd>{{ $lastSale->date }}</dd>
+                        <dt>Precio</dt>
+                        <dd>{{ $lastSale->price }}</dd>
+                        <dt>Cantidad</dt>
+                        <dd>{{ $lastSale->quantity }}</dd>
+                        <dt>Importe</dt>
+                        <dd>$ {{ $lastSale->amount }}</dd>
+                      </dl>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            @endif
 
         </div>
 

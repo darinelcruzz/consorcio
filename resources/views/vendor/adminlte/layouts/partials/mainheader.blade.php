@@ -6,7 +6,7 @@
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>L</b>B</span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Larav</b>el</span>
+        <span class="logo-lg">Consorcio <b>AP</b></span>
     </a>
 
     <!-- Header Navbar -->
