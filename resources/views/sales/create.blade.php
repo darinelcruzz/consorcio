@@ -7,7 +7,7 @@
         <div class="col-md-6">
 
             <solid-box title="Introduzca los datos de la venta"
-                color="{{ 'box-' . $color }}">
+                color="box-{{ $color }}">
                 {!! Form::open(['method' => 'POST', 'route' => $type . '.store']) !!}
                     {!! Field::select('client_id', $clients, null,
                         ['label' => 'Cliente', 'v-model' => 'client_id',

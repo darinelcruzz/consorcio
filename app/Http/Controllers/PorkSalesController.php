@@ -14,7 +14,8 @@ class PorkSalesController extends Controller
         $sales = PorkSale::all();
         $type = 'pork';
         $color = 'default';
-        return view('sales.index', compact('sales', 'type', 'color'));
+        $skin = 'pink';
+        return view('sales.index', compact('sales', 'type', 'color', 'skin'));
     }
 
     function create()
@@ -22,8 +23,9 @@ class PorkSalesController extends Controller
         $clients = $this->getClients();
         $type = 'pork';
         $color = 'default';
+        $skin = 'pink';
         $lastSale = PorkSale::all()->last();
-        return view('sales.create', compact('clients', 'type', 'color', 'lastSale'));
+        return view('sales.create', compact('clients', 'type', 'color', 'lastSale', 'skin'));
     }
 
     function store(Request $request)

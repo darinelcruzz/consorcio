@@ -13,7 +13,8 @@ class AliveSalesController extends Controller
         $sales = AliveSale::all();
         $type = 'alive';
         $color = 'primary';
-        return view('sales.index', compact('sales', 'type', 'color'));
+        $skin = 'blue';
+        return view('sales.index', compact('sales', 'type', 'color', 'skin'));
     }
 
     function create()
@@ -22,7 +23,8 @@ class AliveSalesController extends Controller
         $type = 'alive';
         $color = 'primary';
         $lastSale = AliveSale::all()->last();
-        return view('sales.create', compact('clients', 'type', 'color', 'lastSale'));
+        $skin = 'blue';
+        return view('sales.create', compact('clients', 'type', 'color', 'lastSale', 'skin'));
     }
 
     function store(Request $request)

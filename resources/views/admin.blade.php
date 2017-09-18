@@ -5,7 +5,7 @@
     @include('adminlte::layouts.partials.htmlheader', ['headerTitle' => 'Intranet'])
 @show
 
-<body class="skin-yellow sidebar-mini">
+<body class="skin-{{ isset($skin) ? $skin: 'yellow' }} sidebar-mini">
 <div id="app" v-cloak>
     <div class="wrapper">
 
