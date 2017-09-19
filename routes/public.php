@@ -88,6 +88,21 @@ Route::post('ventas/fresco/agregar', [
     'as' => 'fresh.store'
 ]);
 
+Route::get('ventas/procesado', [
+    'uses' => 'ProcessedSalesController@index',
+    'as' => 'processed.index'
+]);
+
+Route::get('ventas/procesado/agregar', [
+    'uses' => 'ProcessedSalesController@create',
+    'as' => 'processed.create'
+]);
+
+Route::post('ventas/procesado/agregar', [
+    'uses' => 'ProcessedSalesController@store',
+    'as' => 'processed.store'
+]);
+
 // Shippings
 Route::get('embarques', [
     'uses' => 'ShippingsController@index',

@@ -13,7 +13,7 @@ class PorkSalesController extends Controller
     {
         $sales = PorkSale::all();
         $type = 'pork';
-        $color = 'default';
+        $color = 'baby';
         $skin = 'pink';
         return view('sales.index', compact('sales', 'type', 'color', 'skin'));
     }
@@ -22,7 +22,7 @@ class PorkSalesController extends Controller
     {
         $clients = $this->getClients();
         $type = 'pork';
-        $color = 'default';
+        $color = 'baby';
         $skin = 'pink';
         $lastSale = PorkSale::all()->last();
         return view('sales.create', compact('clients', 'type', 'color', 'lastSale', 'skin'));
@@ -37,7 +37,8 @@ class PorkSalesController extends Controller
         return redirect('ventas/cerdo');
     }
 
-    function getClients() {
+    function getClients()
+    {
         return Client::all()->filter(function ($item) {
             return strpos($item->products, 'cerdo');
         })->pluck('name', 'id')->toArray();

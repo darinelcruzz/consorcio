@@ -17,6 +17,10 @@ return [
                 'title' => 'Cerdo',
                 'route' => 'pork.index'
             ],
+            'processed' => [
+                'title' => 'Procesado',
+                'route' => 'processed.index'
+            ],
         ]
     ],
 
