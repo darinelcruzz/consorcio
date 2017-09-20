@@ -42,6 +42,20 @@
                         </div>
                     </div>
 
+                    @if ($type == 'processed')
+                        <div class="row">
+                            <div class="col-md-6">
+                                {!! Field::number('chickens', ['tpl' => 'templates/withicon'],
+                                    ['icon' => 'cutlery']) !!}
+                            </div>
+
+                            <div class="col-md-6">
+                                {!! Field::number('boxes', ['tpl' => 'templates/withicon'],
+                                    ['icon' => 'archive']) !!}
+                            </div>
+                        </div>
+                    @endif
+
                     <div class="row">
                         <div class="col-md-6">
                             {!! Field::select('price', ['1' => '1'], null,
@@ -52,6 +66,14 @@
                         <div class="col-md-6">
                             {!! Field::number('amount', ['tpl' => 'templates/withicon', 'step' => '0.01'],
                                 ['icon' => 'usd']) !!}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <solid-box title="Productos" color="box-default">
+                                <product-table :products="[{name: 'uno', unity: 'kg', price: 40, id: 1}, {name: 'dos', unity: 'm', price: 55, id: 2}]" retainer="{{ 0 }}"></product-table>
+                            </solid-box>
                         </div>
                     </div>
 
@@ -100,5 +122,4 @@
         </div>
 
     </div>
-
 @endsection

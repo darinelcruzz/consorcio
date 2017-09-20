@@ -22,6 +22,8 @@ class CreateProcessedSalesTable extends Migration
             $table->double('quantity');
             $table->double('kg');
             $table->double('price');
+            $table->double('chickens');
+            $table->double('boxes');
             $table->string('products')->nullable();
             $table->double('amount');
             $table->integer('credit');

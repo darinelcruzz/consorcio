@@ -36,7 +36,7 @@ class ProcessedSalesController extends Controller
     function getClients()
     {
         return Client::all()->filter(function ($item) {
-            return strpos($item->products, 'cerdo');
+            return strpos($item->products, 'procesado');
         })->pluck('name', 'id')->toArray();
     }
 }
