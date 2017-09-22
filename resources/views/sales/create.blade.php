@@ -32,12 +32,12 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            {!! Field::number('quantity', ['tpl' => 'templates/withicon'],
+                            {!! Field::number('quantity', ['tpl' => 'templates/withicon', 'step' => '0.01'],
                                 ['icon' => 'list-ol']) !!}
                         </div>
 
                         <div class="col-md-6">
-                            {!! Field::number('kg', ['tpl' => 'templates/withicon'],
+                            {!! Field::number('kg', ['tpl' => 'templates/withicon', 'step' => '0.01'],
                                 ['icon' => 'balance-scale']) !!}
                         </div>
                     </div>
@@ -58,12 +58,12 @@
                     @if ($type == 'processed')
                         <div class="row">
                             <div class="col-md-6">
-                                {!! Field::number('chickens', ['tpl' => 'templates/withicon'],
+                                {!! Field::number('chickens', ['tpl' => 'templates/withicon', 'min' => '0'],
                                     ['icon' => 'cutlery']) !!}
                             </div>
 
                             <div class="col-md-6">
-                                {!! Field::number('boxes', ['tpl' => 'templates/withicon'],
+                                {!! Field::number('boxes', ['tpl' => 'templates/withicon', 'min' => '0'],
                                     ['icon' => 'archive']) !!}
                             </div>
                         </div>

@@ -44891,7 +44891,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "form-control",
     attrs: {
-      "name": "material[]"
+      "name": "types[]"
     },
     on: {
       "change": [function($event) {
@@ -44929,7 +44929,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     attrs: {
       "type": "number",
-      "name": "quantity[]",
+      "name": "numbers[]",
       "min": "0",
       "step": "0.1"
     },
