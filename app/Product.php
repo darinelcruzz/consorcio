@@ -6,7 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = [
-        'name', 'quantity', 'processed'
+    protected $guarded = [
     ];
+
+    function getNicePriceAttribute()
+    {
+        return '$ ' . number_format($this->price, 2, '.', ',');
+    }
 }

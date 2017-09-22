@@ -24883,11 +24883,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            product_id: 1,
+            product_id: 5,
             quantity: 0,
             total: 0
         };
@@ -24896,8 +24901,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: ['products', 'num'],
     methods: {
         saveTotal: function saveTotal() {
-            this.total = this.products[this.product_id - 1].price * this.quantity;
+            this.total = this.products[this.product_id - 5].price * this.quantity;
             this.$emit('subtotal', this.total, this.num);
+        }
+    },
+    filters: {
+        currency: function currency(value) {
+            return '$ ' + value.toFixed(2);
         }
     }
 });
@@ -24981,15 +24991,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            header: [{ name: '#', width: 'width: 5%' }, { name: 'Cantidad', width: 'width: 15%' }, { name: 'Unidad', width: 'width: 10%' }, { name: 'Material', width: 'width: 30%' }, { name: 'Precio unitario', width: 'width: 15%' }, { name: 'Importe', width: 'width: 20%' }],
+            header: [{ name: '#', width: 'width: 5%' }, { name: 'Material', width: 'width: 35%' }, { name: 'Cantidad', width: 'width: 15%' }, { name: 'Precio', width: 'width: 20%' }, { name: 'Importe', width: 'width: 20%' }],
             articles: [1, 0, 0, 0, 0],
             subtotals: [0, 0, 0, 0, 0],
             total: 0
@@ -25005,6 +25011,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.total = this.subtotals.reduce(function (total, value) {
                 return total + value;
             }, 0);
+        }
+    },
+
+    filters: {
+        currency: function currency(value) {
+            return '$ ' + value.toFixed(2);
         }
     }
 });
@@ -44776,7 +44788,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "table table-striped"
   }, [_c('thead', [_c('tr', _vm._l((_vm.header), function(head) {
     return _c('th', {
-      style: (head.width)
+      style: (head.width),
+      attrs: {
+        "align": "center"
+      }
     }, [_vm._v(_vm._s(head.name))])
   }))]), _vm._v(" "), _c('tbody', [_c('product-row', {
     attrs: {
@@ -44818,7 +44833,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "subtotal": _vm.addToTotal
     }
-  })], 1), _vm._v(" "), _c('tfoot', [(_vm.retainer) ? [_c('tr', [_c('td'), _c('td'), _c('td'), _c('td'), _vm._v(" "), _c('td', [_vm._v("\n                        Subtotal:\n                    ")]), _vm._v(" "), _c('td', [_vm._v("\n                        $ " + _vm._s(_vm.total) + "\n                    ")]), _vm._v(" "), _c('td')]), _vm._v(" "), _c('tr', [_c('td'), _c('td'), _c('td'), _c('td'), _vm._v(" "), _c('td', [_vm._v("\n                        - Anticipo:\n                    ")]), _vm._v(" "), _c('td', [_vm._v("\n                        $ " + _vm._s(_vm.retainer) + "\n                    ")]), _vm._v(" "), _c('td')]), _vm._v(" "), _c('tr', [_c('td'), _c('td'), _c('td'), _c('td'), _vm._v(" "), _c('td', [_c('b', [_vm._v("Total:")])]), _vm._v(" "), _c('td', [_vm._v("\n                        $ " + _vm._s(_vm.total - _vm.retainer) + "\n                        "), _c('input', {
+  })], 1), _vm._v(" "), _c('tfoot', [(_vm.retainer) ? [_c('tr', [_c('td', {
+    attrs: {
+      "colspan": "3"
+    }
+  }), _vm._v(" "), _c('td', [_vm._v("\n                        Subtotal:\n                    ")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("currency")(_vm.total)) + "\n                    ")])]), _vm._v(" "), _c('tr', [_c('td', {
+    attrs: {
+      "colspan": "3"
+    }
+  }), _vm._v(" "), _c('td', [_vm._v("\n                        - Anticipo:\n                    ")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("currency")(_vm.retainer)) + "\n                    ")])]), _vm._v(" "), _c('tr', [_c('td', {
+    attrs: {
+      "colspan": "3"
+    }
+  }), _vm._v(" "), _c('td', [_c('b', [_vm._v("Total:")])]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("currency")(_vm.total - _vm.retainer)) + "\n                        "), _c('input', {
     attrs: {
       "type": "hidden",
       "name": "amount"
@@ -44826,7 +44853,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "value": _vm.total - _vm.retainer
     }
-  })]), _vm._v(" "), _c('td')])] : _c('tr', [_c('td'), _c('td'), _c('td'), _c('td'), _vm._v(" "), _c('td', [_c('b', [_vm._v("Total:")])]), _vm._v(" "), _c('td', [_vm._v("\n                    $ " + _vm._s(_vm.total) + "\n                    "), _c('input', {
+  })])])] : _c('tr', [_c('td', {
+    attrs: {
+      "colspan": "3"
+    }
+  }), _vm._v(" "), _c('td', [_c('b', [_vm._v("Total:")])]), _vm._v(" "), _c('td', [_vm._v("\n                    " + _vm._s(_vm._f("currency")(_vm.total)) + "\n                    "), _c('input', {
     attrs: {
       "type": "hidden",
       "name": "amount"
@@ -44834,7 +44865,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "value": _vm.total
     }
-  })]), _vm._v(" "), _c('td')])], 2)], 1)])
+  })])])], 2)], 1)])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -44849,39 +44880,16 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('tr', [_c('td', [_vm._v("\n        " + _vm._s(_vm.num) + "\n    ")]), _vm._v(" "), _c('td', [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.quantity),
-      expression: "quantity"
-    }],
-    attrs: {
-      "type": "number",
-      "name": "quantity[]",
-      "min": "0",
-      "step": "0.1"
-    },
-    domProps: {
-      "value": (_vm.quantity)
-    },
-    on: {
-      "change": _vm.saveTotal,
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.quantity = $event.target.value
-      },
-      "blur": function($event) {
-        _vm.$forceUpdate()
-      }
-    }
-  })]), _vm._v(" "), _c('td', [_vm._v("\n        " + _vm._s(_vm.products[_vm.product_id - 1].unity) + "\n    ")]), _vm._v(" "), _c('td', [_c('select', {
+  return _c('tr', [_c('td', [_vm._v("\n        " + _vm._s(_vm.num) + "\n    ")]), _vm._v(" "), _c('td', [_c('div', {
+    staticClass: "form-group"
+  }, [_c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
       value: (_vm.product_id),
       expression: "product_id"
     }],
+    staticClass: "form-control",
     attrs: {
       "name": "material[]"
     },
@@ -44901,16 +44909,52 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       domProps: {
         "value": product.id
       }
-    }, [_vm._v("\n                " + _vm._s(product.name) + "\n            ")])
-  }))]), _vm._v(" "), _c('td', [_vm._v("\n        $ " + _vm._s(_vm.products[_vm.product_id - 1].price) + "\n    ")]), _vm._v(" "), _c('td', [_c('input', {
+    }, [_vm._v("\n                    " + _vm._s(product.name) + "\n                ")])
+  }))])]), _vm._v(" "), _c('td', {
+    attrs: {
+      "align": "center"
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.quantity),
+      expression: "quantity"
+    }],
+    staticClass: "form-control",
+    staticStyle: {
+      "width": "85px"
+    },
+    attrs: {
+      "type": "number",
+      "name": "quantity[]",
+      "min": "0",
+      "step": "0.1"
+    },
+    domProps: {
+      "value": (_vm.quantity)
+    },
+    on: {
+      "change": _vm.saveTotal,
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.quantity = $event.target.value
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
+    }
+  })])]), _vm._v(" "), (_vm.products[_vm.product_id - 5].unity) ? _c('td', [_vm._v("\n        " + _vm._s(_vm.products[_vm.product_id - 5].unity) + "\n    ")]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v("\n        " + _vm._s(_vm._f("currency")(_vm.products[_vm.product_id - 5].price)) + "\n    ")]), _vm._v(" "), _c('td', [_c('input', {
     attrs: {
       "type": "hidden",
       "name": "total[]"
     },
     domProps: {
-      "value": _vm.products[_vm.product_id - 1].price * _vm.quantity
+      "value": _vm.products[_vm.product_id - 5].price * _vm.quantity
     }
-  }), _vm._v("\n        $ " + _vm._s(_vm.products[_vm.product_id - 1].price * _vm.quantity) + "\n    ")])])
+  }), _vm._v("\n        " + _vm._s(_vm._f("currency")(_vm.products[_vm.product_id - 5].price * _vm.quantity)) + "\n    ")])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

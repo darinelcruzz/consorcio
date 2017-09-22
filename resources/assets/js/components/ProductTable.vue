@@ -3,7 +3,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th v-for="head in header" :style="head.width">{{ head.name }}</th>
+                    <th v-for="head in header" :style="head.width" align="center">{{ head.name }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,48 +26,44 @@
             <tfoot>
                 <template v-if="retainer">
                     <tr>
-                        <td></td><td></td><td></td><td></td>
+                        <td colspan="3"></td>
                         <td>
                             Subtotal:
                         </td>
                         <td>
-                            $ {{ total }}
+                            {{ total | currency}}
                         </td>
-                        <td></td>
                     </tr>
                     <tr>
-                        <td></td><td></td><td></td><td></td>
+                        <td colspan="3"></td>
                         <td>
                             - Anticipo:
                         </td>
                         <td>
-                            $ {{ retainer }}
+                            {{ retainer | currency}}
                         </td>
-                        <td></td>
                     </tr>
                     <tr>
-                        <td></td><td></td><td></td><td></td>
+                        <td colspan="3"></td>
                         <td>
                             <b>Total:</b>
                         </td>
                         <td >
-                            $ {{ total - retainer }}
+                            {{ total - retainer | currency }}
                             <input type="hidden" name="amount" :value="total - retainer">
                         </td>
-                        <td></td>
                     </tr>
                 </template>
 
                 <tr v-else>
-                    <td></td><td></td><td></td><td></td>
+                    <td colspan="3"></td>
                     <td>
                         <b>Total:</b>
                     </td>
-                    <td >
-                        $ {{ total }}
+                    <td>
+                        {{ total | currency }}
                         <input type="hidden" name="amount" :value="total">
                     </td>
-                    <td></td>
                 </tr>
 
             </tfoot>
@@ -81,10 +77,9 @@ export default {
         return {
             header: [
                 { name:'#', width: 'width: 5%' },
+                { name:'Material', width: 'width: 35%' },
                 { name:'Cantidad', width: 'width: 15%' },
-                { name:'Unidad', width: 'width: 10%' },
-                { name:'Material', width: 'width: 30%' },
-                { name:'Precio unitario', width: 'width: 15%' },
+                { name:'Precio', width: 'width: 20%' },
                 { name:'Importe', width: 'width: 20%' },
             ],
             articles: [
@@ -103,6 +98,12 @@ export default {
             this.total = this.subtotals.reduce(function (total, value) {
                 return total + value;
             }, 0);
+        }
+    },
+
+    filters: {
+        currency: function (value) {
+          return '$ ' + value.toFixed(2);
         }
     },
 }

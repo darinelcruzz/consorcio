@@ -24,8 +24,9 @@ class ProcessedSalesController extends Controller
         $type = 'processed';
         $color = 'success';
         $skin = 'green';
+        $products = Product::where('processed', 1)->get();
         $lastSale = ProcessedSale::all()->last();
-        return view('sales.create', compact('clients', 'type', 'color', 'lastSale', 'skin'));
+        return view('sales.create', compact('clients', 'type', 'color', 'lastSale', 'skin', 'products'));
     }
 
     function store(Request $request)

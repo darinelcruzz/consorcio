@@ -17,7 +17,8 @@ class CreateProductsTable extends Migration
             $table->increments('id');
 
             $table->string('name');
-            $table->double('quantity');
+            $table->double('quantity')->default(0);
+            $table->double('price')->default(0);
             $table->integer('processed')->default(0);
 
             $table->timestamps();

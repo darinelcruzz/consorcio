@@ -176,6 +176,8 @@ return [
         'advance'               => 'anticipo',
         'retainer'              => 'anticipo',
         'notes'                 => 'notas',
+        'boxes'                   => 'cajas',
+        'chickens'               => 'pollos',
     ],
 
 ];
