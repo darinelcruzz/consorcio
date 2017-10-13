@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StorePAFSale;
 use App\AliveSale;
 use App\Client;
 
@@ -27,7 +28,7 @@ class AliveSalesController extends Controller
         return view('sales.create', compact('clients', 'type', 'color', 'lastSale', 'skin'));
     }
 
-    function store(Request $request)
+    function store(StorePAFSale $request)
     {
         AliveSale::create($request->all());
 

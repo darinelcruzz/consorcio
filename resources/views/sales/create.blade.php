@@ -16,7 +16,7 @@
                     !!}
                     <div class="row">
                         <div class="col-md-6">
-                            {!! Field::number('folio', $lastSale ? $lastSale->id: 1,
+                            {!! Field::number('folio', $lastSale ? $lastSale->id + 1: 1,
                                 ['disabled' => '', 'tpl' => 'templates/withicon'],
                                 ['icon' => 'barcode'])
                             !!}
