@@ -24,7 +24,7 @@ class StorePAFSale extends FormRequest
     public function rules()
     {
         return [
-            'client' => 'required',
+            'client_id' => 'required',
             'date' => 'required',
             'quantity' => 'required',
             'price' => 'required',

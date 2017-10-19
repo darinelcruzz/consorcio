@@ -7,6 +7,7 @@ use App\Http\Requests\StorePAFSale;
 use App\FreshSale;
 use App\Client;
 use App\Product;
+use App\Price;
 
 class FreshSalesController extends Controller
 {
@@ -21,10 +22,11 @@ class FreshSalesController extends Controller
     function create()
     {
         $clients = $this->getClients();
+        $prices = Price::pricesWithNames(2);
         $type = 'fresh';
         $color = 'warning';
         $lastSale = FreshSale::all()->last();
-        return view('sales.create', compact('clients', 'type', 'color', 'lastSale'));
+        return view('sales.create', compact('clients', 'type', 'color', 'lastSale', 'prices'));
     }
 
     function store(StorePAFSale $request)

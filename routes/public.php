@@ -11,6 +11,11 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('/pruebas', function () {
+    //$product = \App\Product::find(1);
+    return \App\Price::pricesWithNames(1);
+});
+
 Route::group(['prefix' => 'clientes', 'as' => 'client.'], function () {
     Route::get('/', [
         'uses' => 'ClientController@index',
@@ -128,4 +133,15 @@ Route::get('productos', [
 Route::post('productos', [
     'uses' => 'ProductsController@store',
     'as' => 'product.store'
+]);
+
+// Prices
+Route::get('precios', [
+    'uses' => 'PricesController@index',
+    'as' => 'preice.index'
+]);
+
+Route::post('precios', [
+    'uses' => 'PricesController@store',
+    'as' => 'preice.store'
 ]);

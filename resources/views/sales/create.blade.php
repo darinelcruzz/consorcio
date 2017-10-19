@@ -10,8 +10,8 @@
                 color="box-{{ $color }}">
                 {!! Form::open(['method' => 'POST', 'route' => $type . '.store']) !!}
                     {!! Field::select('client_id', $clients, null,
-                        ['label' => 'Cliente', 'v-model' => 'client_id',
-                        'tpl' => 'templates/withicon', 'empty' => 'Seleccione un cliente'],
+                        ['tpl' => 'templates/withicon', 'label' => 'Cliente', 'v-model' => 'client_id',
+                        'empty' => 'Seleccione un cliente'],
                         ['icon' => 'user'])
                     !!}
                     <div class="row">
@@ -44,9 +44,10 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            {!! Field::select('price', ['1' => '1'], null,
-                                ['tpl' => 'templates/withicon', 'empty' => 'Tipo de precio'],
-                                ['icon' => 'money']) !!}
+                            {!! Field::select('price', $prices->toArray(), null,
+                                ['tpl' => 'templates/withicon','empty' => 'Seleccione un precio'],
+                                ['icon' => 'money'])
+                            !!}
                         </div>
 
                         <div class="col-md-6">

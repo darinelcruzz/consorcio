@@ -52,3 +52,13 @@ $factory->define(App\Product::class, function (Faker\Generator $faker) {
         'processed' => 1,
     ];
 });
+
+$factory->define(App\Price::class, function (Faker\Generator $faker) {
+
+    return [
+        'name' => '',
+        'price' => 0,
+        'product_id' => 0,
+        'processed' => 0,
+    ];
+});

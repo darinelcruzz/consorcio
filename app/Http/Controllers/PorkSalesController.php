@@ -7,6 +7,7 @@ use App\Http\Requests\StorePAFSale;
 use App\PorkSale;
 use App\Client;
 use App\Product;
+use App\Price;
 
 class PorkSalesController extends Controller
 {
@@ -22,11 +23,12 @@ class PorkSalesController extends Controller
     function create()
     {
         $clients = $this->getClients();
+        $prices = Price::pricesWithNames(1);
         $type = 'pork';
         $color = 'baby';
         $skin = 'pink';
         $lastSale = PorkSale::all()->last();
-        return view('sales.create', compact('clients', 'type', 'color', 'lastSale', 'skin'));
+        return view('sales.create', compact('clients', 'type', 'color', 'lastSale', 'skin', 'prices'));
     }
 
     function store(StorePAFSale $request)

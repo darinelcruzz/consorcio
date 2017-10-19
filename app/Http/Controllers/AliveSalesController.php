@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StorePAFSale;
 use App\AliveSale;
 use App\Client;
+use App\Product;
+use App\Price;
 
 class AliveSalesController extends Controller
 {
@@ -21,11 +23,12 @@ class AliveSalesController extends Controller
     function create()
     {
         $clients = $this->getClients();
+        $prices = Price::pricesWithNames(3);
         $type = 'alive';
         $color = 'primary';
         $lastSale = AliveSale::all()->last();
         $skin = 'blue';
-        return view('sales.create', compact('clients', 'type', 'color', 'lastSale', 'skin'));
+        return view('sales.create', compact('clients', 'type', 'color', 'lastSale', 'skin', 'prices'));
     }
 
     function store(StorePAFSale $request)

@@ -13,4 +13,9 @@ class Product extends Model
     {
         return '$ ' . number_format($this->price, 2, '.', ',');
     }
+
+    function prices()
+    {
+        return $this->hasMany(Price::class);
+    }
 }
