@@ -45,7 +45,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             {!! Field::select('price', $prices->toArray(), null,
-                                ['tpl' => 'templates/withicon','empty' => 'Seleccione un precio'],
+                                ['tpl' => 'templates/withicon','empty' => 'Seleccione un precio', 'v-model' => 'price_id'],
                                 ['icon' => 'money'])
                             !!}
                         </div>
@@ -70,7 +70,7 @@
                         </div>
 
                         <row-woc col="col-md-12">
-                            <product-table :products="{{ $products }}"></product-table>
+                            <product-table :pricetype="price_id"></product-table>
                         </row-woc>
                     @endif
 
@@ -87,7 +87,7 @@
 
         <div class="col-md-6">
 
-            <client-info :clients="clients" :client="client_id"></client-info>
+            <client-info :clients="clients" :client="client_id" balance="10" debt="3"></client-info>
 
             @if ($lastSale)
                 <div class="box box-solid">

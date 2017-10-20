@@ -34,4 +34,10 @@ class Price extends Model
                     ->selectRaw('id, CONCAT(name, " - $", price) as nameprice')
                     ->pluck('nameprice', 'id');
     }
+
+    function scopePricesForMany($query)
+    {
+        return $query->where('product_id', 4)
+                ->pluck('price', 'id');
+    }
 }

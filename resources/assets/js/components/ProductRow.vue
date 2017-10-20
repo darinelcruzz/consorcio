@@ -18,16 +18,16 @@
                     @change="saveTotal" style="width:85px;">
             </div>
         </td>
-        <td v-if="products[product_id - 5].unity">
-            {{ products[product_id - 5].unity }}
-        </td>
+
         <td>
-            {{ products[product_id - 5].price | currency }}
+            {{ price }}
         </td>
+
         <td>
-            <input type="hidden" name="total[]" :value="products[product_id - 5].price * quantity">
-            {{ products[product_id - 5].price * quantity | currency }}
+            <input type="hidden" name="total[]" :value="total">
+            {{ total }}
         </td>
+
     </tr>
 </template>
 
@@ -35,22 +35,41 @@
 export default {
     data() {
         return {
-            product_id: 5,
+            product_id: 4,
             quantity: 0,
             total: 0,
+            priceId: '',
+            price: 0
         };
     },
-    props: ['products', 'num'],
+    props: ['products', 'num', 'pricetype'],
     methods: {
         saveTotal() {
-            this.total = this.products[this.product_id - 5].price * this.quantity;
+            this.total = this.price * this.quantity;
             this.$emit('subtotal', this.total, this.num);
         }
     },
+    watch: {
+        pricetype: function (val, oldVal) {
+          this.priceId = val;
+        },
+        product_id: function (val, oldVal) {
+            if(val > 8) {
+                this.price = this.products[val - 4].price;
+            } else {
+                this.price = this.products[val - 4].price[eval(this.priceId)];
+            }
+
+        },
+    },
     filters: {
         currency: function (value) {
-          return '$ ' + value.toFixed(2);
+          return '$ ' + value;
         }
     },
+    created() {
+        this.priceId = this.pricetype;
+        this.price = this.products[this.product_id - 4].price;
+    }
 }
 </script>

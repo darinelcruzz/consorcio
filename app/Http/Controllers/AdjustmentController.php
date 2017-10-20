@@ -19,7 +19,17 @@ class AdjustmentController extends Controller
 
     function store(Request $request)
     {
-        Adjustment::create($request->all());
+        $adjustment = Adjustment::create($request->all());
+
+        $product = Product::find($request->product_id);
+
+        $adjustment->update([
+            'before' => $product->quantity
+        ]);
+
+        $product->update([
+            'quantity' => $request->quantity
+        ]);
 
         return back();
     }

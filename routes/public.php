@@ -11,10 +11,25 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/pruebas', function () {
-    //$product = \App\Product::find(1);
-    return \App\Product::selectRaw('id, CONCAT(name, " - ", quantity) as namequantity')
-                ->pluck('namequantity', 'id');
+Route::get('/products', function () {
+    $all = \App\Product::where('processed', 1)->get();
+
+    $products = [];
+    $price_id = '10';
+
+    foreach ($all as $p) {
+
+        $product = [
+            'id' => $p->id,
+            'name' => $p->name,
+            'price' => $p->price_alone
+        ];
+
+        array_push($products, (object) $product);
+
+    }
+
+    return $products;
 });
 
 Route::group(['prefix' => 'clientes', 'as' => 'client.'], function () {

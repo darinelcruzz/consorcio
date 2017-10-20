@@ -27,7 +27,6 @@ class ProcessedSalesController extends Controller
         $type = 'processed';
         $color = 'success';
         $skin = 'green';
-        $products = Product::where('processed', 1)->get();
         $lastSale = ProcessedSale::all()->last();
         return view('sales.create', compact('clients', 'type', 'color', 'lastSale', 'skin', 'products', 'prices'));
     }
@@ -46,5 +45,23 @@ class ProcessedSalesController extends Controller
         return Client::all()->filter(function ($item) {
             return strpos($item->products, 'procesado');
         })->pluck('name', 'id')->toArray();
+    }
+
+    function getProducts()
+    {
+        $all = Product::where('processed', 1)->get();
+        $products = [];
+
+        foreach ($all as $p) {
+            $product = [
+                'id' => $p->id,
+                'name' => $p->name,
+                'price' => $p->price_alone
+            ];
+
+            array_push($products, (object) $product);
+        }
+
+        return $products;
     }
 }

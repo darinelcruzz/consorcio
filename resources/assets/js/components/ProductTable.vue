@@ -7,65 +7,32 @@
                 </tr>
             </thead>
             <tbody>
-                <product-row :products="products" :num="1"
+                <product-row :products="products" :pricetype="pricetype" :num="1"
                     @subtotal="addToTotal">
                 </product-row>
-                <product-row :products="products" :num="2"
+                <product-row :products="products" :pricetype="pricetype" :num="2"
                     @subtotal="addToTotal">
                 </product-row>
-                <product-row :products="products" :num="3"
+                <product-row :products="products" :pricetype="pricetype" :num="3"
                      @subtotal="addToTotal">
                 </product-row>
-                <product-row :products="products" :num="4"
+                <product-row :products="products" :pricetype="pricetype" :num="4"
                     @subtotal="addToTotal">
                 </product-row>
-                <product-row :products="products" :num="5"
+                <product-row :products="products" :pricetype="pricetype" :num="5"
                     @subtotal="addToTotal">
                 </product-row>
             </tbody>
-            <tfoot>
-                <template v-if="retainer">
-                    <tr>
-                        <td colspan="3"></td>
-                        <td>
-                            Subtotal:
-                        </td>
-                        <td>
-                            {{ total | currency}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3"></td>
-                        <td>
-                            - Anticipo:
-                        </td>
-                        <td>
-                            {{ retainer | currency}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3"></td>
-                        <td>
-                            <b>Total:</b>
-                        </td>
-                        <td >
-                            {{ total - retainer | currency }}
-                            <input type="hidden" name="amount" :value="total - retainer">
-                        </td>
-                    </tr>
-                </template>
 
-                <tr v-else>
+            <tfoot>
+                <tr>
                     <td colspan="3"></td>
+                    <td><b>Total:</b></td>
                     <td>
-                        <b>Total:</b>
-                    </td>
-                    <td>
-                        {{ total | currency }}
+                        {{ total }}
                         <input type="hidden" name="amount" :value="total">
                     </td>
                 </tr>
-
             </tfoot>
         </table>
     </div>
@@ -77,19 +44,17 @@ export default {
         return {
             header: [
                 { name:'#', width: 'width: 5%' },
-                { name:'Material', width: 'width: 35%' },
+                { name:'Producto', width: 'width: 35%' },
                 { name:'Cantidad', width: 'width: 15%' },
                 { name:'Precio', width: 'width: 20%' },
                 { name:'Importe', width: 'width: 20%' },
             ],
-            articles: [
-                1, 0, 0, 0, 0
-            ],
+            products: [],
             subtotals: [0, 0, 0, 0, 0],
             total: 0,
         };
     },
-    props: ['products', 'retainer'],
+    props: ['pricetype'],
 
     methods: {
         addToTotal(total, num) {
@@ -101,10 +66,10 @@ export default {
         }
     },
 
-    filters: {
-        currency: function (value) {
-          return '$ ' + value.toFixed(2);
-        }
-    },
+    created() {
+        axios.get('/products').then(response => {
+            this.products = response.data;
+        });
+    }
 }
 </script>

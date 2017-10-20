@@ -24,6 +24,16 @@ class Product extends Model
         return $this->hasMany(Ajustment::class);
     }
 
+    function getPriceAloneAttribute()
+    {
+        if ($this->id > 8) {
+            $price = $this->prices->pluck('price')->toArray();
+            return $price[0];
+        }
+
+        return Price::pricesForMany();
+    }
+
     function scopeQuantityWithNames($query)
     {
         return $query->selectRaw('id, CONCAT(name, " - ", quantity) as namequantity')

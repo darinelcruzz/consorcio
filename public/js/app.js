@@ -23777,7 +23777,8 @@ var app = new Vue({
     data: {
         clients: [],
         client_id: 0,
-        checked: []
+        checked: [],
+        price_id: ''
     },
     created: function created() {
         var _this = this;
@@ -24892,23 +24893,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            product_id: 5,
+            product_id: 4,
             quantity: 0,
-            total: 0
+            total: 0,
+            priceId: '',
+            price: 0
         };
     },
 
-    props: ['products', 'num'],
+    props: ['products', 'num', 'pricetype'],
     methods: {
         saveTotal: function saveTotal() {
-            this.total = this.products[this.product_id - 5].price * this.quantity;
+            this.total = this.price * this.quantity;
             this.$emit('subtotal', this.total, this.num);
+        }
+    },
+    watch: {
+        pricetype: function pricetype(val, oldVal) {
+            this.priceId = val;
+        },
+        product_id: function product_id(val, oldVal) {
+            if (val > 8) {
+                this.price = this.products[val - 4].price;
+            } else {
+                this.price = this.products[val - 4].price[eval(this.priceId)];
+            }
         }
     },
     filters: {
         currency: function currency(value) {
-            return '$ ' + value.toFixed(2);
+            return '$ ' + value;
         }
+    },
+    created: function created() {
+        this.priceId = this.pricetype;
+        this.price = this.products[this.product_id - 4].price;
     }
 });
 
@@ -24958,51 +24977,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            header: [{ name: '#', width: 'width: 5%' }, { name: 'Material', width: 'width: 35%' }, { name: 'Cantidad', width: 'width: 15%' }, { name: 'Precio', width: 'width: 20%' }, { name: 'Importe', width: 'width: 20%' }],
-            articles: [1, 0, 0, 0, 0],
+            header: [{ name: '#', width: 'width: 5%' }, { name: 'Producto', width: 'width: 35%' }, { name: 'Cantidad', width: 'width: 15%' }, { name: 'Precio', width: 'width: 20%' }, { name: 'Importe', width: 'width: 20%' }],
+            products: [],
             subtotals: [0, 0, 0, 0, 0],
             total: 0
         };
     },
 
-    props: ['products', 'retainer'],
+    props: ['pricetype'],
 
     methods: {
         addToTotal: function addToTotal(total, num) {
@@ -25014,10 +25000,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
 
-    filters: {
-        currency: function currency(value) {
-            return '$ ' + value.toFixed(2);
-        }
+    created: function created() {
+        var _this = this;
+
+        axios.get('/products').then(function (response) {
+            _this.products = response.data;
+        });
     }
 });
 
@@ -25448,7 +25436,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['clients', 'client']
+    props: ['clients', 'client', 'balance', 'debt']
 });
 
 /***/ }),
@@ -44729,7 +44717,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "align": "right"
     }
-  }, [_vm._v("\n            Saldo: $0.00   \n            Máximas:" + _vm._s(_vm.clients[_vm.client - 1].notes) + "   \n            En deuda: 0\n        ")])]) : _vm._e(), _vm._v(" "), _vm._m(0)])
+  }, [_vm._v("\n            Saldo: $ " + _vm._s(_vm.balance) + "   \n            Máximas:" + _vm._s(_vm.clients[_vm.client - 1].notes) + "   \n            En deuda: " + _vm._s(_vm.debt) + "\n        ")])]) : _vm._e(), _vm._v(" "), _vm._m(0)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "icon"
@@ -44796,6 +44784,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }))]), _vm._v(" "), _c('tbody', [_c('product-row', {
     attrs: {
       "products": _vm.products,
+      "pricetype": _vm.pricetype,
       "num": 1
     },
     on: {
@@ -44804,6 +44793,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('product-row', {
     attrs: {
       "products": _vm.products,
+      "pricetype": _vm.pricetype,
       "num": 2
     },
     on: {
@@ -44812,6 +44802,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('product-row', {
     attrs: {
       "products": _vm.products,
+      "pricetype": _vm.pricetype,
       "num": 3
     },
     on: {
@@ -44820,6 +44811,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('product-row', {
     attrs: {
       "products": _vm.products,
+      "pricetype": _vm.pricetype,
       "num": 4
     },
     on: {
@@ -44828,36 +44820,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('product-row', {
     attrs: {
       "products": _vm.products,
+      "pricetype": _vm.pricetype,
       "num": 5
     },
     on: {
       "subtotal": _vm.addToTotal
     }
-  })], 1), _vm._v(" "), _c('tfoot', [(_vm.retainer) ? [_c('tr', [_c('td', {
+  })], 1), _vm._v(" "), _c('tfoot', [_c('tr', [_c('td', {
     attrs: {
       "colspan": "3"
     }
-  }), _vm._v(" "), _c('td', [_vm._v("\n                        Subtotal:\n                    ")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("currency")(_vm.total)) + "\n                    ")])]), _vm._v(" "), _c('tr', [_c('td', {
-    attrs: {
-      "colspan": "3"
-    }
-  }), _vm._v(" "), _c('td', [_vm._v("\n                        - Anticipo:\n                    ")]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("currency")(_vm.retainer)) + "\n                    ")])]), _vm._v(" "), _c('tr', [_c('td', {
-    attrs: {
-      "colspan": "3"
-    }
-  }), _vm._v(" "), _c('td', [_c('b', [_vm._v("Total:")])]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(_vm._f("currency")(_vm.total - _vm.retainer)) + "\n                        "), _c('input', {
-    attrs: {
-      "type": "hidden",
-      "name": "amount"
-    },
-    domProps: {
-      "value": _vm.total - _vm.retainer
-    }
-  })])])] : _c('tr', [_c('td', {
-    attrs: {
-      "colspan": "3"
-    }
-  }), _vm._v(" "), _c('td', [_c('b', [_vm._v("Total:")])]), _vm._v(" "), _c('td', [_vm._v("\n                    " + _vm._s(_vm._f("currency")(_vm.total)) + "\n                    "), _c('input', {
+  }), _vm._v(" "), _c('td', [_c('b', [_vm._v("Total:")])]), _vm._v(" "), _c('td', [_vm._v("\n                    " + _vm._s(_vm.total) + "\n                    "), _c('input', {
     attrs: {
       "type": "hidden",
       "name": "amount"
@@ -44865,7 +44838,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "value": _vm.total
     }
-  })])])], 2)], 1)])
+  })])])])], 1)])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -44946,15 +44919,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.$forceUpdate()
       }
     }
-  })])]), _vm._v(" "), (_vm.products[_vm.product_id - 5].unity) ? _c('td', [_vm._v("\n        " + _vm._s(_vm.products[_vm.product_id - 5].unity) + "\n    ")]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v("\n        " + _vm._s(_vm._f("currency")(_vm.products[_vm.product_id - 5].price)) + "\n    ")]), _vm._v(" "), _c('td', [_c('input', {
+  })])]), _vm._v(" "), _c('td', [_vm._v("\n        " + _vm._s(_vm.price) + "\n    ")]), _vm._v(" "), _c('td', [_c('input', {
     attrs: {
       "type": "hidden",
       "name": "total[]"
     },
     domProps: {
-      "value": _vm.products[_vm.product_id - 5].price * _vm.quantity
+      "value": _vm.total
     }
-  }), _vm._v("\n        " + _vm._s(_vm._f("currency")(_vm.products[_vm.product_id - 5].price * _vm.quantity)) + "\n    ")])])
+  }), _vm._v("\n        " + _vm._s(_vm.total) + "\n    ")])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

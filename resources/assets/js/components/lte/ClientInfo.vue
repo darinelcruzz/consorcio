@@ -4,9 +4,9 @@
             <h3>{{ clients[client - 1].name }}</h3>
             <p>{{ clients[client - 1].address }}</p>
             <h4 align="right">
-                Saldo:&nbsp;$0.00&nbsp;&nbsp;&nbsp;
+                Saldo:&nbsp;$ {{ balance }}&nbsp;&nbsp;&nbsp;
                 Máximas:{{ clients[client - 1].notes }}&nbsp;&nbsp;&nbsp;
-                En deuda:&nbsp;0
+                En deuda:&nbsp;{{ debt }}
             </h4>
         </div>
         <div class="icon">
@@ -17,7 +17,7 @@
 
 <script>
 export default {
-    props: ['clients', 'client']
+    props: ['clients', 'client', 'balance', 'debt']
 }
 </script>
 
