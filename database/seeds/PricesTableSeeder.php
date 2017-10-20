@@ -52,10 +52,75 @@ class PricesTableSeeder extends Seeder
             'price' => 21,
         ]);
         factory(App\Price::class)->create([
-            'name' => 'Foraneo',
+            'name' => 'Demás y Foráneo',
             'product_id' => 3,
             'price' => 22,
         ]);
-
+        factory(App\Price::class)->create([
+            'name' => 'Súper Especial',
+            'product_id' => 4,
+            'price' => 31,
+            'processed' => 1,
+        ]);
+        factory(App\Price::class)->create([
+            'name' => 'Comitán, Marg. y Tzimol',
+            'product_id' => 4,
+            'price' => 32,
+            'processed' => 1,
+        ]);
+        factory(App\Price::class)->create([
+            'name' => 'Foráneo',
+            'product_id' => 4,
+            'price' => 33,
+            'processed' => 1,
+        ]);
+        factory(App\Price::class)->create([
+            'name' => 'Pechuga sin hueso',
+            'product_id' => 9,
+            'price' => 90,
+            'processed' => 1,
+        ]);
+        factory(App\Price::class)->create([
+            'name' => 'Pechuga con hueso',
+            'product_id' => 10,
+            'price' => 72,
+            'processed' => 1,
+        ]);
+        factory(App\Price::class)->create([
+            'name' => 'Pierna y muslo',
+            'product_id' => 11,
+            'price' => 38,
+            'processed' => 1,
+        ]);
+        factory(App\Price::class)->create([
+            'name' => 'Alas picosas',
+            'product_id' => 12,
+            'price' => 68,
+            'processed' => 1,
+        ]);
+        factory(App\Price::class)->create([
+            'name' => 'Ala (1 y 2)',
+            'product_id' => 13,
+            'price' => 65,
+            'processed' => 1,
+        ]);
+        factory(App\Price::class)->create([
+            'name' => 'Molleja',
+            'product_id' => 14,
+            'price' => 30,
+            'processed' => 1,
+        ]);
+        factory(App\Price::class)->create([
+            'name' => 'Víscera mixta',
+            'product_id' => 15,
+            'price' => 20,
+            'processed' => 1,
+        ]);
+        factory(App\Price::class)->create([
+            'name' => 'Pollo Adobado',
+            'product_id' => 16,
+            'price' => 44,
+            'processed' => 1,
+        ]);
     }
 }

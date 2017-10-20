@@ -62,6 +62,10 @@ return [
                 'title' => 'Productos',
                 'route' => 'product.index'
             ],
+            'adjustments' => [
+                'title' => 'Ajustes',
+                'route' => 'adjustment.index'
+            ],
         ]
     ],
 

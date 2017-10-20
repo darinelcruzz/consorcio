@@ -158,6 +158,7 @@ return [
         'caliber'               => 'calibre',
         'specific'              => 'peso especifico',
         'client'                => 'cliente',
+        'client_id'             => 'cliente',
         'order'                 => 'orden',
         'added'                 => 'existente',
         'caliber'               => 'calibre',
@@ -176,8 +177,12 @@ return [
         'advance'               => 'anticipo',
         'retainer'              => 'anticipo',
         'notes'                 => 'notas',
-        'boxes'                   => 'cajas',
-        'chickens'               => 'pollos',
+        'boxes'                 => 'cajas',
+        'chickens'              => 'pollos',
+        'remission'             => 'remisión',
+        'product'               => 'producto',
+        'product_id'            => 'producto',
+        'observations'          => 'observaciones',
     ],
 
 ];

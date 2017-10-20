@@ -16,16 +16,16 @@ class CreatePorkSalesTable extends Migration
         Schema::create('pork_sales', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('folio');
-            $table->integer('client_id');
-            $table->string('date');
-            $table->double('quantity');
-            $table->double('kg');
-            $table->double('price');
-            $table->double('amount');
-            $table->integer('credit');
-            $table->string('days');
-            $table->string('status');
+            $table->integer('folio')->nullable();
+            $table->integer('client_id')->nullable();
+            $table->string('date')->nullable();
+            $table->double('quantity')->nullable();
+            $table->double('kg')->nullable();
+            $table->double('price')->nullable();
+            $table->double('amount')->nullable();
+            $table->integer('credit')->nullable();
+            $table->string('days')->nullable();
+            $table->string('status')->nullable();
             $table->double('deposit')->default(0);
 
             $table->timestamps();

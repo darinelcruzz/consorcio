@@ -7,6 +7,7 @@ use App\Http\Requests\ProcessedRequest;
 use App\ProcessedSale;
 use App\Client;
 use App\Product;
+use App\Price;
 
 class ProcessedSalesController extends Controller
 {
@@ -22,12 +23,13 @@ class ProcessedSalesController extends Controller
     function create()
     {
         $clients = $this->getClients();
+        $prices = Price::pricesWithNames(4);
         $type = 'processed';
         $color = 'success';
         $skin = 'green';
         $products = Product::where('processed', 1)->get();
         $lastSale = ProcessedSale::all()->last();
-        return view('sales.create', compact('clients', 'type', 'color', 'lastSale', 'skin', 'products'));
+        return view('sales.create', compact('clients', 'type', 'color', 'lastSale', 'skin', 'products', 'prices'));
     }
 
     function store(ProcessedRequest $request)

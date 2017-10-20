@@ -9,8 +9,11 @@ class ProductsController extends Controller
 {
     function index()
     {
-        $products = Product::all();
-        return view('products', compact('products'));
+        $processed = Product::where('processed', 1)->get();
+        $pork = Product::where('id', 1)->get();
+        $alive = Product::where('id', 2)->get();
+        $food = Product::where('processed', 2)->get();
+        return view('products.products', compact('processed', 'pork', 'alive', 'food'));
     }
 
     function store(Request $request)

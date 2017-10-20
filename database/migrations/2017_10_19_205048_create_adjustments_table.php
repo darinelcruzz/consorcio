@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePricesTable extends Migration
+class CreateAdjustmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreatePricesTable extends Migration
      */
     public function up()
     {
-        Schema::create('prices', function (Blueprint $table) {
+        Schema::create('adjustments', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('name')->nullable();
             $table->integer('product_id')->nullable();
-            $table->double('price')->default(0);
-            $table->integer('processed')->default(0);
+            $table->integer('before')->nullable();
+            $table->integer('quantity')->nullable();
+            $table->integer('user_id')->nullable();
+            $table->string('description')->nullable();
+            $table->timestamp('date')->nullable();
 
             $table->timestamps();
         });
@@ -32,6 +34,6 @@ class CreatePricesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('prices');
+        Schema::dropIfExists('adjustments');
     }
 }

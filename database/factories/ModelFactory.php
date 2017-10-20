@@ -46,10 +46,10 @@ $factory->define(App\Client::class, function (Faker\Generator $faker) {
 $factory->define(App\Product::class, function (Faker\Generator $faker) {
 
     return [
-        'name' => $faker->safeColorName,
+        'name' => '',
         'quantity' => 100,
-        'price' => $faker->randomFloat(2, 1, 100),
-        'processed' => 1,
+        'price' => 0,
+        'processed' => 0,
     ];
 });
 

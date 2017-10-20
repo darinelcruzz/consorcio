@@ -16,13 +16,13 @@ class CreateShippingsTable extends Migration
         Schema::create('shippings', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('remission');
-            $table->string('date');
-            $table->string('provider');
-            $table->string('product');
-            $table->double('quantity');
-            $table->double('price');
-            $table->double('amount');
+            $table->string('remission')->nullable();
+            $table->string('date')->nullable();
+            $table->string('provider')->nullable();
+            $table->string('product')->nullable();
+            $table->double('quantity')->nullable();
+            $table->double('price')->nullable();
+            $table->double('amount')->nullable();
             $table->string('observations')->nullable();
 
             $table->timestamps();

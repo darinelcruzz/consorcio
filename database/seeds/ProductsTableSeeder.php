@@ -12,21 +12,76 @@ class ProductsTableSeeder extends Seeder
     public function run()
     {
         factory(App\Product::class)->create([
-            'name' => 'cerdo',
+            'name' => 'Cerdo',
             'processed' => 0,
         ]);
         factory(App\Product::class)->create([
-            'name' => 'pollo fresco',
+            'name' => 'Pollo fresco',
             'processed' => 0,
         ]);
         factory(App\Product::class)->create([
-            'name' => 'pollo vivo',
+            'name' => 'Pollo vivo',
             'processed' => 0,
         ]);
         factory(App\Product::class)->create([
-            'name' => 'procesado',
-            'processed' => 0,
+            'name' => 'Grande',
+            'processed' => 1,
         ]);
-
+        factory(App\Product::class)->create([
+            'name' => 'Mediano',
+            'processed' => 1,
+        ]);
+        factory(App\Product::class)->create([
+            'name' => 'Chico',
+            'processed' => 1,
+        ]);
+        factory(App\Product::class)->create([
+            'name' => 'Junior',
+            'processed' => 1,
+        ]);
+        factory(App\Product::class)->create([
+            'name' => 'Petit',
+            'processed' => 1,
+        ]);
+        factory(App\Product::class)->create([
+            'name' => 'Pechuga sin hueso',
+            'processed' => 1,
+        ]);
+        factory(App\Product::class)->create([
+            'name' => 'Pechuga con hueso',
+            'processed' => 1,
+        ]);
+        factory(App\Product::class)->create([
+            'name' => 'Pierna y muslo',
+            'processed' => 1,
+        ]);
+        factory(App\Product::class)->create([
+            'name' => 'Alas picosas',
+            'processed' => 1,
+        ]);
+        factory(App\Product::class)->create([
+            'name' => 'Ala (1 y 2)',
+            'processed' => 1,
+        ]);
+        factory(App\Product::class)->create([
+            'name' => 'Molleja',
+            'processed' => 1,
+        ]);
+        factory(App\Product::class)->create([
+            'name' => 'Víscera mixta',
+            'processed' => 1,
+        ]);
+        factory(App\Product::class)->create([
+            'name' => 'Pollo Adobado',
+            'processed' => 1,
+        ]);
+        factory(App\Product::class)->create([
+            'name' => 'Cerdo',
+            'processed' => 2,
+        ]);
+        factory(App\Product::class)->create([
+            'name' => 'Pollo',
+            'processed' => 2,
+        ]);
     }
 }

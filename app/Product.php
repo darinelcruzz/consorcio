@@ -18,4 +18,16 @@ class Product extends Model
     {
         return $this->hasMany(Price::class);
     }
+
+    function adjustment()
+    {
+        return $this->hasMany(Ajustment::class);
+    }
+
+    function scopeQuantityWithNames($query)
+    {
+        return $query->selectRaw('id, CONCAT(name, " - ", quantity) as namequantity')
+                    ->pluck('namequantity', 'id');
+    }
+
 }

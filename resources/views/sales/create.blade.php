@@ -10,7 +10,7 @@
                 color="box-{{ $color }}">
                 {!! Form::open(['method' => 'POST', 'route' => $type . '.store']) !!}
                     {!! Field::select('client_id', $clients, null,
-                        ['tpl' => 'templates/withicon', 'label' => 'Cliente', 'v-model' => 'client_id',
+                        ['tpl' => 'templates/withicon', 'v-model' => 'client_id',
                         'empty' => 'Seleccione un cliente'],
                         ['icon' => 'user'])
                     !!}

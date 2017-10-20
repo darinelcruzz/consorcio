@@ -13,7 +13,8 @@ Route::get('/', function () {
 
 Route::get('/pruebas', function () {
     //$product = \App\Product::find(1);
-    return \App\Price::pricesWithNames(1);
+    return \App\Product::selectRaw('id, CONCAT(name, " - ", quantity) as namequantity')
+                ->pluck('namequantity', 'id');
 });
 
 Route::group(['prefix' => 'clientes', 'as' => 'client.'], function () {
@@ -133,6 +134,16 @@ Route::get('productos', [
 Route::post('productos', [
     'uses' => 'ProductsController@store',
     'as' => 'product.store'
+]);
+
+Route::get('ajustes', [
+    'uses' => 'AdjustmentController@index',
+    'as' => 'adjustment.index'
+]);
+
+Route::post('ajustes', [
+    'uses' => 'AdjustmentController@store',
+    'as' => 'adjustment.store'
 ]);
 
 // Prices
