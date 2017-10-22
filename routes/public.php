@@ -163,11 +163,16 @@ Route::post('ajustes', [
 
 // Prices
 Route::get('precios', [
-    'uses' => 'PricesController@index',
-    'as' => 'preice.index'
+    'uses' => 'PriceController@index',
+    'as' => 'price.index'
 ]);
 
 Route::post('precios', [
-    'uses' => 'PricesController@store',
-    'as' => 'preice.store'
+    'uses' => 'PriceController@update',
+    'as' => 'price.update'
+]);
+
+Route::get('formato', [
+    'uses' => 'PriceController@format',
+    'as' => 'price.format'
 ]);

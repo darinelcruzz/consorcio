@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Date\Date;
 
 class Price extends Model
 {
@@ -26,6 +27,17 @@ class Price extends Model
     function freshsales()
     {
         return $this->hasMany(FreshSale::class);
+    }
+
+    function getNicePriceAttribute()
+    {
+        return '$ ' . number_format($this->price, 2, '.', ',');
+    }
+
+    public function getDate($date)
+    {
+        $fdate = new Date(strtotime($this->$date));
+        return $fdate->format('D, j/M/Y');
     }
 
     function scopePricesWithNames($query, $id)
