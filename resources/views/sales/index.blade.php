@@ -36,7 +36,7 @@
                     <td>{{ $sale->kg }}</td>
                     <td>{{ $sale->price }}</td>
                     <td>{{ $sale->amount }}</td>
-                    <td>{{ $sale->credit }}</td>
+                    <td>{{ $sale->days > 0 ? $sale->days . " días": '' }} </td>
                     <td>{{ $sale->status }}</td>
                 </tr>
             @endforeach

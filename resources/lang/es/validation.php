@@ -183,6 +183,7 @@ return [
         'product'               => 'producto',
         'product_id'            => 'producto',
         'observations'          => 'observaciones',
+        'credit'                => 'crédito',
     ],
 
 ];

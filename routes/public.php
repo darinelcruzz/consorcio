@@ -11,25 +11,10 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/products', function () {
-    $all = \App\Product::where('processed', 1)->get();
+Route::get('tests', function () {
+    $client = \App\Client::find(1);
 
-    $products = [];
-    $price_id = '10';
-
-    foreach ($all as $p) {
-
-        $product = [
-            'id' => $p->id,
-            'name' => $p->name,
-            'price' => $p->price_alone
-        ];
-
-        array_push($products, (object) $product);
-
-    }
-
-    return $products;
+    return $client->balance;
 });
 
 Route::group(['prefix' => 'clientes', 'as' => 'client.'], function () {
