@@ -33,7 +33,7 @@
                     </div>
 
                     <div class="box-footer">
-                        {!! Form::submit('Crear', ['class' => 'btn btn-black btn-block']) !!}
+                        {!! Form::submit('Modificar', ['class' => 'btn btn-black btn-block']) !!}
                     </div>
                 {!! Form::close() !!}
             </div>

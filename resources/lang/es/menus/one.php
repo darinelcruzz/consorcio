@@ -68,6 +68,11 @@ return [
             ],
         ]
     ],
+    'prices' => [
+        'title' => 'Precio',
+        'icon' => 'fa fa-dollar',
+        'route' => 'price.index'
+    ],
 
     'logout' => [
         'title' => 'Cerrar Sesión',
