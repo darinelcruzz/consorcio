@@ -15,7 +15,7 @@ class PriceController extends Controller
         $fresh = Price::where('product_id', '2')->get();
         $alive = Price::where('product_id', '3')->get();
         $processed = Price::where('product_id', '>', '3')->get();
-        $prices = Price::all()->pluck('name', 'id');
+        $prices = Price::all();
 
         return view('prices.index', compact('fresh', 'alive', 'processed', 'pork', 'prices'));
     }

@@ -69,13 +69,12 @@
                             </div>
                         </div>
 
-                        <row-woc col="col-md-12">
+                        <row-woc col="col-md-12" v-if="price_id">
                             <product-table :pricetype="price_id"></product-table>
                         </row-woc>
                     @endif
 
                     <input type="hidden" name="folio" value="{{ $lastSale->id or 1 }}">
-                    <input type="hidden" name="credit" value="0">
                     <input type="hidden" name="days" value="0">
                     <input type="hidden" name="status" value="pendiente">
                     {!! Form::submit('Agregar', ['class' => 'btn btn-' . $color . ' pull-right']) !!}
