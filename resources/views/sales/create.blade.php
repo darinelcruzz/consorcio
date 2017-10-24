@@ -16,7 +16,7 @@
                     !!}
                     <div class="row">
                         <div class="col-md-6">
-                            {!! Field::number('folio', $lastSale ? $lastSale->id + 1: 1,
+                            {!! Field::number('folio', $lastSale ? $lastSale->folio + 1: 1,
                                 ['disabled' => '', 'tpl' => 'templates/withicon'],
                                 ['icon' => 'barcode'])
                             !!}
@@ -74,10 +74,10 @@
                         </row-woc>
                     @endif
 
-                    <input type="hidden" name="folio" value="{{ $lastSale->id or 1 }}">
+                    <input type="hidden" name="folio" value="{{ $lastSale ? $lastSale->folio + 1: 1 }}">
                     <input type="hidden" name="credit" value="0">
                     <input type="hidden" name="days" value="0">
-                    <input type="hidden" name="status" value="pendiente">
+                    <input type="hidden" name="status" value="pagado">
                     {!! Form::submit('Agregar', ['class' => 'btn btn-' . $color . ' pull-right']) !!}
 
                 {!! Form::close() !!}

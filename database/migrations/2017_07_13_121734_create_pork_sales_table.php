@@ -18,7 +18,7 @@ class CreatePorkSalesTable extends Migration
 
             $table->integer('folio')->nullable();
             $table->integer('client_id')->nullable();
-            $table->string('date')->nullable();
+            $table->date('date')->nullable();
             $table->double('quantity')->nullable();
             $table->double('kg')->nullable();
             $table->double('price')->nullable();

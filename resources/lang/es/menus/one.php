@@ -68,6 +68,18 @@ return [
             ],
         ]
     ],
+
+    'credit' => [
+        'title' => 'Crédito',
+        'icon' => 'fa fa-credit-card',
+        'submenu' => [
+            'add' => [
+                'title' => 'Listado',
+                'route' => 'deposit.index'
+            ],
+        ]
+    ],
+
     'prices' => [
         'title' => 'Precio',
         'icon' => 'fa fa-dollar',
