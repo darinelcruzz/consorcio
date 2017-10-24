@@ -30,13 +30,13 @@
             @foreach($sales as $sale)
                 <tr>
                     <td>{{ $sale->folio }}</td>
-                    <td>{{ $sale->date }}</td>
+                    <td>{{ $sale->shortDate }}</td>
                     <td>{{ $sale->client->name }}</td>
                     <td>{{ $sale->quantity }}</td>
                     <td>{{ $sale->kg }}</td>
-                    <td>{{ $sale->price }}</td>
-                    <td>{{ $sale->amount }}</td>
-                    <td>{{ $sale->days > 0 ? $sale->days . " días": '' }} </td>
+                    <td>{{ $sale->pricer->name }}</td>
+                    <td>{{ $sale->niceAmount }}</td>
+                    <td>{{ $sale->credit }}</td>
                     <td>{{ $sale->status }}</td>
                 </tr>
             @endforeach

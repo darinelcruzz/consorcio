@@ -109,6 +109,12 @@ Route::post('ventas/procesado/agregar', [
     'as' => 'processed.store'
 ]);
 
+// Deposits
+Route::get('creditos', [
+    'uses' => 'DepositController@index',
+    'as' => 'deposit.index'
+]);
+
 // Shippings
 Route::get('embarques', [
     'uses' => 'ShippingsController@index',
