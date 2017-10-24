@@ -33,9 +33,17 @@ class PorkSalesController extends Controller
 
     function store(StorePAFSale $request)
     {
-        PorkSale::create($request->all());
+        $sale = PorkSale::create($request->all());
 
         $this->updateInventory($request->quantity);
+
+        $days = $request->credit * 8;
+
+        $sale->update([
+            'status' => $request->credit ? 'credito': 'pendiente',
+            'credit' => $request->credit ? 1: 0,
+            'days' => $days > 16 ? 15: $days
+        ]);
 
         return redirect('ventas/cerdo');
     }

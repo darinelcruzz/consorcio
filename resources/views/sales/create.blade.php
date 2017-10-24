@@ -56,6 +56,15 @@
                         </div>
                     </div>
 
+                    <div class="row">
+                        <div class="col-md-6">
+                            {!! Field::select('credit', ['No', 'Semanal', 'Quince días'], null,
+                                ['tpl' => 'templates/withicon','empty' => '¿Se vende a crédito?'],
+                                ['icon' => 'credit-card-alt'])
+                                !!}
+                        </div>
+                    </div>
+
                     @if ($type == 'processed')
                         <div class="row">
                             <div class="col-md-6">
@@ -75,7 +84,6 @@
                     @endif
 
                     <input type="hidden" name="folio" value="{{ $lastSale->id or 1 }}">
-                    <input type="hidden" name="credit" value="0">
                     <input type="hidden" name="days" value="0">
                     <input type="hidden" name="status" value="pendiente">
                     {!! Form::submit('Agregar', ['class' => 'btn btn-' . $color . ' pull-right']) !!}
@@ -87,7 +95,7 @@
 
         <div class="col-md-6">
 
-            <client-info :clients="clients" :client="client_id" balance="10" debt="3"></client-info>
+            <client-info :clients="clients" :client="client_id"></client-info>
 
             @if ($lastSale)
                 <div class="box box-solid">

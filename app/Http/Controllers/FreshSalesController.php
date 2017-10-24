@@ -31,9 +31,17 @@ class FreshSalesController extends Controller
 
     function store(StorePAFSale $request)
     {
-        FreshSale::create($request->all());
+        $sale = FreshSale::create($request->all());
 
         $this->updateInventory($request->quantity);
+
+        $days = $request->credit * 8;
+
+        $sale->update([
+            'status' => $request->credit ? 'credito': 'pendiente',
+            'credit' => $request->credit ? 1: 0,
+            'days' => $days > 16 ? 15: $days
+        ]);
 
         return redirect('ventas/fresco');
     }

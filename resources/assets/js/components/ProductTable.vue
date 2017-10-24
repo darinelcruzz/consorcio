@@ -30,7 +30,7 @@
                     <td><b>Total:</b></td>
                     <td>
                         {{ total }}
-                        <input type="hidden" name="amount" :value="total">
+                        <input type="hidden" name="total" :value="total">
                     </td>
                 </tr>
             </tfoot>

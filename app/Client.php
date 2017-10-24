@@ -30,4 +30,24 @@ class Client extends Model
     {
         return $this->hasMany(FreshSale::class);
     }
+
+    function getUnpaidNotesAttribute()
+    {
+        $notes = $this->alivesales->where('credit', 1)->count() +
+            $this->porksales->where('credit', 1)->count() +
+            $this->freshsales->where('credit', 1)->count() +
+            $this->processedsales->where('credit', 1)->count();
+
+        return $notes;
+    }
+
+    function getBalanceAttribute()
+    {
+        $notes = $this->alivesales->where('credit', 1)->where('status', 'credito')->sum('amount') +
+            $this->porksales->where('credit', 1)->where('status', 'credito')->sum('amount') +
+            $this->freshsales->where('credit', 1)->where('status', 'credito')->sum('amount') +
+            $this->processedsales->where('credit', 1)->where('status', 'credito')->sum('amount');
+
+        return $notes;
+    }
 }

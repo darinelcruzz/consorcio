@@ -23775,7 +23775,7 @@ Vue.component('client-info', __webpack_require__(75));
 var app = new Vue({
     el: '#app',
     data: {
-        clients: [],
+        clients: '',
         client_id: 0,
         checked: [],
         price_id: ''
@@ -25436,7 +25436,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['clients', 'client', 'balance', 'debt']
+    data: function data() {
+        return {
+            color: 'bg-green'
+        };
+    },
+
+    props: ['clients', 'client'],
+    watch: {
+        client: function client(val, oldVal) {
+            if (this.clients[val - 1].unpaid >= this.clients[val - 1].notes && this.clients[val - 1].notes > 0) {
+                this.color = 'bg-red';
+            } else {
+                this.color = 'bg-green';
+            }
+        }
+    }
 });
 
 /***/ }),
@@ -25666,7 +25681,7 @@ exports.push([module.i, "\n.fade-enter-active, .fade-leave-active {\r\n    trans
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 60 */
@@ -44710,14 +44725,14 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "small-box bg-green"
+    class: ['small-box', _vm.color]
   }, [(_vm.client > 0) ? _c('div', {
     staticClass: "inner"
-  }, [_c('h3', [_vm._v(_vm._s(_vm.clients[_vm.client - 1].name))]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.clients[_vm.client - 1].address))]), _vm._v(" "), _c('h4', {
+  }, [_c('h3', [_vm._v(_vm._s(_vm.clients[_vm.client - 1].name))]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.clients[_vm.client - 1].address))]), _vm._v(" "), (_vm.clients[_vm.client - 1].notes > 0) ? _c('h4', {
     attrs: {
       "align": "right"
     }
-  }, [_vm._v("\n            Saldo: $ " + _vm._s(_vm.balance) + "   \n            Máximas:" + _vm._s(_vm.clients[_vm.client - 1].notes) + "   \n            En deuda: " + _vm._s(_vm.debt) + "\n        ")])]) : _vm._e(), _vm._v(" "), _vm._m(0)])
+  }, [_vm._v("\n            Saldo: $ " + _vm._s(_vm.clients[_vm.client - 1].balance) + "   \n            Máximas:" + _vm._s(_vm.clients[_vm.client - 1].notes) + "   \n            En deuda: " + _vm._s(_vm.clients[_vm.client - 1].unpaid) + "\n        ")]) : _vm._e()]) : _vm._e(), _vm._v(" "), _vm._m(0)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "icon"
@@ -44833,7 +44848,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('td', [_c('b', [_vm._v("Total:")])]), _vm._v(" "), _c('td', [_vm._v("\n                    " + _vm._s(_vm.total) + "\n                    "), _c('input', {
     attrs: {
       "type": "hidden",
-      "name": "amount"
+      "name": "total"
     },
     domProps: {
       "value": _vm.total

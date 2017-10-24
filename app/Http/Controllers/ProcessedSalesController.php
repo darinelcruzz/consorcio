@@ -37,6 +37,14 @@ class ProcessedSalesController extends Controller
 
         $sale->storeProducts($request);
 
+        $days = $request->credit * 8;
+
+        $sale->update([
+            'status' => $request->credit ? 'credito': 'pendiente',
+            'credit' => $request->credit ? 1: 0,
+            'days' => $days > 16 ? 15: $days
+        ]);
+
         return redirect('ventas/procesado');
     }
 
