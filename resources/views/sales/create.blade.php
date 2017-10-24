@@ -78,7 +78,7 @@
                             </div>
                         </div>
 
-                        <row-woc col="col-md-12">
+                        <row-woc col="col-md-12" v-if="price_id">
                             <product-table :pricetype="price_id"></product-table>
                         </row-woc>
                     @endif

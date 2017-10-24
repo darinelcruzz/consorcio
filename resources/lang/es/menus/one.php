@@ -69,7 +69,7 @@ return [
         ]
     ],
     'prices' => [
-        'title' => 'Precio',
+        'title' => 'Precios',
         'icon' => 'fa fa-dollar',
         'route' => 'price.index'
     ],

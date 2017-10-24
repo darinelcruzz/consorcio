@@ -3,91 +3,92 @@
 @section('main-content')
     <div class="row">
         <div class="col-md-6">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="box box-solid box-baby">
-                        <div class="box-header">
-                            <h3 class="box-title">Cerdo</h3>
-                        </div>
-                        <div class="box-body">
-                            @foreach ($pork as $row)
-                                <li>{{ $row->name }}
-                                    <span class="pull-right badge bg-baby">{{ $row->nicePrice }}</span>
-                                    <span class="pull-right"><code>{{ $row->getdate('updated_at') }}</code></span>
-                                </li>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-            		<div class="box box-solid box-warning">
-                        <div class="box-header">
-                            <h3 class="box-title">Pollo fresco</h3>
-                        </div>
-                        <div class="box-body">
-                            @foreach ($fresh as $row)
-                                <li>{{ $row->name }}
-                                    <span class="pull-right badge bg-yellow">{{ $row->nicePrice }}</span>
-                                    <span class="pull-right"><code>{{ $row->getdate('updated_at') }}</code></span>
-                                </li>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="box box-solid box-primary">
-                        <div class="box-header"><h3 class="box-title">Pollo vivo</h3></div>
-                        <div class="box-body">
-                            @foreach ($alive as $row)
-                                <li>{{ $row->name }}
-                                    <span class="pull-right badge bg-blue">{{ $row->nicePrice }}</span>
-                                    <span class="pull-right"><code>{{ $row->getdate('updated_at') }}</code></span>
-                                </li>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="box box-solid box-success">
-                        <div class="box-header">
-                            <h3 class="box-title">Procesado</h3>
-                        </div>
-                        <div class="box-body">
-                            @foreach ($processed as $row)
-                                <li>{{ $row->name }}
-                                    <span class="pull-right badge bg-green">{{ $row->nicePrice }}</span>
-                                    <span class="pull-right"><code>{{ $row->getdate('updated_at') }}</code></span>
-                                </li>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+            <solid-box title="Cerdo" color="box-baby">
+                @foreach ($pork as $row)
+                    <li>{{ $row->name }}
+                        <span class="pull-right badge bg-baby">{{ $row->nicePrice }}</span>
+                        <span class="pull-right"><code>{{ $row->getdate('updated_at') }}</code></span>
+                    </li>
+                @endforeach
+            </solid-box>
+
+            <solid-box title="Pollo fresco" color="box-warning">
+                @foreach ($fresh as $row)
+                    <li>{{ $row->name }}
+                        <span class="pull-right badge bg-yellow">{{ $row->nicePrice }}</span>
+                        <span class="pull-right"><code>{{ $row->getdate('updated_at') }}</code></span>
+                    </li>
+                @endforeach
+            </solid-box>
+
+            <solid-box title="Pollo vivo" color="box-primary">
+                @foreach ($alive as $row)
+                    <li>{{ $row->name }}
+                        <span class="pull-right badge bg-blue">{{ $row->nicePrice }}</span>
+                        <span class="pull-right"><code>{{ $row->getdate('updated_at') }}</code></span>
+                    </li>
+                @endforeach
+            </solid-box>
+
+            <solid-box title="Pollo procesado" color="box-success">
+                @foreach ($processed as $row)
+                    <li>{{ $row->name }}
+                        <span class="pull-right badge bg-green">{{ $row->nicePrice }}</span>
+                        <span class="pull-right"><code>{{ $row->getdate('updated_at') }}</code></span>
+                    </li>
+                @endforeach
+            </solid-box>
         </div>
+
         <div class="col-md-6">
-            <div class="box box-warning">
-                <div class="box-header">
-                    <h3 class="box-title">Editar precio</h3>
-                </div>
+            <solid-box title="Editar precio" color="box-default">
                 {!! Form::open(['method' => 'POST', 'route' => 'price.update']) !!}
                     <div class="box-body">
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                    {!! Field::select('product', $prices->toArray(), null,
-                                        ['empty' => 'Seleccione un producto'])
-                                        !!}
+                                    <div id="field_product" class="form-group">
+                                        <label for="product" class="control-label">Producto</label>
+                                        <div class="controls">
+                                            <select class="form-control" name="product" id="product">
+                                                <option value="" selected="selected">Seleccione un producto</option>
+                                                <optgroup label="Cerdo">
+                                                @foreach ($prices as $price)
+                                                    @if ($price->product_id == 1)
+                                                        <option value="{{ $price->id }}">{{ $price->name }}</option>
+                                                    @endif
+                                                @endforeach
+                                                </optgroup>
+                                                <optgroup label="Pollo fresco">
+                                                @foreach ($prices as $price)
+                                                    @if ($price->product_id == 2)
+                                                        <option value="{{ $price->id }}">{{ $price->name }}</option>
+                                                    @endif
+                                                @endforeach
+                                                </optgroup>
+                                                <optgroup label="Pollo vivo">
+                                                @foreach ($prices as $price)
+                                                    @if ($price->product_id == 3)
+                                                        <option value="{{ $price->id }}">{{ $price->name }}</option>
+                                                    @endif
+                                                @endforeach
+                                                </optgroup>
+                                                <optgroup label="Pollo procesado">
+                                                @foreach ($prices as $price)
+                                                    @if ($price->product_id >= 4 && $price->product_id < 17)
+                                                        <option value="{{ $price->id }}">{{ $price->name }}</option>
+                                                    @endif
+                                                @endforeach
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    {!! Field::number('price') !!}
+                                    {!! Field::number('price', ['step' => '0.01', 'min' => '0']) !!}
                                 </div>
                             </div>
                         </div>
@@ -96,13 +97,13 @@
                         {!! Form::submit('Modificar', ['class' => 'btn btn-black btn-block']) !!}
                     </div>
                 {!! Form::close() !!}
-            </div>
-        </div>
-        <row-woc col="col-md-3">
-            <a href="{{ route('price.format') }}" class="btn btn-app">
-                <i class="fa fa-print"></i> Imprimir
-            </a>
-        </row-woc>
+            </solid-box>
+
+            <row-woc col="col-md-3">
+                <a href="{{ route('price.format') }}" class="btn btn-app">
+                    <i class="fa fa-print"></i> Imprimir
+                </a>
+            </row-woc>
     </div>
 
 @endsection
