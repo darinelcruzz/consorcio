@@ -30,8 +30,8 @@ Vue.component('client-info', require('./components/lte/ClientInfo.vue'));
 const app = new Vue({
     el: '#app',
     data: {
-        clients: '',
-        client_id: 0,
+        clients: [],
+        client_id: '',
         checked: [],
         price_id: '',
     },

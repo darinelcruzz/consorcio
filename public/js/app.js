@@ -23775,8 +23775,8 @@ Vue.component('client-info', __webpack_require__(75));
 var app = new Vue({
     el: '#app',
     data: {
-        clients: '',
-        client_id: 0,
+        clients: [],
+        client_id: '',
         checked: [],
         price_id: ''
     },

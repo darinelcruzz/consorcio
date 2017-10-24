@@ -40,7 +40,7 @@ class PorkSalesController extends Controller
         $days = $request->credit * 8;
 
         $sale->update([
-            'status' => $request->credit ? 'credito': 'pendiente',
+            'status' => $request->credit ? 'credito': 'pagado',
             'credit' => $request->credit ? 1: 0,
             'days' => $days > 16 ? 15: $days
         ]);

@@ -27,7 +27,7 @@
                         <div class="box-footer no-padding">
                             <ul class="nav nav-stacked">
                                 @foreach ($pork as $product)
-                                    <li><a href="#">{{ $product->name }}<span class="pull-right badge bg-green">{{ $product->quantity }}</span></a></li>
+                                    <li><a href="#">{{ $product->name }}<span class="pull-right badge bg-maroon">{{ $product->quantity }}</span></a></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -43,7 +43,7 @@
                         <div class="box-footer no-padding">
                             <ul class="nav nav-stacked">
                                 @foreach ($alive as $product)
-                                    <li><a href="#">{{ $product->name }}<span class="pull-right badge bg-green">{{ $product->quantity }}</span></a></li>
+                                    <li><a href="#">{{ $product->name }}<span class="pull-right badge bg-blue">{{ $product->quantity }}</span></a></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -59,7 +59,7 @@
                         <div class="box-footer no-padding">
                             <ul class="nav nav-stacked">
                                 @foreach ($food as $product)
-                                    <li><a href="#">{{ $product->name }}<span class="pull-right badge bg-green">{{ $product->quantity }}</span></a></li>
+                                    <li><a href="#">{{ $product->name }}<span class="pull-right badge bg-purple">{{ $product->quantity }}</span></a></li>
                                 @endforeach
                             </ul>
                         </div>

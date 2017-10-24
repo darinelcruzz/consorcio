@@ -10,8 +10,7 @@
                 color="box-{{ $color }}">
                 {!! Form::open(['method' => 'POST', 'route' => $type . '.store']) !!}
                     {!! Field::select('client_id', $clients, null,
-                        ['tpl' => 'templates/withicon', 'v-model' => 'client_id',
-                        'empty' => 'Seleccione un cliente'],
+                        ['tpl' => 'templates/withicon', 'empty' => 'Seleccione un cliente', 'v-model' => 'client_id'],
                         ['icon' => 'user'])
                     !!}
                     <div class="row">
@@ -56,8 +55,8 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-6">
+                    <div v-if="clients[client_id]" class="row">
+                        <div v-if="clients[client_id].notes > 0"  class="col-md-6">
                             {!! Field::select('credit', ['No', 'Semanal', 'Quince días'], null,
                                 ['tpl' => 'templates/withicon','empty' => '¿Se vende a crédito?'],
                                 ['icon' => 'credit-card-alt'])
