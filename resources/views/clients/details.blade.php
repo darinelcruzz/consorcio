@@ -8,9 +8,9 @@
                 <h3>{{ $client->name }}</h3>
                 <p>{{ $client->address }}</p>
                 <h4 align="right">
-                    Saldo:&nbsp;$0.00&nbsp;&nbsp;&nbsp;
+                    Saldo:&nbsp;{{ '$ ' . number_format($client->real_balance, 2) }}&nbsp;&nbsp;&nbsp;
                     Máximas:&nbsp;{{ $client->notes }}&nbsp;&nbsp;&nbsp;
-                    En deuda:&nbsp;0
+                    En deuda:&nbsp;{{ $client->unpaid_notes }}
                 </h4>
             </div>
             <div class="icon">

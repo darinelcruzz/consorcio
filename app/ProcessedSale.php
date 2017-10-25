@@ -19,6 +19,16 @@ class ProcessedSale extends Model
         return $this->belongsTo(Price::class, 'price');
     }
 
+    function deposits()
+    {
+        return $this->hasMany(Deposit::class, 'sale_id');
+    }
+
+    function getDepositTotalAttribute()
+    {
+        return $this->deposits->where('type', 'procesado')->sum('amount');
+    }
+
     function getNiceAmountAttribute()
     {
         return '$ ' . number_format($this->amount, 2, '.', ',');

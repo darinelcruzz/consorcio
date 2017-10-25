@@ -7,9 +7,7 @@ use App\AliveSale;
 use App\FreshSale;
 use App\PorkSale;
 use App\ProcessedSale;
-use App\Client;
-use App\Product;
-use App\Price;
+use App\Deposit;
 
 class DepositController extends Controller
 {
@@ -52,5 +50,14 @@ class DepositController extends Controller
         }
 
         return $due;
+    }
+
+    function store(Request $request)
+    {
+        $this->validate($request, ['amount' => 'required']);
+
+        $deposit = Deposit::create($request->all());
+
+        return back();
     }
 }

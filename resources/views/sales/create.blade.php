@@ -62,6 +62,7 @@
                                 ['icon' => 'credit-card-alt'])
                                 !!}
                         </div>
+                        <input v-else type="hidden" name="credit" value="0">
                     </div>
 
                     @if ($type == 'processed')
@@ -83,7 +84,6 @@
                     @endif
 
                     <input type="hidden" name="folio" value="{{ $lastSale ? $lastSale->folio + 1: 1 }}">
-                    <input type="hidden" name="credit" value="0">
                     <input type="hidden" name="days" value="0">
                     <input type="hidden" name="status" value="pagado">
                     {!! Form::submit('Agregar', ['class' => 'btn btn-' . $color . ' pull-right']) !!}

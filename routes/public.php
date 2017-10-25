@@ -12,9 +12,8 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('tests', function () {
-    $client = \App\Client::find(1);
-
-    return $client->balance;
+    $sale = \App\FreshSale::find(2);
+    return $sale->deposit_total;
 });
 
 Route::group(['prefix' => 'clientes', 'as' => 'client.'], function () {
@@ -113,6 +112,11 @@ Route::post('ventas/procesado/agregar', [
 Route::get('creditos', [
     'uses' => 'DepositController@index',
     'as' => 'deposit.index'
+]);
+
+Route::post('creditos/abonar', [
+    'uses' => 'DepositController@store',
+    'as' => 'deposit.store'
 ]);
 
 // Shippings

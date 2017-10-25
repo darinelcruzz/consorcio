@@ -25596,7 +25596,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['title', 'color', 'collapsed']
+    data: function data() {
+        return {
+            isCollapsed: false
+        };
+    },
+
+    props: ['title', 'color', 'collapsed'],
+    created: function created() {
+        this.isCollapsed = this.collapsed == 'collapsed-box';
+    }
 });
 
 /***/ }),
@@ -44640,26 +44649,29 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    class: ['box box-solid', _vm.color, _vm.collapsed]
+    class: [_vm.color, {
+      'box box-solid': true,
+      'collapsed-box': _vm.isCollapsed
+    }]
   }, [_c('div', {
     staticClass: "box-header with-border"
   }, [_c('h3', {
     staticClass: "box-title"
   }, [_vm._v(_vm._s(_vm.title))]), _vm._v(" "), (_vm.collapsed != '') ? _c('div', {
     staticClass: "box-tools pull-right"
-  }, [_vm._m(0)]) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "box-body"
-  }, [_vm._t("default")], 2)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('button', {
+  }, [_c('button', {
     staticClass: "btn btn-box-tool",
     attrs: {
       "data-widget": "collapse"
     }
   }, [_c('i', {
-    staticClass: "fa fa-minus"
-  })])
-}]}
+    class: {
+      'fa fa-minus': !_vm.isCollapsed, 'fa fa-plus': _vm.isCollapsed
+    }
+  })])]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "box-body"
+  }, [_vm._t("default")], 2)])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
