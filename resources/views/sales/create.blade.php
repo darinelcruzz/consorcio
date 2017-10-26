@@ -68,12 +68,14 @@
                     @if ($type == 'processed')
                         <div class="row">
                             <div class="col-md-6">
-                                {!! Field::number('chickens', ['tpl' => 'templates/withicon', 'min' => '0'],
+                                {!! Field::number('chickens',
+                                    ['label' => 'Pollos/Cortes totales', 'tpl' => 'templates/withicon', 'min' => '0'],
                                     ['icon' => 'cutlery']) !!}
                             </div>
 
                             <div class="col-md-6">
-                                {!! Field::number('boxes', ['tpl' => 'templates/withicon', 'min' => '0'],
+                                {!! Field::number('boxes',
+                                    ['label' => 'Cajas totales', 'tpl' => 'templates/withicon', 'min' => '0'],
                                     ['icon' => 'archive']) !!}
                             </div>
                         </div>

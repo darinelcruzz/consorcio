@@ -33,7 +33,7 @@ class ProcessedSalesController extends Controller
 
     function store(ProcessedRequest $request)
     {
-        $sale = ProcessedSale::create($request->except(['types', 'numbers', 'total']));
+        $sale = ProcessedSale::create($request->except(['types', 'quantities', 'prices', 'packages']));
 
         $sale->storeProducts($request);
 
@@ -46,6 +46,14 @@ class ProcessedSalesController extends Controller
         ]);
 
         return redirect('ventas/procesado');
+    }
+
+    function show(ProcessedSale $processedsale)
+    {
+        $type = 'processed';
+        $color = 'success';
+        $skin = 'green';
+        return view('sales.processed', compact('processedsale', 'type', 'color', 'skin'));
     }
 
     function getClients()

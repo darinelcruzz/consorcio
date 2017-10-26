@@ -24890,11 +24890,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            product_id: 4,
+            product_id: 3,
             quantity: 0,
             total: 0,
             priceId: '',
@@ -24903,12 +24905,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     props: ['products', 'num', 'pricetype'],
-    methods: {
-        saveTotal: function saveTotal() {
-            this.total = this.price * this.quantity;
-            this.$emit('subtotal', this.total, this.num);
-        }
-    },
+    methods: {},
     watch: {
         pricetype: function pricetype(val, oldVal) {
             this.priceId = val;
@@ -24919,11 +24916,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             } else {
                 this.price = this.products[val - 4].price[eval(this.priceId)];
             }
-        }
-    },
-    filters: {
-        currency: function currency(value) {
-            return '$ ' + value;
         }
     },
     created: function created() {
@@ -24957,49 +24949,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            header: [{ name: '#', width: 'width: 5%' }, { name: 'Producto', width: 'width: 35%' }, { name: 'Cantidad', width: 'width: 15%' }, { name: 'Precio', width: 'width: 20%' }, { name: 'Importe', width: 'width: 20%' }],
-            products: [],
-            subtotals: [0, 0, 0, 0, 0],
-            total: 0
+            header: [{ name: '#', width: 'width: 5%' }, { name: 'Producto', width: 'width: 35%' }, { name: 'Precio', width: 'width: 20%' }, { name: 'Cantidad', width: 'width: 20%' }, { name: 'Cajas', width: 'width: 15%' }],
+            products: []
         };
     },
 
     props: ['pricetype'],
-
-    methods: {
-        addToTotal: function addToTotal(total, num) {
-            this.subtotals[num - 1] = total;
-
-            this.total = this.subtotals.reduce(function (total, value) {
-                return total + value;
-            }, 0);
-        }
-    },
 
     created: function created() {
         var _this = this;
@@ -44814,59 +44773,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "products": _vm.products,
       "pricetype": _vm.pricetype,
       "num": 1
-    },
-    on: {
-      "subtotal": _vm.addToTotal
     }
   }), _vm._v(" "), _c('product-row', {
     attrs: {
       "products": _vm.products,
       "pricetype": _vm.pricetype,
       "num": 2
-    },
-    on: {
-      "subtotal": _vm.addToTotal
     }
   }), _vm._v(" "), _c('product-row', {
     attrs: {
       "products": _vm.products,
       "pricetype": _vm.pricetype,
       "num": 3
-    },
-    on: {
-      "subtotal": _vm.addToTotal
     }
   }), _vm._v(" "), _c('product-row', {
     attrs: {
       "products": _vm.products,
       "pricetype": _vm.pricetype,
       "num": 4
-    },
-    on: {
-      "subtotal": _vm.addToTotal
     }
   }), _vm._v(" "), _c('product-row', {
     attrs: {
       "products": _vm.products,
       "pricetype": _vm.pricetype,
       "num": 5
-    },
-    on: {
-      "subtotal": _vm.addToTotal
     }
-  })], 1), _vm._v(" "), _c('tfoot', [_c('tr', [_c('td', {
-    attrs: {
-      "colspan": "3"
-    }
-  }), _vm._v(" "), _c('td', [_c('b', [_vm._v("Total:")])]), _vm._v(" "), _c('td', [_vm._v("\n                    " + _vm._s(_vm.total) + "\n                    "), _c('input', {
-    attrs: {
-      "type": "hidden",
-      "name": "total"
-    },
-    domProps: {
-      "value": _vm.total
-    }
-  })])])])], 1)])
+  })], 1)])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -44895,7 +44827,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "name": "types[]"
     },
     on: {
-      "change": [function($event) {
+      "change": function($event) {
         var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
           return o.selected
         }).map(function(o) {
@@ -44903,11 +44835,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           return val
         });
         _vm.product_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-      }, _vm.saveTotal]
+      }
     }
   }, [_c('option', {
     attrs: {
-      "value": "",
+      "value": "3",
       "selected": ""
     }
   }, [_vm._v("Seleccione un producto")]), _vm._v(" "), _vm._l((_vm.products), function(product) {
@@ -44916,52 +44848,48 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": product.id
       }
     }, [_vm._v("\n                    " + _vm._s(product.name) + "\n                ")])
-  })], 2)])]), _vm._v(" "), _c('td', {
+  })], 2)])]), _vm._v(" "), _c('td', [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "prices[]"
+    },
+    domProps: {
+      "value": _vm.price
+    }
+  }), _vm._v("\n        " + _vm._s(_vm.price) + "\n    ")]), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('td', {
     attrs: {
       "align": "center"
     }
   }, [_c('div', {
     staticClass: "form-group"
   }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.quantity),
-      expression: "quantity"
-    }],
     staticClass: "form-control",
     staticStyle: {
       "width": "85px"
     },
     attrs: {
       "type": "number",
-      "name": "numbers[]",
+      "name": "quantities[]",
       "min": "0",
       "step": "0.1"
-    },
-    domProps: {
-      "value": (_vm.quantity)
-    },
-    on: {
-      "change": _vm.saveTotal,
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.quantity = $event.target.value
-      },
-      "blur": function($event) {
-        _vm.$forceUpdate()
-      }
     }
-  })])]), _vm._v(" "), _c('td', [_vm._v("\n        " + _vm._s(_vm.price) + "\n    ")]), _vm._v(" "), _c('td', [_c('input', {
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('td', [_c('input', {
+    staticClass: "form-control",
+    staticStyle: {
+      "width": "85px"
+    },
     attrs: {
-      "type": "hidden",
-      "name": "total[]"
-    },
-    domProps: {
-      "value": _vm.total
+      "type": "number",
+      "name": "packages[]",
+      "min": "0",
+      "step": "0.1"
     }
-  }), _vm._v("\n        " + _vm._s(_vm.total) + "\n    ")])])
-},staticRenderFns: []}
+  })])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

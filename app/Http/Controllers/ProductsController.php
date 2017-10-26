@@ -11,7 +11,7 @@ class ProductsController extends Controller
     {
         $processed = Product::where('processed', 1)->get();
         $pork = Product::where('id', 1)->get();
-        $alive = Product::where('id', 2)->get();
+        $alive = Product::where('id', 3)->get();
         $food = Product::where('processed', 2)->get();
         return view('products.products', compact('processed', 'pork', 'alive', 'food'));
     }

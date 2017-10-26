@@ -5,28 +5,30 @@
         </td>
         <td>
             <div class="form-group">
-                <select class="form-control" name="types[]" v-model="product_id" @change="saveTotal">
-                    <option value="" selected>Seleccione un producto</option>
+                <select class="form-control" name="types[]" v-model="product_id">
+                    <option value="3" selected>Seleccione un producto</option>
                     <option v-for="product in products" :value="product.id">
                         {{ product.name }}
                     </option>
                 </select>
             </div>
         </td>
+
+        <td>
+            <input type="hidden" name="prices[]" :value="price">
+            {{ price }}
+        </td>
+
         <td align="center">
             <div class="form-group">
-                <input class="form-control" type="number" name="numbers[]" min="0" step="0.1" v-model="quantity"
-                    @change="saveTotal" style="width:85px;">
+                <input class="form-control" type="number" name="quantities[]" min="0" step="0.1"
+                    style="width:85px;">
             </div>
         </td>
 
         <td>
-            {{ price }}
-        </td>
-
-        <td>
-            <input type="hidden" name="total[]" :value="total">
-            {{ total }}
+            <input class="form-control" type="number" name="packages[]" min="0" step="0.1""
+                style="width:85px;">
         </td>
 
     </tr>
@@ -36,7 +38,7 @@
 export default {
     data() {
         return {
-            product_id: 4,
+            product_id: 3,
             quantity: 0,
             total: 0,
             priceId: '',
@@ -45,10 +47,6 @@ export default {
     },
     props: ['products', 'num', 'pricetype'],
     methods: {
-        saveTotal() {
-            this.total = this.price * this.quantity;
-            this.$emit('subtotal', this.total, this.num);
-        }
     },
     watch: {
         pricetype: function (val, oldVal) {
@@ -60,13 +58,7 @@ export default {
             } else {
                 this.price = this.products[val - 4].price[eval(this.priceId)];
             }
-
         },
-    },
-    filters: {
-        currency: function (value) {
-          return '$ ' + value;
-        }
     },
     created() {
         this.priceId = this.pricetype;
