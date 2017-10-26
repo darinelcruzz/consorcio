@@ -31,7 +31,7 @@
                 <tr>
                     <td>{{ $sale->folio }}</td>
                     <td>{{ $sale->shortDate }}</td>
-                    <td>{{ $sale->client->name }}</td>
+                    <td><a href="{{ route('client.details', ['id' => $sale->client->id]) }}">{{ $sale->client->name }}</a></td>
                     <td>{{ $sale->quantity }}</td>
                     <td>{{ $sale->kg }}</td>
                     <td>{{ $sale->pricer->name }}</td>

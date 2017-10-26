@@ -184,6 +184,8 @@ return [
         'product_id'            => 'producto',
         'observations'          => 'observaciones',
         'credit'                => 'crédito',
+        'startDate'             => 'fecha inicio',
+        'endDate'               => 'fecha termino',
     ],
 
 ];

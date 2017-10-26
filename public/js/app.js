@@ -24889,6 +24889,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -44904,13 +44905,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.product_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }, _vm.saveTotal]
     }
-  }, _vm._l((_vm.products), function(product) {
+  }, [_c('option', {
+    attrs: {
+      "value": "",
+      "selected": ""
+    }
+  }, [_vm._v("Seleccione un producto")]), _vm._v(" "), _vm._l((_vm.products), function(product) {
     return _c('option', {
       domProps: {
         "value": product.id
       }
     }, [_vm._v("\n                    " + _vm._s(product.name) + "\n                ")])
-  }))])]), _vm._v(" "), _c('td', {
+  })], 2)])]), _vm._v(" "), _c('td', {
     attrs: {
       "align": "center"
     }

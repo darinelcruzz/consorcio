@@ -44,53 +44,45 @@
         <div class="col-md-6">
             <solid-box title="Editar precio" color="box-default">
                 {!! Form::open(['method' => 'POST', 'route' => 'price.update']) !!}
-                    <div class="box-body">
-                        <div class="box-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div id="field_product" class="form-group">
-                                        <label for="product" class="control-label">Producto</label>
-                                        <div class="controls">
-                                            <select class="form-control" name="product" id="product">
-                                                <option value="" selected="selected">Seleccione un producto</option>
-                                                <optgroup label="Cerdo">
-                                                @foreach ($prices as $price)
-                                                    @if ($price->product_id == 1)
-                                                        <option value="{{ $price->id }}">{{ $price->name }}</option>
-                                                    @endif
-                                                @endforeach
-                                                </optgroup>
-                                                <optgroup label="Pollo fresco">
-                                                @foreach ($prices as $price)
-                                                    @if ($price->product_id == 2)
-                                                        <option value="{{ $price->id }}">{{ $price->name }}</option>
-                                                    @endif
-                                                @endforeach
-                                                </optgroup>
-                                                <optgroup label="Pollo vivo">
-                                                @foreach ($prices as $price)
-                                                    @if ($price->product_id == 3)
-                                                        <option value="{{ $price->id }}">{{ $price->name }}</option>
-                                                    @endif
-                                                @endforeach
-                                                </optgroup>
-                                                <optgroup label="Pollo procesado">
-                                                @foreach ($prices as $price)
-                                                    @if ($price->product_id >= 4 && $price->product_id < 17)
-                                                        <option value="{{ $price->id }}">{{ $price->name }}</option>
-                                                    @endif
-                                                @endforeach
-                                                </optgroup>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    {!! Field::number('price', ['step' => '0.01', 'min' => '0']) !!}
-                                </div>
-                            </div>
+                    <div id="field_product" class="form-group">
+                        <label for="product" class="control-label">Producto</label>
+                        <div class="controls">
+                            <select class="form-control" name="product" id="product">
+                                <option value="" selected="selected">Seleccione un producto</option>
+                                <optgroup label="Cerdo">
+                                @foreach ($prices as $price)
+                                    @if ($price->product_id == 1)
+                                        <option value="{{ $price->id }}">{{ $price->name }}</option>
+                                    @endif
+                                @endforeach
+                                </optgroup>
+                                <optgroup label="Pollo fresco">
+                                @foreach ($prices as $price)
+                                    @if ($price->product_id == 2)
+                                        <option value="{{ $price->id }}">{{ $price->name }}</option>
+                                    @endif
+                                @endforeach
+                                </optgroup>
+                                <optgroup label="Pollo vivo">
+                                @foreach ($prices as $price)
+                                    @if ($price->product_id == 3)
+                                        <option value="{{ $price->id }}">{{ $price->name }}</option>
+                                    @endif
+                                @endforeach
+                                </optgroup>
+                                <optgroup label="Pollo procesado">
+                                @foreach ($prices as $price)
+                                    @if ($price->product_id >= 4 && $price->product_id < 17)
+                                        <option value="{{ $price->id }}">{{ $price->name }}</option>
+                                    @endif
+                                @endforeach
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {!! Field::number('price', ['step' => '0.01', 'min' => '0']) !!}
                         </div>
                     </div>
                     <div class="box-footer">

@@ -73,8 +73,12 @@ return [
         'title' => 'Crédito',
         'icon' => 'fa fa-credit-card',
         'submenu' => [
-            'add' => [
+            'credits' => [
                 'title' => 'Listado',
+                'route' => 'deposit.credits'
+            ],
+            'deposits' => [
+                'title' => 'Abonos',
                 'route' => 'deposit.index'
             ],
         ]

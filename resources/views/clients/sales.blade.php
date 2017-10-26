@@ -10,6 +10,7 @@
             <th>Por pagar</th>
             <th>Abonar</th>
             <th>Estado</th>
+            <th></th>
         </tr>
     </template>
 
@@ -17,15 +18,24 @@
         @foreach($client->$sale as $sale)
             <tr>
                 <td>{{ $sale->id }}</td>
-                <td>{{ $sale->date }}</td>
+                <td>{{ $sale->short_date }}</td>
                 <td>{{ $sale->kg }}</td>
                 <td>{{ $sale->pricer->name }}</td>
-                <td>{{ '$ ' . number_format($sale->amount, 2) }}</td>
+                <td>{{ $sale->nice_amount }}</td>
                 <td>{{ '$ ' . number_format($sale->amount - $sale->deposit_total, 2) }}</td>
                 <td>
                     @includeWhen($sale->status == 'credito' ,'clients/deposit')
                 </td>
                 <td>{{ $sale->status }}</td>
+                @if ($sale->credit == 1)
+                    <td>
+                        <a href="{{ route('deposit.details', ['id' => $sale->id, 'type' => $sale->type, 'amount' => $sale->amount]) }}"  class="btn btn-info">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                @else
+                    <td></td>
+                @endif
             </tr>
         @endforeach
     </template>

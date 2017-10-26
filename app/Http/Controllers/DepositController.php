@@ -3,15 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Deposit;
 use App\AliveSale;
 use App\FreshSale;
 use App\PorkSale;
 use App\ProcessedSale;
-use App\Deposit;
 
 class DepositController extends Controller
 {
     function index()
+    {
+        $deposits = Deposit::all();
+
+        return view('deposits.index', compact('deposits'));
+    }
+
+    function details($type, $id, $amount)
+    {
+        $deposits = Deposit::where('type', $type)->where('sale_id', $id)->get();
+
+        return view('deposits.details', compact('deposits', 'type', 'id', 'amount'));
+    }
+
+    function credits()
     {
         $alive = AliveSale::all();
         $fresh = FreshSale::all();
@@ -19,9 +33,16 @@ class DepositController extends Controller
         $processed = ProcessedSale::all();
         $due = $this->getDueSales($alive, $fresh, $pork, $processed);
 
+        return view('deposits.credits', compact('alive', 'fresh', 'pork', 'processed', 'due'));
+    }
 
+    function store(Request $request)
+    {
+        $this->validate($request, ['amount' => 'required']);
 
-        return view('deposits.index', compact('alive', 'fresh', 'pork', 'processed', 'due'));
+        $deposit = Deposit::create($request->all());
+
+        return back();
     }
 
     function getDueSales($alive, $fresh, $pork, $processed)
@@ -50,14 +71,5 @@ class DepositController extends Controller
         }
 
         return $due;
-    }
-
-    function store(Request $request)
-    {
-        $this->validate($request, ['amount' => 'required']);
-
-        $deposit = Deposit::create($request->all());
-
-        return back();
     }
 }

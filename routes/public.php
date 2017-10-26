@@ -109,9 +109,19 @@ Route::post('ventas/procesado/agregar', [
 ]);
 
 // Deposits
-Route::get('creditos', [
+Route::get('abonos', [
     'uses' => 'DepositController@index',
     'as' => 'deposit.index'
+]);
+
+Route::get('detalles/{type}/{id}/{amount}', [
+    'uses' => 'DepositController@details',
+    'as' => 'deposit.details'
+]);
+
+Route::get('creditos', [
+    'uses' => 'DepositController@credits',
+    'as' => 'deposit.credits'
 ]);
 
 Route::post('creditos/abonar', [
@@ -171,3 +181,34 @@ Route::get('formato', [
     'uses' => 'PriceController@format',
     'as' => 'price.format'
 ]);
+
+
+// Reports
+Route::group(['prefix' => 'reportes', 'as' => 'report.'], function () {
+
+    Route::get('menu', [
+        'uses' => 'ReportController@menu',
+        'as' => 'menu'
+    ]);
+
+    Route::post('cliente', [
+        'uses' => 'ReportController@client',
+        'as' => 'client'
+    ]);
+
+    Route::post('producto', [
+        'uses' => 'ReportController@product',
+        'as' => 'product'
+    ]);
+
+    Route::post('ventas', [
+        'uses' => 'ReportController@sales',
+        'as' => 'sales'
+    ]);
+
+    Route::post('embarques', [
+        'uses' => 'ReportController@shippings',
+        'as' => 'shippings'
+    ]);
+
+});

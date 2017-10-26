@@ -6,6 +6,7 @@
         <td>
             <div class="form-group">
                 <select class="form-control" name="types[]" v-model="product_id" @change="saveTotal">
+                    <option value="" selected>Seleccione un producto</option>
                     <option v-for="product in products" :value="product.id">
                         {{ product.name }}
                     </option>

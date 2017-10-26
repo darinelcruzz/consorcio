@@ -2394,27 +2394,6 @@ table th[class*="col-"] {
 .table-hover > tbody > tr.danger:hover > th {
   background-color: #ebcccc;
 }
-.table > thead > tr > td.baby,
-.table > tbody > tr > td.baby,
-.table > tfoot > tr > td.baby,
-.table > thead > tr > th.baby,
-.table > tbody > tr > th.baby,
-.table > tfoot > tr > th.baby,
-.table > thead > tr.baby > td,
-.table > tbody > tr.baby > td,
-.table > tfoot > tr.baby > td,
-.table > thead > tr.baby > th,
-.table > tbody > tr.baby > th,
-.table > tfoot > tr.baby > th {
-  background-color: #f2b5ca;
-}
-.table-hover > tbody > tr > td.baby:hover,
-.table-hover > tbody > tr > th.baby:hover,
-.table-hover > tbody > tr.baby:hover > td,
-.table-hover > tbody > tr:hover > .baby,
-.table-hover > tbody > tr.baby:hover > th {
-  background-color: #ee9fba;
-}
 .table-responsive {
   overflow-x: auto;
   min-height: 0.01%;
@@ -3268,51 +3247,6 @@ fieldset[disabled] .btn-danger.active {
 }
 .btn-danger .badge {
   color: #d9534f;
-  background-color: #fff;
-}
-.btn-baby {
-  color: #fff;
-  background-color: #ee76a0;
-  border-color: #eb5f90;
-}
-.btn-baby:hover,
-.btn-baby:focus,
-.btn-baby.focus,
-.btn-baby:active,
-.btn-baby.active,
-.open > .dropdown-toggle.btn-baby {
-  color: #fff;
-  background-color: #e84981;
-  border-color: #e4296b;
-}
-.btn-baby:active,
-.btn-baby.active,
-.open > .dropdown-toggle.btn-baby {
-  background-image: none;
-}
-.btn-baby.disabled,
-.btn-baby[disabled],
-fieldset[disabled] .btn-baby,
-.btn-baby.disabled:hover,
-.btn-baby[disabled]:hover,
-fieldset[disabled] .btn-baby:hover,
-.btn-baby.disabled:focus,
-.btn-baby[disabled]:focus,
-fieldset[disabled] .btn-baby:focus,
-.btn-baby.disabled.focus,
-.btn-baby[disabled].focus,
-fieldset[disabled] .btn-baby.focus,
-.btn-baby.disabled:active,
-.btn-baby[disabled]:active,
-fieldset[disabled] .btn-baby:active,
-.btn-baby.disabled.active,
-.btn-baby[disabled].active,
-fieldset[disabled] .btn-baby.active {
-  background-color: #ee76a0;
-  border-color: #eb5f90;
-}
-.btn-baby .badge {
-  color: #ee76a0;
   background-color: #fff;
 }
 .btn-link {
@@ -4801,13 +4735,6 @@ a.label:focus {
 .label-danger[href]:focus {
   background-color: #c9302c;
 }
-.label-baby {
-  background-color: #ee76a0;
-}
-.label-baby[href]:hover,
-.label-baby[href]:focus {
-  background-color: #e84981;
-}
 .badge {
   display: inline-block;
   min-width: 10px;
@@ -4991,17 +4918,6 @@ a.thumbnail.active {
 .alert-danger .alert-link {
   color: #843534;
 }
-.alert-baby {
-  background-color: #f2b5ca;
-  border-color: #ee9fc8;
-  color: #ee76a0;
-}
-.alert-baby hr {
-  border-top-color: #ea8abb;
-}
-.alert-baby .alert-link {
-  color: #e84981;
-}
 @-webkit-keyframes progress-bar-stripes {
   from {
     background-position: 40px 0;
@@ -5070,12 +4986,6 @@ a.thumbnail.active {
   background-color: #d9534f;
 }
 .progress-striped .progress-bar-danger {
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-}
-.progress-bar-baby {
-  background-color: #ee76a0;
-}
-.progress-striped .progress-bar-baby {
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 .media {
@@ -5284,28 +5194,6 @@ a.list-group-item-danger.active:focus {
   color: #fff;
   background-color: #a94442;
   border-color: #a94442;
-}
-.list-group-item-baby {
-  color: #ee76a0;
-  background-color: #f2b5ca;
-}
-a.list-group-item-baby {
-  color: #ee76a0;
-}
-a.list-group-item-baby .list-group-item-heading {
-  color: inherit;
-}
-a.list-group-item-baby:hover,
-a.list-group-item-baby:focus {
-  color: #ee76a0;
-  background-color: #ee9fba;
-}
-a.list-group-item-baby.active,
-a.list-group-item-baby.active:hover,
-a.list-group-item-baby.active:focus {
-  color: #fff;
-  background-color: #ee76a0;
-  border-color: #ee76a0;
 }
 .list-group-item-heading {
   margin-top: 0;
@@ -5652,24 +5540,6 @@ a.list-group-item-baby.active:focus {
 }
 .panel-danger > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #ebccd1;
-}
-.panel-baby {
-  border-color: #ee9fc8;
-}
-.panel-baby > .panel-heading {
-  color: #ee76a0;
-  background-color: #f2b5ca;
-  border-color: #ee9fc8;
-}
-.panel-baby > .panel-heading + .panel-collapse > .panel-body {
-  border-top-color: #ee9fc8;
-}
-.panel-baby > .panel-heading .badge {
-  color: #f2b5ca;
-  background-color: #ee76a0;
-}
-.panel-baby > .panel-footer + .panel-collapse > .panel-body {
-  border-bottom-color: #ee9fc8;
 }
 .embed-responsive {
   position: relative;
