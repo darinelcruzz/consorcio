@@ -56,13 +56,19 @@ class ProcessedSale extends Model
     {
         $products = [];
 
-        for ($i = 0; $i < count($request->numbers); $i++) {
+        for ($i = 0; $i < count($request->quantities); $i++) {
             $product = [];
-            if($request->numbers[$i] > 0) {
-                $product['p'] =  $request->types[$i];
-                $product['q'] =  $request->numbers[$i];
-                $product['t'] =  $request->total[$i];
+            if($request->quantities[$i] > 0) {
+                $product['i'] =  $request->types[$i];
+                $product['p'] =  $request->prices[$i];
+                $product['q'] =  $request->quantities[$i];
+                $product['b'] =  $request->packages[$i];
                 array_push($products, $product);
+
+                $pproduct = Product::find($request->types[$i]);
+                $pproduct->update([
+                    'quantity' => $pproduct->quantity - $request->quantities[$i]
+                ]);
             }
         }
 

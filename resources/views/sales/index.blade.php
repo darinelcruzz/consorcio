@@ -29,7 +29,15 @@
         <template slot="body">
             @foreach($sales as $sale)
                 <tr>
-                    <td>{{ $sale->folio }}</td>
+                    <td>
+                        {{ $sale->folio }}
+                        &nbsp;
+                        @if ($sale->type == 'procesado')
+                            <a href="{{ route('processed.show', ['id' => $sale->id])}}">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                        @endif
+                    </td>
                     <td>{{ $sale->shortDate }}</td>
                     <td>{{ $sale->client->name }}</td>
                     <td>{{ $sale->quantity }}</td>

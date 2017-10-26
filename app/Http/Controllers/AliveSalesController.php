@@ -35,6 +35,8 @@ class AliveSalesController extends Controller
     {
         $sale = AliveSale::create($request->all());
 
+        $this->updateInventory($request->quantity);
+
         $days = $request->credit * 8;
 
         $sale->update([
@@ -50,5 +52,14 @@ class AliveSalesController extends Controller
         return Client::all()->filter(function ($item) {
             return strpos($item->products, 'vivo');
         })->pluck('name', 'id')->toArray();
+    }
+
+    function updateInventory($quantity)
+    {
+        $former = Product::where('name', 'pollo vivo')->first();
+
+        $current = $former->quantity - $quantity;
+
+        $former->update(['quantity' => $current]);
     }
 }

@@ -12,8 +12,8 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('tests', function () {
-    $sale = \App\FreshSale::find(2);
-    return $sale->deposit_total;
+    $sale = \App\ProcessedSale::find(1);
+    return unserialize($sale->products);
 });
 
 Route::group(['prefix' => 'clientes', 'as' => 'client.'], function () {
@@ -106,6 +106,11 @@ Route::get('ventas/procesado/agregar', [
 Route::post('ventas/procesado/agregar', [
     'uses' => 'ProcessedSalesController@store',
     'as' => 'processed.store'
+]);
+
+Route::get('ventas/procesado/detalles/{processedsale}', [
+    'uses' => 'ProcessedSalesController@show',
+    'as' => 'processed.show'
 ]);
 
 // Deposits
