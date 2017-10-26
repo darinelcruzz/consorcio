@@ -26,10 +26,10 @@
                     <td>{{ $shipping->date }}</td>
                     <td>{{ $shipping->provider }}</td>
                     <td>{{ $shipping->remission }}</td>
-                    <td>{{ $shipping->product }}</td>
+                    <td>{{ $shipping->productr->name }}</td>
                     <td>{{ $shipping->quantity }}</td>
-                    <td>{{ $shipping->price }}</td>
-                    <td>{{ $shipping->amount }}</td>
+                    <td>$ {{ number_format($shipping->price, 2) }}</td>
+                    <td>$ {{ number_format($shipping->amount, 2) }}</td>
                     <td>{{ $shipping->observations }}</td>
                 </tr>
             @endforeach

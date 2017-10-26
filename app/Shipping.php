@@ -10,4 +10,9 @@ class Shipping extends Model
         'remission', 'date', 'provider', 'product',
         'quantity', 'price', 'amount', 'observations'
     ];
+
+    function productr()
+    {
+        return $this->belongsTo(Product::class, 'product');
+    }
 }
