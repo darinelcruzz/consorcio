@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Shipping extends Model
 {
     protected $fillable = [
-        'remission', 'date', 'provider', 'product',
+        'remission', 'date', 'provider', 'product', 'processed',
         'quantity', 'price', 'amount', 'observations'
     ];
 

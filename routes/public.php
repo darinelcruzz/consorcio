@@ -150,6 +150,11 @@ Route::post('embarques/agregar', [
     'as' => 'shipping.store'
 ]);
 
+Route::get('embarques/procesado/{shipping}', [
+    'uses' => 'ShippingsController@show',
+    'as' => 'shipping.show'
+]);
+
 // Products
 Route::get('productos', [
     'uses' => 'ProductsController@index',
