@@ -23,5 +23,12 @@ class ReportController extends Controller
         return view('reports.menu', compact('date', 'clients', 'products'));
     }
 
+    function client(Request $request)
+    {
+        $client = Client::find($request->client_id);
+        $sales = $client->getAllSales($request->startDate, $request->endDate);
+
+        return view('reports.client', compact('sales', 'client'));
+    }
 
 }

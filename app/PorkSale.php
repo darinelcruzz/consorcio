@@ -49,6 +49,12 @@ class PorkSale extends Model
         return $fdate->format('D, j/M/Y');
     }
 
+    function getLittleDateAttribute()
+    {
+        $fdate = new Date(strtotime($this->date));
+        return $fdate->format('j/M/Y');
+    }
+
     function getDueDateAttribute()
     {
         $fdate = new Date(strtotime($this->date));

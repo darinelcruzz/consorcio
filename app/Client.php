@@ -31,12 +31,37 @@ class Client extends Model
         return $this->hasMany(FreshSale::class);
     }
 
+    function getAllSales($start, $end)
+    {
+        $pork = $this->porksales->where('date', '>=', $start)->where('date', '<=', $end);
+        $fresh = $this->freshsales->where('date', '>=', $start)->where('date', '<=', $end);
+        $alive = $this->alivesales->where('date', '>=', $start)->where('date', '<=', $end);
+        $processed = $this->processedsales->where('date', '>=', $start)->where('date', '<=', $end);
+
+        $sales = [];
+
+        foreach ($pork as $sale) {
+            array_push($sales, $sale);
+        }
+        foreach ($alive as $sale) {
+            array_push($sales, $sale);
+        }
+        foreach ($processed as $sale) {
+            array_push($sales, $sale);
+        }
+        foreach ($fresh as $sale) {
+            array_push($sales, $sale);
+        }
+
+        return $sales;
+    }
+
     function getUnpaidNotesAttribute()
     {
-        $notes = $this->alivesales->where('credit', 1)->count() +
-            $this->porksales->where('credit', 1)->count() +
-            $this->freshsales->where('credit', 1)->count() +
-            $this->processedsales->where('credit', 1)->count();
+        $notes = $this->alivesales->where('status', '!=', 'pagado')->count() +
+            $this->porksales->where('status', '!=', 'pagado')->count() +
+            $this->freshsales->where('status', '!=', 'pagado')->count() +
+            $this->processedsales->where('status', '!=', 'pagado')->count();
 
         return $notes;
     }
