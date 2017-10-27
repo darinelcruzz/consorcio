@@ -34,6 +34,7 @@ const app = new Vue({
         client_id: '',
         checked: [],
         price_id: '',
+        shipp: '',
     },
     created() {
         axios.get('/clients').then(response => {

@@ -16,11 +16,23 @@ class ShippingsController extends Controller
         return view('shippings.index', compact('shippings'));
     }
 
+    function show(Shipping $shipping)
+    {
+        return view('shippings.show', compact('shipping'));
+    }
+
     function create()
     {
         $today = Date::now();
-        $products = Product::where('processed', 0)->pluck('name', 'id');
-        return view('shippings.create', compact('today', 'products'));
+
+        $products = Product::where([
+            ['processed', '!=', 1],
+            ['name', '!=', 'Pollo fresco']
+        ])->pluck('name', 'id');
+
+        $processed = Product::where('processed', 1)->get();
+
+        return view('shippings.create', compact('today', 'products', 'processed'));
     }
 
     function store(Request $request)
@@ -32,16 +44,41 @@ class ShippingsController extends Controller
             'product' => 'required',
             'quantity' => 'required',
             'price' => 'required',
-            'amount' => 'required'
+            'amount' => 'required',
+            'pproducts' => 'sometimes|required'
         ]);
 
-        Shipping::create($request->all());
+        $shipping = Shipping::create($request->all());
 
-        $product = Product::find($request->product);
+        if ($request->product < 19) {
+            $product = Product::find($request->product);
 
-        $product->update([
-            'quantity' => $product->quantity + $request->quantity
-        ]);
+            $product->update([
+                'quantity' => $product->quantity + $request->quantity
+            ]);
+        } else {
+            $products = [];
+
+            for ($i = 0; $i < count($request->quantities); $i++) {
+                $product = [];
+                if($request->quantities[$i] > 0) {
+                    $product['i'] =  $request->pproducts[$i];
+                    $product['p'] =  $request->prices[$i];
+                    $product['q'] =  $request->quantities[$i];
+                    $product['t'] =  $request->totals[$i];
+                    array_push($products, $product);
+
+                    $pproduct = Product::find($request->pproducts[$i]);
+                    $pproduct->update([
+                        'quantity' => $pproduct->quantity + $request->quantities[$i]
+                    ]);
+                }
+            }
+
+            $shipping->update([
+                'processed' => serialize($products)
+            ]);
+        }
 
         return redirect('embarques');
     }

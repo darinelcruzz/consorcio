@@ -23778,7 +23778,8 @@ var app = new Vue({
         clients: [],
         client_id: '',
         checked: [],
-        price_id: ''
+        price_id: '',
+        shipp: ''
     },
     created: function created() {
         var _this = this;

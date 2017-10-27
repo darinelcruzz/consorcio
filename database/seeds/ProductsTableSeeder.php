@@ -76,11 +76,15 @@ class ProductsTableSeeder extends Seeder
             'processed' => 1,
         ]);
         factory(App\Product::class)->create([
-            'name' => 'Cerdo',
+            'name' => 'Alimento cerdo',
             'processed' => 2,
         ]);
         factory(App\Product::class)->create([
-            'name' => 'Pollo',
+            'name' => 'Alimento pollo',
+            'processed' => 2,
+        ]);
+        factory(App\Product::class)->create([
+            'name' => 'Procesado',
             'processed' => 2,
         ]);
     }
