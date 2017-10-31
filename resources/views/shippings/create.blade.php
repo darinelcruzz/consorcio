@@ -86,10 +86,10 @@
                                     {{ $product->name}}
                                 </td>
                                 <td>
-                                    {!! Field::number('quantities[]', 0, ['tpl' => 'templates/nolabel']) !!}
+                                    {!! Field::number('quantities[]', 0, ['tpl' => 'templates/nolabel', 'min' => '0', 'step' => '0.01']) !!}
                                 </td>
                                 <td>
-                                    {!! Field::number('prices[]', 0, ['tpl' => 'templates/nolabel']) !!}
+                                    {!! Field::number('prices[]', 0, ['tpl' => 'templates/nolabel', 'min' => '0', 'step' => '0.01']) !!}
                                 </td>
                             </tr>
                         @endforeach
