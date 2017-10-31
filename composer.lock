@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "eedac1312f468a3cc1b91f964550b214",
+    "content-hash": "65bd5c79108ec102a0dcfb7f579b3cf7",
     "packages": [
         {
             "name": "acacha/admin-lte-template-laravel",
@@ -4961,7 +4961,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.6.4"
+        "php": ">=7.0"
     },
     "platform-dev": []
 }
