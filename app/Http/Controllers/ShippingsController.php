@@ -50,7 +50,7 @@ class ShippingsController extends Controller
 
         $shipping = Shipping::create($request->all());
 
-        if ($request->product < 19) {
+        if ($request->product != 20) {
             $product = Product::find($request->product);
 
             $product->update([
