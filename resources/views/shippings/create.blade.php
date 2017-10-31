@@ -60,7 +60,7 @@
                         </div>
                     </div>
 
-                    <template v-if="shipp != 19">
+                    <template v-if="shipp != 20">
                         {!! Form::submit('Agregar', ['class' => 'btn btn-warning pull-right']) !!}
                     </template>
 
@@ -68,7 +68,7 @@
 
         </div>
 
-        <div v-if="shipp == 19" class="col-md-6">
+        <div v-if="shipp == 20" class="col-md-6">
             <solid-box title="Procesado" color="box-warning">
                 <table id="example6" class="table table-bordered table-striped">
                     <thead>
@@ -76,7 +76,6 @@
                             <th>Producto</th>
                             <th>Cajas</th>
                             <th>Precio</th>
-                            <th>Importe</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -91,9 +90,6 @@
                                 </td>
                                 <td>
                                     {!! Field::number('prices[]', 0, ['tpl' => 'templates/nolabel']) !!}
-                                </td>
-                                <td>
-                                    {!! Field::number('totals[]', 0, ['tpl' => 'templates/nolabel']) !!}
                                 </td>
                             </tr>
                         @endforeach

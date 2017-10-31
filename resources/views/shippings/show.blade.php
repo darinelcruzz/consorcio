@@ -12,7 +12,6 @@
                             <th>Producto</th>
                             <th>Precio</th>
                             <th>Cajas</th>
-                            <th>Importe</th>
                         </tr>
                     </thead>
 
@@ -22,7 +21,6 @@
                                 <td>{{ App\Product::find($product['i'])->name }}</td>
                                 <td>{{ '$ ' . number_format($product['p'], 2) }}</td>
                                 <td>{{ $product['q'] }}</td>
-                                <td>{{ $product['t'] }}</td>
                             </tr>
                         @endforeach
                     </tbody>

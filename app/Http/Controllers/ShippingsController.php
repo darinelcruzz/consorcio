@@ -65,7 +65,6 @@ class ShippingsController extends Controller
                     $product['i'] =  $request->pproducts[$i];
                     $product['p'] =  $request->prices[$i];
                     $product['q'] =  $request->quantities[$i];
-                    $product['t'] =  $request->totals[$i];
                     array_push($products, $product);
 
                     $pproduct = Product::find($request->pproducts[$i]);

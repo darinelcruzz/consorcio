@@ -27,7 +27,7 @@
         </td>
 
         <td>
-            <input class="form-control" type="number" name="packages[]" min="0" step="0.1""
+            <input class="form-control" type="number" name="packages[]" min="0" step="0.1"
                 style="width:85px;">
         </td>
 
@@ -53,7 +53,7 @@ export default {
           this.priceId = val;
         },
         product_id: function (val, oldVal) {
-            if(val > 8) {
+            if(val > 9) {
                 this.price = this.products[val - 4].price;
             } else {
                 this.price = this.products[val - 4].price[eval(this.priceId)];

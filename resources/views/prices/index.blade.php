@@ -4,15 +4,6 @@
     <div class="row">
         <div class="col-md-6">
 
-            <solid-box title="Cerdo" color="box-baby">
-                @foreach ($pork as $row)
-                    <li>{{ $row->name }}
-                        <span class="pull-right badge bg-baby">{{ $row->nicePrice }}</span>
-                        <span class="pull-right"><code>{{ $row->getdate('updated_at') }}</code></span>
-                    </li>
-                @endforeach
-            </solid-box>
-
             <solid-box title="Pollo fresco" color="box-warning">
                 @foreach ($fresh as $row)
                     <li>{{ $row->name }}
@@ -35,6 +26,15 @@
                 @foreach ($processed as $row)
                     <li>{{ $row->name }}
                         <span class="pull-right badge bg-green">{{ $row->nicePrice }}</span>
+                        <span class="pull-right"><code>{{ $row->getdate('updated_at') }}</code></span>
+                    </li>
+                @endforeach
+            </solid-box>
+
+            <solid-box title="Cerdo" color="box-baby">
+                @foreach ($pork as $row)
+                    <li>{{ $row->name }}
+                        <span class="pull-right badge bg-fuchsia">{{ $row->nicePrice }}</span>
                         <span class="pull-right"><code>{{ $row->getdate('updated_at') }}</code></span>
                     </li>
                 @endforeach

@@ -59,7 +59,9 @@
                         <div class="box-footer no-padding">
                             <ul class="nav nav-stacked">
                                 @foreach ($food as $product)
-                                    <li><a href="#">{{ $product->name }}<span class="pull-right badge bg-purple">{{ $product->quantity }}</span></a></li>
+                                    @if ($product->name != 'Procesado')
+                                        <li><a href="#">{{ $product->name }}<span class="pull-right badge bg-purple">{{ $product->quantity }}</span></a></li>
+                                    @endif
                                 @endforeach
                             </ul>
                         </div>

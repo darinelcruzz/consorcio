@@ -26,9 +26,9 @@ class Product extends Model
 
     function getPriceAloneAttribute()
     {
-        if ($this->id > 8) {
+        if ($this->id > 9) {
             $price = $this->prices->pluck('price')->toArray();
-            return $price[0];
+            return array_pop($price);
         }
 
         return Price::pricesForMany();

@@ -50,7 +50,7 @@ class ProcessedSale extends Model
         $fdate = new Date(strtotime($this->date));
         return $fdate->format('j/M/Y');
     }
-    
+
     function getDueDateAttribute()
     {
         $fdate = new Date(strtotime($this->date));
@@ -73,7 +73,7 @@ class ProcessedSale extends Model
 
                 $pproduct = Product::find($request->types[$i]);
                 $pproduct->update([
-                    'quantity' => $pproduct->quantity - $request->quantities[$i]
+                    'quantity' => $pproduct->quantity - $request->packages[$i]
                 ]);
             }
         }

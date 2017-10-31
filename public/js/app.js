@@ -24912,7 +24912,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.priceId = val;
         },
         product_id: function product_id(val, oldVal) {
-            if (val > 8) {
+            if (val > 9) {
                 this.price = this.products[val - 4].price;
             } else {
                 this.price = this.products[val - 4].price[eval(this.priceId)];
