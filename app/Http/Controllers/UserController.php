@@ -8,6 +8,13 @@ use App\User;
 
 class UserController extends Controller
 {
+	public function index()
+	{
+		$users = User::all();
+
+		return view('users.index', compact('users'));
+	}
+
 	public function create()
 	{
 		return view('users.create');
@@ -32,16 +39,6 @@ class UserController extends Controller
 			'user' => $request->user
 		]);
 
-    	return redirect(route('user.show'));
-    }
-
-    public function show()
-    {
-        $users = User::get([
-            'id', 'name', 'email', 'pass', 'level'
-        ]);
-
-
-        return view('users.show', compact('users'));
+    	return redirect(route('user.index'));
     }
 }

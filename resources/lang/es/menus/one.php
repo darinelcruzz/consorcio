@@ -90,9 +90,24 @@ return [
         'route' => 'price.index'
     ],
 
+    'users' => [
+        'title' => 'Usuarios',
+        'icon' => 'fa fa-user',
+        'submenu' => [
+            'index' => [
+                'title' => 'Listado',
+                'route' => 'user.index'
+            ],
+            'create' => [
+                'title' => 'Crear',
+                'route' => 'user.create'
+            ],
+        ]
+    ],
+
     'logout' => [
         'title' => 'Cerrar Sesión',
         'icon' => 'fa fa-sign-out',
-        'route' => 'home',
+        'route' => 'getout',
     ],
 ];
