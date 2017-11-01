@@ -23,7 +23,7 @@
             @foreach($shippings as $shipping)
                 <tr>
                     <td>{{ $shipping->id }}</td>
-                    <td>{{ $shipping->date }}</td>
+                    <td>{{ $shipping->short_date }}</td>
                     <td>{{ $shipping->provider }}</td>
                     <td>{{ $shipping->remission }}</td>
                     <td>

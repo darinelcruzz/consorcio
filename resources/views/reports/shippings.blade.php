@@ -48,34 +48,18 @@
                     <b>CONSORCIO <br> AVÍCOLA - PORCÍCOLA</b>
                 </h4>
             </div>
-            <div class="col-xs-3">
-                <h5 align="right">
-                    <br><br>{{ $range }}
-                </h5>
-            </div>
         </div>
         <hr>
         <div class="row">
             <div class="col-xs-12">
                 <h4 align="center">
-                    <b>{{ $client->name }}</b>
+                    <b>Embarques recibidos</b>
                 </h4>
             </div>
             <div class="col-xs-12">
-                <div class="col-xs-8">
-                    <address>
-                        <strong>{{ $client->address }}</strong><br>
-                        <b>Tel.:</b> {{ $client->phone }}<br>
-                        <b>Cel.:</b> {{ $client->cellphone }}<br>
-                    </address>
-                </div>
-                @if ($client->credit == 1)
-                    <div class="col-xs-4" align="right">
-                        <b>Saldo:</b> ${{ number_format($client->real_balance,2) }}<br>
-                        <b>Notas en deuda:</b> {{ number_format($client->unpaid_notes,0) }}<br>
-                        <b>Notas máximas:</b> {{ number_format($client->notes,0) }}<br>
-                    </div>
-                @endif
+                <h5 align="center">
+                    {{ $range }}
+                </h5>
             </div>
         </div>
 
@@ -85,48 +69,23 @@
                     <thead>
                         <tr>
                             <th width="15%">Fecha</th>
-                            <th width="12%">Folio</th>
-                            <th width="11%">Producto</th>
-                            <th width="11%">Estado</th>
-                            <th width="17%">Cant</th>
-                            <th width="17%">Kg</th>
-                            <th width="17%">Importe</th>
-
+                            <th width="15%">Tipo</th>
+                            <th width="20%">Cantidad</th>
+                            <th width="15%">Precio</th>
+                            <th width="35%">Observaciones</th>
                         </tr>
                     </thead>
-                    @php
-                        $totalQ = 0;
-                        $totalK = 0;
-                        $totalA = 0;
-                    @endphp
                     <tbody>
-                        @foreach ($sales as $row)
+                        @foreach ($shippings as $row)
                             <tr>
-                                <td>{{ $row->little_date }}</td>
-                                <td>{{ $row->folio }}</td>
-                                <td>{{ $row->type }}</td>
-                                <td>{{ $row->status }}</td>
-                                <td>{{ $row->quantity }}</td>
-                                <td>{{ $row->kg }}</td>
-                                <td>{{ $row->nice_amount }}</td>
+                                <td>{{ $row->short_date }}</td>
+                                <td>{{ $row->productr->name }}</td>
+                                <td>{{ $row->productr->processed == '2' ? number_format($row->quantity) . ' ton' : number_format($row->quantity) }}</td>
+                                <td>$ {{ number_format($row->price, 2) }}</td>
+                                <td>{{ $row->observations }}</td>
                             </tr>
-                            @php
-                                $totalQ += $row->quantity;
-                                $totalK += $row->kg;
-                                $totalA += $row->amount;
-                            @endphp
                         @endforeach
-
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="3"></td>
-                            <td><b>Total</b></td>
-                            <td><b>{{  number_format($totalQ,0) }}</b></td>
-                            <td><b>{{  number_format($totalK,0) }}</b></td>
-                            <td><b>${{ number_format($totalA,2) }}</b></td>
-                        </tr>
-                    </tfoot>
                 </table>
             </div>
         </div>

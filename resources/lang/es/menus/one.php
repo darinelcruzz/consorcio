@@ -84,6 +84,12 @@ return [
         ]
     ],
 
+    'reports' => [
+        'title' => 'Reportes',
+        'icon' => 'fa fa-line-chart',
+        'route' => 'report.menu'
+    ],
+
     'prices' => [
         'title' => 'Precios',
         'icon' => 'fa fa-dollar',

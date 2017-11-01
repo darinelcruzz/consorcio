@@ -42,7 +42,7 @@ $(function () {
       checkboxClass: 'icheckbox_flat-green',
       radioClass: 'iradio_flat-green'
     });
-    
+
     //Initialize Select2 Elements
     $(".select2").select2();
 
@@ -60,7 +60,13 @@ $(function () {
       "order":[[ 0 , "desc"]]
     });
     $("#example5").DataTable({
-      "order":[[ 0 , "asc"]]
+      "order":[[ 0 , "desc"]]
+    });
+    $("#ordered").DataTable({
+      "order":[[ 0 , "asc"]],
+      "searching":false,
+      "paging":false,
+      "info":false,
     });
 });
 </script>

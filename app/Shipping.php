@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Date\Date;
 
 class Shipping extends Model
 {
@@ -14,5 +15,11 @@ class Shipping extends Model
     function productr()
     {
         return $this->belongsTo(Product::class, 'product');
+    }
+
+    function getShortDateAttribute()
+    {
+        $fdate = new Date(strtotime($this->date));
+        return $fdate->format('D, j/M/Y');
     }
 }
