@@ -84,13 +84,13 @@
                 <table class="table" id="ordered">
                     <thead>
                         <tr>
-                            <th width="15%">Fecha</th>
-                            <th width="12%">Folio</th>
-                            <th width="11%">Producto</th>
-                            <th width="11%">Estado</th>
-                            <th width="17%">Cant</th>
-                            <th width="17%">Kg</th>
-                            <th width="17%">Importe</th>
+                            <th class="text-center" width="15%">Fecha</th>
+                            <th class="text-center" width="12%">Folio</th>
+                            <th class="text-center" width="11%">Producto</th>
+                            <th class="text-center" width="11%">Estado</th>
+                            <th class="text-center" width="17%">Cant</th>
+                            <th class="text-center" width="17%">Kg</th>
+                            <th class="text-center" width="17%">Importe</th>
 
                         </tr>
                     </thead>
@@ -102,13 +102,13 @@
                     <tbody>
                         @foreach ($sales as $row)
                             <tr>
-                                <td>{{ $row->little_date }}</td>
-                                <td>{{ $row->folio }}</td>
-                                <td>{{ $row->type }}</td>
-                                <td>{{ $row->status }}</td>
-                                <td>{{ $row->quantity }}</td>
-                                <td>{{ $row->kg }}</td>
-                                <td>{{ $row->nice_amount }}</td>
+                                <td align="center">{{ $row->little_date }}</td>
+                                <td align="center">{{ $row->folio }}</td>
+                                <td align="center">{{ $row->type }}</td>
+                                <td align="center">{{ $row->status }}</td>
+                                <td align="right">{{ $row->quantity }}</td>
+                                <td align="right">{{ $row->kg }}</td>
+                                <td align="right">{{ $row->nice_amount }}</td>
                             </tr>
                             @php
                                 $totalQ += $row->quantity;
@@ -122,9 +122,9 @@
                         <tr>
                             <td colspan="3"></td>
                             <td><b>Total</b></td>
-                            <td><b>{{  number_format($totalQ,0) }}</b></td>
-                            <td><b>{{  number_format($totalK,0) }}</b></td>
-                            <td><b>${{ number_format($totalA,2) }}</b></td>
+                            <td align="right"><b>{{  number_format($totalQ,0) }}</b></td>
+                            <td align="right"><b>{{  number_format($totalK,0) }}</b></td>
+                            <td align="right"><b>${{ number_format($totalA,2) }}</b></td>
                         </tr>
                     </tfoot>
                 </table>

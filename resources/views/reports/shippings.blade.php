@@ -70,9 +70,9 @@
                         <tr>
                             <th width="15%">Fecha</th>
                             <th width="15%">Tipo</th>
-                            <th width="20%">Cantidad</th>
+                            <th width="15%">Cantidad</th>
                             <th width="15%">Precio</th>
-                            <th width="35%">Observaciones</th>
+                            <th width="40%">Observaciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -80,8 +80,8 @@
                             <tr>
                                 <td>{{ $row->short_date }}</td>
                                 <td>{{ $row->productr->name }}</td>
-                                <td>{{ $row->productr->processed == '2' ? number_format($row->quantity) . ' ton' : number_format($row->quantity) }}</td>
-                                <td>$ {{ number_format($row->price, 2) }}</td>
+                                <td align="right">{{ $row->productr->processed == '2' ? number_format($row->quantity) . ' ton' : number_format($row->quantity) }}</td>
+                                <td align="right">$ {{ number_format($row->price, 2) }}</td>
                                 <td>{{ $row->observations }}</td>
                             </tr>
                         @endforeach

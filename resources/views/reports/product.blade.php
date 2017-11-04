@@ -68,24 +68,43 @@
                 <table class="table" id="ordered">
                     <thead>
                         <tr>
-                            <th width="30%">Cliente</th>
-                            <th width="20%">Ubicación</th>
-                            <th width="16%">Cantidad</th>
-                            <th width="16%">Kg</th>
-                            <th width="16%">Importe</th>
+                            <th class="text-center" width="35%" >Cliente</th>
+                            <th class="text-center" width="29%">Ubicación</th>
+                            <th class="text-center" width="12%">Cantidad</th>
+                            <th class="text-center" width="12%">Kg</th>
+                            <th class="text-center" width="12%">Importe</th>
                         </tr>
                     </thead>
+                    @php
+                        $totalQ = 0;
+                        $totalK = 0;
+                        $totalA = 0;
+                    @endphp
                     <tbody>
                         @foreach ($products as $row)
                             <tr>
                                 <td>{{ $row->client->name }}</td>
                                 <td>{{ $row->client->address }}</td>
-                                <td>{{ number_format($row->quantity) }}</td>
-                                <td>{{ number_format($row->kg) }}</td>
-                                <td>{{ $row->niceAmount }}</td>
+                                <td align="right">{{ number_format($row->totalQ) }}</td>
+                                <td align="right">{{ number_format($row->totalK) }}</td>
+                                <td align="right">${{ number_format($row->totalA,2) }}</td>
                             </tr>
+                            @php
+                            $totalQ += $row->totalQ;
+                            $totalK += $row->totalK;
+                            $totalA += $row->totalA;
+                            @endphp
                         @endforeach
-                    </tbody>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td><b>Total</b></td>
+                        <td align="right"><b>{{  number_format($totalQ,0) }}</b></td>
+                        <td align="right"><b>{{  number_format($totalK,0) }}</b></td>
+                        <td align="right"><b>${{ number_format($totalA,2) }}</b></td>
+                    </tr>
+                </tfoot>
                 </table>
             </div>
         </div>

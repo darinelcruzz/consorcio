@@ -53,16 +53,33 @@ class ReportController extends Controller
     function product(Request $request)
     {
         if ($request->product_id == 1) {
-            $products = PorkSale::whereBetween('date', [$request->startDate, $request->endDate])->get();
+            $products = PorkSale::whereBetween('date', [$request->startDate, $request->endDate])
+                ->groupBy('client_id')
+                ->selectRaw('client_id, SUM(quantity) as totalQ, SUM(kg) as totalK, SUM(amount) as totalA')
+                ->get();
             $product = 'Cerdo';
         }
         elseif ($request->product_id == 2) {
-            $products = FreshSale::whereBetween('date', [$request->startDate, $request->endDate])->get();
+            $products = FreshSale::whereBetween('date', [$request->startDate, $request->endDate])
+                ->groupBy('client_id')
+                ->selectRaw('client_id, SUM(quantity) as totalQ, SUM(kg) as totalK, SUM(amount) as totalA')
+                ->get();
             $product = 'Pollo Fresco';
         }
         elseif ($request->product_id == 3) {
-            $products = AliveSale::whereBetween('date', [$request->startDate, $request->endDate])->get();
+            $products = AliveSale::whereBetween('date', [$request->startDate, $request->endDate])
+                ->groupBy('client_id')
+                ->selectRaw('client_id, SUM(quantity) as totalQ, SUM(kg) as totalK, SUM(amount) as totalA')
+                ->get();
             $product = 'Pollo Vivo';
+        }
+        elseif ($request->product_id == 4) {
+            $products = ProcessedSale::whereBetween('date', [$request->startDate, $request->endDate])->get();
+            $product = 'No disponible';
+        }
+        elseif ($request->product_id == 5) {
+            $products = ProcessedSale::whereBetween('date', [$request->startDate, $request->endDate])->get();
+            $product = 'No disponible';
         }
 
         $start =new Date(strtotime($request->startDate));
