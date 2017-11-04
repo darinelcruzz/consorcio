@@ -81,4 +81,12 @@ class ProcessedSale extends Model
         $this->products = serialize($products);
         $this->save();
     }
+
+    function scopeSalesReport($query, $start, $end)
+    {
+        return $query->whereBetween('date', [$start, $end])
+                    ->groupBy('credit')
+                    ->selectRaw('SUM(quantity) as totalQ, SUM(kg) as totalK, SUM(amount) as totalA, credit')
+                    ->get();
+    }
 }

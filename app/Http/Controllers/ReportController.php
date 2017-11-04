@@ -19,9 +19,8 @@ class ReportController extends Controller
     {
         $date = Date::now()->format('Y-m-d');
         $clients = Client::all()->pluck('name', 'id');
-        $products = Product::where('id', '<', '17')->pluck('name', 'id');
 
-        return view('reports.menu', compact('date', 'clients', 'products'));
+        return view('reports.menu', compact('date', 'clients'));
     }
 
     function client(Request $request)
@@ -50,29 +49,36 @@ class ReportController extends Controller
         return view('reports.shippings', compact('shippings', 'range'));
     }
 
+    function sales(Request $request)
+    {
+        $alive = AliveSale::salesReport($request->startDate, $request->endDate);
+        $fresh = FreshSale::salesReport($request->startDate, $request->endDate);
+        $processed = ProcessedSale::salesReport($request->startDate, $request->endDate);
+        $pork = PorkSale::salesReport($request->startDate, $request->endDate);
+        $deposits = Deposit::salesReport($request->startDate, $request->endDate);
+
+        $start =new Date(strtotime($request->startDate));
+        $end =new Date(strtotime($request->endDate));
+        $range = $start->format('j/M/y'). ' - ' . $end->format('j/M/y');
+
+        return view('reports.sales', compact('alive', 'fresh', 'processed', 'pork', 'deposits','range'));
+    }
+
     function product(Request $request)
     {
         if ($request->product_id == 1) {
-            $products = PorkSale::whereBetween('date', [$request->startDate, $request->endDate])
-                ->groupBy('client_id')
-                ->selectRaw('client_id, SUM(quantity) as totalQ, SUM(kg) as totalK, SUM(amount) as totalA')
-                ->get();
+            $products = PorkSale::productReport($request->startDate, $request->endDate);
             $product = 'Cerdo';
         }
         elseif ($request->product_id == 2) {
-            $products = FreshSale::whereBetween('date', [$request->startDate, $request->endDate])
-                ->groupBy('client_id')
-                ->selectRaw('client_id, SUM(quantity) as totalQ, SUM(kg) as totalK, SUM(amount) as totalA')
-                ->get();
+            $products = FreshSale::productReport($request->startDate, $request->endDate);
             $product = 'Pollo Fresco';
         }
         elseif ($request->product_id == 3) {
-            $products = AliveSale::whereBetween('date', [$request->startDate, $request->endDate])
-                ->groupBy('client_id')
-                ->selectRaw('client_id, SUM(quantity) as totalQ, SUM(kg) as totalK, SUM(amount) as totalA')
-                ->get();
+            $products = AliveSale::productReport($request->startDate, $request->endDate);
             $product = 'Pollo Vivo';
         }
+
         elseif ($request->product_id == 4) {
             $products = ProcessedSale::whereBetween('date', [$request->startDate, $request->endDate])->get();
             $product = 'No disponible';

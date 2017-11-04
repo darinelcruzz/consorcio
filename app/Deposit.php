@@ -35,4 +35,10 @@ class Deposit extends Model
              return ProcessedSale::find($this->sale_id)->client->name;
          }
     }
+
+    function scopeSalesReport($query, $start, $end)
+    {
+        return $query->whereBetween('created_at', [$start . ' 00:00:00', $end. ' 23:59:59'])
+            ->sum('amount');
+    }
 }
