@@ -55,7 +55,8 @@ class ReportController extends Controller
         $fresh = FreshSale::salesReport($request->startDate, $request->endDate);
         $processed = ProcessedSale::salesReport($request->startDate, $request->endDate);
         $pork = PorkSale::salesReport($request->startDate, $request->endDate);
-        $deposits = Deposit::salesReport($request->startDate, $request->endDate);
+        $deposits = Deposit::whereBetween('created_at', [$request->startDate . ' 00:00:00', $request->endDate. ' 23:59:59'])
+            ->sum('amount');
 
         $start =new Date(strtotime($request->startDate));
         $end =new Date(strtotime($request->endDate));
