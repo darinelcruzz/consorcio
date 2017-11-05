@@ -22,7 +22,6 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'level' => '1',
         'password' => Hash::make('helefante'),
         'pass' => 'helefante',
-        'user' => '1',
         'remember_token' => str_random(10),
     ];
 });

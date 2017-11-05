@@ -8,7 +8,7 @@ class Client extends Model
 {
     protected $fillable = [
         'name', 'email', 'address', 'rfc', 'phone',
-        'cellphone', 'credit', 'notes', 'products'
+        'cellphone', 'credit', 'notes', 'products', 'days'
     ];
 
     function porksales()

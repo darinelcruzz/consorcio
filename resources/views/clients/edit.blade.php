@@ -26,6 +26,8 @@
                             <input type="checkbox" name="credit" value="1" checked> Sí <br>
                             Notas: <br>
                             <input type="number" name="notes" value="{{ $client->notes }}">
+                            <br>Días:<br>
+                            <input type="number" name="days" value="{{ $client->days }}">
                         </div>
                     @else
                         <div class="col-md-6">
@@ -33,6 +35,8 @@
                             <input type="checkbox" name="credit" value="1" v-model="checked"> Sí <br>
                             Notas: <br>
                             <input type="number" name="notes" :disabled="!checked.length">
+                            <br>Días: <br>
+                            <input type="number" name="days" :disabled="!checked.length">
                         </div>
                     @endif
                 </div>

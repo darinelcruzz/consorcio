@@ -22,8 +22,9 @@ class CreateClientsTable extends Migration
             $table->string('rfc')->unique()->nullable();
             $table->string('phone')->nullable();
             $table->string('cellphone')->nullable();
-            $table->integer('credit')->default(0);
-            $table->integer('notes')->default(0);
+            $table->integer('credit')->default(0)->nullable();
+            $table->integer('notes')->default(0)->nullable();
+            $table->integer('days')->default(0)->nullable();
             $table->string('products');
 
             $table->timestamps();

@@ -45,25 +45,17 @@
             </div>
             <div class="col-xs-5">
                 <h4 align="center">
-                    <b>CONSORCIO <br> AVÍCOLA - PORCÍCOLA</b>
+                    <b>{{ $client->name }}</b><br>
+                    {{ $range }}
                 </h4>
-            </div>
-            <div class="col-xs-3">
-                <h5 align="right">
-                    <br><br>{{ $range }}
-                </h5>
             </div>
         </div>
-        <hr>
+
         <div class="row">
-            <div class="col-xs-12">
-                <h4 align="center">
-                    <b>{{ $client->name }}</b>
-                </h4>
-            </div>
             <div class="col-xs-12">
                 <div class="col-xs-8">
                     <address>
+                        <br>
                         <strong>{{ $client->address }}</strong><br>
                         <b>Tel.:</b> {{ $client->phone }}<br>
                         <b>Cel.:</b> {{ $client->cellphone }}<br>
@@ -71,6 +63,7 @@
                 </div>
                 @if ($client->credit == 1)
                     <div class="col-xs-4" align="right">
+                        <br>
                         <b>Saldo:</b> ${{ number_format($client->real_balance,2) }}<br>
                         <b>Notas en deuda:</b> {{ number_format($client->unpaid_notes,0) }}<br>
                         <b>Notas máximas:</b> {{ number_format($client->notes,0) }}<br>

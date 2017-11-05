@@ -25,6 +25,8 @@
                         <input type="checkbox" name="credit" value="1" v-model="checked"> Sí <br>
                         Notas: <br>
                         <input type="number" name="notes" value="1" :disabled="!checked.length">
+                        <br>Días: <br>
+                        <input type="number" name="days" value="1" :disabled="!checked.length">
                     </div>
                 </div>
 

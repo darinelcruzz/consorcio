@@ -29,7 +29,8 @@ class ClientController extends Controller
             'phone' => $request->phone,
             'cellphone' => $request->cellphone,
             'products' => serialize($request->products),
-            'notes' => $request->notes ? $request->notes: 0,
+            'notes' => $request->notes ? $request->notes : 0,
+            'days' => $request->days ? $request->days : 0,
             'credit' => empty($request->credit) ? 0: 1,
         ]);
 
@@ -51,7 +52,8 @@ class ClientController extends Controller
             'phone' => $request->phone,
             'cellphone' => $request->cellphone,
             'products' => serialize($request->products),
-            'notes' => empty($request->credit) ? $request->notes: 0,
+            'notes' => !empty($request->credit) ? $request->notes : 0,
+            'days' => !empty($request->credit) ? $request->days : 0,
             'credit' => empty($request->credit) ? 0: 1,
         ]);
 

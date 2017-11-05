@@ -45,21 +45,9 @@
             </div>
             <div class="col-xs-5">
                 <h4 align="center">
-                    <b>CONSORCIO <br> AVÍCOLA - PORCÍCOLA</b>
-                </h4>
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-xs-12">
-                <h4 align="center">
-                    <b>Embarques recibidos</b>
-                </h4>
-            </div>
-            <div class="col-xs-12">
-                <h5 align="center">
+                    <b>Embarques recibidos</b><br>
                     {{ $range }}
-                </h5>
+                </h4>
             </div>
         </div>
 

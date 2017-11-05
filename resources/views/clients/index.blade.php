@@ -39,6 +39,8 @@
                                 {{ $product }}
                             @endif
                         @endforeach
+                        <br>
+                        Credito: {{ $client->credit == 1 ? 'Si Max: ' .  $client->notes  . ' Días ' . $client->days : 'No' }} 
                     </td>
                 </tr>
             @endforeach
