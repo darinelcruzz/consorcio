@@ -21,6 +21,11 @@ class ClientController extends Controller
 
     function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required|unique:clients',
+            'rfc' => 'unique:clients',
+        ]);
+        
         Client::create([
             'name' => $request->name,
             'email' => $request->email,
