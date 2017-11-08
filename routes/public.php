@@ -29,6 +29,7 @@ Route::get('clients', function()
             'name' => $client->name,
             'address' => $client->address,
             'notes' => $client->notes,
+            'credit' => $client->credit,
             'unpaid' => $client->unpaid_notes,
             'balance' => $client->balance,
         ];
@@ -37,7 +38,9 @@ Route::get('clients', function()
 
     }
 
-    return $clients;
+    $clients = collect($clients);
+
+    return $clients->keyBy('id');
 });
 
 Route::get('products', function () {

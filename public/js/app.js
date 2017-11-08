@@ -25406,7 +25406,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: ['clients', 'client'],
     watch: {
         client: function client(val, oldVal) {
-            if (this.clients[val - 1].unpaid >= this.clients[val - 1].notes && this.clients[val - 1].notes > 0) {
+            if (this.clients[val].unpaid >= this.clients[val].notes && this.clients[val].notes > 0) {
                 this.color = 'bg-red';
             } else {
                 this.color = 'bg-green';
@@ -44701,11 +44701,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     class: ['small-box', _vm.color]
   }, [(_vm.client > 0) ? _c('div', {
     staticClass: "inner"
-  }, [_c('h3', [_vm._v(_vm._s(_vm.clients[_vm.client - 1].name))]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.clients[_vm.client - 1].address))]), _vm._v(" "), (_vm.clients[_vm.client - 1].notes > 0) ? _c('h4', {
+  }, [_c('h3', [_vm._v(_vm._s(_vm.clients[_vm.client].name))]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.clients[_vm.client].address))]), _vm._v(" "), (_vm.clients[_vm.client].credit) ? _c('h4', {
     attrs: {
       "align": "right"
     }
-  }, [_vm._v("\n            Saldo: $ " + _vm._s(_vm.clients[_vm.client - 1].balance) + "   \n            Máximas:" + _vm._s(_vm.clients[_vm.client - 1].notes) + "   \n            En deuda: " + _vm._s(_vm.clients[_vm.client - 1].unpaid) + "\n        ")]) : _vm._e()]) : _vm._e(), _vm._v(" "), _vm._m(0)])
+  }, [_vm._v("\n            Saldo: $ " + _vm._s(_vm.clients[_vm.client].balance) + "   \n            Máximas:" + _vm._s(_vm.clients[_vm.client].notes) + "   \n            En deuda: " + _vm._s(_vm.clients[_vm.client].unpaid) + "\n        ")]) : _vm._e()]) : _vm._e(), _vm._v(" "), _vm._m(0)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "icon"
