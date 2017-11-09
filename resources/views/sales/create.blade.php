@@ -56,7 +56,7 @@
                     </div>
 
                     <div v-if="clients[client_id]" class="row">
-                        <div v-if="clients[client_id - 1].notes > 0"  class="col-md-6">
+                        <div v-if="clients[client_id].credit"  class="col-md-6">
                             {!! Field::select('credit', ['No', 'Semanal', 'Quince días'], null,
                                 ['tpl' => 'templates/withicon','empty' => '¿Se vende a crédito?'],
                                 ['icon' => 'credit-card-alt'])
