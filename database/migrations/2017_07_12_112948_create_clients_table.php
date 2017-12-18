@@ -19,7 +19,7 @@ class CreateClientsTable extends Migration
             $table->string('name')->unique()->nullable();
             $table->string('email')->nullable();
             $table->string('address')->nullable();
-            $table->string('rfc')->unique()->nullable();
+            $table->string('rfc')->nullable();
             $table->string('phone')->nullable();
             $table->string('cellphone')->nullable();
             $table->integer('credit')->default(0)->nullable();
