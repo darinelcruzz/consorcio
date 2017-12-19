@@ -9,7 +9,6 @@
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
-                <th>R.F.C.</th>
                 <th>Dirección</th>
                 <th>Productos</th>
             </tr>
@@ -29,7 +28,6 @@
                         {{ $client->phone }} <br>
                         {{ $client->cellphone or ''}}
                     </td>
-                    <td>{{ $client->rfc }}</td>
                     <td>{{ $client->address }}</td>
                     <td>
                         @foreach (unserialize($client->products) as $product)
@@ -40,7 +38,7 @@
                             @endif
                         @endforeach
                         <br>
-                        Credito: {{ $client->credit == 1 ? 'Si Max: ' .  $client->notes  . ' Días ' . $client->days : 'No' }} 
+                        Credito: {{ $client->credit == 1 ? 'Si Max: ' .  $client->notes  . ' Días ' . $client->days : 'No' }}
                     </td>
                 </tr>
             @endforeach
