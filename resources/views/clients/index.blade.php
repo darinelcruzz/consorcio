@@ -29,7 +29,9 @@
                         {{ $client->phone }} <br>
                         {{ $client->cellphone or ''}}
                     </td>
-                    
+                    <td>{{ $client->rfc }}</td>
+                    <td>{{ $client->address }}</td>
+
                 </tr>
             @endforeach
         </template>
