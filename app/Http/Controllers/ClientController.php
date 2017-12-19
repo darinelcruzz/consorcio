@@ -24,6 +24,7 @@ class ClientController extends Controller
         $this->validate($request, [
             'name' => 'required|unique:clients',
         ]);
+        
 
         Client::create([
             'name' => $request->name,
