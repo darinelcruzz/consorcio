@@ -19,6 +19,16 @@
             @foreach($clients as $client)
                 <tr>
                     <td>{{ $client->id }}</td>
+                    <td>
+                        <a href="{{ route('client.details', ['id' => $client->id])}}">{{ $client->name }}</a> &nbsp;
+                        <a href="{{ route('client.edit', ['id' => $client->id])}}"
+                            title="EDITAR">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a><br>
+                        {{ $client->email }} <br>
+                        {{ $client->phone }} <br>
+                        {{ $client->cellphone or ''}}
+                    </td>
                     
                 </tr>
             @endforeach
