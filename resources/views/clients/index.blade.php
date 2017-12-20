@@ -32,13 +32,17 @@
                     <td>{{ $client->rfc }}</td>
                     <td>{{ $client->address }}</td>
                     <td>
-                        @foreach (unserialize($client->products) as $product)
-                            @if (!$loop->last)
-                                {{ $product }},
-                            @else
-                                {{ $product }}
-                            @endif
-                        @endforeach
+                        @if ($client->products == 'N;')
+                            <span class="label label-danger">Sin producto</span>
+                        @else
+                            @foreach (unserialize($client->products) as $product)
+                                @if (!$loop->last)
+                                    {{ $product }},
+                                @else
+                                    {{ $product }}
+                                @endif
+                            @endforeach
+                        @endif
                         <br>
                         Credito: {{ $client->credit == 1 ? 'Si Max: ' .  $client->notes  . ' Días ' . $client->days : 'No' }}
                     </td>
