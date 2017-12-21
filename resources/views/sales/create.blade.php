@@ -31,12 +31,12 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            {!! Field::number('quantity', ['tpl' => 'templates/withicon', 'step' => '0.01'],
+                            {!! Field::number('quantity', ['tpl' => 'templates/withicon', 'step' => '0.01', 'min' => '0' ],
                                 ['icon' => 'list-ol']) !!}
                         </div>
 
                         <div class="col-md-6">
-                            {!! Field::number('kg', ['tpl' => 'templates/withicon', 'step' => '0.01'],
+                            {!! Field::number('kg', ['tpl' => 'templates/withicon', 'step' => '0.01', 'min' => '0' ],
                                 ['icon' => 'balance-scale']) !!}
                         </div>
                     </div>
@@ -50,7 +50,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            {!! Field::number('amount', ['tpl' => 'templates/withicon', 'step' => '0.01'],
+                            {!! Field::number('amount', ['tpl' => 'templates/withicon', 'step' => '0.01', 'min' => '0' ],
                                 ['icon' => 'usd']) !!}
                         </div>
                     </div>

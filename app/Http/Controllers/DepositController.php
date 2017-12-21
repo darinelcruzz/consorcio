@@ -38,9 +38,41 @@ class DepositController extends Controller
 
     function store(Request $request)
     {
-        $this->validate($request, ['amount' => 'required']);
+        $this->validate($request, [
+            'amount' => 'required'
+        ]);
 
-        $deposit = Deposit::create($request->all());
+        $deposit = Deposit::create($request->except(['dif']));
+
+        if ($request->amount == $request->dif) {
+
+            switch ($request->type) {
+                case 'vivo':
+                    AliveSale::find($request->sale_id)->update([
+                        'status'=> 'pagado'
+                    ]);
+                    break;
+                case 'fresco':
+                    FreshSale::find($request->sale_id)->update([
+                        'status'=> 'pagado'
+                    ]);
+                    break;
+                case 'cerdo':
+                    PorkSale::find($request->sale_id)->update([
+                        'status'=> 'pagado'
+                    ]);
+                    break;
+                case 'procesado':
+                    ProcessedSale::find($request->sale_id)->update([
+                        'status'=> 'pagado'
+                    ]);
+                    break;
+            }
+
+            AliveSale::find($request->sale_id)->update([
+                'status'=> 'pagado'
+            ]);
+        }
 
         return back();
     }
