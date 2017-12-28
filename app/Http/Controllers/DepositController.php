@@ -69,9 +69,6 @@ class DepositController extends Controller
                     break;
             }
 
-            AliveSale::find($request->sale_id)->update([
-                'status'=> 'pagado'
-            ]);
         }
 
         return back();

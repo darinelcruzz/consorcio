@@ -22,7 +22,7 @@
                 <td>{{ $sale->kg }}</td>
                 <td>{{ $sale->pricer->name }}</td>
                 <td>{{ $sale->nice_amount }}</td>
-                <td>{{ '$ ' . number_format($sale->amount - $sale->deposit_total, 2) }}</td>
+                <td>{{ $sale->credit == 0 ? 'Contado' : '$ ' . number_format($sale->amount - $sale->deposit_total, 2) }}</td>
                 <td>
                     @includeWhen($sale->status == 'credito' ,'clients/deposit')
                 </td>
