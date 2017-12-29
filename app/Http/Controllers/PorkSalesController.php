@@ -28,7 +28,8 @@ class PorkSalesController extends Controller
         $color = 'baby';
         $skin = 'pink';
         $lastSale = PorkSale::all()->last();
-        return view('sales.create', compact('clients', 'type', 'color', 'lastSale', 'skin', 'prices'));
+        $lastFolio = $this->getFolio();
+        return view('sales.create', compact('clients', 'type', 'color', 'lastSale', 'lastFolio', 'skin', 'prices'));
     }
 
     function store(StorePAFSale $request)
@@ -62,5 +63,19 @@ class PorkSalesController extends Controller
         $current = $former->quantity - $quantity;
 
         $former->update(['quantity' => $current]);
+    }
+
+    public function getFolio()
+    {
+        $lastQ = PorkSale::all()->last();
+        if ($lastQ) {
+            $lastY = fdate($lastQ->created_at, 'Y');
+            if(date('Y') != $lastY) {
+                return 0;
+            }
+            return $lastQ->folio;
+        }
+
+        return 0;
     }
 }

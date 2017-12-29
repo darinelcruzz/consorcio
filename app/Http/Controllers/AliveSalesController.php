@@ -26,9 +26,10 @@ class AliveSalesController extends Controller
         $prices = Price::pricesWithNames(3);
         $type = 'alive';
         $color = 'primary';
-        $lastSale = AliveSale::all()->last();
         $skin = 'blue';
-        return view('sales.create', compact('clients', 'type', 'color', 'lastSale', 'skin', 'prices'));
+        $lastSale = AliveSale::all()->last();
+        $lastFolio = $this->getFolio();
+        return view('sales.create', compact('clients', 'type', 'color', 'lastSale', 'lastFolio', 'skin', 'prices'));
     }
 
     function store(StorePAFSale $request)
@@ -61,5 +62,19 @@ class AliveSalesController extends Controller
         $current = $former->quantity - $quantity;
 
         $former->update(['quantity' => $current]);
+    }
+
+    public function getFolio()
+    {
+        $lastQ = AliveSale::all()->last();
+        if ($lastQ) {
+            $lastY = fdate($lastQ->created_at, 'Y');
+            if(date('Y') != $lastY) {
+                return 0;
+            }
+            return $lastQ->folio;
+        }
+
+        return 0;
     }
 }

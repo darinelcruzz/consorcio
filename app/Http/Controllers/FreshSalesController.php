@@ -26,7 +26,8 @@ class FreshSalesController extends Controller
         $type = 'fresh';
         $color = 'warning';
         $lastSale = FreshSale::all()->last();
-        return view('sales.create', compact('clients', 'type', 'color', 'lastSale', 'prices'));
+        $lastFolio = $this->getFolio();
+        return view('sales.create', compact('clients', 'type', 'color', 'lastSale', 'lastFolio', 'prices'));
     }
 
     function store(StorePAFSale $request)
@@ -60,5 +61,19 @@ class FreshSalesController extends Controller
         $current = $former->quantity - $quantity;
 
         $former->update(['quantity' => $current]);
+    }
+
+    public function getFolio()
+    {
+        $lastQ = FreshSale::all()->last();
+        if ($lastQ) {
+            $lastY = fdate($lastQ->created_at, 'Y');
+            if(date('Y') != $lastY) {
+                return 0;
+            }
+            return $lastQ->folio;
+        }
+
+        return 0;
     }
 }

@@ -28,7 +28,8 @@ class ProcessedSalesController extends Controller
         $color = 'success';
         $skin = 'green';
         $lastSale = ProcessedSale::all()->last();
-        return view('sales.create', compact('clients', 'type', 'color', 'lastSale', 'skin', 'products', 'prices'));
+        $lastFolio = $this->getFolio();
+        return view('sales.create', compact('clients', 'type', 'color', 'lastSale', 'lastFolio', 'skin', 'products', 'prices'));
     }
 
     function store(ProcessedRequest $request)
@@ -79,5 +80,19 @@ class ProcessedSalesController extends Controller
         }
 
         return $products;
+    }
+
+    public function getFolio()
+    {
+        $lastQ = ProcessedSale::all()->last();
+        if ($lastQ) {
+            $lastY = fdate($lastQ->created_at, 'Y');
+            if(date('Y') != $lastY) {
+                return 0;
+            }
+            return $lastQ->folio;
+        }
+
+        return 0;
     }
 }

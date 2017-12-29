@@ -6,7 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class AddUserToDepositsTable extends Migration
 {
-
     public function up()
     {
         Schema::table('deposits', function($table) {
