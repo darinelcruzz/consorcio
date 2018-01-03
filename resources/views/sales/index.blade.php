@@ -31,7 +31,6 @@
                 <tr>
                     <td>
                         {{ $sale->folio }}
-                        &nbsp;
                         @if ($sale->type == 'procesado')
                             <a href="{{ route('processed.show', ['id' => $sale->id])}}">
                                 <i class="fa fa-eye"></i>
