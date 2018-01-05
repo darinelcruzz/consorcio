@@ -95,4 +95,15 @@ class ProcessedSalesController extends Controller
 
         return 0;
     }
+
+    function discard($folio)
+    {
+        ProcessedSale::create([
+            'folio' => $folio,
+            'client_id' => 0,
+            'status' => 'cancelada',
+        ]);
+
+        return redirect('ventas/procesado');
+    }
 }

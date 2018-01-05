@@ -76,4 +76,15 @@ class FreshSalesController extends Controller
 
         return 0;
     }
+
+    function discard($folio)
+    {
+        FreshSale::create([
+            'folio' => $folio,
+            'client_id' => 0,
+            'status' => 'cancelada',
+        ]);
+
+        return redirect('ventas/fresco');
+    }
 }

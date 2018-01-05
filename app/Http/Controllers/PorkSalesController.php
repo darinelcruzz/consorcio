@@ -78,4 +78,15 @@ class PorkSalesController extends Controller
 
         return 0;
     }
+
+    function discard($folio)
+    {
+        PorkSale::create([
+            'folio' => $folio,
+            'client_id' => 0,
+            'status' => 'cancelada',
+        ]);
+
+        return redirect('ventas/cerdo');
+    }
 }

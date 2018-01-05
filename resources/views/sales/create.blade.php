@@ -13,6 +13,10 @@
                         ['tpl' => 'templates/withicon', 'empty' => 'Seleccione un cliente', 'v-model' => 'client_id'],
                         ['icon' => 'user'])
                     !!}
+                    <!--select2 v-model="client_id" :options="clients2" style="width:100%">
+                        <option value="0">Seleccione un cliente</option>
+                    </select2>
+                    <br><br-->
                     <div class="row">
                         <div class="col-md-6">
                             {!! Field::number('folio', $lastSale ? $lastFolio + 1: 1,
@@ -65,6 +69,12 @@
                         <input v-else type="hidden" name="credit" value="0">
                     </div>
 
+                    <div class="row">
+                        <div class="col-md-12">
+                            {!! Field::text('observations', ['tpl' => 'templates/withicon'], ['icon' => 'eye']) !!}
+                        </div>
+                    </div>
+
                     @if ($type == 'processed')
                         <div class="row">
                             <div class="col-md-6">
@@ -110,9 +120,9 @@
                     <div class="box-body">
                       <dl class="dl-horizontal">
                         <dt>Cliente</dt>
-                        <dd>{{ $lastSale->client->name }}</dd>
+                        <dd>{{ $lastSale->client->name or 'Cancelada'}}</dd>
                         <dt>Folio</dt>
-                        <dd>{{ $lastSale->id }}</dd>
+                        <dd>{{ $lastSale->folio }}</dd>
                         <dt>Fecha</dt>
                         <dd>{{ $lastSale->date }}</dd>
                         <dt>Precio</dt>
@@ -120,11 +130,17 @@
                         <dt>Cantidad</dt>
                         <dd>{{ $lastSale->quantity }}</dd>
                         <dt>Importe</dt>
-                        <dd>$ {{ $lastSale->amount }}</dd>
+                        <dd>$ {{ $lastSale->amount or '0.00' }}</dd>
                       </dl>
                     </div><!-- /.box-body -->
                 </div><!-- /.box -->
             @endif
+
+            <hr>
+
+            <a href="{{ route("$type.discard", ['folio' => $lastFolio + 1]) }}" class="btn btn-danger pull-left">
+                CANCELAR FOLIO
+            </a>
 
         </div>
 

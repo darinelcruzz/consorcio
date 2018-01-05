@@ -77,4 +77,15 @@ class AliveSalesController extends Controller
 
         return 0;
     }
+
+    function discard($folio)
+    {
+        AliveSale::create([
+            'folio' => $folio,
+            'client_id' => 0,
+            'status' => 'cancelada',
+        ]);
+
+        return redirect('ventas/vivo');
+    }
 }

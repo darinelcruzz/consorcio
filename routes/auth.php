@@ -51,6 +51,11 @@ Route::post('ventas/cerdo/agregar', [
     'as' => 'pork.store'
 ]);
 
+Route::get('ventas/cerdo/descartar/{folio}', [
+    'uses' => 'PorkSalesController@discard',
+    'as' => 'pork.discard'
+]);
+
 Route::get('ventas/vivo', [
     'uses' => 'AliveSalesController@index',
     'as' => 'alive.index'
@@ -64,6 +69,11 @@ Route::get('ventas/vivo/agregar', [
 Route::post('ventas/vivo/agregar', [
     'uses' => 'AliveSalesController@store',
     'as' => 'alive.store'
+]);
+
+Route::get('ventas/vivo/descartar/{folio}', [
+    'uses' => 'AliveSalesController@discard',
+    'as' => 'alive.discard'
 ]);
 
 Route::get('ventas/fresco', [
@@ -81,6 +91,11 @@ Route::post('ventas/fresco/agregar', [
     'as' => 'fresh.store'
 ]);
 
+Route::get('ventas/fresco/descartar/{folio}', [
+    'uses' => 'FreshSalesController@discard',
+    'as' => 'fresh.discard'
+]);
+
 Route::get('ventas/procesado', [
     'uses' => 'ProcessedSalesController@index',
     'as' => 'processed.index'
@@ -94,6 +109,11 @@ Route::get('ventas/procesado/agregar', [
 Route::post('ventas/procesado/agregar', [
     'uses' => 'ProcessedSalesController@store',
     'as' => 'processed.store'
+]);
+
+Route::get('ventas/procesado/descartar/{folio}', [
+    'uses' => 'ProcessedSalesController@discard',
+    'as' => 'processed.discard'
 ]);
 
 Route::get('ventas/procesado/detalles/{processedsale}', [

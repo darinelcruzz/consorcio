@@ -23,6 +23,7 @@
                 <th>Importe</th>
                 <th>Crédito</th>
                 <th>Estado</th>
+                <th>Observaciones</th>
             </tr>
         </template>
 
@@ -38,13 +39,20 @@
                         @endif
                     </td>
                     <td>{{ $sale->shortDate }}</td>
-                    <td><a href="{{ route('client.details', ['id' => $sale->client->id]) }}">{{ $sale->client->name }}</a></td>
+                    <td>
+                        @if ($sale->client_id)
+                            <a href="{{ route('client.details', ['id' => $sale->client->id]) }}">{{ $sale->client->name }}</a>
+                        @else
+                            N/A
+                        @endif
+                    </td>
                     <td>{{ $sale->quantity }}</td>
                     <td>{{ $sale->kg }}</td>
-                    <td>{{ $sale->pricer->name }}</td>
+                    <td>{{ $sale->pricer->name or '' }}</td>
                     <td>{{ $sale->niceAmount }}</td>
                     <td>{{ $sale->credit ? "$sale->days días": 'NO'}}</td>
                     <td>{{ $sale->status }}</td>
+                    <td>{{ $sale->observations }}</td>
                 </tr>
             @endforeach
         </template>

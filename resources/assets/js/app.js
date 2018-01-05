@@ -26,11 +26,14 @@ Vue.component('data-table-com', require('./components/lte/SmallDataTable.vue'));
 Vue.component('nav-tabs', require('./components/lte/NavTabsPane.vue'));
 Vue.component('client-info', require('./components/lte/ClientInfo.vue'));
 
+Vue.component('select2', require('./components/SelectTwo.vue'));
+
 
 const app = new Vue({
     el: '#app',
     data: {
         clients: [],
+        clients2: [],
         client_id: '',
         checked: [],
         price_id: '',
@@ -39,6 +42,10 @@ const app = new Vue({
     created() {
         axios.get('/clients').then(response => {
             this.clients = response.data;
+        });
+
+        axios.get('/clients2').then(response => {
+            this.clients2 = response.data;
         });
     }
 

@@ -43,6 +43,26 @@ Route::get('clients', function()
     return $clients->keyBy('id');
 });
 
+Route::get('clients2', function()
+{
+    $all = App\Client::all();
+
+    $clients = [];
+
+    foreach ($all as $client) {
+
+        $client = [
+            'id' => $client->id,
+            'text' => $client->name,
+        ];
+
+        array_push($clients, (object) $client);
+
+    }
+
+    return $clients;
+});
+
 Route::get('products', function () {
     $all = \App\Product::where('processed', 1)->get();
 
