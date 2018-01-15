@@ -89,4 +89,11 @@ class ProcessedSale extends Model
                     ->selectRaw('SUM(quantity) as totalQ, SUM(kg) as totalK, SUM(amount) as totalA, credit')
                     ->get();
     }
+
+    function scopeRankReport($query, $start, $end)
+    {
+        return $query->whereBetween('date', [$start, $end])
+                    ->where('price', '!=', 23)
+                    ->get();
+    }
 }

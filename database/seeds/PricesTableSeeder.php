@@ -122,5 +122,23 @@ class PricesTableSeeder extends Seeder
             'price' => 44,
             'processed' => 1,
         ]);
+        factory(App\Price::class)->create([
+            'name' => 'Tzimol',
+            'product_id' => 2,
+            'price' => 39,
+            'processed' => 0,
+        ]);
+        factory(App\Price::class)->create([
+            'name' => 'Carmen-xhan',
+            'product_id' => 2,
+            'price' => 40,
+            'processed' => 0,
+        ]);
+        factory(App\Price::class)->create([
+            'name' => 'Cortes',
+            'product_id' => 4,
+            'price' => 40,
+            'processed' => 1,
+        ]);
     }
 }

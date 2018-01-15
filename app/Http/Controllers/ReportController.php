@@ -67,6 +67,10 @@ class ReportController extends Controller
 
     function product(Request $request)
     {
+        $start =new Date(strtotime($request->startDate));
+        $end =new Date(strtotime($request->endDate));
+        $range = $start->format('j/M/y'). ' - ' . $end->format('j/M/y');
+
         if ($request->product_id == 1) {
             $products = PorkSale::productReport($request->startDate, $request->endDate);
             $product = 'Cerdo';
@@ -81,17 +85,20 @@ class ReportController extends Controller
         }
 
         elseif ($request->product_id == 4) {
-            $products = ProcessedSale::whereBetween('date', [$request->startDate, $request->endDate])->get();
+            $sales = ProcessedSale::productReport($request->startDate, $request->endDate);
+                foreach ($sales as $sale) {
+                    dd($sale);
+                }
             $product = 'No disponible';
+
+            return view('reports.product', compact('products', 'product', 'range'));
         }
         elseif ($request->product_id == 5) {
             $products = ProcessedSale::whereBetween('date', [$request->startDate, $request->endDate])->get();
             $product = 'No disponible';
         }
 
-        $start =new Date(strtotime($request->startDate));
-        $end =new Date(strtotime($request->endDate));
-        $range = $start->format('j/M/y'). ' - ' . $end->format('j/M/y');
+
 
         return view('reports.product', compact('products', 'product', 'range'));
     }
