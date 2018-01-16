@@ -71,17 +71,14 @@
                         $totalA = 0;
                     @endphp
                     <tbody>
-                        @foreach ($bigG->toArray() as $row)
-                            {{ dd($row) }}
-                            @foreach ($row as $sale)
-                                <tr>
-                                    <td>{{ App\Client::find($sale['client'])->name }}</td>
-                                    <td>{{ App\Client::find($sale['client'])->address }}</td>
-                                    <td align="right">{{ $sale['quantity'] }}</td>
-                                    <td align="right">{{ $sale['kg'] }}</td>
-                                    <td align="right">$ {{ number_format($sale['amount'],2) }}</td>
-                                </tr>
-                            @endforeach
+                        @foreach ($bigG->toArray() as $client_id => $kaq)
+                            <tr>
+                                <td>{{ App\Client::find($client_id)->name }}</td>
+                                <td>{{ App\Client::find($client_id)->address }}</td>
+                                <td align="right">{{ collect($kaq)->sum('quantity') }}</td>
+                                <td align="right">{{ collect($kaq)->sum('kg') }}</td>
+                                <td align="right">$ {{ number_format(collect($kaq)->sum('amount'), 2) }}</td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
