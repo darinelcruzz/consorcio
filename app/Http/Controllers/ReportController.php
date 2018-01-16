@@ -85,13 +85,51 @@ class ReportController extends Controller
         }
 
         elseif ($request->product_id == 4) {
-            $sales = ProcessedSale::productReport($request->startDate, $request->endDate);
-                foreach ($sales as $sale) {
-                    dd($sale);
+            $sales = ProcessedSale::rankReport($request->startDate, $request->endDate);
+            $big = $medium = $small = $petit = $junior = $mini = [];
+            foreach ($sales as $sale) {
+                foreach (unserialize($sale->products) as $product) {
+                    switch ($product['i']) {
+                        case '4':
+                            array_push($big, ['client' => $sale->client_id, 'quantity' => $product['b'], 'kg' => $product['q'], 'amount' => $product['p'] * $product['b']]);
+                            break;
+                        case '5':
+                            array_push($medium, ['client' => $sale->client_id, 'quantity' => $product['b'], 'kg' => $product['q'], 'amount' => $product['p'] * $product['b']]);
+                            break;
+                        case '6':
+                            array_push($small, ['client' => $sale->client_id, 'quantity' => $product['b'], 'kg' => $product['q'], 'amount' => $product['p'] * $product['b']]);
+                            break;
+                        case '7':
+                            array_push($junior, ['client' => $sale->client_id, 'quantity' => $product['b'], 'kg' => $product['q'], 'amount' => $product['p'] * $product['b']]);
+                            break;
+                        case '8':
+                            array_push($petit, ['client' => $sale->client_id, 'quantity' => $product['b'], 'kg' => $product['q'], 'amount' => $product['p'] * $product['b']]);
+                            break;
+                        case '9':
+                            array_push($mini, ['client' => $sale->client_id, 'quantity' => $product['b'], 'kg' => $product['q'], 'amount' => $product['p'] * $product['b']]);
+                            break;
+                    }
                 }
-            $product = 'No disponible';
+            }
+            $bigC = collect($big);
+            $mediumC = collect($medium);
+            $smallC = collect($small);
+            $juniorC = collect($junior);
+            $petitC = collect($petit);
+            $miniC = collect($mini);
 
-            return view('reports.product', compact('products', 'product', 'range'));
+            $bigG = $bigC->groupBy('client');
+            $mediumG = $mediumC->groupBy('client');
+            $smallG = $smallC->groupBy('client');
+            $juniorG = $juniorC->groupBy('client');
+            $petitG = $petitC->groupBy('client');
+            $miniG = $miniC->groupBy('client');
+
+            //dd($bigG);
+
+            $product = 'Rangos';
+
+            return view('reports.ranks', compact('bigG', 'product', 'range'));
         }
         elseif ($request->product_id == 5) {
             $products = ProcessedSale::whereBetween('date', [$request->startDate, $request->endDate])->get();

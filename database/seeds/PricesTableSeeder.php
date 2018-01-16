@@ -137,7 +137,7 @@ class PricesTableSeeder extends Seeder
         factory(App\Price::class)->create([
             'name' => 'Cortes',
             'product_id' => 4,
-            'price' => 40,
+            'price' => 0,
             'processed' => 1,
         ]);
     }
