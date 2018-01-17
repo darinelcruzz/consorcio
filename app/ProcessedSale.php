@@ -68,6 +68,7 @@ class ProcessedSale extends Model
                 $product['i'] =  $request->types[$i];
                 $product['p'] =  $request->prices[$i];
                 $product['q'] =  $request->quantities[$i];
+                $product['k'] =  $request->kgs[$i];
                 $product['b'] =  $request->packages[$i];
                 array_push($products, $product);
 

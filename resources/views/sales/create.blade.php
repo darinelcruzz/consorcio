@@ -4,7 +4,7 @@
 
     <div class="row">
 
-        <div class="col-md-6">
+        <div class="col-md-7">
 
             <solid-box title="Introduzca los datos de la venta"
                 color="box-{{ $color }}">
@@ -105,7 +105,7 @@
 
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-5">
 
             <client-info :clients="clients" :client="client_id"></client-info>
 

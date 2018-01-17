@@ -34,7 +34,7 @@ class ProcessedSalesController extends Controller
 
     function store(ProcessedRequest $request)
     {
-        $sale = ProcessedSale::create($request->except(['types', 'quantities', 'prices', 'packages']));
+        $sale = ProcessedSale::create($request->except(['types', 'quantities', 'prices', 'packages', 'kgs']));
 
         $sale->storeProducts($request);
 

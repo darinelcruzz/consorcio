@@ -12,6 +12,7 @@
                             <th>Producto</th>
                             <th>Precio</th>
                             <th>Cantidad</th>
+                            <th>Kg</th>
                             <th>Cajas</th>
                         </tr>
                     </thead>
@@ -22,6 +23,7 @@
                                 <td>{{ App\Product::find($product['i'])->name }}</td>
                                 <td>{{ '$ ' . number_format($product['p'], 2) }}</td>
                                 <td>{{ $product['q'] }}</td>
+                                <td>{{ $product['k'] or 0 }}</td>
                                 <td>{{ $product['b'] }}</td>
                             </tr>
                         @endforeach

@@ -24,8 +24,9 @@ export default {
             header: [
                 { name:'#', width: 'width: 5%' },
                 { name:'Producto', width: 'width: 35%' },
-                { name:'Precio', width: 'width: 20%' },
-                { name:'Cantidad', width: 'width: 20%' },
+                { name:'Precio', width: 'width: 15%' },
+                { name:'Cantidad', width: 'width: 15%' },
+                { name:'Kg', width: 'width: 15%' },
                 { name:'Cajas', width: 'width: 15%' },
             ],
             products: [],

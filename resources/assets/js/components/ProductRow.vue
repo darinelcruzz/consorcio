@@ -6,7 +6,7 @@
         <td>
             <div class="form-group">
                 <select class="form-control" name="types[]" v-model="product_id">
-                    <option value="3" selected>Seleccione un producto</option>
+                    <option value="3" selected>Producto</option>
                     <option v-for="product in products" :value="product.id">
                         {{ product.name }}
                     </option>
@@ -16,12 +16,19 @@
 
         <td>
             <input type="hidden" name="prices[]" :value="price">
-            {{ price }}
+            <span class="pull-right">$ {{ price }}</span>
         </td>
 
         <td align="center">
             <div class="form-group">
                 <input class="form-control" type="number" name="quantities[]" min="0" step="0.1"
+                    style="width:85px;">
+            </div>
+        </td>
+
+        <td align="center">
+            <div class="form-group">
+                <input class="form-control" type="number" name="kgs[]" min="0" step="0.1"
                     style="width:85px;">
             </div>
         </td>

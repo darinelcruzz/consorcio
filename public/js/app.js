@@ -24900,6 +24900,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -24961,7 +24968,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            header: [{ name: '#', width: 'width: 5%' }, { name: 'Producto', width: 'width: 35%' }, { name: 'Precio', width: 'width: 20%' }, { name: 'Cantidad', width: 'width: 20%' }, { name: 'Cajas', width: 'width: 15%' }],
+            header: [{ name: '#', width: 'width: 5%' }, { name: 'Producto', width: 'width: 35%' }, { name: 'Precio', width: 'width: 15%' }, { name: 'Cantidad', width: 'width: 15%' }, { name: 'Kg', width: 'width: 15%' }, { name: 'Cajas', width: 'width: 15%' }],
             products: []
         };
     },
@@ -44936,7 +44943,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": "3",
       "selected": ""
     }
-  }, [_vm._v("Seleccione un producto")]), _vm._v(" "), _vm._l((_vm.products), function(product) {
+  }, [_vm._v("Producto")]), _vm._v(" "), _vm._l((_vm.products), function(product) {
     return _c('option', {
       domProps: {
         "value": product.id
@@ -44950,7 +44957,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "value": _vm.price
     }
-  }), _vm._v("\n        " + _vm._s(_vm.price) + "\n    ")]), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1)])
+  }), _vm._v(" "), _c('span', {
+    staticClass: "pull-right"
+  }, [_vm._v("$ " + _vm._s(_vm.price))])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('td', {
     attrs: {
@@ -44966,6 +44975,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "number",
       "name": "quantities[]",
+      "min": "0",
+      "step": "0.1"
+    }
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('td', {
+    attrs: {
+      "align": "center"
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('input', {
+    staticClass: "form-control",
+    staticStyle: {
+      "width": "85px"
+    },
+    attrs: {
+      "type": "number",
+      "name": "kgs[]",
       "min": "0",
       "step": "0.1"
     }
