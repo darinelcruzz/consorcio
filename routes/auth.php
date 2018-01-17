@@ -121,6 +121,16 @@ Route::get('ventas/procesado/detalles/{processedsale}', [
     'as' => 'processed.show'
 ]);
 
+Route::get('ventas/procesado/detalles/{processedsale}/editar', [
+    'uses' => 'ProcessedSalesController@editKg',
+    'as' => 'processed.editKg'
+]);
+
+Route::post('ventas/procesado/guardar/kilogramos', [
+    'uses' => 'ProcessedSalesController@storeKg',
+    'as' => 'processed.storeKg'
+]);
+
 // Deposits
 Route::get('abonos', [
     'uses' => 'DepositController@index',

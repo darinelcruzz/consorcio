@@ -106,4 +106,40 @@ class ProcessedSalesController extends Controller
 
         return redirect('ventas/procesado');
     }
+
+    function editKg(ProcessedSale $processedsale)
+    {
+        $type = 'processed';
+        $color = 'success';
+        $skin = 'green';
+        return view('sales.edit_kg', compact('processedsale', 'type', 'color', 'skin'));
+    }
+
+    function storeKg(Request $request)
+    {
+        $this->validate($request, [
+            'kgs' => 'required'
+        ]);
+
+        $sale = ProcessedSale::find($request->id);
+
+        $products = [];
+        $old = unserialize($sale->products);
+
+        for ($i = 0; $i < count($request->kgs); $i++) {
+            $new = [];
+            $new['i'] =  $old[$i]['i'];
+            $new['p'] =  $old[$i]['p'];
+            $new['q'] =  $old[$i]['q'];
+            $new['k'] =  $request->kgs[$i];
+            $new['b'] =  $old[$i]['b'];
+            array_push($products, $new);
+        }
+
+        $sale->update([
+            'products' => serialize($products)
+        ]);
+        
+        return redirect(route('processed.show', ['processedsale' => $request->id]));
+    }
 }
