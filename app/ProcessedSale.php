@@ -90,7 +90,7 @@ class ProcessedSale extends Model
                     ->get();
     }
 
-    function scopeRankReport($query, $start, $end)
+    function scopeRangeReport($query, $start, $end)
     {
         return $query->whereBetween('date', [$start, $end])
                     ->where('price', '!=', 23)

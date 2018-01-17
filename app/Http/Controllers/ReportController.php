@@ -85,7 +85,7 @@ class ReportController extends Controller
         }
 
         elseif ($request->product_id == 4) {
-            $sales = ProcessedSale::rankReport($request->startDate, $request->endDate);
+            $sales = ProcessedSale::rangeReport($request->startDate, $request->endDate);
             $big = $medium = $small = $junior = $petit = $mini = [];
             foreach ($sales as $sale) {
                 foreach (unserialize($sale->products) as $product) {
@@ -128,7 +128,7 @@ class ReportController extends Controller
             $data = ['Grande' => $bigG, 'Mediano' => $mediumG, 'Chico' => $smallG, 'Junior' => $juniorG, 'Petit' => $petitG, 'Mini' => $miniG];
             $product = 'Rangos';
 
-            return view('reports.ranks', compact('product', 'data', 'range'));
+            return view('reports.range', compact('product', 'data', 'range'));
         }
         elseif ($request->product_id == 5) {
             $products = ProcessedSale::whereBetween('date', [$request->startDate, $request->endDate])->get();
