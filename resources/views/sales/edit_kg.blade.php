@@ -25,7 +25,7 @@
                                 <td>{{ '$ ' . number_format($product['p'], 2) }}</td>
                                 <td>{{ $product['q'] }}</td>
                                 <td>
-                                  <input type="number" name="kgs[]" value="{{ $product['k'] or 0 }}" min="0" step="0.1">
+                                  <input type="number" name="kgs[]" value="{{ $product['k'] or 0 }}" min="0" step="0.01">
                                 </td>
                                 <td>{{ $product['b'] }}</td>
                             </tr>
