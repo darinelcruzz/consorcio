@@ -1542,9 +1542,6 @@ a:focus {
 .box.box-success {
   border-top-color: #00a65a;
 }
-.box.box-baby {
-  border-top-color: #ee76a0;
-}
 .box.box-default {
   border-top-color: #d2d6de;
 }
@@ -1649,18 +1646,6 @@ a:focus {
 }
 .box.box-solid.box-success > .box-header a,
 .box.box-solid.box-success > .box-header .btn {
-  color: #fff;
-}
-.box.box-solid.box-baby {
-  border: 1px solid #ee76a0;
-}
-.box.box-solid.box-baby > .box-header {
-  color: #fff;
-  background: #ee76a0;
-  background-color: #ee76a0;
-}
-.box.box-solid.box-baby > .box-header a,
-.box.box-solid.box-baby > .box-header .btn {
   color: #fff;
 }
 .box.box-solid > .box-header > .box-tools .btn {
@@ -1933,9 +1918,6 @@ a:focus {
 }
 .todo-list .success {
   border-left-color: #00a65a;
-}
-.todo-list .baby {
-  border-left-color: #ee76a0;
 }
 .todo-list .primary {
   border-left-color: #3c8dbc;

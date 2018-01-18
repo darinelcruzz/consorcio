@@ -44976,7 +44976,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "number",
       "name": "quantities[]",
       "min": "0",
-      "step": "0.1"
+      "step": "0.01"
     }
   })])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -44995,7 +44995,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "number",
       "name": "kgs[]",
       "min": "0",
-      "step": "0.1"
+      "step": "0.01"
     }
   })])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -45008,7 +45008,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "number",
       "name": "packages[]",
       "min": "0",
-      "step": "0.1"
+      "step": "0.01"
     }
   })])
 }]}

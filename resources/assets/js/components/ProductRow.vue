@@ -21,20 +21,20 @@
 
         <td align="center">
             <div class="form-group">
-                <input class="form-control" type="number" name="quantities[]" min="0" step="0.1"
+                <input class="form-control" type="number" name="quantities[]" min="0" step="0.01"
                     style="width:85px;">
             </div>
         </td>
 
         <td align="center">
             <div class="form-group">
-                <input class="form-control" type="number" name="kgs[]" min="0" step="0.1"
+                <input class="form-control" type="number" name="kgs[]" min="0" step="0.01"
                     style="width:85px;">
             </div>
         </td>
 
         <td>
-            <input class="form-control" type="number" name="packages[]" min="0" step="0.1"
+            <input class="form-control" type="number" name="packages[]" min="0" step="0.01"
                 style="width:85px;">
         </td>
 

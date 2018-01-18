@@ -60,7 +60,7 @@ Route::group(['prefix' => 'credito', 'as' => 'deposit.'], function () {
 
     Route::get('/', usesas($ctrl, 'credits'));
     Route::get('abonos', usesas($ctrl, 'index'));
-    Route::get('abonar', usesas($ctrl, 'store'));
+    Route::post('abonar', usesas($ctrl, 'store'));
     Route::get('detalles/{type}/{id}/{amount}', usesas($ctrl, 'details'));
 });
 
