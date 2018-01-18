@@ -27,10 +27,10 @@ class DepositController extends Controller
 
     function credits()
     {
-        $alive = AliveSale::all();
-        $fresh = FreshSale::all();
-        $pork = PorkSale::all();
-        $processed = ProcessedSale::all();
+        $alive = AliveSale::where('status', '!=', 'cancelada')->get();
+        $fresh = FreshSale::where('status', '!=', 'cancelada')->get();
+        $pork = PorkSale::where('status', '!=', 'cancelada')->get();
+        $processed = ProcessedSale::where('status', '!=', 'cancelada')->get();
         $due = $this->getDueSales($alive, $fresh, $pork, $processed);
 
         return view('deposits.credits', compact('alive', 'fresh', 'pork', 'processed', 'due'));

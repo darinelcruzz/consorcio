@@ -5,255 +5,115 @@ Route::get('/', function () {
 })->name('home');
 
 Route::group(['prefix' => 'clientes', 'as' => 'client.'], function () {
-    Route::get('/', [
-        'uses' => 'ClientController@index',
-        'as' => 'index'
-    ]);
+    $ctrl = 'ClientController';
 
-    Route::get('agregar', [
-        'uses' => 'ClientController@create',
-        'as' => 'create'
-    ]);
-
-    Route::post('agregar', [
-        'uses' => 'ClientController@store',
-        'as' => 'store'
-    ]);
-
-    Route::get('editar/{client}', [
-        'uses' => 'ClientController@edit',
-        'as' => 'edit'
-    ]);
-
-    Route::post('editar', [
-        'uses' => 'ClientController@update',
-        'as' => 'update'
-    ]);
-
-    Route::get('detalles/{client}', [
-        'uses' => 'ClientController@details',
-        'as' => 'details'
-    ]);
+    Route::get('/', usesas($ctrl, 'index'));
+    Route::get('agregar', usesas($ctrl, 'create'));
+    Route::post('agregar', usesas($ctrl, 'store'));
+    Route::get('editar/{client}', usesas($ctrl, 'edit'));
+    Route::post('editar', usesas($ctrl, 'update'));
+    Route::get('{client}', usesas($ctrl, 'details'));
 });
 
-Route::get('ventas/cerdo', [
-    'uses' => 'PorkSalesController@index',
-    'as' => 'pork.index'
-]);
+Route::group(['prefix' => 'ventas/cerdo', 'as' => 'pork.'], function () {
+    $ctrl = 'PorkSalesController';
 
-Route::get('ventas/cerdo/agregar', [
-    'uses' => 'PorkSalesController@create',
-    'as' => 'pork.create'
-]);
+    Route::get('/', usesas($ctrl, 'index'));
+    Route::get('agregar', usesas($ctrl, 'create'));
+    Route::post('agregar', usesas($ctrl, 'store'));
+    Route::get('descartar/{folio}', usesas($ctrl, 'discard'));
+});
 
-Route::post('ventas/cerdo/agregar', [
-    'uses' => 'PorkSalesController@store',
-    'as' => 'pork.store'
-]);
+Route::group(['prefix' => 'ventas/vivo', 'as' => 'alive.'], function () {
+    $ctrl = 'AliveSalesController';
 
-Route::get('ventas/cerdo/descartar/{folio}', [
-    'uses' => 'PorkSalesController@discard',
-    'as' => 'pork.discard'
-]);
+    Route::get('/', usesas($ctrl, 'index'));
+    Route::get('agregar', usesas($ctrl, 'create'));
+    Route::post('agregar', usesas($ctrl, 'store'));
+    Route::get('descartar/{folio}', usesas($ctrl, 'discard'));
+});
 
-Route::get('ventas/vivo', [
-    'uses' => 'AliveSalesController@index',
-    'as' => 'alive.index'
-]);
+Route::group(['prefix' => 'ventas/fresco', 'as' => 'fresh.'], function () {
+    $ctrl = 'FreshSalesController';
 
-Route::get('ventas/vivo/agregar', [
-    'uses' => 'AliveSalesController@create',
-    'as' => 'alive.create'
-]);
+    Route::get('/', usesas($ctrl, 'index'));
+    Route::get('agregar', usesas($ctrl, 'create'));
+    Route::post('agregar', usesas($ctrl, 'store'));
+    Route::get('descartar/{folio}', usesas($ctrl, 'discard'));
+});
 
-Route::post('ventas/vivo/agregar', [
-    'uses' => 'AliveSalesController@store',
-    'as' => 'alive.store'
-]);
+Route::group(['prefix' => 'ventas/procesado', 'as' => 'processed.'], function () {
+    $ctrl = 'ProcessedSalesController';
 
-Route::get('ventas/vivo/descartar/{folio}', [
-    'uses' => 'AliveSalesController@discard',
-    'as' => 'alive.discard'
-]);
-
-Route::get('ventas/fresco', [
-    'uses' => 'FreshSalesController@index',
-    'as' => 'fresh.index'
-]);
-
-Route::get('ventas/fresco/agregar', [
-    'uses' => 'FreshSalesController@create',
-    'as' => 'fresh.create'
-]);
-
-Route::post('ventas/fresco/agregar', [
-    'uses' => 'FreshSalesController@store',
-    'as' => 'fresh.store'
-]);
-
-Route::get('ventas/fresco/descartar/{folio}', [
-    'uses' => 'FreshSalesController@discard',
-    'as' => 'fresh.discard'
-]);
-
-Route::get('ventas/procesado', [
-    'uses' => 'ProcessedSalesController@index',
-    'as' => 'processed.index'
-]);
-
-Route::get('ventas/procesado/agregar', [
-    'uses' => 'ProcessedSalesController@create',
-    'as' => 'processed.create'
-]);
-
-Route::post('ventas/procesado/agregar', [
-    'uses' => 'ProcessedSalesController@store',
-    'as' => 'processed.store'
-]);
-
-Route::get('ventas/procesado/descartar/{folio}', [
-    'uses' => 'ProcessedSalesController@discard',
-    'as' => 'processed.discard'
-]);
-
-Route::get('ventas/procesado/detalles/{processedsale}', [
-    'uses' => 'ProcessedSalesController@show',
-    'as' => 'processed.show'
-]);
-
-Route::get('ventas/procesado/detalles/{processedsale}/editar', [
-    'uses' => 'ProcessedSalesController@editKg',
-    'as' => 'processed.editKg'
-]);
-
-Route::post('ventas/procesado/guardar/kilogramos', [
-    'uses' => 'ProcessedSalesController@storeKg',
-    'as' => 'processed.storeKg'
-]);
+    Route::get('/', usesas($ctrl, 'index'));
+    Route::get('agregar', usesas($ctrl, 'create'));
+    Route::post('agregar', usesas($ctrl, 'store'));
+    Route::get('descartar/{folio}', usesas($ctrl, 'discard'));
+    Route::get('{processedsale}', usesas($ctrl, 'show'));
+    Route::get('{processedsale}/agregar-kg', usesas($ctrl, 'editKg'));
+    Route::post('agregar-kg', usesas($ctrl, 'storeKg'));
+});
 
 // Deposits
-Route::get('abonos', [
-    'uses' => 'DepositController@index',
-    'as' => 'deposit.index'
-]);
+Route::group(['prefix' => 'credito', 'as' => 'deposit.'], function () {
+    $ctrl = 'DepositController';
 
-Route::get('detalles/{type}/{id}/{amount}', [
-    'uses' => 'DepositController@details',
-    'as' => 'deposit.details'
-]);
-
-Route::get('creditos', [
-    'uses' => 'DepositController@credits',
-    'as' => 'deposit.credits'
-]);
-
-Route::post('creditos/abonar', [
-    'uses' => 'DepositController@store',
-    'as' => 'deposit.store'
-]);
+    Route::get('/', usesas($ctrl, 'credits'));
+    Route::get('abonos', usesas($ctrl, 'index'));
+    Route::get('abonar', usesas($ctrl, 'store'));
+    Route::get('detalles/{type}/{id}/{amount}', usesas($ctrl, 'details'));
+});
 
 // Shippings
-Route::get('embarques', [
-    'uses' => 'ShippingsController@index',
-    'as' => 'shipping.index'
-]);
+Route::group(['prefix' => 'embarques', 'as' => 'shipping.'], function () {
+    $ctrl = 'ShippingsController';
 
-Route::get('embarques/agregar', [
-    'uses' => 'ShippingsController@create',
-    'as' => 'shipping.create'
-]);
-
-Route::post('embarques/agregar', [
-    'uses' => 'ShippingsController@store',
-    'as' => 'shipping.store'
-]);
-
-Route::get('embarques/procesado/{shipping}', [
-    'uses' => 'ShippingsController@show',
-    'as' => 'shipping.show'
-]);
+    Route::get('/', usesas($ctrl, 'index'));
+    Route::get('agregar', usesas($ctrl, 'create'));
+    Route::post('agregar', usesas($ctrl, 'store'));
+    Route::get('procesado/{shipping}', usesas($ctrl, 'show'));
+});
 
 // Products
-Route::get('productos', [
-    'uses' => 'ProductsController@index',
-    'as' => 'product.index'
-]);
+Route::get('productos', usesas('ProductsController', 'index', 'product.index'));
+Route::post('productos', usesas('ProductsController', 'store', 'product.store'));
 
-Route::post('productos', [
-    'uses' => 'ProductsController@store',
-    'as' => 'product.store'
-]);
-
-Route::get('ajustes', [
-    'uses' => 'AdjustmentController@index',
-    'as' => 'adjustment.index'
-]);
-
-Route::post('ajustes', [
-    'uses' => 'AdjustmentController@store',
-    'as' => 'adjustment.store'
-]);
+Route::get('ajustes', usesas('AdjustmentController', 'index', 'adjustment.index'));
+Route::post('ajustes', usesas('AdjustmentController', 'store', 'adjustment.store'));
 
 // Prices
-Route::get('precios', [
-    'uses' => 'PriceController@index',
-    'as' => 'price.index'
-]);
+Route::group(['prefix' => 'precios', 'as' => 'price.'], function () {
+    $ctrl = 'PriceController';
 
-Route::post('precios', [
-    'uses' => 'PriceController@update',
-    'as' => 'price.update'
-]);
-
-Route::get('formato', [
-    'uses' => 'PriceController@format',
-    'as' => 'price.format'
-]);
-
+    Route::get('/', usesas($ctrl, 'index'));
+    Route::post('/', usesas($ctrl, 'update'));
+    Route::get('formato', usesas($ctrl, 'format'));
+});
 
 // Reports
 Route::group(['prefix' => 'reportes', 'as' => 'report.'], function () {
+    $ctrl = 'ReportController';
 
-    Route::get('menu', [
-        'uses' => 'ReportController@menu',
-        'as' => 'menu'
-    ]);
-
-    Route::post('cliente', [
-        'uses' => 'ReportController@client',
-        'as' => 'client'
-    ]);
-
-    Route::post('producto', [
-        'uses' => 'ReportController@product',
-        'as' => 'product'
-    ]);
-
-    Route::post('ventas', [
-        'uses' => 'ReportController@sales',
-        'as' => 'sales'
-    ]);
-
-    Route::post('embarques', [
-        'uses' => 'ReportController@shippings',
-        'as' => 'shippings'
-    ]);
-
+    Route::get('menu', usesas($ctrl, 'menu'));
+    Route::post('cliente', usesas($ctrl, 'client'));
+    Route::post('producto', usesas($ctrl, 'product'));
+    Route::post('ventas', usesas($ctrl, 'sales'));
+    Route::post('embarques', usesas($ctrl, 'shippings'));
 });
 
 // Usuarios
 Route::group(['prefix' => 'usuarios', 'as' => 'user.'], function () {
     $ctrl = 'UserController';
 
-    Route::get('/', ['uses' => "$ctrl@index", 'as' => 'index']);
-
-    Route::get('crear', ['uses' => "$ctrl@create", 'as' => 'create']);
-
-    Route::post('crear', ['uses' => "$ctrl@store", 'as' => 'store']);
-
-    Route::get('editar/{user}', ['uses' => "$ctrl@edit", 'as' => 'edit']);
-
-    Route::post('editar', ['uses' => "$ctrl@update", 'as' => 'update']);
-
-    Route::get('eliminar/{user}', ['uses' => "$ctrl@destroy", 'as' => 'destroy']);
+    Route::get('/', usesas($ctrl, 'index'));
+    Route::get('crear', usesas($ctrl, 'create'));
+    Route::post('crear', usesas($ctrl, 'store'));
+    Route::get('editar/{user}', usesas($ctrl, 'edit'));
+    Route::post('editar', usesas($ctrl, 'update'));
+    Route::get('eliminar/{user}', usesas($ctrl, 'destroy'));
 });
+
+// Axios
+Route::get('clients', usesas('AxiosController', 'clients'));
+Route::get('clients2', usesas('AxiosController', 'clients2'));
+Route::get('products', usesas('AxiosController', 'products'));
