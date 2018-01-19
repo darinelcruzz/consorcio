@@ -4,7 +4,7 @@
 
     <div class="row">
         <div class="col-md-6">
-            <solid-box title="Venta # {{ $processedsale->id }}" color="box-success">
+            <solid-box title="Venta con folio {{ $processedsale->folio }}" color="box-success">
 
                 <table class="table table-striped">
                     <thead>
