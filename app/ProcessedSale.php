@@ -95,6 +95,7 @@ class ProcessedSale extends Model
     {
         return $query->whereBetween('date', [$start, $end])
                     ->where('price', '!=', 23)
+                    ->where('status', '!=', 'cancelada')
                     ->get();
     }
 }
