@@ -57,7 +57,7 @@
             </h4>
             <div class="row">
                 <div class="col-xs-12">
-                    <table class="table" id="ordered">
+                    <table class="table" id="ordered{{ $loop->iteration}}">
                         <thead>
                             <tr>
                                 <th class="text-center" width="35%" >Cliente</th>

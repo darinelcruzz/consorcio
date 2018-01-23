@@ -62,8 +62,38 @@ $(function () {
     $("#example5").DataTable({
       "order":[[ 0 , "desc"]]
     });
-    $("#ordered").DataTable({
-      "order":[[ 0 , "asc"]],
+    $("#ordered1").DataTable({
+      "order":[[ 4 , "desc"]],
+      "searching":false,
+      "paging":false,
+      "info":false,
+    });
+    $("#ordered2").DataTable({
+      "order":[[ 4 , "desc"]],
+      "searching":false,
+      "paging":false,
+      "info":false,
+    });
+    $("#ordered3").DataTable({
+      "order":[[ 4 , "desc"]],
+      "searching":false,
+      "paging":false,
+      "info":false,
+    });
+    $("#ordered4").DataTable({
+      "order":[[ 4 , "desc"]],
+      "searching":false,
+      "paging":false,
+      "info":false,
+    });
+    $("#ordered5").DataTable({
+      "order":[[ 4 , "desc"]],
+      "searching":false,
+      "paging":false,
+      "info":false,
+    });
+    $("#ordered6").DataTable({
+      "order":[[ 4 , "desc"]],
       "searching":false,
       "paging":false,
       "info":false,
