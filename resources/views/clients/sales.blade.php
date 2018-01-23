@@ -17,7 +17,7 @@
     <template slot="body">
         @foreach($client->$sale as $sale)
             <tr>
-                <td>{{ $sale->id }}</td>
+                <td>{{ $sale->folio }}</td>
                 <td>{{ $sale->short_date }}</td>
                 <td>{{ $sale->kg }}</td>
                 <td>{{ $sale->pricer->name }}</td>
