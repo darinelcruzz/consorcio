@@ -2,7 +2,7 @@
 
     <template slot="header">
         <tr>
-            <th>ID</th>
+            <th>Folio</th>
             <th>Fecha</th>
             <th>Kg</th>
             <th>Precio</th>
