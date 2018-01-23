@@ -88,25 +88,28 @@ class ReportController extends Controller
             $sales = ProcessedSale::rangeReport($request->startDate, $request->endDate);
             $big = $medium = $small = $junior = $petit = $mini = [];
             foreach ($sales as $sale) {
-                foreach (unserialize($sale->products) as $product) {
-                    switch ($product['i']) {
+                foreach (unserialize($sale->products) as $p) {
+                    $kg = isset($p['k']) ? $p['k']: 0;
+                    $amount = $kg * $p['p'];
+
+                    switch ($p['i']) {
                         case '4':
-                            array_push($big, ['client' => $sale->client_id, 'quantity' => $product['b'], 'kg' => $product['q'], 'amount' => $product['p'] * $product['b']]);
+                            array_push($big, ['client' => $sale->client_id, 'quantity' => $p['q'], 'kg' => $kg, 'amount' => $amount]);
                             break;
                         case '5':
-                            array_push($medium, ['client' => $sale->client_id, 'quantity' => $product['b'], 'kg' => $product['q'], 'amount' => $product['p'] * $product['b']]);
+                            array_push($medium, ['client' => $sale->client_id, 'quantity' => $p['q'], 'kg' => $kg, 'amount' => $amount]);
                             break;
                         case '6':
-                            array_push($small, ['client' => $sale->client_id, 'quantity' => $product['b'], 'kg' => $product['q'], 'amount' => $product['p'] * $product['b']]);
+                            array_push($small, ['client' => $sale->client_id, 'quantity' => $p['q'], 'kg' => $kg, 'amount' => $amount]);
                             break;
                         case '7':
-                            array_push($junior, ['client' => $sale->client_id, 'quantity' => $product['b'], 'kg' => $product['q'], 'amount' => $product['p'] * $product['b']]);
+                            array_push($junior, ['client' => $sale->client_id, 'quantity' => $p['q'], 'kg' => $kg, 'amount' => $amount]);
                             break;
                         case '8':
-                            array_push($petit, ['client' => $sale->client_id, 'quantity' => $product['b'], 'kg' => $product['q'], 'amount' => $product['p'] * $product['b']]);
+                            array_push($petit, ['client' => $sale->client_id, 'quantity' => $p['q'], 'kg' => $kg, 'amount' => $amount]);
                             break;
                         case '9':
-                            array_push($mini, ['client' => $sale->client_id, 'quantity' => $product['b'], 'kg' => $product['q'], 'amount' => $product['p'] * $product['b']]);
+                            array_push($mini, ['client' => $sale->client_id, 'quantity' => $p['q'], 'kg' => $kg, 'amount' => $amount]);
                             break;
                     }
                 }
