@@ -134,8 +134,65 @@ class ReportController extends Controller
             return view('reports.range', compact('product', 'data', 'range'));
         }
         elseif ($request->product_id == 5) {
-            $products = ProcessedSale::whereBetween('date', [$request->startDate, $request->endDate])->get();
-            $product = 'No disponible';
+
+            $sales = ProcessedSale::cutsReport($request->startDate, $request->endDate);
+            $boneless = $bone = $foot = $wings = $wing = $gizzard = $visors = $pickled = [];
+            foreach ($sales as $sale) {
+                foreach (unserialize($sale->products) as $p) {
+                    $kg = isset($p['k']) ? $p['k']: 0;
+                    $amount = $kg * $p['p'];
+
+                    switch ($p['i']) {
+                        case '10':
+                            array_push($boneless, ['client' => $sale->client_id, 'quantity' => $p['q'], 'kg' => $kg, 'amount' => $amount]);
+                            break;
+                        case '11':
+                            array_push($bone, ['client' => $sale->client_id, 'quantity' => $p['q'], 'kg' => $kg, 'amount' => $amount]);
+                            break;
+                        case '12':
+                            array_push($foot, ['client' => $sale->client_id, 'quantity' => $p['q'], 'kg' => $kg, 'amount' => $amount]);
+                            break;
+                        case '13':
+                            array_push($wings, ['client' => $sale->client_id, 'quantity' => $p['q'], 'kg' => $kg, 'amount' => $amount]);
+                            break;
+                        case '14':
+                            array_push($wing, ['client' => $sale->client_id, 'quantity' => $p['q'], 'kg' => $kg, 'amount' => $amount]);
+                            break;
+                        case '15':
+                            array_push($gizzard, ['client' => $sale->client_id, 'quantity' => $p['q'], 'kg' => $kg, 'amount' => $amount]);
+                            break;
+                        case '16':
+                            array_push($visors, ['client' => $sale->client_id, 'quantity' => $p['q'], 'kg' => $kg, 'amount' => $amount]);
+                            break;
+                        case '17':
+                            array_push($pickled, ['client' => $sale->client_id, 'quantity' => $p['q'], 'kg' => $kg, 'amount' => $amount]);
+                            break;
+                    }
+                }
+            }
+            $bonelessC = collect($boneless);
+            $boneC = collect($bone);
+            $footC = collect($foot);
+            $wingsC = collect($wings);
+            $wingC = collect($wing);
+            $gizzardC = collect($gizzard);
+            $visorsC = collect($visors);
+            $pickledC = collect($pickled);
+
+            $bonelessG = $bonelessC->groupBy('client');
+            $boneG = $boneC->groupBy('client');
+            $footG = $footC->groupBy('client');
+            $wingsG = $wingsC->groupBy('client');
+            $wingG = $wingC->groupBy('client');
+            $gizzardG = $gizzardC->groupBy('client');
+            $visorsG = $visorsC->groupBy('client');
+            $pickledG = $pickledC->groupBy('client');
+
+            $data = ['Pechuga sin hueso' => $bonelessG, 'Pechuga con hueso' => $boneG, 'Pierna y Muslo' => $footG, 'Alas picosas' => $wingsG,
+            'Ala 1 y 2' => $wingG, 'Molleja' => $gizzardG, 'Viscera mixta' => $visorsG, 'Pollo Adobado' => $pickledG];
+            $product = 'Cortes';
+
+            return view('reports.curt', compact('product', 'data', 'range'));
         }
 
 

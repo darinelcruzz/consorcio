@@ -76,49 +76,49 @@ class PricesTableSeeder extends Seeder
         ]);
         factory(App\Price::class)->create([
             'name' => 'Pechuga sin hueso',
-            'product_id' => 9,
+            'product_id' => 10,
             'price' => 90,
             'processed' => 1,
         ]);
         factory(App\Price::class)->create([
             'name' => 'Pechuga con hueso',
-            'product_id' => 10,
+            'product_id' => 11,
             'price' => 72,
             'processed' => 1,
         ]);
         factory(App\Price::class)->create([
             'name' => 'Pierna y muslo',
-            'product_id' => 11,
+            'product_id' => 12,
             'price' => 38,
             'processed' => 1,
         ]);
         factory(App\Price::class)->create([
             'name' => 'Alas picosas',
-            'product_id' => 12,
+            'product_id' => 13,
             'price' => 68,
             'processed' => 1,
         ]);
         factory(App\Price::class)->create([
             'name' => 'Ala (1 y 2)',
-            'product_id' => 13,
+            'product_id' => 14,
             'price' => 65,
             'processed' => 1,
         ]);
         factory(App\Price::class)->create([
             'name' => 'Molleja',
-            'product_id' => 14,
+            'product_id' => 15,
             'price' => 30,
             'processed' => 1,
         ]);
         factory(App\Price::class)->create([
             'name' => 'Víscera mixta',
-            'product_id' => 15,
+            'product_id' => 16,
             'price' => 20,
             'processed' => 1,
         ]);
         factory(App\Price::class)->create([
             'name' => 'Pollo Adobado',
-            'product_id' => 16,
+            'product_id' => 17,
             'price' => 44,
             'processed' => 1,
         ]);

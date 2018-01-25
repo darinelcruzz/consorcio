@@ -98,4 +98,12 @@ class ProcessedSale extends Model
                     ->where('status', '!=', 'cancelada')
                     ->get();
     }
+
+    function scopeCutsReport($query, $start, $end)
+    {
+        return $query->whereBetween('date', [$start, $end])
+                    ->where('price', '=', 23)
+                    ->where('status', '!=', 'cancelada')
+                    ->get();
+    }
 }
