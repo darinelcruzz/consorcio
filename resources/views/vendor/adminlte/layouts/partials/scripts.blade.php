@@ -98,5 +98,17 @@ $(function () {
       "paging":false,
       "info":false,
     });
+    $("#ordered7").DataTable({
+      "order":[[ 4 , "desc"]],
+      "searching":false,
+      "paging":false,
+      "info":false,
+    });
+    $("#ordered8").DataTable({
+      "order":[[ 4 , "desc"]],
+      "searching":false,
+      "paging":false,
+      "info":false,
+    });
 });
 </script>

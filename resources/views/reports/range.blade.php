@@ -52,54 +52,56 @@
         </div>
 
         @foreach ($data as $name => $var)
-            <h4 align="center">
-                <b>{{ $name }}</b>
-            </h4>
-            <div class="row">
-                <div class="col-xs-12">
-                    <table class="table" id="ordered{{ $loop->iteration}}">
-                        <thead>
-                            <tr>
-                                <th class="text-center" width="35%" >Cliente</th>
-                                <th class="text-center" width="29%">Ubicación</th>
-                                <th class="text-center" width="12%">Cantidad</th>
-                                <th class="text-center" width="12%">Kg</th>
-                                <th class="text-center" width="12%">Importe</th>
-                            </tr>
-                        </thead>
-                        @php
+            @if ($var != '[]')
+                <h4 align="center">
+                    <b>{{ $name }}</b>
+                </h4>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <table class="table" id="ordered{{ $loop->iteration}}">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" width="35%" >Cliente</th>
+                                    <th class="text-center" width="29%">Ubicación</th>
+                                    <th class="text-center" width="12%">Cantidad</th>
+                                    <th class="text-center" width="12%">Kg</th>
+                                    <th class="text-center" width="12%">Importe</th>
+                                </tr>
+                            </thead>
+                            @php
                             $totalQ = 0;
                             $totalK = 0;
                             $totalA = 0;
-                        @endphp
-                        <tbody>
-                            @foreach ($var->toArray() as $client_id => $kaq)
-                                <tr>
-                                    <td>{{ App\Client::find($client_id)->name }}</td>
-                                    <td>{{ App\Client::find($client_id)->address }}</td>
-                                    <td align="right">{{ collect($kaq)->sum('quantity') }}</td>
-                                    <td align="right">{{ collect($kaq)->sum('kg') }}</td>
-                                    <td align="right">$ {{ number_format(collect($kaq)->sum('amount'), 2) }}</td>
-                                </tr>
-                                @php
+                            @endphp
+                            <tbody>
+                                @foreach ($var->toArray() as $client_id => $kaq)
+                                    <tr>
+                                        <td>{{ App\Client::find($client_id)->name }}</td>
+                                        <td>{{ App\Client::find($client_id)->address }}</td>
+                                        <td align="right">{{ collect($kaq)->sum('quantity') }}</td>
+                                        <td align="right">{{ collect($kaq)->sum('kg') }}</td>
+                                        <td align="right">$ {{ number_format(collect($kaq)->sum('amount'), 2) }}</td>
+                                    </tr>
+                                    @php
                                     $totalQ += collect($kaq)->sum('quantity');
                                     $totalK += collect($kaq)->sum('kg');
                                     $totalA += collect($kaq)->sum('amount');
-                                @endphp
-                            @endforeach
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td></td>
-                                <td><b>Total</b></td>
-                                <td align="right"><b>{{ $totalQ }}</b></td>
-                                <td align="right"><b>{{ $totalK }}</b></td>
-                                <td align="right"><b>$ {{ number_format($totalA, 2) }}</b></td>
-                            </tr>
-                        </tfoot>
-                    </table>
+                                    @endphp
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td></td>
+                                    <td><b>Total</b></td>
+                                    <td align="right"><b>{{ $totalQ }}</b></td>
+                                    <td align="right"><b>{{ $totalK }}</b></td>
+                                    <td align="right"><b>$ {{ number_format($totalA, 2) }}</b></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
-            </div>
+            @endif
         @endforeach
 
     </section>
