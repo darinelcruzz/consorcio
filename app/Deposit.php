@@ -26,13 +26,13 @@ class Deposit extends Model
              return AliveSale::find($this->sale_id)->client;
          }
          if ($this->type == 'cerdo') {
-             return PorkSale::find($this->sale_id)->client->name;
+             return PorkSale::find($this->sale_id)->client;
          }
          if ($this->type == 'fresco') {
-             return FreshSale::find($this->sale_id)->client->name;
+             return FreshSale::find($this->sale_id)->client;
          }
          if ($this->type == 'procesado') {
-             return ProcessedSale::find($this->sale_id)->client->name;
+             return ProcessedSale::find($this->sale_id)->client;
          }
     }
 

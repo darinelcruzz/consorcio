@@ -3,15 +3,17 @@
 @section('main-content')
 
     <row-woc col="col-md-12">
-        <div class="small-box bg-green">
+        <div class="small-box bg-{{ $client->credit == 0 ? "green" : ($client->notes > $client->unpaid_notes ? "green" : ($client->notes == $client->unpaid_notes ? "yellow" : "red")) }}">
             <div class="inner">
                 <h3>{{ $client->name }}</h3>
                 <p>{{ $client->address }}</p>
-                <h4 align="right">
-                    Saldo:&nbsp;{{ '$ ' . number_format($client->real_balance, 2) }}&nbsp;&nbsp;&nbsp;
-                    Máximas:&nbsp;{{ $client->notes }}&nbsp;&nbsp;&nbsp;
-                    En deuda:&nbsp;{{ $client->unpaid_notes }}
-                </h4>
+                @if ($client->credit == 1)
+                    <h4 align="right">
+                        Saldo:&nbsp;{{ '$ ' . number_format($client->real_balance, 2) }}&nbsp;&nbsp;&nbsp;
+                        Máximas:&nbsp;{{ $client->notes }}&nbsp;&nbsp;&nbsp;
+                        En deuda:&nbsp;{{ $client->unpaid_notes }}
+                    </h4>
+                @endif
             </div>
             <div class="icon">
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
