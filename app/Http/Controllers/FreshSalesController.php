@@ -49,9 +49,13 @@ class FreshSalesController extends Controller
 
     function getClients()
     {
-        return Client::all()->filter(function ($item) {
-            return strpos($item->products, 'fresco');
-        })->pluck('name', 'id')->toArray();
+        return Client::orderBy('name', 'asc')
+            ->get()
+            ->filter(function ($item) {
+                return strpos($item->products, 'fresco');
+            })
+            ->pluck('name', 'id')
+            ->toArray();
     }
 
     function updateInventory($quantity)

@@ -59,9 +59,13 @@ class ProcessedSalesController extends Controller
 
     function getClients()
     {
-        return Client::all()->filter(function ($item) {
-            return strpos($item->products, 'procesado');
-        })->pluck('name', 'id')->toArray();
+        return Client::orderBy('name', 'asc')
+            ->get()
+            ->filter(function ($item) {
+                return strpos($item->products, 'procesado');
+            })
+            ->pluck('name', 'id')
+            ->toArray();
     }
 
     function getProducts()
@@ -139,7 +143,7 @@ class ProcessedSalesController extends Controller
         $sale->update([
             'products' => serialize($products)
         ]);
-        
+
         return redirect(route('processed.show', ['processedsale' => $request->id]));
     }
 }
