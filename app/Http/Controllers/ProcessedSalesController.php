@@ -122,7 +122,8 @@ class ProcessedSalesController extends Controller
     function storeKg(Request $request)
     {
         $this->validate($request, [
-            'kgs' => 'required'
+            'kgs' => 'required',
+            'prices' => 'required'
         ]);
 
         $sale = ProcessedSale::find($request->id);
@@ -133,7 +134,7 @@ class ProcessedSalesController extends Controller
         for ($i = 0; $i < count($request->kgs); $i++) {
             $new = [];
             $new['i'] =  $old[$i]['i'];
-            $new['p'] =  $old[$i]['p'];
+            $new['p'] =  $request->prices[$i];
             $new['q'] =  $old[$i]['q'];
             $new['k'] =  $request->kgs[$i];
             $new['b'] =  $old[$i]['b'];

@@ -3,7 +3,7 @@
 @section('main-content')
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-7">
             <solid-box title="Venta # {{ $processedsale->id }}" color="box-success">
               {!! Form::open(['method' => 'POST', 'route' => 'processed.storeKg']) !!}
 
@@ -22,7 +22,9 @@
                         @foreach (unserialize($processedsale->products) as $product)
                             <tr>
                                 <td>{{ App\Product::find($product['i'])->name }}</td>
-                                <td>{{ '$ ' . number_format($product['p'], 2) }}</td>
+                                <td>
+                                    <input type="number" name="prices[]" value="{{ $product['p'] or 0 }}" min="0" step="0.01">
+                                </td>
                                 <td>{{ $product['q'] }}</td>
                                 <td>
                                   <input type="number" name="kgs[]" value="{{ $product['k'] or 0 }}" min="0" step="0.01">

@@ -36,7 +36,8 @@
         <div class="col-md-6">
             <a href="{{ route('processed.editKg', ['processedsale' => $processedsale]) }}"
                 class="btn btn-success">
-                Agregar kg
+                <i class="fa fa-pencil"></i>&nbsp;&nbsp;
+                Editar (kg o $)
             </a>
             <br><br><br>
             <a href="{{ route('processed.index') }}"
