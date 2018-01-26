@@ -58,7 +58,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             {!! Field::select('product_id',
-                                ['2' => 'Fresco', '3' => 'Vivo', '4' => 'Rangos', '5' => 'Cortes*', '1' => 'Cerdo' ], 
+                                ['2' => 'Fresco', '3' => 'Vivo', '4' => 'Rangos', '5' => 'Cortes', '1' => 'Cerdo' ], 
                                 null, ['tpl' => 'templates/withicon', 'empty' => 'Seleccione un producto'],
                                 ['icon' => 'list'])
                             !!}

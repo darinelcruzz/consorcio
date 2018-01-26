@@ -1,8 +1,6 @@
 <?php
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', usesas('WelcomeController', 'home'));
 
 Route::group(['prefix' => 'clientes', 'as' => 'client.'], function () {
     $ctrl = 'ClientController';
