@@ -26,83 +26,82 @@
 
     <style>
         th, td, p {
-            font-size: 13px;
+            font-size: 12px;
         },
+
 
     </style>
 </head>
 
 <body onload="window.print()">
-    <div class="wrapper">
-        <section class="invoice">
-            <div class="row">
-                <div class="col-xs-3">
-                    <center>
-                        <img width="160px" src="{{ asset('/img/LogoHorizontal.png') }}">
-                    </center>
-                </div>
-                <div class="col-xs-7">
-                    <h4 align="center">
-                        <b>CONSORCIO <br> AVÍCOLA - PORCÍCOLA</b><br><br>
-                    </h4>
-                </div>
+    <section class="invoice">
+        <div class="row">
+            <div class="col-xs-3">
+                <center>
+                    <img width="100px" src="{{ asset('/img/LogoHorizontal.png') }}">
+                </center>
             </div>
-            <div class="row">
-                <div class="col-xs-8 col-xs-offset-2">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th width="50%"></th>
-                                <th width="50%" align="right"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Lista de precios a partir del</td>
-                                <td align="right">{{ $date }}</td>
-                            </tr>
-
-                            <tr><td></td><td></td></tr>
-
-                            @foreach ($fresh as $row)
-                                <tr>
-                                    <td>Fresco entero ({{ $row->name }})</td>
-                                    <td align="right">{{ $row->niceprice }}</td>
-                                </tr>
-                            @endforeach
-
-                            <tr><td></td><td></td></tr>
-
-                            @foreach ($alive as $row)
-                                <tr>
-                                    <td>Vivo ({{ $row->name }})</td>
-                                    <td align="right">{{ $row->niceprice }}</td>
-                                </tr>
-                            @endforeach
-
-                            <tr><td></td><td></td></tr>
-
-                            @foreach ($processed as $row)
-                                <tr>
-                                    <td>{{ $row->id < 13 ? 'Procesado' . ' (' . $row->name . ')' : $row->name }} </td>
-                                    <td align="right">{{ $row->niceprice }}</td>
-                                </tr>
-                            @endforeach
-
-                            <tr><td></td><td></td></tr>
-
-                            @foreach ($pork as $row)
-                                <tr>
-                                    <td>Cerdo ({{ $row->name }})</td>
-                                    <td align="right">{{ $row->niceprice }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-
-                </div>
+            <div class="col-xs-6">
+                <h4 align="center">
+                    <b>CONSORCIO AVÍCOLA - PORCÍCOLA</b> <br>
+                    <p><b> A partir del {{ $date }}</b></p>
+                </h4>
             </div>
-        </section>
-    </div>
+            <div class="col-xs-3">
+                <center>
+                    <img width="100px" src="{{ asset('/img/LogoHorizontal.png') }}">
+                </center>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-8 col-xs-offset-2">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th width="50%"></th>
+                            <th width="50%" align="right"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach ($fresh as $row)
+                            <tr>
+                                <td>Fresco entero ({{ $row->name }})</td>
+                                <td align="right">{{ $row->niceprice }}</td>
+                            </tr>
+                        @endforeach
+
+                        <tr><td></td><td></td></tr>
+
+                        @foreach ($alive as $row)
+                            <tr>
+                                <td>Vivo ({{ $row->name }})</td>
+                                <td align="right">{{ $row->niceprice }}</td>
+                            </tr>
+                        @endforeach
+
+                        <tr><td></td><td></td></tr>
+
+                        @foreach ($processed as $row)
+                            <tr>
+                                <td>{{ $row->id < 13 ? 'Procesado' . ' (' . $row->name . ')' : $row->name }} </td>
+                                <td align="right">{{ $row->niceprice }}</td>
+                            </tr>
+                        @endforeach
+
+                        <tr><td></td><td></td></tr>
+
+                        @foreach ($pork as $row)
+                            <tr>
+                                <td>Cerdo ({{ $row->name }})</td>
+                                <td align="right">{{ $row->niceprice }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </section>
 </body>
 </html>
