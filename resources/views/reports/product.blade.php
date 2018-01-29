@@ -53,7 +53,7 @@
 
         <div class="row">
             <div class="col-xs-12">
-                <table class="table" id="ordered">
+                <table class="table" id="ordered1">
                     <thead>
                         <tr>
                             <th class="text-center" width="35%" >Cliente</th>
