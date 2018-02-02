@@ -11,33 +11,34 @@ use App\Price;
 
 class ProcessedSalesController extends Controller
 {
+    private $data;
+    private $moreData;
+
+    function __construct()
+    {
+        $this->data = ['type' => 'processed', 'color' => 'success', 'skin' => 'green'];
+        $this->moreData = array_merge($this->data, [
+            'clients' => Client::buyers('procesado'),
+            'prices' => Price::pricesWithNames(4)
+        ]);
+    }
+
     function index()
     {
-        $sales = ProcessedSale::all();
-        $type = 'processed';
-        $color = 'success';
-        $skin = 'green';
-        return view('sales.index', compact('sales', 'type', 'color', 'skin'));
+        return view('sales.index', $this->data)->with('sales', ProcessedSale::all());
     }
 
     function create()
     {
-        $clients = $this->getClients();
-        $prices = Price::pricesWithNames(4);
-        $type = 'processed';
-        $color = 'success';
-        $skin = 'green';
         $lastSale = ProcessedSale::all()->last();
         $lastFolio = $this->getFolio();
-        return view('sales.create', compact('clients', 'type', 'color', 'lastSale', 'lastFolio', 'skin', 'products', 'prices'));
+        return view('sales.create', $this->moreData)->with(compact('lastSale', 'lastFolio'));
     }
 
     function store(ProcessedRequest $request)
     {
         $sale = ProcessedSale::create($request->except(['types', 'quantities', 'prices', 'packages', 'kgs']));
-
         $sale->storeProducts($request);
-
         $days = $request->credit * 8;
 
         $sale->update([
@@ -51,21 +52,20 @@ class ProcessedSalesController extends Controller
 
     function show(ProcessedSale $processedsale)
     {
-        $type = 'processed';
-        $color = 'success';
-        $skin = 'green';
-        return view('sales.processed', compact('processedsale', 'type', 'color', 'skin'));
+        return view('sales.processed', $this->data)->with(compact('processedsale'));
     }
 
-    function getClients()
+    function edit(ProcessedSale $processedSale)
     {
-        return Client::orderBy('name', 'asc')
-            ->get()
-            ->filter(function ($item) {
-                return strpos($item->products, 'procesado');
-            })
-            ->pluck('name', 'id')
-            ->toArray();
+        return view('sales.edit', $this->moreData)->with('sale', $processedSale);
+    }
+
+    function update(Request $request)
+    {
+        $sale = ProcessedSale::find($request->id);
+        $sale->update($request->all());
+
+        return redirect(route('processed.index'));
     }
 
     function getProducts()

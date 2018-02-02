@@ -13,10 +13,7 @@
                         ['tpl' => 'templates/withicon', 'empty' => 'Seleccione un cliente', 'v-model' => 'client_id'],
                         ['icon' => 'user'])
                     !!}
-                    <!--select2 v-model="client_id" :options="clients2" style="width:100%">
-                        <option value="0">Seleccione un cliente</option>
-                    </select2>
-                    <br><br-->
+                    
                     <div class="row">
                         <div class="col-md-6">
                             {!! Field::number('folio', $lastSale ? $lastFolio + 1: 1,

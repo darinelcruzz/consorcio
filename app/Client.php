@@ -93,4 +93,12 @@ class Client extends Model
 
         return $balance;
     }
+
+    function scopeBuyers($query, $product)
+    {
+        return $query->orderBy('name', 'asc')->get()
+            ->filter(function ($item) use ($product) {
+                return strpos($item->products, $product);
+            })->pluck('name', 'id')->toArray();
+    }
 }

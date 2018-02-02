@@ -11,25 +11,30 @@ use App\Price;
 
 class PorkSalesController extends Controller
 {
+    private $data;
+    private $moreData;
+
+    function __construct()
+    {
+        $this->data = ['type' => 'pork', 'color' => 'baby', 'skin' => 'pink'];
+        $this->moreData = array_merge($this->data, [
+            'clients' => Client::buyers('cerdo'),
+            'prices' => Price::pricesWithNames(1)
+        ]);
+    }
+
     function index()
     {
-        $sales = PorkSale::all();
-        $type = 'pork';
-        $color = 'baby';
-        $skin = 'pink';
-        return view('sales.index', compact('sales', 'type', 'color', 'skin'));
+        return view('sales.index', $this->data)->with('sales', PorkSale::all());
     }
 
     function create()
     {
-        $clients = $this->getClients();
-        $prices = Price::pricesWithNames(1);
-        $type = 'pork';
-        $color = 'baby';
-        $skin = 'pink';
         $lastSale = PorkSale::all()->last();
         $lastFolio = $this->getFolio();
-        return view('sales.create', compact('clients', 'type', 'color', 'lastSale', 'lastFolio', 'skin', 'prices'));
+
+        return view('sales.create', $this->moreData)
+            ->with(compact('lastSale', 'lastFolio'));
     }
 
     function store(StorePAFSale $request)
@@ -37,27 +42,28 @@ class PorkSalesController extends Controller
         $sale = PorkSale::create($request->all());
 
         $this->updateInventory($request->quantity);
-
         $days = $request->credit * 8;
-
         $sale->update([
             'status' => $request->credit == '0' ? 'pagado': 'credito',
             'credit' => $request->credit == '0' ? 0: 1,
             'days' => $days > 16 ? 15: $days
         ]);
 
-        return redirect('ventas/cerdo');
+        return redirect(route('pork.index'));
     }
 
-    function getClients()
+    function edit(PorkSale $porkSale)
     {
-        return Client::orderBy('name', 'asc')
-            ->get()
-            ->filter(function ($item) {
-                return strpos($item->products, 'cerdo');
-            })
-            ->pluck('name', 'id')
-            ->toArray();
+        return view('sales.edit', $this->moreData)->with('sale', $porkSale);
+    }
+
+    function update(Request $request)
+    {
+        $sale = PorkSale::find($request->id);
+        $this->modifyInventory($sale->quantity, $request->quantity);
+        $sale->update($request->all());
+
+        return redirect(route('pork.index'));
     }
 
     function updateInventory($quantity)
@@ -67,6 +73,14 @@ class PorkSalesController extends Controller
         $current = $former->quantity - $quantity;
 
         $former->update(['quantity' => $current]);
+    }
+
+    function modifyInventory($oldQuantity, $newQuantity)
+    {
+        $product = Product::where('name', 'cerdo')->first();
+        $quantity = $product->quantity + $oldQuantity - $newQuantity;
+
+        $product->update(['quantity' => $quantity]);
     }
 
     public function getFolio()
@@ -91,6 +105,6 @@ class PorkSalesController extends Controller
             'status' => 'cancelada',
         ]);
 
-        return redirect('ventas/cerdo');
+        return redirect(route('pork.index'));
     }
 }

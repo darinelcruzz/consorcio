@@ -38,7 +38,8 @@ $factory->define(App\Client::class, function (Faker\Generator $faker) {
         'cellphone' => $faker->phoneNumber,
         'credit' => $faker->numberBetween(0, 1),
         'notes' => $faker->randomDigit,
-        'products' => serialize(array_slice($products, mt_rand(0, 4))),
+        //'products' => serialize(array_slice($products, mt_rand(0, 4))),
+        'products' => serialize($products),
     ];
 });
 

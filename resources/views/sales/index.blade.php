@@ -42,6 +42,10 @@
                     <td>
                         @if ($sale->client_id)
                             <a href="{{ route('client.details', ['id' => $sale->client->id]) }}">{{ $sale->client->name }}</a>
+                            &nbsp;
+                            <a href="{{ route($type . '.edit', ['aliveSale' => $sale->id]) }}">
+                                <i class="fa fa-pencil"></i>
+                            </a>
                         @else
                             N/A
                         @endif

@@ -11,25 +11,29 @@ use App\Price;
 
 class AliveSalesController extends Controller
 {
+    private $data;
+    private $moreData;
+
+    function __construct()
+    {
+        $this->data = ['type' => 'alive', 'color' => 'primary', 'skin' => 'blue'];
+        $this->moreData = array_merge($this->data, [
+            'clients' => Client::buyers('vivo'),
+            'prices' => Price::pricesWithNames(3)
+        ]);
+    }
+
     function index()
     {
-        $sales = AliveSale::all();
-        $type = 'alive';
-        $color = 'primary';
-        $skin = 'blue';
-        return view('sales.index', compact('sales', 'type', 'color', 'skin'));
+        return view('sales.index', $this->data)->with('sales', AliveSale::all());
     }
 
     function create()
     {
-        $clients = $this->getClients();
-        $prices = Price::pricesWithNames(3);
-        $type = 'alive';
-        $color = 'primary';
-        $skin = 'blue';
         $lastSale = AliveSale::all()->last();
         $lastFolio = $this->getFolio();
-        return view('sales.create', compact('clients', 'type', 'color', 'lastSale', 'lastFolio', 'skin', 'prices'));
+        return view('sales.create', $this->moreData)
+            ->with(compact('lastSale', 'lastFolio'));
     }
 
     function store(StorePAFSale $request)
@@ -46,26 +50,36 @@ class AliveSalesController extends Controller
             'days' => $days > 16 ? 15: $days
         ]);
 
-        return redirect('ventas/vivo');
+        return redirect(route('alive.index'));
     }
 
-    function getClients() {
-        return Client::orderBy('name', 'asc')
-            ->get()
-            ->filter(function ($item) {
-                return strpos($item->products, 'vivo');
-            })
-            ->pluck('name', 'id')
-            ->toArray();
+    function edit(AliveSale $aliveSale)
+    {
+        return view('sales.edit', $this->moreData)->with('sale', $aliveSale);
+    }
+
+    function update(Request $request)
+    {
+        $sale = AliveSale::find($request->id);
+        $this->modifyInventory($sale->quantity, $request->quantity);
+        $sale->update($request->all());
+
+        return redirect(route('alive.index'));
     }
 
     function updateInventory($quantity)
     {
         $former = Product::where('name', 'pollo vivo')->first();
-
         $current = $former->quantity - $quantity;
-
         $former->update(['quantity' => $current]);
+    }
+
+    function modifyInventory($oldQuantity, $newQuantity)
+    {
+        $product = Product::where('name', 'pollo vivo')->first();
+        $quantity = $product->quantity + $oldQuantity - $newQuantity;
+
+        $product->update(['quantity' => $quantity]);
     }
 
     public function getFolio()
@@ -90,6 +104,6 @@ class AliveSalesController extends Controller
             'status' => 'cancelada',
         ]);
 
-        return redirect('ventas/vivo');
+        return redirect(route('alive.index'));
     }
 }

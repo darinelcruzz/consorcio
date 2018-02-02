@@ -19,6 +19,8 @@ Route::group(['prefix' => 'ventas/cerdo', 'as' => 'pork.'], function () {
     Route::get('/', usesas($ctrl, 'index'));
     Route::get('agregar', usesas($ctrl, 'create'));
     Route::post('agregar', usesas($ctrl, 'store'));
+    Route::get('editar/{porkSale}', usesas($ctrl, 'edit'));
+    Route::post('editar', usesas($ctrl, 'update'));
     Route::get('descartar/{folio}', usesas($ctrl, 'discard'));
 });
 
@@ -28,6 +30,8 @@ Route::group(['prefix' => 'ventas/vivo', 'as' => 'alive.'], function () {
     Route::get('/', usesas($ctrl, 'index'));
     Route::get('agregar', usesas($ctrl, 'create'));
     Route::post('agregar', usesas($ctrl, 'store'));
+    Route::get('editar/{aliveSale}', usesas($ctrl, 'edit'));
+    Route::post('editar', usesas($ctrl, 'update'));
     Route::get('descartar/{folio}', usesas($ctrl, 'discard'));
 });
 
@@ -37,6 +41,8 @@ Route::group(['prefix' => 'ventas/fresco', 'as' => 'fresh.'], function () {
     Route::get('/', usesas($ctrl, 'index'));
     Route::get('agregar', usesas($ctrl, 'create'));
     Route::post('agregar', usesas($ctrl, 'store'));
+    Route::get('editar/{freshSale}', usesas($ctrl, 'edit'));
+    Route::post('editar', usesas($ctrl, 'update'));
     Route::get('descartar/{folio}', usesas($ctrl, 'discard'));
 });
 
@@ -46,6 +52,8 @@ Route::group(['prefix' => 'ventas/procesado', 'as' => 'processed.'], function ()
     Route::get('/', usesas($ctrl, 'index'));
     Route::get('agregar', usesas($ctrl, 'create'));
     Route::post('agregar', usesas($ctrl, 'store'));
+    Route::get('editar/{processedSale}', usesas($ctrl, 'edit'));
+    Route::post('editar', usesas($ctrl, 'update'));
     Route::get('descartar/{folio}', usesas($ctrl, 'discard'));
     Route::get('{processedsale}', usesas($ctrl, 'show'));
     Route::get('{processedsale}/agregar-kg', usesas($ctrl, 'editKg'));

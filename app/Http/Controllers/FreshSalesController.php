@@ -11,31 +11,35 @@ use App\Price;
 
 class FreshSalesController extends Controller
 {
+    private $data;
+    private $moreData;
+
+    function __construct()
+    {
+        $this->data = ['type' => 'fresh', 'color' => 'warning', 'skin' => 'yellow'];
+        $this->moreData = array_merge($this->data, [
+            'clients' => Client::buyers('fresco'),
+            'prices' => Price::pricesWithNames(2)
+        ]);
+    }
+
     function index()
     {
-        $sales = FreshSale::all();
-        $type = 'fresh';
-        $color = 'warning';
-        return view('sales.index', compact('sales', 'type', 'color'));
+        return view('sales.index', $this->data)->with('sales', FreshSale::all());
     }
 
     function create()
     {
-        $clients = $this->getClients();
-        $prices = Price::pricesWithNames(2);
-        $type = 'fresh';
-        $color = 'warning';
         $lastSale = FreshSale::all()->last();
         $lastFolio = $this->getFolio();
-        return view('sales.create', compact('clients', 'type', 'color', 'lastSale', 'lastFolio', 'prices'));
+        return view('sales.create', $this->moreData)
+            ->with(compact('lastSale', 'lastFolio'));
     }
 
     function store(StorePAFSale $request)
     {
         $sale = FreshSale::create($request->all());
-
         $this->updateInventory($request->quantity);
-
         $days = $request->credit * 8;
 
         $sale->update([
@@ -44,18 +48,21 @@ class FreshSalesController extends Controller
             'days' => $days > 16 ? 15: $days
         ]);
 
-        return redirect('ventas/fresco');
+        return redirect(route('fresh.index'));
     }
 
-    function getClients()
+    function edit(FreshSale $freshSale)
     {
-        return Client::orderBy('name', 'asc')
-            ->get()
-            ->filter(function ($item) {
-                return strpos($item->products, 'fresco');
-            })
-            ->pluck('name', 'id')
-            ->toArray();
+        return view('sales.edit', $this->moreData)->with('sale', $freshSale);
+    }
+
+    function update(Request $request)
+    {
+        $sale = FreshSale::find($request->id);
+        $this->modifyInventory($sale->quantity, $request->quantity);
+        $sale->update($request->all());
+
+        return redirect(route('fresh.index'));
     }
 
     function updateInventory($quantity)
@@ -65,6 +72,14 @@ class FreshSalesController extends Controller
         $current = $former->quantity - $quantity;
 
         $former->update(['quantity' => $current]);
+    }
+
+    function modifyInventory($oldQuantity, $newQuantity)
+    {
+        $product = Product::where('name', 'pollo fresco')->first();
+        $quantity = $product->quantity + $oldQuantity - $newQuantity;
+
+        $product->update(['quantity' => $quantity]);
     }
 
     public function getFolio()
@@ -89,6 +104,6 @@ class FreshSalesController extends Controller
             'status' => 'cancelada',
         ]);
 
-        return redirect('ventas/fresco');
+        return redirect(route('fresh.index'));
     }
 }
