@@ -24,7 +24,7 @@
                 <td>{{ $sale->nice_amount }}</td>
                 <td>{{ $sale->credit == 0 ? 'Contado' : '$ ' . number_format($sale->amount - $sale->deposit_total, 2) }}</td>
                 <td>
-                    @includeWhen($sale->status != 'pagado' ,'clients/deposit')
+                    @includeWhen($sale->status != 'pagado' && auth()->user()->level == 1,'clients/deposit')
                 </td>
                 <td>{{ $sale->status }}</td>
                 @if ($sale->credit == 1)
