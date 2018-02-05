@@ -27,7 +27,7 @@
                             !!}
                         </div>
                         <div class="col-md-6">
-                            {!! Field::select('date', $validDates, $sale->date,
+                            {!! Field::date('date', $sale->date,
                                 ['tpl' => 'templates/withicon', 'empty' => 'Seleccione la fecha'],
                                 ['icon' => 'calendar'])
                             !!}
