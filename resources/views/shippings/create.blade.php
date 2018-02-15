@@ -37,19 +37,19 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            {!! Field::number('quantity', ['tpl' => 'templates/withicon', 'min' => '0', 'step' => '0.1'],
+                            {!! Field::number('quantity', ['tpl' => 'templates/withicon', 'min' => '0', 'step' => '0.01'],
                                 ['icon' => 'list-ol']) !!}
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6">
-                            {!! Field::number('price', ['tpl' => 'templates/withicon', 'min' => '0', 'step' => '0.1'],
+                            {!! Field::number('price', ['tpl' => 'templates/withicon', 'min' => '0', 'step' => '0.01'],
                                 ['icon' => 'money']) !!}
                         </div>
 
                         <div class="col-md-6">
-                            {!! Field::number('amount', ['tpl' => 'templates/withicon', 'min' => '0', 'step' => '0.1'],
+                            {!! Field::number('amount', ['tpl' => 'templates/withicon', 'min' => '0', 'step' => '0.01'],
                                 ['icon' => 'usd']) !!}
                         </div>
                     </div>
