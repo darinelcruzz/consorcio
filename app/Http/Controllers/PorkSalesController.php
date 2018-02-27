@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePAFSale;
-use App\PorkSale;
-use App\Client;
-use App\Product;
-use App\Price;
+use App\{PorkSale, Client, Product, Price};
 
 class PorkSalesController extends Controller
 {

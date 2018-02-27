@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Client;
-use App\Product;
+use App\{Client, Product};
 
 class AxiosController extends Controller
 {

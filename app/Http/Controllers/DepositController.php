@@ -3,11 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Deposit;
-use App\AliveSale;
-use App\FreshSale;
-use App\PorkSale;
-use App\ProcessedSale;
+use App\{Deposit, AliveSale, FreshSale, PorkSale, ProcessedSale};
 
 class DepositController extends Controller
 {

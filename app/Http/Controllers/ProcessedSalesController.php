@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ProcessedRequest;
-use App\ProcessedSale;
-use App\Client;
-use App\Product;
-use App\Price;
+use App\{ProcessedSale, Client, Product, Price};
 
 class ProcessedSalesController extends Controller
 {

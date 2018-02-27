@@ -4,14 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Jenssegers\Date\Date;
-use App\Deposit;
-use App\Client;
-use App\Shipping;
-use App\Product;
-use App\AliveSale;
-use App\FreshSale;
-use App\PorkSale;
-use App\ProcessedSale;
+use App\{Deposit, Client, Shipping, Product, AliveSale, FreshSale, PorkSale, ProcessedSale};
 
 class ReportController extends Controller
 {

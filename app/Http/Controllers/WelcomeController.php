@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Jenssegers\Date\Date;
-use App\AliveSale;
-use App\FreshSale;
-use App\PorkSale;
-use App\ProcessedSale;
+use App\{AliveSale, FreshSale, PorkSale, ProcessedSale};
 
 class WelcomeController extends Controller
 {

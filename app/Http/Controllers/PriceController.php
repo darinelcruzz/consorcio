@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Jenssegers\Date\Date;
-use App\Price;
-use App\Product;
+use App\{Price, Product};
 
 class PriceController extends Controller
 {

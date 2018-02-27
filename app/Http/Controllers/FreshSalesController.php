@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePAFSale;
-use App\FreshSale;
-use App\Client;
-use App\Product;
-use App\Price;
+use App\{FreshSale, Client, Product, Price};
 
 class FreshSalesController extends Controller
 {

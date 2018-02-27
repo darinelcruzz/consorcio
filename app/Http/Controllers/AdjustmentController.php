@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Jenssegers\Date\Date;
-use App\Adjustment;
-use App\Product;
+use App\{Adjustment, Product};
 
 class AdjustmentController extends Controller
 {

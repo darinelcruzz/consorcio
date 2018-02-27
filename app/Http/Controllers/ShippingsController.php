@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Shipping;
-use App\Product;
 use Jenssegers\Date\Date;
+use App\{Shipping, Product};
 
 class ShippingsController extends Controller
 {
