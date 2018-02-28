@@ -73,6 +73,7 @@ class PorkSale extends Model
     function scopeProductReport($query, $start, $end)
     {
         return $query->whereBetween('date', [$start, $end])
+                    ->where('status', '!=', 'cancelada')
                     ->groupBy('client_id')
                     ->selectRaw('client_id, SUM(quantity) as totalQ, SUM(kg) as totalK, SUM(amount) as totalA')
                     ->get();
