@@ -94,10 +94,11 @@ class PorkSalesController extends Controller
         return 0;
     }
 
-    function discard($folio)
+    function discard(Request $request)
     {
         PorkSale::create([
-            'folio' => $folio,
+            'folio' => $request->folio,
+            'date' => $request->selected_date,
             'client_id' => 0,
             'status' => 'cancelada',
         ]);

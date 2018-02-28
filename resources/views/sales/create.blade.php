@@ -13,7 +13,7 @@
                         ['tpl' => 'templates/withicon', 'empty' => 'Seleccione un cliente', 'v-model' => 'client_id'],
                         ['icon' => 'user'])
                     !!}
-                    
+
                     <div class="row">
                         <div class="col-md-6">
                             {!! Field::number('folio', $lastSale ? $lastFolio + 1: 1,
@@ -24,7 +24,7 @@
 
                         <div class="col-md-6">
                             {!! Field::select('date', $validDates, null,
-                                ['tpl' => 'templates/withicon', 'empty' => 'Seleccione la fecha'],
+                                ['tpl' => 'templates/withicon', 'empty' => 'Seleccione la fecha', 'v-model' => 'selected_date'],
                                 ['icon' => 'calendar'])
                             !!}
                         </div>
@@ -135,9 +135,15 @@
 
             <hr>
 
-            <a href="{{ route("$type.discard", ['folio' => $lastFolio + 1]) }}" class="btn btn-danger pull-left">
-                CANCELAR FOLIO
-            </a>
+
+
+            {!! Form::open(['method' => 'POST', 'route' => "$type.discard"]) !!}
+                <input type="hidden" name="selected_date" :value="selected_date">
+                <input type="hidden" name="folio" value="{{ $lastFolio + 1 }}">
+                <div v-if="selected_date != ''">
+                    {!! Form::submit('CANCELAR FOLIO', ['class' => 'btn btn-danger pull-left']) !!}
+                </div>
+            {!! Form::close() !!}
 
         </div>
 

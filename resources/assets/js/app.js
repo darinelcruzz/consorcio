@@ -35,6 +35,7 @@ const app = new Vue({
         clients: [],
         clients2: [],
         client_id: '',
+        selected_date: '',
         checked: [],
         price_id: '',
         shipp: '',
