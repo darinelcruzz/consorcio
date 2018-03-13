@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Product;
+use App\{Product, AliveSale, PorkSale, ProcessedSale};
 
 class ProductsController extends Controller
 {
     function index()
     {
         $processed = Product::where('processed', 1)->get();
-        $pork = Product::where('id', 1)->get();
-        $alive = Product::where('id', 3)->get();
+        $alive = AliveSale::inStock();
+        $pork = PorkSale::inStock();
+        #$processed = ProcessedSale::inStock();
         $food = Product::where('processed', 2)->get();
         return view('products.products', compact('processed', 'pork', 'alive', 'food'));
     }

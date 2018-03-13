@@ -78,4 +78,12 @@ class PorkSale extends Model
                     ->selectRaw('client_id, SUM(quantity) as totalQ, SUM(kg) as totalK, SUM(amount) as totalA')
                     ->get();
     }
+
+    function scopeInStock($query)
+    {
+        $sold = $query->where('status', '!=', 'cancelada')->sum('quantity');
+        $bought = Shipping::where('product', 1)->sum('quantity');
+
+        return $bought - $sold;
+    }
 }

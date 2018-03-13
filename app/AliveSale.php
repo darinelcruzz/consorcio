@@ -79,4 +79,12 @@ class AliveSale extends Model
                     ->get();
     }
 
+    function scopeInStock($query)
+    {
+        $sold = $query->where('status', '!=', 'cancelada')->sum('quantity');
+        $bought = Shipping::where('product', 3)->sum('quantity');
+
+        return $bought - $sold;
+    }
+
 }
