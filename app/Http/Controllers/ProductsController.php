@@ -9,7 +9,6 @@ class ProductsController extends Controller
 {
     function index()
     {
-        #$processed = Product::where('processed', 1)->get();
         $alive = AliveSale::inStock();
         $pork = PorkSale::inStock();
         $processed = $this->stockValues();
@@ -78,7 +77,7 @@ class ProductsController extends Controller
 
         foreach ($sales as $sale) {
             foreach (unserialize($sale->products) as $product) {
-                array_push(${$types[$product['i']]}, $product['q']);
+                array_push(${$types[$product['i']]}, $product['b']);
             }
         }
 
@@ -105,6 +104,7 @@ class ProductsController extends Controller
         $shippings = $this->getSumsFromShippings();
         $sales = $this->getSumsFromSales();
 
+        #dd($shippings, $sales);
         $stock = [];
 
         foreach ($shippings as $key => $value) {
