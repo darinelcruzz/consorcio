@@ -64,10 +64,8 @@ class FreshSalesController extends Controller
 
     function updateInventory($quantity)
     {
-        $former = Product::where('name', 'pollo fresco')->first();
-
+        $former = Product::where('name', 'Pollo vivo')->first();
         $current = $former->quantity - $quantity;
-
         $former->update(['quantity' => $current]);
     }
 

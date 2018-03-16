@@ -73,8 +73,9 @@ class ProcessedSale extends Model
                 array_push($products, $product);
 
                 $pproduct = Product::find($request->types[$i]);
+                $old_number = $pproduct->quantity;
                 $pproduct->update([
-                    'quantity' => $pproduct->quantity - $request->packages[$i]
+                    'quantity' => $old_number - $request->packages[$i]
                 ]);
             }
         }

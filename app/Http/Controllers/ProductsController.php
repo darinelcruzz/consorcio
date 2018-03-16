@@ -9,11 +9,10 @@ class ProductsController extends Controller
 {
     function index()
     {
-        $alive = AliveSale::inStock();
-        $pork = PorkSale::inStock();
-        $processed = $this->stockValues();
-        $food = Product::where('processed', 2)->get();
-        return view('products.products', compact('processed', 'pork', 'alive', 'food'));
+        $products = Product::where('name', '!=', 'Procesado')
+                        ->where('name', '!=', 'Pollo fresco')->get();
+
+        return view('products.products', compact('products'));
     }
 
     function store(Request $request)
@@ -27,7 +26,7 @@ class ProductsController extends Controller
         return back();
     }
 
-    function getSumsFromShippings()
+    /*function getSumsFromShippings()
     {
         $types = [
             '4' => 'big', '5' => 'medium', '6' => 'small', '7' => 'junior', '8' => 'petit', '9' => 'mini',
@@ -112,5 +111,5 @@ class ProductsController extends Controller
         }
 
         return $stock;
-    }
+    }*/
 }
