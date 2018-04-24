@@ -26,6 +26,12 @@ class ProcessedSalesController extends Controller
         return view('sales.index', compact('sales'))->with( $this->data);
     }
 
+    function search(Request $request)
+    {
+        $sales = ProcessedSale::where('folio', 'LIKE', '%' . $request->folio . '%' )->get();
+        return view('sales.results', compact('sales'))->with($this->data);
+    }
+
     function create()
     {
         $lastSale = ProcessedSale::all()->last();

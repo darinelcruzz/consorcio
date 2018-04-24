@@ -4,18 +4,14 @@
 
     <div class="row">
         <div class="col-md-6">
-            <a href="{{ route($type . '.create') }}" class="btn btn-app">
-                <span class="badge bg-red">+</span>
-                <i class="fa fa-shopping-cart"></i> Nueva venta
-            </a>
         </div>
         <div class="col-md-6">
             <br>
             {!! Form::open(['method' => 'POST', 'route' => "$type.search"]) !!}
                 <div class="input-group input-group-sm">
-                    <input type="text" name="folio" class="form-control" required>
+                    <input type="text" name="folio" class="form-control">
                     <span class="input-group-btn">
-                      <button type="submit" class="btn btn-{{ $color }} btn-flat">
+                      <button type="button" class="btn btn-{{ $color }} btn-flat">
                           <i class="fa fa-search"></i>
                       </button>
                     </span>
@@ -23,7 +19,7 @@
             {!! Form::close() !!}
         </div>
     </div>
-
+    <br>
     <data-table col="col-md-12" title="{{ $types[$type] }}"
         example="sales" color="{{ 'box-' . $color }}">
 
@@ -76,16 +72,6 @@
                     <td>{{ $sale->observations }}</td>
                 </tr>
             @endforeach
-        </template>
-
-        <template slot="footer">
-            <tr>
-                <td colspan="10">
-                    <span class="pull-right">
-                        {{ $sales->links() }}
-                    </span>
-                </td>
-            </tr>
         </template>
 
     </data-table>

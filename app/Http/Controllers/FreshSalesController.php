@@ -26,6 +26,12 @@ class FreshSalesController extends Controller
         return view('sales.index', compact('sales'))->with($this->data);
     }
 
+    function search(Request $request)
+    {
+        $sales = FreshSale::where('folio', 'LIKE', '%' . $request->folio . '%' )->get();
+        return view('sales.results', compact('sales'))->with($this->data);
+    }
+
     function create()
     {
         $lastSale = FreshSale::all()->last();

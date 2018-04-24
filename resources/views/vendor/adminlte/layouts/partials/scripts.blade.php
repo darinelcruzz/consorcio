@@ -47,6 +47,7 @@ $(function () {
       "order":[[ 0 , "desc"]],
       "paging":false,
       "info":false,
+      "searching": false,
     });
     $("#example1").DataTable({
       "order":[[ 0 , "desc"]]
