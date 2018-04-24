@@ -14,10 +14,6 @@
 <script src="{{ asset('/plugins/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('/plugins/dataTables.bootstrap.min.js') }}"></script>
 
-<!-- Optionally, you can add Slimscroll and FastClick plugins.
-      Both of these plugins are recommended to enhance the
-      user experience. Slimscroll is required when using the
-      fixed layout. -->
 <script>
     window.Laravel = {!! json_encode([
         'csrfToken' => csrf_token(),
@@ -47,6 +43,11 @@ $(function () {
     $(".select2").select2();
 
     // Data Table With Full Features
+    $("#sales").DataTable({
+      "order":[[ 0 , "desc"]],
+      "paging":false,
+      "info":false,
+    });
     $("#example1").DataTable({
       "order":[[ 0 , "desc"]]
     });

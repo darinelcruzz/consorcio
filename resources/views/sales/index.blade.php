@@ -10,7 +10,7 @@
     </row-woc>
 
     <data-table col="col-md-12" title="{{ $types[$type] }}"
-        example="example1" color="{{ 'box-' . $color }}">
+        example="sales" color="{{ 'box-' . $color }}">
 
         <template slot="header">
             <tr>
@@ -61,6 +61,16 @@
                     <td>{{ $sale->observations }}</td>
                 </tr>
             @endforeach
+        </template>
+
+        <template slot="footer">
+            <tr>
+                <td colspan="10">
+                    <span class="pull-right">
+                        {{ $sales->links() }}
+                    </span>
+                </td>
+            </tr>
         </template>
 
     </data-table>

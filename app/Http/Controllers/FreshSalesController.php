@@ -22,7 +22,8 @@ class FreshSalesController extends Controller
 
     function index()
     {
-        return view('sales.index', $this->data)->with('sales', FreshSale::all());
+        $sales = FreshSale::where('status', '!=', 'cancelada')->orderBy('id', 'desc')->paginate(10);
+        return view('sales.index', compact('sales'))->with($this->data);
     }
 
     function create()
