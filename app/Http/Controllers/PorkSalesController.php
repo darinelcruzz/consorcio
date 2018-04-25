@@ -28,7 +28,9 @@ class PorkSalesController extends Controller
 
     function search(Request $request)
     {
-        $sales = PorkSale::where('folio', 'LIKE', '%' . $request->folio . '%' )->get();
+        $sales = PorkSale::where('folio', 'LIKE', '%' . $request->folio . '%' )
+                    ->orWhere('status', 'LIKE', '%can%')
+                    ->get();
         return view('sales.results', compact('sales'))->with($this->data);
     }
 
