@@ -22,7 +22,7 @@ class PorkSalesController extends Controller
 
     function index()
     {
-        $sales = PorkSale::where('status', '!=', 'cancelada')->orderBy('id', 'desc')->paginate(10);
+        $sales = PorkSale::orderBy('id', 'desc')->paginate(10);
         return view('sales.index', compact('sales'))->with( $this->data);
     }
 

@@ -22,7 +22,7 @@ class ProcessedSalesController extends Controller
 
     function index()
     {
-        $sales = ProcessedSale::where('status', '!=', 'cancelada')->orderBy('id', 'desc')->paginate(10);
+        $sales = ProcessedSale::orderBy('id', 'desc')->paginate(10);
         return view('sales.index', compact('sales'))->with( $this->data);
     }
 

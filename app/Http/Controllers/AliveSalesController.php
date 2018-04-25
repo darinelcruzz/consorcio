@@ -22,7 +22,7 @@ class AliveSalesController extends Controller
 
     function index()
     {
-        $sales = AliveSale::where('status', '!=', 'cancelada')->orderBy('id', 'desc')->paginate(10);
+        $sales = AliveSale::orderBy('id', 'desc')->paginate(10);
         return view('sales.index', compact('sales'))->with($this->data);
     }
 
