@@ -95,7 +95,7 @@
                     <input type="hidden" name="folio" value="{{ $lastSale ? $lastFolio + 1: 1 }}">
                     <input type="hidden" name="days" value="0">
                     <input type="hidden" name="status" value="pagado">
-                    {!! Form::submit('Agregar', ['class' => 'btn btn-' . $color . ' pull-right']) !!}
+                    <button type="submit" class="btn btn-{{ $color }} pull-right" onclick="submitForm(this);">Agregar</button>
 
                 {!! Form::close() !!}
             </solid-box>
