@@ -7,7 +7,7 @@
     <input type="hidden" name="dif" value="{{ $sale->amount - $sale->deposit_total }}">
     <input type="number" class="form-control" name="amount" min="0" step="0.01" max="{{ $sale->amount - $sale->deposit_total }}">
     <span class="input-group-btn">
-      <button type="submit" class="btn btn-success btn-flat btn-xs">
+      <button type="submit" class="btn btn-success btn-flat btn-xs" onclick="submitForm(this);">
           <i class="fa fa-plus"></i>
       </button>
     </span>
