@@ -58,10 +58,19 @@ class Client extends Model
 
     function getUnpaidNotesAttribute()
     {
-        $notes = $this->alivesales->where('status', '!=', 'pagado')->orWhere('status', '!=', 'cancelada')->count() +
-            $this->porksales->where('status', '!=', 'pagado')->orWhere('status', '!=', 'cancelada')->count() +
-            $this->freshsales->where('status', '!=', 'pagado')->orWhere('status', '!=', 'cancelada')->count() +
-            $this->processedsales->where('status', '!=', 'pagado')->orWhere('status', '!=', 'cancelada')->count();
+        $notes = 0;
+        foreach ($this->alivesales->where('status', '!=', 'pagado') as $sale) {
+            if ($sale->status != 'cancelada') $notes += 1;
+        }
+        foreach ($this->porksales->where('status', '!=', 'pagado') as $sale) {
+            if ($sale->status != 'cancelada') $notes += 1;
+        }
+        foreach ($this->freshsales->where('status', '!=', 'pagado') as $sale) {
+            if ($sale->status != 'cancelada') $notes += 1;
+        }
+        foreach ($this->processedsales->where('status', '!=', 'pagado') as $sale) {
+            if ($sale->status != 'cancelada') $notes += 1;
+        }
 
         return $notes;
     }
