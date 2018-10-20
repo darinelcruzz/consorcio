@@ -4,6 +4,14 @@
 
     <div class="row">
         <div class="col-md-6">
+            <a href="{{ route($type . '.create') }}" class="btn btn-app">
+                <span class="badge bg-red">+</span>
+                <i class="fa fa-shopping-cart"></i> Nueva venta
+            </a>
+            <a href="{{ route($type . '.index') }}" class="btn btn-app">
+                <span class="badge bg-red"><i class="fa fa-bars"></i></span>
+                <i class="fa fa-home"></i> Inicio
+            </a>
         </div>
         <div class="col-md-6">
             <br>

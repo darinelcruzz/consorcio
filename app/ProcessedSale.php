@@ -58,6 +58,12 @@ class ProcessedSale extends Model
         return $fdate->format('D, j/M/Y');
     }
 
+    function getStatusColorAttribute()
+    {
+        $colors = ['vencida' => 'danger', 'cancelada' => 'default', 'pagado' => 'success', 'credito' => 'warning'];
+        return $colors[$this->status];
+    }
+
     function storeProducts($request)
     {
         $products = [];

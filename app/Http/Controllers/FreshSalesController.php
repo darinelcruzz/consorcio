@@ -29,7 +29,6 @@ class FreshSalesController extends Controller
     function search(Request $request)
     {
         $sales = FreshSale::where('folio', 'LIKE', '%' . $request->folio . '%' )
-                    ->orWhere('status', 'LIKE', '%can%')
                     ->get();
         return view('sales.results', compact('sales'))->with($this->data);
     }

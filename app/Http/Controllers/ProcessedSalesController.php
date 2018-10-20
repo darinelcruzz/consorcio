@@ -29,7 +29,6 @@ class ProcessedSalesController extends Controller
     function search(Request $request)
     {
         $sales = ProcessedSale::where('folio', 'LIKE', '%' . $request->folio . '%' )
-                    ->orWhere('status', 'LIKE', '%can%')
                     ->get();
         return view('sales.results', compact('sales'))->with($this->data);
     }

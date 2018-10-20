@@ -72,7 +72,9 @@
                     <td>{{ $sale->pricer->name or '' }}</td>
                     <td>{{ $sale->niceAmount }}</td>
                     <td>{{ $sale->credit ? "$sale->days días": 'NO'}}</td>
-                    <td>{{ $sale->status }}</td>
+                    <td>
+                        <label class="label label-{{ $sale->statusColor }}">{{ ucfirst($sale->status) }}</label>
+                    </td>
                     <td>{{ $sale->observations }}</td>
                 </tr>
             @endforeach

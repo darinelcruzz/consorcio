@@ -62,6 +62,12 @@ class PorkSale extends Model
         return $fdate->format('D, j/M/Y');
     }
 
+    function getStatusColorAttribute()
+    {
+        $colors = ['vencida' => 'danger', 'cancelada' => 'default', 'pagado' => 'success', 'credito' => 'warning'];
+        return $colors[$this->status];
+    }
+
     function scopeSalesReport($query, $start, $end)
     {
         return $query->whereBetween('date', [$start, $end])

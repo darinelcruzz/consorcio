@@ -27,7 +27,9 @@
                     <td>
                         @includeWhen($sale->status != 'pagado' && auth()->user()->level == 1,'clients/deposit')
                     </td>
-                    <td>{{ $sale->status }}</td>
+                    <td>
+                        <label class="label label-{{ $sale->statusColor }}">{{ ucfirst($sale->status) }}</label>
+                    </td>
                     @if ($sale->credit == 1)
                         <td>
                             <a href="{{ route('deposit.details', ['id' => $sale->id, 'type' => $sale->type, 'amount' => $sale->amount]) }}"  class="btn btn-info">
