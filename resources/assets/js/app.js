@@ -27,6 +27,8 @@ Vue.component('nav-tabs', require('./components/lte/NavTabsPane.vue'));
 Vue.component('client-info', require('./components/lte/ClientInfo.vue'));
 
 Vue.component('select2', require('./components/SelectTwo.vue'));
+Vue.component('sale', require('./components/Sale.vue'));
+Vue.component('sales-table', require('./components/SalesTable.vue'));
 
 
 const app = new Vue({

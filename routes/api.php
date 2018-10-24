@@ -2,24 +2,24 @@
 
 use Illuminate\Http\Request;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+// Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
+//     //    Route::resource('task', 'TasksController');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//     //Please do not remove this if you want adminlte:route and adminlte:link commands to works correctly.
+//     #adminlte_api_routes
+// });
 
-Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
-    //    Route::resource('task', 'TasksController');
+Route::group(['prefix' => 'sales', 'as' => 'api.'], function () {
+    $ctrl = 'Api\SaleController';
 
-    //Please do not remove this if you want adminlte:route and adminlte:link commands to works correctly.
-    #adminlte_api_routes
+    // Route::resource('sales', $ctrl);
+
+    Route::get('{type}', usesas($ctrl, 'index'));
+    Route::get('{type}/{keyword}', usesas($ctrl, 'search'));
+    Route::get('create', usesas($ctrl, 'create'));
+    Route::post('store', usesas($ctrl, 'store'));
+    Route::get('edit/{sale}', usesas($ctrl, 'edit'));
+    Route::post('edit', usesas($ctrl, 'update'));
+    // Route::post('descartar', usesas($ctrl, 'discard'));
+    // Route::post('buscar', usesas($ctrl, 'search'));
 });

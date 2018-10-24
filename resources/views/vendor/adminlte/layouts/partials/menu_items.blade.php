@@ -1,4 +1,4 @@
-<ul class="sidebar-menu">
+<ul class="sidebar-menu" data-widget="tree">
 @foreach ($items as $item)
     @if (empty($item['submenu']))
         <li @if (!empty($item['class'])) class="{{ $item['class'] }}" @endif>

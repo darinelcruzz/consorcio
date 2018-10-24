@@ -22,15 +22,7 @@ class PorkSalesController extends Controller
 
     function index()
     {
-        $sales = PorkSale::orderBy('id', 'desc')->paginate(10);
-        return view('sales.index', compact('sales'))->with( $this->data);
-    }
-
-    function search(Request $request)
-    {
-        $sales = PorkSale::where('folio', 'LIKE', '%' . $request->folio . '%' )
-                    ->get();
-        return view('sales.results', compact('sales'))->with($this->data);
+        return view('sales.index')->with( $this->data);
     }
 
     function create()
