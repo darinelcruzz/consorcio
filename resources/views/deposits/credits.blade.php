@@ -18,7 +18,7 @@
         <template slot="body">
             @foreach($due as $row)
                 <tr>
-                    <td>{{ $row->id }}</td>
+                    <td>{{ $row->folio }}</td>
                     <td>{{ $row->type }}</td>
                     <td><a href="{{ route('client.details', ['id' => $row->client->id]) }}"> {{ $row->client->name }}</a></td>
                     <td>{{ $row->nice_amount }}</td>
@@ -48,7 +48,7 @@
             @foreach($alive as $row)
                 @if ($row->status != 'pagado')
                     <tr>
-                        <td>{{ $row->id }}</td>
+                        <td>{{ $row->folio }}</td>
                         <td><a href="{{ route('client.details', ['id' => $row->client->id]) }}"> {{ $row->client->name }}</a></td>
                         <td>{{ $row->nice_amount }}</td>
                         <td>{{ $row->short_date }}</td>
@@ -78,7 +78,7 @@
             @foreach($fresh as $row)
                 @if ($row->status != 'pagado')
                     <tr>
-                        <td>{{ $row->id }}</td>
+                        <td>{{ $row->folio }}</td>
                         <td><a href="{{ route('client.details', ['id' => $row->client->id]) }}"> {{ $row->client->name }}</a></td>
                         <td>{{ $row->nice_amount }}</td>
                         <td>{{ $row->short_date }}</td>
@@ -108,7 +108,7 @@
             @foreach($processed as $row)
                 @if ($row->status != 'pagado')
                     <tr>
-                        <td>{{ $row->id }}</td>
+                        <td>{{ $row->folio }}</td>
                         <td><a href="{{ route('client.details', ['id' => $row->client->id]) }}"> {{ $row->client->name }}</a></td>
                         <td>{{ $row->nice_amount }}</td>
                         <td>{{ $row->short_date }}</td>
@@ -138,7 +138,7 @@
             @foreach($pork as $row)
                 @if ($row->status != 'pagado')
                     <tr>
-                        <td>{{ $row->id }}</td>
+                        <td>{{ $row->folio }}</td>
                         <td><a href="{{ route('client.details', ['id' => $row->client->id]) }}"> {{ $row->client->name }}</a></td>
                         <td>{{ $row->nice_amount }}</td>
                         <td>{{ $row->short_date }}</td>
