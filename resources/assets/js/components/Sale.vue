@@ -8,20 +8,23 @@
         </td>
         <td>{{ sale.date }}</td>
         <td>
-            <div v-if="sale.client.name">
+            <div v-if="sale.client.name && sale.status != 'cancelada'">
                 <a :href="'/clientes/' + sale.client.id">{{ sale.client.name }}</a>
                 <a v-if="admin" :href="route + '/editar/' + sale.id">
                     <i class="fa fa-pencil"></i>
                 </a>
             </div>
+            <div v-else>
+                <em>N o &nbsp; &nbsp; a p l i c a</em>
+            </div>
         </td>
         <td>{{ sale.quantity }}</td>
         <td>{{ sale.kg }}</td>
-        <td>{{ sale.pricer.name }}</td>
+        <td>{{ sale.price ? sale.pricer.name: '' }}</td>
         <td>{{ sale.amount }}</td>
         <td>{{ sale.credit ? sale.days + ' días': 'NO'}}</td>
         <td>
-            <label :class="['label',  'label-' + statusColor]">{{ sale.status }}</label>
+            <label :class="'label label-' + colors[sale.status]">{{ sale.status }}</label>
         </td>
         <td>{{ sale.observations }}</td>
     </tr>
@@ -33,16 +36,7 @@
 		data() {
 			return {
 				colors: {'vencida': 'danger', 'cancelada': 'default', 'pagado': 'success', 'credito': 'warning'},
-				statusColor: 'default',
 			}
 		},
-		methods: {
-			setStatusColor() {
-				this.statusColor = this.colors[this.sale.status]
-			}
-		},
-		created() {
-			this.setStatusColor()
-		}
 	};
 </script>

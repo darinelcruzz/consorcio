@@ -102,7 +102,7 @@ class ProcessedSalesController extends Controller
         ProcessedSale::create([
             'folio' => $request->folio,
             'date' => $request->selected_date,
-            'client_id' => 0,
+            'client_id' => 1,
             'status' => 'cancelada',
         ]);
 
@@ -144,5 +144,18 @@ class ProcessedSalesController extends Controller
         ]);
 
         return redirect(route('processed.show', ['processedsale' => $request->id]));
+    }
+
+    function fillfield()
+    {
+        $canceled = ProcessedSale::where('status', 'cancelada')->get();
+
+        foreach ($canceled as $sale) {
+            $sale->update([
+                'client_id' => 1,
+            ]);
+        }
+
+        return 'RELLENADAS';
     }
 }

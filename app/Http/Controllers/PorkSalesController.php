@@ -99,10 +99,23 @@ class PorkSalesController extends Controller
         PorkSale::create([
             'folio' => $request->folio,
             'date' => $request->selected_date,
-            'client_id' => 0,
+            'client_id' => 1,
             'status' => 'cancelada',
         ]);
 
         return redirect(route('pork.index'));
+    }
+
+    function fillfield()
+    {
+        $canceled = PorkSale::where('status', 'cancelada')->get();
+
+        foreach ($canceled as $sale) {
+            $sale->update([
+                'client_id' => 1,
+            ]);
+        }
+
+        return 'RELLENADAS';
     }
 }

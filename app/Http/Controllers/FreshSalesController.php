@@ -96,10 +96,23 @@ class FreshSalesController extends Controller
         FreshSale::create([
             'folio' => $request->folio,
             'date' => $request->selected_date,
-            'client_id' => 0,
+            'client_id' => 1,
             'status' => 'cancelada',
         ]);
 
         return redirect(route('fresh.index'));
+    }
+
+    function fillfield()
+    {
+        $canceled = FreshSale::where('status', 'cancelada')->get();
+
+        foreach ($canceled as $sale) {
+            $sale->update([
+                'client_id' => 1,
+            ]);
+        }
+
+        return 'RELLENADAS';
     }
 }

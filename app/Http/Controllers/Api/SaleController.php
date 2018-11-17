@@ -34,18 +34,22 @@ class SaleController extends Controller
     	switch ($type) {
     		case 'alive':
     			return AliveSale::where('folio', 'LIKE', "%$keyword%")
+                    ->orWhere('status', 'LIKE', "%$keyword%")
                     ->with(['client:id,name', 'pricer:id,name'])->orderBy('id', 'DESC')->paginate(10);
     			break;
     		case 'fresh':
     			return FreshSale::where('folio', 'LIKE', "%$keyword%")
+                    ->orWhere('status', 'LIKE', "%$keyword%")
                     ->with(['client:id,name', 'pricer:id,name'])->orderBy('id', 'DESC')->paginate(10);
     			break;
     		case 'pork':
     			return PorkSale::where('folio', 'LIKE', "%$keyword%")
+                    ->orWhere('status', 'LIKE', "%$keyword%")
                     ->with(['client:id,name', 'pricer:id,name'])->orderBy('id', 'DESC')->paginate(10);
     			break;
     		case 'processed':
     			return ProcessedSale::where('folio', 'LIKE', "%$keyword%")
+                    ->orWhere('status', 'LIKE', "%$keyword%")
                     ->with(['client:id,name', 'pricer:id,name'])->orderBy('id', 'DESC')->paginate(10);
     			break;
     		default:

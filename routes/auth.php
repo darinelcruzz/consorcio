@@ -22,6 +22,7 @@ Route::group(['prefix' => 'ventas/cerdo', 'as' => 'pork.'], function () {
     Route::get('editar/{porkSale}', usesas($ctrl, 'edit'))->middleware('admin');
     Route::post('editar', usesas($ctrl, 'update'));
     Route::post('descartar', usesas($ctrl, 'discard'));
+    Route::get('rellenar', usesas($ctrl, 'fillfield'));
 });
 
 Route::group(['prefix' => 'ventas/vivo', 'as' => 'alive.'], function () {
@@ -33,6 +34,7 @@ Route::group(['prefix' => 'ventas/vivo', 'as' => 'alive.'], function () {
     Route::get('editar/{aliveSale}', usesas($ctrl, 'edit'))->middleware('admin');
     Route::post('editar', usesas($ctrl, 'update'));
     Route::post('descartar', usesas($ctrl, 'discard'));
+    Route::get('rellenar', usesas($ctrl, 'fillfield'));
 });
 
 Route::group(['prefix' => 'ventas/fresco', 'as' => 'fresh.'], function () {
@@ -44,6 +46,7 @@ Route::group(['prefix' => 'ventas/fresco', 'as' => 'fresh.'], function () {
     Route::get('editar/{freshSale}', usesas($ctrl, 'edit'))->middleware('admin');
     Route::post('editar', usesas($ctrl, 'update'));
     Route::post('descartar', usesas($ctrl, 'discard'));
+    Route::get('rellenar', usesas($ctrl, 'fillfield'));
 });
 
 Route::group(['prefix' => 'ventas/procesado', 'as' => 'processed.'], function () {
@@ -55,6 +58,7 @@ Route::group(['prefix' => 'ventas/procesado', 'as' => 'processed.'], function ()
     Route::get('editar/{processedSale}', usesas($ctrl, 'edit'))->middleware('admin');
     Route::post('editar', usesas($ctrl, 'update'));
     Route::post('descartar', usesas($ctrl, 'discard'));
+    Route::get('rellenar', usesas($ctrl, 'fillfield'));
     Route::get('{processedsale}', usesas($ctrl, 'show'));
     Route::get('{processedsale}/agregar-kg', usesas($ctrl, 'editKg'));
     Route::post('agregar-kg', usesas($ctrl, 'storeKg'));
