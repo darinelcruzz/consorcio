@@ -7,7 +7,10 @@
             <div class="form-group">
                 <select class="form-control" name="types[]" v-model="product_id">
                     <option value="3" selected>Producto</option>
-                    <option v-for="product in products" :value="product.id">
+                    <option v-if="pricetype == '10' || pricetype == '11' || pricetype == '12'" v-for="product in range" :value="product.id">
+                        {{ product.name }}
+                    </option>
+                    <option v-if="pricetype == '23'" v-for="product in cut" :value="product.id">
                         {{ product.name }}
                     </option>
                 </select>
@@ -49,11 +52,17 @@ export default {
             quantity: 0,
             total: 0,
             priceId: '',
-            price: 0
+            price: 0,
         };
     },
     props: ['products', 'num', 'pricetype'],
-    methods: {
+    computed: {
+        range() {
+            return this.products.slice(0, 6);
+        },
+        cut() {
+            return this.products.slice(6);
+        }
     },
     watch: {
         pricetype: function (val, oldVal) {

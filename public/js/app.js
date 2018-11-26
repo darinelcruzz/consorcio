@@ -24910,6 +24910,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -24923,7 +24926,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     props: ['products', 'num', 'pricetype'],
-    methods: {},
+    computed: {
+        range: function range() {
+            return this.products.slice(0, 6);
+        },
+        cut: function cut() {
+            return this.products.slice(6);
+        }
+    },
     watch: {
         pricetype: function pricetype(val, oldVal) {
             this.priceId = val;
@@ -45226,12 +45236,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": "3",
       "selected": ""
     }
-  }, [_vm._v("Producto")]), _vm._v(" "), _vm._l((_vm.products), function(product) {
-    return _c('option', {
+  }, [_vm._v("Producto")]), _vm._v(" "), _vm._l((_vm.range), function(product) {
+    return (_vm.pricetype == '10' || _vm.pricetype == '11' || _vm.pricetype == '12') ? _c('option', {
       domProps: {
         "value": product.id
       }
-    }, [_vm._v("\n                    " + _vm._s(product.name) + "\n                ")])
+    }, [_vm._v("\n                    " + _vm._s(product.name) + "\n                ")]) : _vm._e()
+  }), _vm._v(" "), _vm._l((_vm.cut), function(product) {
+    return (_vm.pricetype == '23') ? _c('option', {
+      domProps: {
+        "value": product.id
+      }
+    }, [_vm._v("\n                    " + _vm._s(product.name) + "\n                ")]) : _vm._e()
   })], 2)])]), _vm._v(" "), _c('td', [_c('input', {
     attrs: {
       "type": "hidden",
