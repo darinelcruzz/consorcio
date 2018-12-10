@@ -89,8 +89,7 @@ class ReportController extends Controller
                     array_push(${$types[$p['i']]}, [
                         'client' => $sale->client_id,
                         'quantity' => $p['q'], 'kg' => $kg,
-                        // 'amount' => $kg * $p['p']
-                        'amount' => $sale->amount
+                        'amount' => count(unserialize($sale->products)) > 1 ? $kg * $p['p']: $sale->amount
                     ]);
                 }
             }
@@ -122,8 +121,7 @@ class ReportController extends Controller
                     array_push(${$types[$p['i']]}, [ // ${$types[..]} devuelve $boneless, $bone...
                         'client' => $sale->client_id,
                         'quantity' => $p['q'], 'kg' => $kg,
-                        // 'amount' => $kg * $p['p']
-                        'amount' => $sale->amount
+                        'amount' => count(unserialize($sale->products)) > 1 ? $kg * $p['p']: $sale->amount
                     ]);
                 }
             }
