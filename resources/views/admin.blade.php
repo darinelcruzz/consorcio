@@ -5,7 +5,7 @@
     @include('adminlte::layouts.partials.htmlheader', ['headerTitle' => 'Intranet'])
 @show
 
-<body class="skin-{{ isset($skin) ? $skin: 'yellow' }} sidebar-mini">
+<body class="hold-transition skin-{{ isset($skin) ? $skin: 'yellow' }} sidebar-mini">
 <div id="app" v-cloak>
     <div class="wrapper">
 
@@ -26,9 +26,8 @@
 
 </div><!-- ./wrapper -->
 </div>
-@section('scripts')
-    @include('adminlte::layouts.partials.scripts')
-@show
+
+@include('adminlte::layouts.partials.scripts')
 
 </body>
 </html>
