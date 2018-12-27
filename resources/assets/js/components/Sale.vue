@@ -1,7 +1,7 @@
 <template>
 	<tr>
         <td>
-            {{ sale.folio }}
+            <b>{{ sale.series }}</b>{{ ("00000" + sale.folio).slice(-5) }}
             <a v-if="sale.type == 'Procesado'" :href="route + '/' + sale.id">
                 <i class="fa fa-eye"></i>
             </a>

@@ -44,8 +44,15 @@ class AliveSalesController extends Controller
         $sale->update([
             'status' => $request->credit == '0' ? 'pagado': 'credito',
             'credit' => $request->credit == '0' ? 0: 1,
+            'series' => substr($sale->date, 0, 4) == '2019' ? 'B': 'A',
             'days' => $days > 16 ? 15: $days
         ]);
+
+        if (AliveSale::where('series', 'B')->count() == 1) {
+            $sale->update([
+                'folio' => 1
+            ]);
+        }
 
         return redirect(route('alive.index'));
     }

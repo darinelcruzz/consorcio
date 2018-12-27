@@ -45057,7 +45057,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('tr', [_c('td', [_vm._v("\n            " + _vm._s(_vm.sale.folio) + "\n            "), (_vm.sale.type == 'Procesado') ? _c('a', {
+  return _c('tr', [_c('td', [_c('b', [_vm._v(_vm._s(_vm.sale.series))]), _vm._v(_vm._s(("00000" + _vm.sale.folio).slice(-5)) + "\n            "), (_vm.sale.type == 'Procesado') ? _c('a', {
     attrs: {
       "href": _vm.route + '/' + _vm.sale.id
     }

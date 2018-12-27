@@ -31,6 +31,7 @@ class StorePAFSale extends FormRequest
             'kg' => 'required',
             'amount' => 'required',
             'credit' => 'required',
+            'series' => 'required',
         ];
     }
 }

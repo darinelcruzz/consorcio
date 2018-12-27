@@ -18,7 +18,7 @@
         @foreach($client->$sale as $sale)
             @if ($sale->status != 'cancelada')
                 <tr>
-                    <td>{{ $sale->folio }}</td>
+                    <td><b>{{ $sale->series }}</b>{{ substr("00000" . $sale->folio, -5) }}</td>
                     <td>{{ $sale->short_date }}</td>
                     <td>{{ $sale->kg }}</td>
                     <td>{{ $sale->pricer->name }}</td>

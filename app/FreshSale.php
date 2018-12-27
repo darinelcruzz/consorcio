@@ -10,7 +10,7 @@ class FreshSale extends Model
     protected $fillable = [
         'folio', 'client_id', 'date', 'quantity',
         'kg', 'price', 'amount', 'credit', 'days',
-        'status', 'deposit', 'observations'
+        'status', 'deposit', 'observations', 'series'
     ];
 
     function client()
@@ -66,6 +66,11 @@ class FreshSale extends Model
     {
         $colors = ['vencida' => 'danger', 'cancelada' => 'default', 'pagado' => 'success', 'credito' => 'warning'];
         return $colors[$this->status];
+    }
+
+    function getTypeColorAttribute()
+    {
+        return 'warning';
     }
 
     function scopeSalesReport($query, $start, $end)

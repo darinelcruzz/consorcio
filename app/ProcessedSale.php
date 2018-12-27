@@ -64,6 +64,11 @@ class ProcessedSale extends Model
         return $colors[$this->status];
     }
 
+    function getTypeColorAttribute()
+    {
+        return 'success';
+    }
+
     function storeProducts($request)
     {
         $products = [];

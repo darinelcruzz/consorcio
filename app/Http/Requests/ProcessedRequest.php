@@ -33,6 +33,7 @@ class ProcessedRequest extends FormRequest
             'chickens' => 'min:1',
             'boxes' => 'min:1',
             'credit' => 'required',
+            'series' => 'required',
         ];
 
         return $rules;

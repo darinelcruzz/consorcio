@@ -93,6 +93,7 @@
                     @endif
 
                     <input type="hidden" name="folio" value="{{ $lastSale ? $lastFolio + 1: 1 }}">
+                    <input type="hidden" name="series" value="{{ date('Y') == '2019' ? 'B': 'A' }}">
                     <input type="hidden" name="days" value="0">
                     <input type="hidden" name="status" value="pagado">
                     <button type="submit" class="btn btn-{{ $color }} pull-right" onclick="submitForm(this);">Agregar</button>
@@ -119,7 +120,7 @@
                         <dt>Cliente</dt>
                         <dd>{{ $lastSale->client->name or 'Cancelada'}}</dd>
                         <dt>Folio</dt>
-                        <dd>{{ $lastSale->folio }}</dd>
+                        <dd><b>{{ $lastSale->series }}</b>{{ substr("00000" . $lastSale->folio, -5) }}</dd>
                         <dt>Fecha</dt>
                         <dd>{{ $lastSale->date }}</dd>
                         <dt>Precio</dt>

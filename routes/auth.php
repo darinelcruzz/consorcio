@@ -1,6 +1,8 @@
 <?php
 
 Route::get('/', usesas('WelcomeController', 'home'));
+Route::get('/series/{type}', usesas('WelcomeController', 'writeSeries'));
+Route::get('/series2/{type}', usesas('WelcomeController', 'writeSeriesTwo'));
 
 Route::group(['prefix' => 'clientes', 'as' => 'client.'], function () {
     $ctrl = 'ClientController';
