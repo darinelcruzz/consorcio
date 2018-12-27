@@ -39,7 +39,7 @@
         </template>
     </data-table>
 
-    <data-table col="col-md-12" title="Vivo ($ {{ number_format($alive->sum('amount'), 2) }})" example="example2" color="box-primary" collapsed="collapsed-box">
+    <data-table col="col-md-12" title="Vivo ($ {{ number_format($alive->where('status', '!=', 'pagado')->sum('amount'), 2) }})" example="example2" color="box-primary" collapsed="collapsed-box">
         <template slot="header">
             <tr>
                 <th>Folio</th>
@@ -72,12 +72,12 @@
             <tr>
                 <td colspan="5"></td>
                 <th>Total</th>
-                <td>$ {{ number_format($alive->sum('amount'), 2) }}</td>
+                <td>$ {{ number_format($alive->where('status', '!=', 'pagado')->sum('amount'), 2) }}</td>
             </tr>
         </template>
     </data-table>
 
-    <data-table col="col-md-12" title="Fresco ($ {{ number_format($fresh->sum('amount'), 2) }})" example="example3" color="box-warning" collapsed="collapsed-box">
+    <data-table col="col-md-12" title="Fresco ($ {{ number_format($fresh->where('status', '!=', 'pagado')->sum('amount'), 2) }})" example="example3" color="box-warning" collapsed="collapsed-box">
         <template slot="header">
             <tr>
                 <th>Folio</th>
@@ -110,12 +110,12 @@
             <tr>
                 <td colspan="5"></td>
                 <th>Total</th>
-                <td>$ {{ number_format($fresh->sum('amount'), 2) }}</td>
+                <td>$ {{ number_format($fresh->where('status', '!=', 'pagado')->sum('amount'), 2) }}</td>
             </tr>
         </template>
     </data-table>
 
-    <data-table col="col-md-12" title="Procesado ($ {{ number_format($processed->sum('amount'), 2) }})" example="example4" color="box-success" collapsed="collapsed-box">
+    <data-table col="col-md-12" title="Procesado ($ {{ number_format($processed->where('status', '!=', 'pagado')->sum('amount'), 2) }})" example="example4" color="box-success" collapsed="collapsed-box">
         <template slot="header">
             <tr>
                 <th>Folio</th>
@@ -148,12 +148,12 @@
             <tr>
                 <td colspan="5"></td>
                 <th>Total</th>
-                <td>$ {{ number_format($processed->sum('amount'), 2) }}</td>
+                <td>$ {{ number_format($processed->where('status', '!=', 'pagado')->sum('amount'), 2) }}</td>
             </tr>
         </template>
     </data-table>
 
-    <data-table col="col-md-12" title="Cerdo ($ {{ number_format($pork->sum('amount'), 2) }})" example="example5" color="box-baby" collapsed="collapsed-box">
+    <data-table col="col-md-12" title="Cerdo ($ {{ number_format($pork->where('status', '!=', 'pagado')->sum('amount'), 2) }})" example="example5" color="box-baby" collapsed="collapsed-box">
         <template slot="header">
             <tr>
                 <th>Folio</th>
@@ -186,7 +186,7 @@
             <tr>
                 <td colspan="5"></td>
                 <th>Total</th>
-                <td>$ {{ number_format($pork->sum('amount'), 2) }}</td>
+                <td>$ {{ number_format($pork->where('status', '!=', 'pagado')->sum('amount'), 2) }}</td>
             </tr>
         </template>
     </data-table>
