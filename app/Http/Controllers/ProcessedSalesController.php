@@ -34,6 +34,9 @@ class ProcessedSalesController extends Controller
 
     function store(ProcessedRequest $request)
     {
+        $lastSale = ProcessedSale::all()->last();
+        $lastFolio = $lastSale->folio + 1;
+
         $sale = ProcessedSale::create($request->except(['types', 'quantities', 'prices', 'packages', 'kgs']));
         $sale->storeProducts($request);
         $days = $request->credit * 8;
@@ -48,6 +51,10 @@ class ProcessedSalesController extends Controller
         if (ProcessedSale::where('series', 'B')->count() == 1) {
             $sale->update([
                 'folio' => 1
+            ]);
+        } else {
+            $sale->update([
+                'folio' => $lastFolio
             ]);
         }
 

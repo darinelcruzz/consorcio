@@ -35,9 +35,13 @@ class FreshSalesController extends Controller
 
     function store(StorePAFSale $request)
     {
+        $lastSale = FreshSale::all()->last();
+        $lastFolio = $lastSale->folio + 1;
+        
         $sale = FreshSale::create($request->all());
         $this->updateInventory($request->quantity);
         $days = $request->credit * 8;
+
 
         $sale->update([
             'status' => $request->credit == '0' ? 'pagado': 'credito',
@@ -49,6 +53,10 @@ class FreshSalesController extends Controller
         if (FreshSale::where('series', 'B')->count() == 1) {
             $sale->update([
                 'folio' => 1
+            ]);
+        } else {
+            $sale->update([
+                'folio' => $lastFolio
             ]);
         }
 

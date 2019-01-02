@@ -36,6 +36,9 @@ class PorkSalesController extends Controller
 
     function store(StorePAFSale $request)
     {
+        $lastSale = PorkSale::all()->last();
+        $lastFolio = $lastSale->folio + 1;
+
         $sale = PorkSale::create($request->all());
 
         $this->updateInventory($request->quantity);
@@ -50,6 +53,10 @@ class PorkSalesController extends Controller
         if (PorkSale::where('series', 'B')->count() == 1) {
             $sale->update([
                 'folio' => 1
+            ]);
+        } else {
+            $sale->update([
+                'folio' => $lastFolio
             ]);
         }
 

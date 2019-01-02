@@ -35,6 +35,9 @@ class AliveSalesController extends Controller
 
     function store(StorePAFSale $request)
     {
+        $lastSale = AliveSale::all()->last();
+        $lastFolio = $lastSale->folio + 1;
+        
         $sale = AliveSale::create($request->all());
 
         $this->updateInventory($request->quantity);
@@ -51,6 +54,10 @@ class AliveSalesController extends Controller
         if (AliveSale::where('series', 'B')->count() == 1) {
             $sale->update([
                 'folio' => 1
+            ]);
+        } else {
+            $sale->update([
+                'folio' => $lastFolio
             ]);
         }
 
