@@ -1,9 +1,12 @@
 <?php
 
+Route::get('/', function () {
+    return view('web');
+})->name('web');
+
 Route::get('salir', function ()
 {
     Auth::logout();
-
     return redirect('/');
 })->name('getout');
 

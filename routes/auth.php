@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/', usesas('WelcomeController', 'home'));
+Route::get('/inicio', usesas('WelcomeController', 'home'));
 Route::get('/series/{type}', usesas('WelcomeController', 'writeSeries'));
 Route::get('/series2/{type}', usesas('WelcomeController', 'writeSeriesTwo'));
 
