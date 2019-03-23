@@ -8,10 +8,13 @@
         <template slot="header">
             <tr>
                 <th>ID</th>
+                <th>
+                    <i class="fa fa-cogs"></i>
+                </th>
                 <th>Nombre</th>
-                <th>R.F.C.</th>
                 <th>Dirección</th>
                 <th>Productos</th>
+                <th>Crédito</th>
             </tr>
         </template>
 
@@ -20,31 +23,54 @@
                 <tr>
                     <td>{{ $client->id }}</td>
                     <td>
-                        <a href="{{ route('client.details', ['id' => $client->id])}}">{{ $client->name }}</a> &nbsp;
-                        <a href="{{ route('client.edit', ['id' => $client->id])}}"
-                            title="EDITAR">
-                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                        </a><br>
-                        {{ $client->email }} <br>
-                        {{ $client->phone }} <br>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-xs btn-warning dropdown-toggle" data-toggle="dropdown">
+                              <i class="fa fa-cogs" aria-hidden="true"></i>
+                              <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                              <li>
+                                  <a href="{{ route('client.show', ['id' => $client->id])}}">
+                                      <i class="fa fa-eye"></i> Detalles
+                                  </a>
+                              </li>
+                              <li>
+                                <a href="{{ route('client.edit', ['id' => $client->id])}}" title="EDITAR">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i> Editar
+                                </a>
+                              </li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td>
+                        {{ $client->name }} 
+                        @if($client->isMissing)
+                            <span class="pull-right"><code><i class="fa fa-exclamation"></i> sin compras recientes</code></span>
+                        @endif
+                        <br>
+                        {!! $client->email ? $client->email . '<br>' : ''  !!}
+                        {!! $client->phone ? $client->phone . ' | ' : ''  !!}
                         {{ $client->cellphone or ''}}
                     </td>
-                    <td>{{ $client->rfc }}</td>
-                    <td>{{ $client->address }}</td>
+                    <td>
+                        {{ $client->address }} <br>
+                        {{ $client->rfc }} 
+                    </td>
                     <td>
                         @if ($client->products == 'N;')
                             <span class="label label-danger">Sin producto</span>
                         @else
                             @foreach (unserialize($client->products) as $product)
                                 @if (!$loop->last)
-                                    {{ $product }},
+                                    {{ ucfirst($product) }} |
                                 @else
-                                    {{ $product }}
+                                    {{ ucfirst($product) }}
                                 @endif
                             @endforeach
                         @endif
-                        <br>
-                        Credito: {{ $client->credit == 1 ? 'Si Max: ' .  $client->notes  . ' Días ' . $client->days : 'No' }}
+                    </td>
+                    <td>
+                        {!! $client->credit == 1 ? $client->notes  . ' notas<br> [' . $client->days . ' días]' : 'No' !!}
                     </td>
                 </tr>
             @endforeach

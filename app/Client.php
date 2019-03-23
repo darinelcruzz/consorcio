@@ -56,6 +56,37 @@ class Client extends Model
         return $sales;
     }
 
+    function getIsMissingAttribute()
+    {
+        $recent = 0;
+        foreach (unserialize($this->products) as $product) {
+            switch ($product) {
+                case 'vivo':
+                    if ($this->alivesales->last()) {
+                        $recent += datediff($this->alivesales->last()->date) < 4 ? 1: 0;
+                    }
+                    break;
+                case 'fresco':
+                    if ($this->freshsales->last()) {
+                        $recent += datediff($this->freshsales->last()->date) < 4 ? 1: 0;
+                    }
+                    break;
+                case 'cerdo':
+                    if ($this->porksales->last()) {
+                        $recent += datediff($this->porksales->last()->date) < 4 ? 1: 0;
+                    }
+                    break;
+                case 'procesado':
+                    if ($this->processedsales->last()) {
+                        $recent += datediff($this->processedsales->last()->date) < 4 ? 1: 0;
+                    }
+                    break;
+            }
+        }
+
+        return $recent == 0;
+    }
+
     function getUnpaidNotesAttribute()
     {
         $notes = 0;

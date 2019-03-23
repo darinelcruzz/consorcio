@@ -65,8 +65,8 @@ class ClientController extends Controller
         return redirect(route('client.index'));
     }
 
-    function details(Client $client)
+    function show(Client $client)
     {
-        return view('clients.details', compact('client'));
+        return view('clients.show', compact('client'));
     }
 }

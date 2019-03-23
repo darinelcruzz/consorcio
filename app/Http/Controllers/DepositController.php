@@ -18,7 +18,22 @@ class DepositController extends Controller
     {
         $deposits = Deposit::where('type', $type)->where('sale_id', $id)->get();
 
-        return view('deposits.details', compact('deposits', 'type', 'id', 'amount'));
+        switch ($type) {
+            case 'vivo':
+                $sale = AliveSale::find($id);
+                break;
+            case 'fresco':
+                $sale = FreshSale::find($id);
+                break;
+            case 'cerdo':
+                $sale = PorkSale::find($id);
+                break;
+            case 'procesado':
+                $sale = ProcessedSale::find($id);
+                break;
+        }
+
+        return view('deposits.details', compact('deposits', 'type', 'id', 'amount', 'sale'));
     }
 
     function credits()
