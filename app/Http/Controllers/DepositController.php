@@ -70,7 +70,7 @@ class DepositController extends Controller
                 'status'=> 'pagado'
             ]);
 
-            return redirect(route('client.details', ['client' => $sale->client_id]));
+            return redirect(route('client.show', ['client' => $sale->client_id]));
 
         }
 
