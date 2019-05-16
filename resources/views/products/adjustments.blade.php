@@ -53,15 +53,15 @@
                 </tr>
             </template>
             <template slot="body">
-                @foreach($movements as $row)
+                @foreach($movements as $movement)
                     <tr>
-                        <td>{{ $row->id }}</td>
-                        <td>{{ $row->product->name }}</td>
-                        <td>{{ $row->before }}</td>
-                        <td>{{ $row->description }}</td>
-                        <td>{{ $row->quantity }}</td>
-                        <td>{{ $row->getdate('date') }}</td>
-                        <td>{{ $row->user_id }}</td>
+                        <td>{{ $movement->id }}</td>
+                        <td>{{ $movement->product->name }}</td>
+                        <td>{{ $movement->before }}</td>
+                        <td>{{ $movement->description }}</td>
+                        <td>{{ $movement->quantity }}</td>
+                        <td>{{ $movement->getdate('date') }}</td>
+                        <td>{{ $movement->user_id }}</td>
                     </tr>
                 @endforeach
             </template>

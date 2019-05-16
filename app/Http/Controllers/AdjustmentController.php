@@ -18,6 +18,12 @@ class AdjustmentController extends Controller
 
     function store(Request $request)
     {
+        $attributes = $request->validate([
+            'quantity' => 'required',
+            'date' => 'required',
+            'product_id' => 'required',
+        ]);
+
         $adjustment = Adjustment::create($request->all());
 
         $product = Product::find($request->product_id);
