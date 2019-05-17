@@ -22,4 +22,11 @@ class Shipping extends Model
         $fdate = new Date(strtotime($this->date));
         return $fdate->format('D, j/M/Y');
     }
+
+    function getBadgeColorAttribute()
+    {
+        $colors = ['20' => 'green', '3' => 'blue', '1' => 'fuchsia', '18' => 'fuchsia', '19' => 'purple'];
+
+        return $colors[$this->product] ?? 'default';
+    }
 }

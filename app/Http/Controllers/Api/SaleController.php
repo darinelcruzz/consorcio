@@ -57,33 +57,4 @@ class SaleController extends Controller
     			break;
     	}
 	}
-
-    function show($id)
-    {
-        // return Movie::find($id);
-
-    }
-
-    function store(Request $request)
-    {
-        // $movie = Movie::create($request->all());
-        // return $movie;
-    }
-
-    function update($id, Request $request)
-    {
-        // $movie = Movie::find($id);
-
-		// $movie->update($request->only(['title', 'director']));
-
-        // return $movie;
-	}
-
-    function destroy($id)
-    {
-        // $movie = Movie::find($id);
-        // $movie->delete();
-
-        // return \Response::json(['success' => true]);
-    }
 }

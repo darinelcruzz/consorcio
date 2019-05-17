@@ -32,7 +32,7 @@ class ProcessedRequest extends FormRequest
             'amount' => 'required|min:0.1',
             'chickens' => 'min:1',
             'boxes' => 'min:1',
-            'credit' => 'required',
+            'credit' => 'sometimes|required',
             'series' => 'required',
         ];
 

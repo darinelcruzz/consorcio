@@ -9,33 +9,35 @@
             <tr>
                 <th>#</th>
                 <th>Fecha</th>
-                <th>Proveedor</th>
                 <th>Remisión</th>
-                <th>Producto</th>
-                <th>Cant/Part</th>
+                <th style="text-align: center;"><i class="fa fa-list"></i></th>
+                <th style="text-align: center;">Cant/Cajas</th>
                 <th>Precio</th>
                 <th>Importe</th>
-                <th>Observaciones</th>
+                <th style="width: 25%">Observaciones</th>
             </tr>
         </template>
+ 
+        {{-- {{ drawHeader('#', 'Fecha', 'Remisión', 'Producto', 'Cant/Part', 'Precio', 'Importe', 'Observaciones') }} --}}
 
         <template slot="body">
             @foreach($shippings as $shipping)
                 <tr>
                     <td>{{ $shipping->id }}</td>
                     <td>{{ $shipping->short_date }}</td>
-                    <td>{{ $shipping->provider }}</td>
                     <td>{{ $shipping->remission }}</td>
-                    <td>
-                        {{ $shipping->productr->name }}
-                        &nbsp;
+                    <td style="text-align: center;">
                         @if ($shipping->productr->name == 'Procesado')
-                            <a href="{{ route('shipping.show', ['id' => $shipping->id])}}">
-                                <i class="fa fa-eye"></i>
+                            <a href="{{ route('shipping.show', $shipping)}}">
+                                <span class="badge bg-green"><em>procesado</em></span>
                             </a>
+                        @elseif($shipping->productr->name == 'Cerdo')
+                            <span class="badge" style="background-color: #EE76A0;"><em>cerdo</em></span>
+                        @else
+                            <span class="badge bg-{{ $shipping->badge_color }}"><em>{{ strtolower($shipping->productr->name) }}</em></span>
                         @endif
                     </td>
-                    <td>{{ $shipping->quantity }}</td>
+                    <td style="text-align: center;">{{ $shipping->quantity }}</td>
                     <td>$ {{ number_format($shipping->price, 2) }}</td>
                     <td>$ {{ number_format($shipping->amount, 2) }}</td>
                     <td>{{ $shipping->observations }}</td>

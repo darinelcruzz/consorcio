@@ -83,7 +83,7 @@ Route::group(['prefix' => 'embarques', 'as' => 'shipping.'], function () {
     Route::get('/', usesas($ctrl, 'index'));
     Route::get('agregar', usesas($ctrl, 'create'));
     Route::post('agregar', usesas($ctrl, 'store'));
-    Route::get('procesado/{shipping}', usesas($ctrl, 'show'));
+    Route::get('/{shipping}', usesas($ctrl, 'show'));
 });
 
 // Products
