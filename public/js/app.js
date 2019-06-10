@@ -26743,44 +26743,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             product_id: 3,
             quantity: 0,
-            total: 0,
-            priceId: '',
             price: 0
         };
     },
 
     props: ['products', 'num', 'pricetype'],
     computed: {
-        range: function range() {
+        products_list: function products_list() {
+            if (this.pricetype == '23') {
+                return this.products.slice(6);
+            }
+
             return this.products.slice(0, 6);
         },
-        cut: function cut() {
-            return this.products.slice(6);
+        type: function type() {
+            return this.products_list[this.product_id].id;
         }
     },
     watch: {
-        pricetype: function pricetype(val, oldVal) {
-            this.priceId = val;
-        },
         product_id: function product_id(val, oldVal) {
-            if (val > 9) {
-                this.price = this.products[val - 4].price;
+            if (this.pricetype == '23') {
+                this.price = this.products_list[val].price;
             } else {
-                this.price = this.products[val - 4].price[eval(this.priceId)];
+                this.price = this.products_list[val].price[eval(this.pricetype)];
             }
         }
-    },
-    created: function created() {
-        this.priceId = this.pricetype;
-        this.price = this.products[this.product_id - 4].price;
     }
 });
 
@@ -46923,7 +46916,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "form-control",
     attrs: {
-      "name": "types[]"
+      "name": "names[]"
     },
     on: {
       "change": function($event) {
@@ -46941,19 +46934,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": "3",
       "selected": ""
     }
-  }, [_vm._v("Producto")]), _vm._v(" "), _vm._l((_vm.range), function(product) {
-    return (_vm.pricetype == '10' || _vm.pricetype == '11' || _vm.pricetype == '12') ? _c('option', {
+  }, [_vm._v("Producto")]), _vm._v(" "), _vm._l((_vm.products_list), function(product, index) {
+    return _c('option', {
       domProps: {
-        "value": product.id
+        "value": index
       }
-    }, [_vm._v("\n                    " + _vm._s(product.name) + "\n                ")]) : _vm._e()
-  }), _vm._v(" "), _vm._l((_vm.cut), function(product) {
-    return (_vm.pricetype == '23') ? _c('option', {
-      domProps: {
-        "value": product.id
-      }
-    }, [_vm._v("\n                    " + _vm._s(product.name) + "\n                ")]) : _vm._e()
-  })], 2)])]), _vm._v(" "), _c('td', [_c('input', {
+    }, [_vm._v("\n                    " + _vm._s(product.name) + "\n                ")])
+  })], 2)]), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "types[]"
+    },
+    domProps: {
+      "value": _vm.type
+    }
+  })]), _vm._v(" "), _c('td', [_c('input', {
     attrs: {
       "type": "hidden",
       "name": "prices[]"
@@ -46963,15 +46958,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('span', {
     staticClass: "pull-right"
-  }, [_vm._v("$ " + _vm._s(_vm.price))])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('td', {
+  }, [_vm._v("$ " + _vm._s(_vm.price))])]), _vm._v(" "), _c('td', {
     attrs: {
       "align": "center"
     }
   }, [_c('div', {
     staticClass: "form-group"
   }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.quantity),
+      expression: "quantity"
+    }],
     staticClass: "form-control",
     staticStyle: {
       "width": "85px"
@@ -46981,9 +46980,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "name": "quantities[]",
       "min": "0",
       "step": "0.01"
+    },
+    domProps: {
+      "value": (_vm.quantity)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.quantity = $event.target.value
+      }
     }
-  })])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  })])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('td', {
     attrs: {
       "align": "center"

@@ -34,10 +34,11 @@ class ProcessedSalesController extends Controller
 
     function store(ProcessedRequest $request)
     {
+        // dd($request->all());
         $lastSale = ProcessedSale::all()->last();
         $lastFolio = $lastSale->folio + 1;
 
-        $sale = ProcessedSale::create($request->except(['types', 'quantities', 'prices', 'packages', 'kgs']));
+        $sale = ProcessedSale::create($request->except(['names', 'types', 'quantities', 'prices', 'packages', 'kgs']));
         $sale->storeProducts($request);
         $days = $request->credit * 8;
 

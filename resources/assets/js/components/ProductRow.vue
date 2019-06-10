@@ -5,16 +5,14 @@
         </td>
         <td>
             <div class="form-group">
-                <select class="form-control" name="types[]" v-model="product_id">
+                <select class="form-control" name="names[]" v-model="product_id">
                     <option value="3" selected>Producto</option>
-                    <option v-if="pricetype == '10' || pricetype == '11' || pricetype == '12'" v-for="product in range" :value="product.id">
-                        {{ product.name }}
-                    </option>
-                    <option v-if="pricetype == '23'" v-for="product in cut" :value="product.id">
+                    <option v-for="(product, index) in products_list" :value="index">
                         {{ product.name }}
                     </option>
                 </select>
             </div>
+            <input type="hidden" name="types[]" :value="type">
         </td>
 
         <td>
@@ -25,7 +23,7 @@
         <td align="center">
             <div class="form-group">
                 <input class="form-control" type="number" name="quantities[]" min="0" step="0.01"
-                    style="width:85px;">
+                    style="width:85px;" v-model="quantity">
             </div>
         </td>
 
@@ -50,35 +48,30 @@ export default {
         return {
             product_id: 3,
             quantity: 0,
-            total: 0,
-            priceId: '',
             price: 0,
         };
     },
     props: ['products', 'num', 'pricetype'],
     computed: {
-        range() {
-            return this.products.slice(0, 6);
+        products_list() {
+            if (this.pricetype == '23') {
+                return this.products.slice(6)
+            }
+
+            return this.products.slice(0, 6)
         },
-        cut() {
-            return this.products.slice(6);
+        type() {
+            return this.products_list[this.product_id].id
         }
     },
     watch: {
-        pricetype: function (val, oldVal) {
-          this.priceId = val;
-        },
         product_id: function (val, oldVal) {
-            if(val > 9) {
-                this.price = this.products[val - 4].price;
+            if(this.pricetype == '23') {
+                this.price = this.products_list[val].price;
             } else {
-                this.price = this.products[val - 4].price[eval(this.priceId)];
+                this.price = this.products_list[val].price[eval(this.pricetype)];
             }
         },
     },
-    created() {
-        this.priceId = this.pricetype;
-        this.price = this.products[this.product_id - 4].price;
-    }
-}
+};
 </script>

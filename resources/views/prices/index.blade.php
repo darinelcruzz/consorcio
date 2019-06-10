@@ -73,7 +73,7 @@
                                     </optgroup>
                                     <optgroup label="Pollo procesado">
                                     @foreach ($prices as $price)
-                                        @if ($price->product_id >= 4 && $price->product_id < 18)
+                                        @if ($price->product_id >= 4 && $price->processed == 1)
                                             <option value="{{ $price->id }}">{{ $price->name }}</option>
                                         @endif
                                     @endforeach

@@ -16,6 +16,8 @@ class PriceController extends Controller
         $processed = Price::where('product_id', '>', '3')->get();
         $prices = Price::all();
 
+        // dd($prices);
+
         return view('prices.index', compact('fresh', 'alive', 'processed', 'pork', 'prices'));
     }
 
