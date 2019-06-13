@@ -22,7 +22,7 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            {!! Field::select('provider', ['1' => 'Buenaventura'], '1',
+                            {!! Field::select('provider', ['buenaventura' => 'Buenaventura', 'avimarca' => 'Avimarca'], null,
                                 ['tpl' => 'templates/withicon', 'empty' => 'Escoja un proveedor'],
                                 ['icon' => 'truck'])
                             !!}

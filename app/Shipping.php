@@ -17,6 +17,11 @@ class Shipping extends Model
         return $this->belongsTo(Product::class, 'product');
     }
 
+    function getProviderNameAttribute()
+    {
+        return ucfirst($this->provider == '1' ? 'buenaventura': $this->provider);
+    }
+
     function getShortDateAttribute()
     {
         $fdate = new Date(strtotime($this->date));

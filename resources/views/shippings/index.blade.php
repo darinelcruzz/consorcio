@@ -10,6 +10,7 @@
                 <th>#</th>
                 <th>Fecha</th>
                 <th>Remisión</th>
+                <th>Proveedor</th>
                 <th style="text-align: center;"><i class="fa fa-list"></i></th>
                 <th style="text-align: center;">Cant/Cajas</th>
                 <th>Precio</th>
@@ -26,6 +27,7 @@
                     <td>{{ $shipping->id }}</td>
                     <td>{{ $shipping->short_date }}</td>
                     <td>{{ $shipping->remission }}</td>
+                    <td>{{ $shipping->provider_name }}</td>
                     <td style="text-align: center;">
                         @if ($shipping->productr->name == 'Procesado')
                             <a href="{{ route('shipping.show', $shipping)}}">
