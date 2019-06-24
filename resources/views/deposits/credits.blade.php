@@ -20,7 +20,7 @@
                 <tr>
                     <td><b>{{ $row->series }}</b>{{ substr("00000" . $row->folio, -5) }}</td>
                     <td><label class="label label-{{ $row->typeColor }}">{{ strtoupper($row->type) }}</label></td>
-                    <td><a href="{{ route('client.show',$row->client) }}"> {{ $row->client->name }}</a></td>
+                    <td><a href="{{ route('client.show', $row->client) }}"> {{ $row->client->name }}</a></td>
                     <td>{{ $row->short_date }}</td>
                     <td>{{ $row->days }}</td>
                     <td>{{ $row->dueDate }}</td>
@@ -57,7 +57,7 @@
                 @if ($row->status != 'pagado')
                     <tr>
                         <td><b>{{ $row->series }}</b>{{ substr("00000" . $row->folio, -5) }}</td>
-                        <td><a href="{{ route('client.show',$row->client) }}"> {{ $row->client->name }}</a></td>
+                        <td><a href="{{ route('client.show', $row->client) }}"> {{ $row->client->name }}</a></td>
                         <td>{{ $row->short_date }}</td>
                         <td>{{ $row->days }}</td>
                         <td>{{ $row->dueDate }}</td>
@@ -95,7 +95,7 @@
                 @if ($row->status != 'pagado')
                     <tr>
                         <td><b>{{ $row->series }}</b>{{ substr("00000" . $row->folio, -5) }}</td>
-                        <td><a href="{{ route('client.show',$row->client) }}"> {{ $row->client->name }}</a></td>
+                        <td><a href="{{ route('client.show', $row->client) }}"> {{ $row->client->name }}</a></td>
                         <td>{{ $row->short_date }}</td>
                         <td>{{ $row->days }}</td>
                         <td>{{ $row->dueDate }}</td>
@@ -133,7 +133,7 @@
                 @if ($row->status != 'pagado')
                     <tr>
                         <td><b>{{ $row->series }}</b>{{ substr("00000" . $row->folio, -5) }}</td>
-                        <td><a href="{{ route('client.show',$row->client) }}"> {{ $row->client->name }}</a></td>
+                        <td><a href="{{ route('client.show', $row->client) }}"> {{ $row->client->name }}</a></td>
                         <td>{{ $row->short_date }}</td>
                         <td>{{ $row->days }}</td>
                         <td>{{ $row->dueDate }}</td>
@@ -171,7 +171,7 @@
                 @if ($row->status != 'pagado')
                     <tr>
                         <td><b>{{ $row->series }}</b>{{ substr("00000" . $row->folio, -5) }}</td>
-                        <td><a href="{{ route('client.show',$row->client) }}"> {{ $row->client->name }}</a></td>
+                        <td><a href="{{ route('client.show', $row->client) }}"> {{ $row->client->name }}</a></td>
                         <td>{{ $row->short_date }}</td>
                         <td>{{ $row->days }}</td>
                         <td>{{ $row->dueDate }}</td>

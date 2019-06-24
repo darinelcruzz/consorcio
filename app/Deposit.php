@@ -9,6 +9,22 @@ class Deposit extends Model
 {
     protected $guarded = [];
 
+    function sale()
+    {
+        if ($this->type == 'vivo') {
+             return $this->belongsTo(AliveSale::class, 'sale_id');
+         }
+         if ($this->type == 'cerdo') {
+             return $this->belongsTo(PorkSale::class, 'sale_id');
+         }
+         if ($this->type == 'fresco') {
+             return $this->belongsTo(FreshSale::class, 'sale_id');
+         }
+         if ($this->type == 'procesado') {
+             return $this->belongsTo(ProcessedSale::class, 'sale_id');
+         }
+    }
+
     function getNiceAmountAttribute()
     {
         return '$ ' . number_format($this->amount, 2, '.', ',');

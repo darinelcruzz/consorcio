@@ -30,6 +30,8 @@ Vue.component('select2', require('./components/SelectTwo.vue'));
 Vue.component('sale', require('./components/Sale.vue'));
 Vue.component('sales-table', require('./components/SalesTable.vue'));
 
+Vue.component('deposits-table', require('./components/DepositsTable.vue'));
+
 
 const app = new Vue({
     el: '#app',

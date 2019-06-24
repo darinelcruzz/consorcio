@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{Client, Product, PorkSale, ProcessedSale, FreshSale, AliveSale};
+use App\{Client, Product, PorkSale, ProcessedSale, FreshSale, AliveSale, Deposit};
 
 class AxiosController extends Controller
 {
@@ -70,5 +70,23 @@ class AxiosController extends Controller
         }
 
         return $products;
+    }
+
+    function deposits($keyword = null)
+    {
+        if ($keyword) {
+            return Deposit::orderBy('id', 'DESC')
+                ->where('type', 'LIKE', "%$keyword%")
+                ->orWhere('sale_id', 'LIKE', "%$keyword%")
+                ->orWhere('user', 'LIKE', "%$keyword%")
+                ->orWhere('id', 'LIKE', "%$keyword%")
+                ->orWhere('user', 'LIKE', "%$keyword%")
+                // ->with('sale:id')
+                ->paginate(10);
+        }
+
+        return Deposit::orderBy('id', 'DESC')
+            // ->with('sale:id')
+            ->paginate(10);
     }
 }
