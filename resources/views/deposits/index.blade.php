@@ -19,7 +19,7 @@
                     <td>{{ $row->id }}</td>
                     <td>{{ $row->sale_id }}</td>
                     <td>{{ $row->type }}</td>
-                    <td><a href="{{ route('client.details', ['id' => $row->client->id]) }}">{{ $row->client->name }}</a></td>
+                    <td><a href="{{ route('client.show', ['id' => $row->client->id]) }}">{{ $row->client->name }}</a></td>
                     <td>{{ $row->nice_amount }}</td>
                     <td>{{ $row->short_date }}</td>
                 </tr>
