@@ -15,6 +15,7 @@
     <![endif]-->
 
     <link href="{{ asset('css/all.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('css/skins/_all-skins.min.css') }}">
 
     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css" />
 
