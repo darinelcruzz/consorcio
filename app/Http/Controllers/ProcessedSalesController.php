@@ -69,7 +69,7 @@ class ProcessedSalesController extends Controller
 
     function edit(ProcessedSale $processedSale)
     {
-        return view('sales.edit', $this->moreData)->with('sale', $processedSale);
+        return view('sales.edit', $this->moreData)->with(compact('processedSale'));
     }
 
     function update(Request $request)
@@ -159,6 +159,53 @@ class ProcessedSalesController extends Controller
         ]);
 
         return redirect(route('processed.show', ['processedsale' => $request->id]));
+    }
+
+    function editProducts(ProcessedSale $processedsale)
+    {
+        $type = 'processed';
+        $color = 'success';
+        $skin = 'green';
+        $productsArray = Product::where('processed', 1)->pluck('name', 'id')->toArray();
+        return view('sales.edit_products', compact('processedsale', 'type', 'color', 'skin', 'productsArray'));
+    }
+
+    function storeProducts(Request $request, ProcessedSale $processedsale)
+    {
+        // dd($request->all());
+        $this->validate($request, [
+            'products' => 'required',
+        ]);
+
+        $products = [];
+        $old = unserialize($processedsale->products);
+
+        for ($i = 0; $i < count($request->products); $i++) {
+            $new = [];
+            $new['i'] =  $request->products[$i];
+            $new['p'] =  $old[$i]['p'];
+            $new['q'] =  $old[$i]['q'];
+            $new['k'] =  $old[$i]['k'];
+            $new['b'] =  $old[$i]['b'];
+            array_push($products, $new);
+
+            $old_product = Product::find($old[$i]['i']);
+            $new_product = Product::find($request->products[$i]);
+            $old_number = $old_product->quantity;
+            $new_number = $new_product->quantity;
+            $old_product->update([
+                'quantity' => $old_number + $old[$i]['b']
+            ]);
+            $new_product->update([
+                'quantity' => $new_number - $old[$i]['b']
+            ]);
+        }
+
+        $processedsale->update([
+            'products' => serialize($products)
+        ]);
+
+        return redirect(route('processed.show', $processedsale));
     }
 
     function fillfield()

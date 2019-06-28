@@ -63,7 +63,9 @@ Route::group(['prefix' => 'ventas/procesado', 'as' => 'processed.'], function ()
     Route::get('rellenar', usesas($ctrl, 'fillfield'));
     Route::get('{processedsale}', usesas($ctrl, 'show'));
     Route::get('{processedsale}/agregar-kg', usesas($ctrl, 'editKg'));
-    Route::post('agregar-kg', usesas($ctrl, 'storeKg'));
+    Route::post('{processedsale}/agregar-kg', usesas($ctrl, 'storeKg'));
+    Route::get('{processedsale}/editar-productos', usesas($ctrl, 'editProducts'));
+    Route::post('{processedsale}/editar-productos', usesas($ctrl, 'storeProducts'));
 });
 
 // Deposits
