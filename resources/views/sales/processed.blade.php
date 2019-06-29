@@ -34,7 +34,7 @@
         </div>
 
         <div class="col-md-6">
-            <a href="{{ route('processed.editKg', ['processedsale' => $processedsale]) }}"
+            <a href="{{ route('processed.editKg', $processedsale) }}"
                 class="btn btn-success">
                 <i class="fa fa-pencil"></i>&nbsp;&nbsp;
                 Editar (kg o $)
@@ -42,7 +42,7 @@
 
             <br><br><br>
 
-            <a href="{{ route('processed.editProducts', ['processedsale' => $processedsale]) }}"
+            <a href="{{ route('processed.editProducts', $processedsale) }}"
                 class="btn btn-warning">
                 <i class="fa fa-pencil"></i>&nbsp;&nbsp;
                 Editar productos

@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-7">
             <solid-box title="Venta # {{ $processedsale->id }}" color="box-success">
-              {!! Form::open(['method' => 'POST', 'route' => 'processed.storeKg']) !!}
+              {!! Form::open(['method' => 'POST', 'route' => ['processed.storeKg', $processedsale]]) !!}
 
                 <table class="table table-striped">
                     <thead>

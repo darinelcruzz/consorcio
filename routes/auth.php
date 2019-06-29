@@ -61,11 +61,11 @@ Route::group(['prefix' => 'ventas/procesado', 'as' => 'processed.'], function ()
     Route::post('editar', usesas($ctrl, 'update'));
     Route::post('descartar', usesas($ctrl, 'discard'));
     Route::get('rellenar', usesas($ctrl, 'fillfield'));
+    Route::get('agregar-kg/{processedsale}', usesas($ctrl, 'editKg'));
+    Route::post('agregar-kg/{processedsale}', usesas($ctrl, 'storeKg'));
+    Route::get('editar-productos/{processedsale}', usesas($ctrl, 'editProducts'));
+    Route::post('editar-productos/{processedsale}', usesas($ctrl, 'storeProducts'));
     Route::get('{processedsale}', usesas($ctrl, 'show'));
-    Route::get('{processedsale}/agregar-kg', usesas($ctrl, 'editKg'));
-    Route::post('{processedsale}/agregar-kg', usesas($ctrl, 'storeKg'));
-    Route::get('{processedsale}/editar-productos', usesas($ctrl, 'editProducts'));
-    Route::post('{processedsale}/editar-productos', usesas($ctrl, 'storeProducts'));
 });
 
 // Deposits
