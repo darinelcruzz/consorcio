@@ -63,14 +63,13 @@ class FreshSalesController extends Controller
         return redirect(route('fresh.index'));
     }
 
-    function edit(FreshSale $freshSale)
+    function edit(FreshSale $sale)
     {
-        return view('sales.edit', $this->moreData)->with('sale', $freshSale);
+        return view('sales.edit', $this->moreData)->with('sale', $sale);
     }
 
-    function update(Request $request)
+    function update(Request $request, FreshSale $sale)
     {
-        $sale = FreshSale::find($request->id);
         $this->modifyInventory($sale->quantity, $request->quantity);
         $sale->update($request->all());
 

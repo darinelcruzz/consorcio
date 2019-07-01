@@ -64,14 +64,13 @@ class AliveSalesController extends Controller
         return redirect(route('alive.index'));
     }
 
-    function edit(AliveSale $aliveSale)
+    function edit(AliveSale $sale)
     {
-        return view('sales.edit', $this->moreData)->with('sale', $aliveSale);
+        return view('sales.edit', $this->moreData)->with('sale', $sale);
     }
 
-    function update(Request $request)
+    function update(Request $request, AliveSale $sale)
     {
-        $sale = AliveSale::find($request->id);
         $this->modifyInventory($sale->quantity, $request->quantity);
         $sale->update($request->all());
 

@@ -21,8 +21,8 @@ Route::group(['prefix' => 'ventas/cerdo', 'as' => 'pork.'], function () {
     Route::get('/', usesas($ctrl, 'index'));
     Route::get('agregar', usesas($ctrl, 'create'));
     Route::post('agregar', usesas($ctrl, 'store'));
-    Route::get('editar/{porkSale}', usesas($ctrl, 'edit'))->middleware('admin');
-    Route::post('editar', usesas($ctrl, 'update'));
+    Route::get('editar/{sale}', usesas($ctrl, 'edit'))->middleware('admin');
+    Route::post('editar/{sale}', usesas($ctrl, 'update'));
     Route::post('descartar', usesas($ctrl, 'discard'));
     Route::get('rellenar', usesas($ctrl, 'fillfield'));
 });
@@ -33,8 +33,8 @@ Route::group(['prefix' => 'ventas/vivo', 'as' => 'alive.'], function () {
     Route::get('/', usesas($ctrl, 'index'));
     Route::get('agregar', usesas($ctrl, 'create'));
     Route::post('agregar', usesas($ctrl, 'store'));
-    Route::get('editar/{aliveSale}', usesas($ctrl, 'edit'))->middleware('admin');
-    Route::post('editar', usesas($ctrl, 'update'));
+    Route::get('editar/{sale}', usesas($ctrl, 'edit'))->middleware('admin');
+    Route::post('editar/{sale}', usesas($ctrl, 'update'));
     Route::post('descartar', usesas($ctrl, 'discard'));
     Route::get('rellenar', usesas($ctrl, 'fillfield'));
 });
@@ -45,8 +45,8 @@ Route::group(['prefix' => 'ventas/fresco', 'as' => 'fresh.'], function () {
     Route::get('/', usesas($ctrl, 'index'));
     Route::get('agregar', usesas($ctrl, 'create'));
     Route::post('agregar', usesas($ctrl, 'store'));
-    Route::get('editar/{freshSale}', usesas($ctrl, 'edit'))->middleware('admin');
-    Route::post('editar', usesas($ctrl, 'update'));
+    Route::get('editar/{sale}', usesas($ctrl, 'edit'))->middleware('admin');
+    Route::post('editar/{sale}', usesas($ctrl, 'update'));
     Route::post('descartar', usesas($ctrl, 'discard'));
     Route::get('rellenar', usesas($ctrl, 'fillfield'));
 });
@@ -57,8 +57,8 @@ Route::group(['prefix' => 'ventas/procesado', 'as' => 'processed.'], function ()
     Route::get('/', usesas($ctrl, 'index'));
     Route::get('agregar', usesas($ctrl, 'create'));
     Route::post('agregar', usesas($ctrl, 'store'));
-    Route::get('editar/{processedSale}', usesas($ctrl, 'edit'))->middleware('admin');
-    Route::post('editar', usesas($ctrl, 'update'));
+    Route::get('editar/{sale}', usesas($ctrl, 'edit'))->middleware('admin');
+    Route::post('editar/{sale}', usesas($ctrl, 'update'));
     Route::post('descartar', usesas($ctrl, 'discard'));
     Route::get('rellenar', usesas($ctrl, 'fillfield'));
     Route::get('agregar-kg/{processedsale}', usesas($ctrl, 'editKg'));

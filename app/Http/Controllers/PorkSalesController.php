@@ -63,14 +63,13 @@ class PorkSalesController extends Controller
         return redirect(route('pork.index'));
     }
 
-    function edit(PorkSale $porkSale)
+    function edit(PorkSale $sale)
     {
-        return view('sales.edit', $this->moreData)->with('sale', $porkSale);
+        return view('sales.edit', $this->moreData)->with('sale', $sale);
     }
 
-    function update(Request $request)
+    function update(Request $request, PorkSale $sale)
     {
-        $sale = PorkSale::find($request->id);
         $this->modifyInventory($sale->quantity, $request->quantity);
         $sale->update($request->all());
 

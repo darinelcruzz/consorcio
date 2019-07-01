@@ -67,14 +67,13 @@ class ProcessedSalesController extends Controller
         return view('sales.processed', $this->data)->with(compact('processedsale'));
     }
 
-    function edit(ProcessedSale $processedSale)
+    function edit(ProcessedSale $sale)
     {
-        return view('sales.edit', $this->moreData)->with(compact('processedSale'));
+        return view('sales.edit', $this->moreData)->with(compact('sale'));
     }
 
-    function update(Request $request)
+    function update(Request $request, ProcessedSale $sale)
     {
-        $sale = ProcessedSale::find($request->id);
         $sale->update($request->all());
 
         return redirect(route('processed.index'));
