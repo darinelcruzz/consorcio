@@ -48,14 +48,12 @@ class ReportController extends Controller
         $fresh = FreshSale::salesReport($request->startDate, $request->endDate);
         $processed = ProcessedSale::salesReport($request->startDate, $request->endDate);
         $pork = PorkSale::salesReport($request->startDate, $request->endDate);
-        $deposits = Deposit::whereBetween('created_at', [$request->startDate . ' 00:00:00', $request->endDate. ' 23:59:59'])
-            ->sum('amount');
 
         $start =new Date(strtotime($request->startDate));
         $end =new Date(strtotime($request->endDate));
         $range = $start->format('j/M/y'). ' - ' . $end->format('j/M/y');
 
-        return view('reports.sales', compact('alive', 'fresh', 'processed', 'pork', 'deposits','range'));
+        return view('reports.sales', compact('alive', 'fresh', 'processed', 'pork','range'));
     }
 
     function product(Request $request)

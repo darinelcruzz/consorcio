@@ -90,17 +90,6 @@
                                 <td align="right">${{ number_format($totalP,2) }}</td>
                             </tr>
                         @endforeach
-
-                        <tr>
-                            <td><b>Abonos</b></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td align="right">${{ number_format($deposits,2) }}</td>
-                        </tr>
-                        @php
-                        $totalTP += $deposits;
-                        @endphp
                 </tbody>
                 <tfoot>
                     <tr>
