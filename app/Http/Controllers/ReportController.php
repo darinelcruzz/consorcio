@@ -114,7 +114,7 @@ class ReportController extends Controller
                     $kg = isset($p['k']) ? $p['k']: 0;
 
                     $types = ['10' => 'boneless', '11' => 'bone', '12' => 'foot', '13' => 'wings', '14' => 'wing',
-                        '15' => 'gizzard', '16' => 'visors', '17' => 'pickled', '20' => 'milanese', '21' => 'marinated'];
+                        '15' => 'gizzard', '16' => 'visors', '17' => 'pickled', '21' => 'milanese', '22' => 'marinated'];
 
                     array_push(${$types[$p['i']]}, [ // ${$types[..]} devuelve $boneless, $bone...
                         'client' => $sale->client_id,
