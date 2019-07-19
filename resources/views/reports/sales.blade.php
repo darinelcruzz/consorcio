@@ -1,7 +1,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>CAP</title>
+    <title>Reporte | Ventas</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="{{ asset('/plugins/select2.min.css') }}">
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('/plugins/dataTables.bootstrap.css') }}">
+
+    <link rel="icon" href="{{ asset('/img/Logo.ico') }}" />
 
     <style>
         th, td, p, address, h5 {
@@ -57,10 +59,11 @@
                     <thead>
                         <tr>
                             <th class="text-center" width="15%">Producto</th>
-                            <th class="text-center" width="20%">Cantidad</th>
-                            <th class="text-center" width="20%">Kg</th>
+                            <th class="text-center" width="10%">Cantidad</th>
+                            <th class="text-center" width="10%">Kg</th>
                             <th class="text-center" width="20%">Crédito</th>
                             <th class="text-center" width="20%">Contado</th>
+                            <th class="text-center" width="20%">Total</th>
                         </tr>
                     </thead>
                     @php
@@ -84,19 +87,21 @@
                             @endforeach
                             <tr>
                                 <td><b>{{ $spanish }}</b></td>
-                                <td align="right">{{ number_format($totalQ) }}</td>
-                                <td align="right">{{ number_format($totalK) }}</td>
-                                <td align="right">${{ number_format($totalC,2) }}</td>
-                                <td align="right">${{ number_format($totalP,2) }}</td>
+                                <td align="center">{{ number_format($totalQ) }}</td>
+                                <td align="center">{{ number_format($totalK) }}</td>
+                                <td align="center">${{ number_format($totalC,2) }}</td>
+                                <td align="center">${{ number_format($totalP,2) }}</td>
+                                <td align="center">${{ number_format($totalC + $totalP,2) }}</td>
                             </tr>
                         @endforeach
                 </tbody>
                 <tfoot>
                     <tr>
                         <td colspan="2"></td>
-                        <td><b>Total</b></td>
-                        <td align="right"><b>${{ number_format($totalTC,2) }}</b></td>
-                        <td align="right"><b>${{ number_format($totalTP,2) }}</b></td>
+                        <td align="center"><b>Totales</b></td>
+                        <td align="center"><b>${{ number_format($totalTC,2) }}</b></td>
+                        <td align="center"><b>${{ number_format($totalTP,2) }}</b></td>
+                        <td align="center"><b>${{ number_format($totalTC + $totalTP,2) }}</b></td>
                     </tr>
                 </tfoot>
                 </table>
