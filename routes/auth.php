@@ -91,6 +91,8 @@ Route::group(['prefix' => 'embarques', 'as' => 'shipping.'], function () {
 // Products
 Route::get('productos', usesas('ProductsController', 'index', 'product.index'));
 Route::post('productos', usesas('ProductsController', 'store', 'product.store'));
+Route::get('movimientos', usesas('MovementsController', 'index', 'movement.index'));
+Route::post('movimientos', usesas('MovementsController', 'index', 'movement.index'));
 
 Route::get('ajustes', usesas('AdjustmentController', 'index', 'adjustment.index'));
 Route::post('ajustes', usesas('AdjustmentController', 'store', 'adjustment.store'));

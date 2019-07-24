@@ -66,6 +66,10 @@ return [
                 'title' => 'Ajustes',
                 'route' => 'adjustment.index'
             ],
+            'movements' => [
+                'title' => 'Movimientos',
+                'route' => 'movement.index'
+            ],
         ]
     ],
 

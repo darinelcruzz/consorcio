@@ -46,6 +46,10 @@ return [
             'add' => [
                 'title' => 'Productos',
                 'route' => 'product.index'
+            ],            
+            'movements' => [
+                'title' => 'Movimientos',
+                'route' => 'movement.index'
             ],
         ]
     ],
