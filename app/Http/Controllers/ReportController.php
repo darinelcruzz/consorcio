@@ -133,7 +133,7 @@ class ReportController extends Controller
                 'Molleja' => collect($gizzard)->groupBy('client'),
                 'Viscera mixta' => collect($visors)->groupBy('client'),
                 'Pollo Adobado' => collect($pickled)->groupBy('client'),
-                'Milanesa de pechiga' => collect($milanese)->groupBy('client'),
+                'Milanesa de pechuga' => collect($milanese)->groupBy('client'),
                 'Pechuga deshuesada marinada' => collect($marinated)->groupBy('client')
             ];
 
