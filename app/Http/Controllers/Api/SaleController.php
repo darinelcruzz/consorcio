@@ -12,16 +12,32 @@ class SaleController extends Controller
     {
         switch ($type) {
             case 'alive':
-                return AliveSale::with(['client:id,name', 'pricer:id,name'])->orderBy('id', 'DESC')->paginate(10);
+                return AliveSale::whereYear('date', date('Y'))
+                    ->whereMonth('date', '>', date('m') - 3)
+                    ->with(['client:id,name', 'pricer:id,name'])
+                    ->orderBy('id', 'DESC')
+                    ->paginate(10);
                 break;
             case 'fresh':
-                return FreshSale::with(['client:id,name', 'pricer:id,name'])->orderBy('id', 'DESC')->paginate(10);
+                return FreshSale::whereYear('date', date('Y'))
+                    ->whereMonth('date', '>', date('m') - 3)
+                    ->with(['client:id,name', 'pricer:id,name'])
+                    ->orderBy('id', 'DESC')
+                    ->paginate(10);
                 break;
             case 'pork':
-                return PorkSale::with(['client:id,name', 'pricer:id,name'])->orderBy('id', 'DESC')->paginate(10);
+                return PorkSale::whereYear('date', date('Y'))
+                    ->whereMonth('date', '>', date('m') - 3)
+                    ->with(['client:id,name', 'pricer:id,name'])
+                    ->orderBy('id', 'DESC')
+                    ->paginate(10);
                 break;
             case 'processed':
-                return ProcessedSale::with(['client:id,name', 'pricer:id,name'])->orderBy('id', 'DESC')->paginate(10);
+                return ProcessedSale::whereYear('date', date('Y'))
+                    ->whereMonth('date', '>', date('m') - 3)
+                    ->with(['client:id,name', 'pricer:id,name'])
+                    ->orderBy('id', 'DESC')
+                    ->paginate(10);
                 break;
             default:
                 return \Response::json(['success' => false]);
