@@ -1,12 +1,12 @@
 <template lang="html">
-    <div :class="['small-box', color]">
-        <div v-if="client > 0" class="inner">
-            <h3>{{ clients[client].name }}</h3>
-            <p>{{ clients[client].address }}</p>
-            <h4 v-if="clients[client].credit" align="right">
-                Saldo:&nbsp;$ {{ clients[client].balance }}&nbsp;&nbsp;&nbsp;
-                Máximas:{{ clients[client].notes }}&nbsp;&nbsp;&nbsp;
-                En deuda:&nbsp;{{ clients[client].unpaid }}
+    <div v-if="client" :class="['small-box', color]">
+        <div class="inner">
+            <h3>{{ client.name }}</h3>
+            <p>{{ client.address }}</p>
+            <h4 v-if="client.credit" align="right">
+                Saldo:&nbsp;$ {{ client.balance }}&nbsp;&nbsp;&nbsp;
+                Máximas:{{ client.notes }}&nbsp;&nbsp;&nbsp;
+                En deuda:&nbsp;{{ client.unpaid }}
             </h4>
         </div>
         <div class="icon">
@@ -19,21 +19,24 @@
 export default {
     data() {
         return {
-            color: 'bg-green'
+            color: 'bg-green',
+            client: null
         };
     },
-    props: ['clients', 'client'],
+    props: ['cid'],
     watch: {
         client: function (val, oldVal) {
-          if (this.clients[val].unpaid >= this.clients[val].notes && this.clients[val].notes > 0) {
+            if (this.client.unpaid >= this.client.notes && this.client.notes > 0) {
               this.color = 'bg-red';
-          } else {
+            } else {
               this.color = 'bg-green';
-          }
+            }
         }
     },
+    created() {        
+        this.$root.$on('pick', (client) => {
+            this.client = client
+        })
+    }
 }
 </script>
-
-<style lang="css">
-</style>

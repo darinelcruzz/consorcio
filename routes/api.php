@@ -12,14 +12,16 @@ use Illuminate\Http\Request;
 Route::group(['prefix' => 'sales', 'as' => 'api.'], function () {
     $ctrl = 'Api\SaleController';
 
-    // Route::resource('sales', $ctrl);
-
     Route::get('{type}', usesas($ctrl, 'index'));
     Route::get('{type}/{keyword}', usesas($ctrl, 'search'));
     Route::get('create', usesas($ctrl, 'create'));
     Route::post('store', usesas($ctrl, 'store'));
     Route::get('edit/{sale}', usesas($ctrl, 'edit'));
     Route::post('edit', usesas($ctrl, 'update'));
-    // Route::post('descartar', usesas($ctrl, 'discard'));
-    // Route::post('buscar', usesas($ctrl, 'search'));
+});
+
+Route::group(['prefix' => 'clients', 'as' => 'api.'], function () {
+    $ctrl = 'Api\ClientController';
+
+    Route::get('/{product}', usesas($ctrl, 'index'));
 });

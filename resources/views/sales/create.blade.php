@@ -9,10 +9,12 @@
             <solid-box title="Introduzca los datos de la venta"
                 color="box-{{ $color }}">
                 {!! Form::open(['method' => 'POST', 'route' => $type . '.store']) !!}
-                    {!! Field::select('client_id', $clients, null,
+                    {{-- {!! Field::select('client_id', $clients, null,
                         ['tpl' => 'templates/withicon', 'empty' => 'Seleccione un cliente', 'v-model' => 'client_id'],
                         ['icon' => 'user'])
-                    !!}
+                    !!} --}}
+
+                    <client-select product="{{ $tipo }}"></client-select>
 
                     <div class="row">
                         <div class="col-md-6">
@@ -56,15 +58,7 @@
                         </div>
                     </div>
 
-                    <div v-if="clients[client_id]" class="row">
-                        <div v-if="clients[client_id].credit"  class="col-md-6">
-                            {!! Field::select('credit', ['No', 'Semanal', 'Quince días'], null,
-                                ['tpl' => 'templates/withicon','empty' => '¿Se vende a crédito?'],
-                                ['icon' => 'credit-card-alt'])
-                                !!}
-                        </div>
-                        <input v-else type="hidden" name="credit" value="0">
-                    </div>
+                    <client-credit></client-credit>
 
                     <div class="row">
                         <div class="col-md-12">
@@ -105,7 +99,7 @@
 
         <div class="col-md-5">
 
-            <client-info :clients="clients" :client="client_id"></client-info>
+            <client-info></client-info>
 
             @if ($lastSale)
                 <div class="box box-solid">

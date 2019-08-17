@@ -13,7 +13,7 @@ class ProcessedSalesController extends Controller
 
     function __construct()
     {
-        $this->data = ['type' => 'processed', 'color' => 'success', 'skin' => 'green'];
+        $this->data = ['type' => 'processed', 'color' => 'success', 'skin' => 'green', 'tipo' => 'procesado'];
         $this->moreData = array_merge($this->data, [
             'clients' => Client::buyers('procesado'),
             'prices' => Price::pricesWithNames(4)

@@ -25,6 +25,8 @@ Vue.component('data-table-com', require('./components/lte/SmallDataTable.vue'));
 
 Vue.component('nav-tabs', require('./components/lte/NavTabsPane.vue'));
 Vue.component('client-info', require('./components/lte/ClientInfo.vue'));
+Vue.component('client-select', require('./components/ClientSelect.vue'));
+Vue.component('client-credit', require('./components/ClientCredit.vue'));
 
 Vue.component('select2', require('./components/SelectTwo.vue'));
 Vue.component('sale', require('./components/Sale.vue'));
@@ -36,22 +38,9 @@ Vue.component('deposits-table', require('./components/DepositsTable.vue'));
 const app = new Vue({
     el: '#app',
     data: {
-        clients: [],
-        clients2: [],
-        client_id: '',
         selected_date: '',
         checked: [],
         price_id: '',
         shipp: '',
     },
-    created() {
-        axios.get('/clients').then(response => {
-            this.clients = response.data;
-        });
-
-        axios.get('/clients2').then(response => {
-            this.clients2 = response.data;
-        });
-    }
-
 });

@@ -13,9 +13,9 @@ class FreshSalesController extends Controller
 
     function __construct()
     {
-        $this->data = ['type' => 'fresh', 'color' => 'warning', 'skin' => 'yellow'];
+        $this->data = ['type' => 'fresh', 'color' => 'warning', 'skin' => 'yellow', 'tipo' => 'fresco'];
         $this->moreData = array_merge($this->data, [
-            'clients' => Client::buyers('fresco'),
+            // 'clients' => Client::buyers('fresco'),
             'prices' => Price::pricesWithNames(2)
         ]);
     }
@@ -27,6 +27,7 @@ class FreshSalesController extends Controller
 
     function create()
     {
+        // return $this->moreData['clients'];
         $lastSale = FreshSale::all()->last();
         $lastFolio = $this->getFolio();
         return view('sales.create', $this->moreData)

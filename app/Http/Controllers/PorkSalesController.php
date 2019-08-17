@@ -13,7 +13,7 @@ class PorkSalesController extends Controller
 
     function __construct()
     {
-        $this->data = ['type' => 'pork', 'color' => 'baby', 'skin' => 'pink'];
+        $this->data = ['type' => 'pork', 'color' => 'baby', 'skin' => 'pink', 'tipo' => 'cerdo'];
         $this->moreData = array_merge($this->data, [
             'clients' => Client::buyers('cerdo'),
             'prices' => Price::pricesWithNames(1)
