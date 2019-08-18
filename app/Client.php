@@ -6,10 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
-    protected $fillable = [
-        'name', 'email', 'address', 'rfc', 'phone',
-        'cellphone', 'credit', 'notes', 'products', 'days'
-    ];
+    protected $fillable = ['name', 'address', 'rfc', 'phone', 'cellphone', 'email', 'credit', 'notes', 'days', 'products', 'unpaid_notes', 'balance'];
 
     function porksales()
     {
@@ -87,7 +84,7 @@ class Client extends Model
         return $recent == 0;
     }
 
-    function getUnpaidNotesAttribute()
+    function computeUnpaidNotes()
     {
         $notes = 0;
         foreach ($this->alivesales->where('status', '!=', 'pagado') as $sale) {
@@ -103,17 +100,17 @@ class Client extends Model
             if ($sale->status != 'cancelada') $notes += 1;
         }
 
-        return $notes;
+        $this->update(['unpaid_notes' => $notes]);
     }
 
-    function getBalanceAttribute()
+    function computeBalance()
     {
         $balance = $this->alivesales->where('credit', 1)->where('status', 'credito')->sum('amount') +
             $this->porksales->where('credit', 1)->where('status', 'credito')->sum('amount') +
             $this->freshsales->where('credit', 1)->where('status', 'credito')->sum('amount') +
             $this->processedsales->where('credit', 1)->where('status', 'credito')->sum('amount');
 
-        return $balance;
+        $this->update(['balance' => $balance]);
     }
 
     function getRealBalanceAttribute()

@@ -10,8 +10,8 @@ class ClientController extends Controller
 {
     function index($product)
     {
-    	// return Client::selectRaw('id, name, address, notes, credit')->get();
-    	$buyers = Client::orderBy('name', 'asc')->get()
+    	$buyers = Client::orderBy('name', 'asc')
+    		->get()
             ->filter(function ($item) use ($product) {
                 return strpos($item->products, $product);
             });
@@ -19,16 +19,6 @@ class ClientController extends Controller
     	$clients = [];
 
         foreach ($buyers as $client) {
-
-            // $clients[$client->id] = (object) [
-            //     'id' => $client->id,
-            //     'name' => $client->name,
-            //     'address' => $client->address,
-            //     'notes' => $client->notes,
-            //     'credit' => $client->credit,
-            //     'unpaid' => $client->unpaid_notes,
-            //     'balance' => $client->balance,
-            // ];
 
             array_push($clients, (object) [
                 'id' => $client->id,

@@ -50,6 +50,9 @@ class PorkSalesController extends Controller
             'days' => $days > 16 ? 15: $days
         ]);
 
+        $sale->client->computeBalance();
+        $sale->client->computeUnpaidNotes();
+
         if (PorkSale::where('series', 'B')->count() == 1) {
             $sale->update([
                 'folio' => 1
@@ -72,6 +75,9 @@ class PorkSalesController extends Controller
     {
         $this->modifyInventory($sale->quantity, $request->quantity);
         $sale->update($request->all());
+
+        $sale->client->computeBalance();
+        $sale->client->computeUnpaidNotes();
 
         return redirect(route('pork.index'));
     }

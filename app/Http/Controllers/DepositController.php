@@ -70,6 +70,9 @@ class DepositController extends Controller
                 'status'=> 'pagado'
             ]);
 
+            $sale->client->computeBalance();
+            $sale->client->computeUnpaidNotes();
+
             return redirect(route('client.show', ['client' => $sale->client_id]));
 
         }

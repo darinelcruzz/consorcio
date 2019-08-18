@@ -49,6 +49,9 @@ class ProcessedSalesController extends Controller
             'days' => $days > 16 ? 15: $days
         ]);
 
+        $sale->client->computeBalance();
+        $sale->client->computeUnpaidNotes();
+
         if (ProcessedSale::where('series', 'B')->count() == 1) {
             $sale->update([
                 'folio' => 1
@@ -75,6 +78,9 @@ class ProcessedSalesController extends Controller
     function update(Request $request, ProcessedSale $sale)
     {
         $sale->update($request->all());
+
+        $sale->client->computeUnpaidNotes();
+        $sale->client->computeBalance();
 
         return redirect(route('processed.index'));
     }

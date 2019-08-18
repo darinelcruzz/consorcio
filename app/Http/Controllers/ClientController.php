@@ -67,6 +67,31 @@ class ClientController extends Controller
 
     function show(Client $client)
     {
+        $client->computeBalance();
+        $client->computeUnpaidNotes();
+
         return view('clients.show', compact('client'));
+    }
+
+    function notes()
+    {
+        $clients = Client::where('unpaid_notes', 0)->get();
+
+        foreach($clients as $client) {
+            $client->computeUnpaidNotes();
+        }
+
+        return "DONE WITH NOTES";
+    }
+
+    function balance()
+    {
+        $clients = Client::where('balance', 0)->get();
+
+        foreach($clients as $client) {
+            $client->computeBalance();
+        }
+
+        return "DONE WITH BALANCES";
     }
 }
