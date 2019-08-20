@@ -47151,7 +47151,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v(_vm._s(_vm.sale.client.name))]), _vm._v(" "), (_vm.admin) ? _c('a', {
     attrs: {
-      "href": _vm.route + '/editar/' + _vm.sale.id
+      "href": '/clientes/editar/' + _vm.sale.client.id
     }
   }, [_c('i', {
     staticClass: "fa fa-pencil"

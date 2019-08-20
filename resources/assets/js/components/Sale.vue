@@ -10,7 +10,7 @@
         <td>
             <div v-if="sale.status != 'cancelada'">
                 <a :href="'/clientes/' + sale.client.id">{{ sale.client.name }}</a>
-                <a v-if="admin" :href="route + '/editar/' + sale.id">
+                <a v-if="admin" :href="'/clientes/editar/' + sale.client.id">
                     <i class="fa fa-pencil"></i>
                 </a>
             </div>
