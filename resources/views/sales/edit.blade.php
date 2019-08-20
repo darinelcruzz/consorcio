@@ -63,15 +63,16 @@
                         </div>
                     </div>
 
-                    <div v-if="clients[client_id]" class="row">
-                        <div v-if="clients[client_id].credit"  class="col-md-6">
-                            {!! Field::select('credit', ['No', 'Semanal', 'Quince días'], null,
-                                ['tpl' => 'templates/withicon','empty' => '¿Se vende a crédito?'],
-                                ['icon' => 'credit-card-alt'])
-                                !!}
+                    @if($sale->credit > 0)
+                        <div class="row">
+                            <div class="col-md-6">
+                                {!! Field::select('days', ['0' => 'No', '8' => 'Semanal', '15' => 'Quince días'], $sale->days,
+                                    ['label' => 'Crédito', 'tpl' => 'templates/withicon','empty' => '¿Se vende a crédito?'],
+                                    ['icon' => 'credit-card-alt'])
+                                    !!}
+                            </div>
                         </div>
-                        <input v-else type="hidden" name="credit" value="0">
-                    </div>
+                    @endif
 
                     <div class="row">
                         <div class="col-md-12">

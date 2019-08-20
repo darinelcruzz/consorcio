@@ -9,10 +9,6 @@
             <solid-box title="Introduzca los datos de la venta"
                 color="box-{{ $color }}">
                 {!! Form::open(['method' => 'POST', 'route' => $type . '.store']) !!}
-                    {{-- {!! Field::select('client_id', $clients, null,
-                        ['tpl' => 'templates/withicon', 'empty' => 'Seleccione un cliente', 'v-model' => 'client_id'],
-                        ['icon' => 'user'])
-                    !!} --}}
 
                     <client-select product="{{ $tipo }}"></client-select>
 

@@ -15,7 +15,7 @@ class FreshSalesController extends Controller
     {
         $this->data = ['type' => 'fresh', 'color' => 'warning', 'skin' => 'yellow', 'tipo' => 'fresco'];
         $this->moreData = array_merge($this->data, [
-            // 'clients' => Client::buyers('fresco'),
+            'clients' => Client::buyers('fresco'),
             'prices' => Price::pricesWithNames(2)
         ]);
     }
