@@ -39,14 +39,21 @@
                                     <i class="fa fa-pencil" aria-hidden="true"></i> Editar
                                 </a>
                               </li>
+                              @if(!$client->hasSales && auth()->user()->level == 1)
+                              <li>
+                                <a href="{{ route('client.destroy', $client )}}">
+                                    <i class="fa fa-trash" aria-hidden="true"></i> Eliminar
+                                </a>                                  
+                              </li>
+                              @endif
                             </ul>
                         </div>
                     </td>
                     <td>
                         {{ $client->name }} 
-                        @if($client->isMissing)
+                        {{-- @if($client->isMissing)
                             <span class="pull-right"><code><i class="fa fa-exclamation"></i> sin compras recientes</code></span>
-                        @endif
+                        @endif --}}
                         <br>
                         {!! $client->email ? $client->email . '<br>' : ''  !!}
                         {!! $client->phone ? $client->phone . ' | ' : ''  !!}

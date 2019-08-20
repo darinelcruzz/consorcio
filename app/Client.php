@@ -84,6 +84,16 @@ class Client extends Model
         return $recent == 0;
     }
 
+    function getHasSalesAttribute()
+    {
+        $sales = count($this->alivesales)
+            + count($this->freshsales)
+            + count($this->processedsales)
+            + count($this->porksales);
+
+        return $sales > 0;
+    }
+
     function computeUnpaidNotes()
     {
         $notes = 0;

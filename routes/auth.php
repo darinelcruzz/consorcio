@@ -12,8 +12,7 @@ Route::group(['prefix' => 'clientes', 'as' => 'client.'], function () {
     Route::post('agregar', usesas($ctrl, 'store'));
     Route::get('editar/{client}', usesas($ctrl, 'edit'));
     Route::post('editar', usesas($ctrl, 'update'));
-    Route::get('notas', usesas($ctrl, 'notes'));
-    Route::get('balance', usesas($ctrl, 'balance'));
+    Route::get('eliminar/{client}', usesas($ctrl, 'destroy'));
     Route::get('{client}', usesas($ctrl, 'show'));
 });
 
