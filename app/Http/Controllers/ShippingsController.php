@@ -80,4 +80,72 @@ class ShippingsController extends Controller
 
         return redirect('embarques');
     }
+
+    function edit(Shipping $shipping)
+    {
+        $products = Product::where([
+            ['processed', '!=', 1],
+            ['name', '!=', 'Pollo fresco']
+        ])->pluck('name', 'id');
+
+        return view('shippings.edit', compact('products', 'shipping'));
+    }
+
+    function update(Request $request, Shipping $shipping)
+    {
+        $this->validate($request, [
+            'remission' => 'required',
+            'date' => 'required',
+            'provider' => 'required',
+            'product' => 'required',
+            'quantity' => 'required',
+            'price' => 'required',
+            'amount' => 'required',
+            'pproducts' => 'sometimes|required'
+        ]);
+
+        if ($request->product != 20) {
+
+            $product = Product::find($request->product);
+
+            $product->update(['quantity' => $product->quantity - $shipping->quantity + $request->quantity]);
+
+            $shipping->update($request->all());
+
+        } else {
+            $products = [];
+            $processed = unserialize($shipping->processed);
+
+            for ($i = 0; $i < count($processed); $i++) {
+                $item = [];
+                if($request->quantities[$i] > 0) {
+                    $item['i'] =  $request->pproducts[$i];
+                    $item['p'] =  $request->prices[$i];
+                    $item['q'] =  $request->quantities[$i];
+                    array_push($products, $item);
+
+                    $product = Product::find(intval($request->pproducts[$i]));
+                    // dd($product->quantity, $processed[$i]['q'], $request->quantities[$i]);
+                    $product->update([
+                        'quantity' => ($product->quantity - $processed[$i]['q'] + $request->quantities[$i])
+                    ]);
+                }
+            }
+
+            $shipping->update($request->all());
+
+            $shipping->update([
+                'processed' => serialize($products)
+            ]);
+        }
+
+        return redirect('embarques');
+    }
+
+    function updateInventory($product, $oldQuantity, $newQuantity)
+    {
+        $quantity = $product->quantity + $oldQuantity - $newQuantity;
+
+        $product->update(['quantity' => $quantity]);
+    }
 }

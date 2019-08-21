@@ -8,6 +8,7 @@
         <template slot="header">
             <tr>
                 <th>#</th>
+                <th><i class="fa fa-cogs"></i></th>
                 <th>Fecha</th>
                 <th>Remisión</th>
                 <th>Proveedor</th>
@@ -25,14 +26,15 @@
             @foreach($shippings as $shipping)
                 <tr>
                     <td>{{ $shipping->id }}</td>
+                    <td>
+                        @include('shippings.options')
+                    </td>
                     <td>{{ $shipping->short_date }}</td>
                     <td>{{ $shipping->remission }}</td>
                     <td>{{ $shipping->provider_name }}</td>
                     <td style="text-align: center;">
                         @if ($shipping->productr->name == 'Procesado')
-                            <a href="{{ route('shipping.show', $shipping)}}">
-                                <span class="badge bg-green"><em>procesado</em></span>
-                            </a>
+                            <span class="badge bg-green"><em>procesado</em></span>
                         @elseif($shipping->productr->name == 'Cerdo')
                             <span class="badge" style="background-color: #EE76A0;"><em>cerdo</em></span>
                         @else
