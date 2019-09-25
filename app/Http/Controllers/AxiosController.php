@@ -50,9 +50,9 @@ class AxiosController extends Controller
         return $clients->keyBy('id');
     }
 
-    function products()
+    function products($range = 1)
     {
-        $all = Product::where('processed', 1)->get();
+        $all = Product::where('processed', 1)->where('price', $range)->get();
 
         $products = [];
         $price_id = '10';

@@ -5,12 +5,22 @@
     <row-woc col="col-md-8 col-md-offset-2">
         <div class="row">
             <div class="col-md-6">
-                @component('products.stockbox', [
-                    'product' => $products->where('processed', 1)->pluck('quantity', 'name'),
-                    'labelcolor' => 'green'
-                ])
-                    Pollo procesado
-                @endcomponent
+                <div class="box box-widget widget-user-2">
+                    <div class="widget-user-header bg-green">
+                        Pollo procesado
+                    </div>
+                    <div class="box-footer no-padding">
+                        <ul class="nav nav-stacked">
+                            @foreach ($products->where('processed', 1)->pluck('quantity', 'name')->slice(16) as $key => $value)
+                                <li><a href="#">{{ $key }}<span class="pull-right badge bg-green">{{ $value }}</span></a></li>
+                            @endforeach
+
+                            @foreach ($products->where('processed', 1)->pluck('quantity', 'name')->slice(0, 16) as $key => $value)
+                                <li><a href="#">{{ $key }}<span class="pull-right badge bg-green">{{ $value }}</span></a></li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
             </div>
 
             <div class="col-md-6">

@@ -79,7 +79,37 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($processed as $product)
+                        @foreach ($ranges->slice(6) as $product)
+                            <tr>
+                                <td>
+                                    <input type="hidden" name="pproducts[]" value="{{ $product->id }}">
+                                    {{ $product->name}}
+                                </td>
+                                <td>
+                                    {!! Field::number('quantities[]', 0, ['tpl' => 'templates/nolabel', 'min' => '0', 'step' => '0.01']) !!}
+                                </td>
+                                <td>
+                                    {!! Field::number('prices[]', 0, ['tpl' => 'templates/nolabel', 'min' => '0', 'step' => '0.01']) !!}
+                                </td>
+                            </tr>
+                        @endforeach
+
+                        @foreach ($ranges->slice(0, 6) as $product)
+                            <tr>
+                                <td>
+                                    <input type="hidden" name="pproducts[]" value="{{ $product->id }}">
+                                    {{ $product->name}}
+                                </td>
+                                <td>
+                                    {!! Field::number('quantities[]', 0, ['tpl' => 'templates/nolabel', 'min' => '0', 'step' => '0.01']) !!}
+                                </td>
+                                <td>
+                                    {!! Field::number('prices[]', 0, ['tpl' => 'templates/nolabel', 'min' => '0', 'step' => '0.01']) !!}
+                                </td>
+                            </tr>
+                        @endforeach
+
+                        @foreach ($cuts as $product)
                             <tr>
                                 <td>
                                     <input type="hidden" name="pproducts[]" value="{{ $product->id }}">

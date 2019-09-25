@@ -26,7 +26,7 @@ class Product extends Model
 
     function getPriceAloneAttribute()
     {
-        if ($this->id > 9) {
+        if ($this->id > 9 && $this->id != 23) {
             $price = $this->prices->pluck('price')->toArray();
             return array_pop($price);
         }

@@ -77,12 +77,12 @@ class ReportController extends Controller
 
         elseif ($request->product_id == 4) {
             $sales = ProcessedSale::rangeReport($request->startDate, $request->endDate);
-            $big = $medium = $small = $junior = $petit = $mini = [];
+            $maxi = $big = $medium = $small = $junior = $petit = $mini = [];
             foreach ($sales as $sale) {
                 foreach (unserialize($sale->products) as $p) {
                     $kg = isset($p['k']) ? $p['k']: 0;
 
-                    $types = ['4' => 'big', '5' => 'medium', '6' => 'small', '7' => 'junior', '8' => 'petit', '9' => 'mini'];
+                    $types = ['23' => 'maxi', '4' => 'big', '5' => 'medium', '6' => 'small', '7' => 'junior', '8' => 'petit', '9' => 'mini'];
 
                     array_push(${$types[$p['i']]}, [
                         'client' => $sale->client_id,
@@ -93,6 +93,7 @@ class ReportController extends Controller
             }
 
             $data = [
+                'Maxi' => collect($maxi)->groupBy('client'),
                 'Grande' => collect($big)->groupBy('client'),
                 'Mediano' => collect($medium)->groupBy('client'),
                 'Chico' => collect($small)->groupBy('client'),

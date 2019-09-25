@@ -29,9 +29,10 @@ class ShippingsController extends Controller
             ['name', '!=', 'Pollo fresco']
         ])->pluck('name', 'id');
 
-        $processed = Product::where('processed', 1)->get();
+        $ranges = Product::where('processed', 1)->where('price', 1)->get();
+        $cuts = Product::where('processed', 1)->where('price', 0)->get();
 
-        return view('shippings.create', compact('today', 'products', 'processed'));
+        return view('shippings.create', compact('today', 'products', 'ranges', 'cuts'));
     }
 
     function store(Request $request)

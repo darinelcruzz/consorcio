@@ -7,11 +7,11 @@
                 </tr>
             </thead>
             <tbody>
-                <product-row :products="products" :pricetype="pricetype" :num="1"></product-row>
-                <product-row :products="products" :pricetype="pricetype" :num="2"></product-row>
-                <product-row :products="products" :pricetype="pricetype" :num="3"></product-row>
-                <product-row :products="products" :pricetype="pricetype" :num="4"></product-row>
-                <product-row :products="products" :pricetype="pricetype" :num="5"></product-row>
+                <product-row :pricetype="pricetype" :num="1"></product-row>
+                <product-row :pricetype="pricetype" :num="2"></product-row>
+                <product-row :pricetype="pricetype" :num="3"></product-row>
+                <product-row :pricetype="pricetype" :num="4"></product-row>
+                <product-row :pricetype="pricetype" :num="5"></product-row>
             </tbody>
         </table>
     </div>
@@ -34,10 +34,14 @@ export default {
     },
     props: ['pricetype'],
 
-    created() {
-        axios.get('/products').then(response => {
-            this.products = response.data;
-        });
-    }
+    // created() {
+    //     let isRange = this.pricetype != '23' ? '1': '0';
+
+    //     console.log('/products/' + isRange);
+
+    //     axios.get('/products/' + isRange).then(response => {
+    //         this.products = response.data;
+    //     });
+    // }
 }
 </script>

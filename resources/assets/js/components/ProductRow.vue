@@ -7,7 +7,7 @@
             <div class="form-group">
                 <select class="form-control" name="names[]" v-model="product_id">
                     <option value="3" selected>Producto</option>
-                    <option v-for="(product, index) in products_list" :value="index">
+                    <option v-for="(product, index) in products" :value="index">
                         {{ product.name }}
                     </option>
                 </select>
@@ -46,32 +46,48 @@
 export default {
     data() {
         return {
-            product_id: 3,
+            product_id: 0,
             quantity: 0,
             price: 0,
+            products: []
         };
     },
-    props: ['products', 'num', 'pricetype'],
+    props: ['num', 'pricetype'],
     computed: {
-        products_list() {
-            if (this.pricetype == '23') {
-                return this.products.slice(6)
-            }
+        // products() {
+        //     if (this.pricetype == '23') {
+        //         return this.products.slice(6)
+        //     }
 
-            return this.products.slice(0, 6)
-        },
+        //     return this.products.slice(0, 6)
+        // },
         type() {
-            return this.products_list[this.product_id].id
+            return this.products[this.product_id].id
         }
     },
     watch: {
         product_id: function (val, oldVal) {
             if(this.pricetype == '23') {
-                this.price = this.products_list[val].price;
+                this.price = this.products[val].price;
             } else {
-                this.price = this.products_list[val].price[eval(this.pricetype)];
+                this.price = this.products[val].price[eval(this.pricetype)];
             }
         },
     },
+    methods: {
+        fetch() {
+            let isRange = this.pricetype != '23' ? '1': '0';
+
+            axios.get('/products/' + isRange).then(response => {
+                this.products = response.data;
+            });
+        }
+    },
+    created() {
+        this.fetch()
+    },
+    updated() {
+        this.fetch()
+    }
 };
 </script>

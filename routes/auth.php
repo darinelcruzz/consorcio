@@ -135,5 +135,5 @@ Route::group(['prefix' => 'usuarios', 'as' => 'user.'], function () {
 // Axios
 // Route::get('clients', usesas('AxiosController', 'clients'));
 // Route::get('clients2', usesas('AxiosController', 'clients2'));
-Route::get('products', usesas('AxiosController', 'products'));
+Route::get('products/{range?}', usesas('AxiosController', 'products'));
 Route::get('deposits/{keyword?}', usesas('AxiosController', 'deposits'));

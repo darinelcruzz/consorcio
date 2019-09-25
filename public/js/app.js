@@ -26954,33 +26954,51 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            product_id: 3,
+            product_id: 0,
             quantity: 0,
-            price: 0
+            price: 0,
+            products: []
         };
     },
 
-    props: ['products', 'num', 'pricetype'],
+    props: ['num', 'pricetype'],
     computed: {
-        products_list: function products_list() {
-            if (this.pricetype == '23') {
-                return this.products.slice(6);
-            }
+        // products() {
+        //     if (this.pricetype == '23') {
+        //         return this.products.slice(6)
+        //     }
 
-            return this.products.slice(0, 6);
-        },
+        //     return this.products.slice(0, 6)
+        // },
         type: function type() {
-            return this.products_list[this.product_id].id;
+            return this.products[this.product_id].id;
         }
     },
     watch: {
         product_id: function product_id(val, oldVal) {
             if (this.pricetype == '23') {
-                this.price = this.products_list[val].price;
+                this.price = this.products[val].price;
             } else {
-                this.price = this.products_list[val].price[eval(this.pricetype)];
+                this.price = this.products[val].price[eval(this.pricetype)];
             }
         }
+    },
+    methods: {
+        fetch: function fetch() {
+            var _this = this;
+
+            var isRange = this.pricetype != '23' ? '1' : '0';
+
+            axios.get('/products/' + isRange).then(function (response) {
+                _this.products = response.data;
+            });
+        }
+    },
+    created: function created() {
+        this.fetch();
+    },
+    updated: function updated() {
+        this.fetch();
     }
 });
 
@@ -27018,15 +27036,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
-    props: ['pricetype'],
+    props: ['pricetype']
 
-    created: function created() {
-        var _this = this;
+    // created() {
+    //     let isRange = this.pricetype != '23' ? '1': '0';
 
-        axios.get('/products').then(function (response) {
-            _this.products = response.data;
-        });
-    }
+    //     console.log('/products/' + isRange);
+
+    //     axios.get('/products/' + isRange).then(response => {
+    //         this.products = response.data;
+    //     });
+    // }
 });
 
 /***/ }),
@@ -47447,31 +47467,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(head.name))])
   }))]), _vm._v(" "), _c('tbody', [_c('product-row', {
     attrs: {
-      "products": _vm.products,
       "pricetype": _vm.pricetype,
       "num": 1
     }
   }), _vm._v(" "), _c('product-row', {
     attrs: {
-      "products": _vm.products,
       "pricetype": _vm.pricetype,
       "num": 2
     }
   }), _vm._v(" "), _c('product-row', {
     attrs: {
-      "products": _vm.products,
       "pricetype": _vm.pricetype,
       "num": 3
     }
   }), _vm._v(" "), _c('product-row', {
     attrs: {
-      "products": _vm.products,
       "pricetype": _vm.pricetype,
       "num": 4
     }
   }), _vm._v(" "), _c('product-row', {
     attrs: {
-      "products": _vm.products,
       "pricetype": _vm.pricetype,
       "num": 5
     }
@@ -47519,7 +47534,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": "3",
       "selected": ""
     }
-  }, [_vm._v("Producto")]), _vm._v(" "), _vm._l((_vm.products_list), function(product, index) {
+  }, [_vm._v("Producto")]), _vm._v(" "), _vm._l((_vm.products), function(product, index) {
     return _c('option', {
       domProps: {
         "value": index
