@@ -5,14 +5,14 @@
         </td>
         <td>
             <div class="form-group">
-                <select class="form-control" name="names[]" v-model="product_id">
-                    <option value="3" selected>Producto</option>
-                    <option v-for="(product, index) in products" :value="index">
+                <select class="form-control" name="names[]" v-model="product">
+                    <option value="" selected>Producto</option>
+                    <option v-for="(product, index) in products" :value="product">
                         {{ product.name }}
                     </option>
                 </select>
             </div>
-            <input type="hidden" name="types[]" :value="type">
+            <input type="hidden" name="types[]" :value="product.id">
         </td>
 
         <td>
@@ -46,7 +46,7 @@
 export default {
     data() {
         return {
-            product_id: 0,
+            product: '',
             quantity: 0,
             price: 0,
             products: []
@@ -61,18 +61,21 @@ export default {
 
         //     return this.products.slice(0, 6)
         // },
-        type() {
-            return this.products[this.product_id].id
-        }
+        // type() {
+        //     return this.products[this.product_id].id
+        // }
     },
     watch: {
-        product_id: function (val, oldVal) {
+        product: function (val, oldVal) {
             if(this.pricetype == '23') {
-                this.price = this.products[val].price;
+                this.price = this.product.price;
             } else {
-                this.price = this.products[val].price[eval(this.pricetype)];
+                this.price = this.product.price[eval(this.pricetype)];
             }
         },
+        pricetype: function (val) {
+            this.fetch()
+        }
     },
     methods: {
         fetch() {
@@ -86,8 +89,5 @@ export default {
     created() {
         this.fetch()
     },
-    updated() {
-        this.fetch()
-    }
 };
 </script>

@@ -26954,7 +26954,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            product_id: 0,
+            product: '',
             quantity: 0,
             price: 0,
             products: []
@@ -26970,17 +26970,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         //     return this.products.slice(0, 6)
         // },
-        type: function type() {
-            return this.products[this.product_id].id;
-        }
+        // type() {
+        //     return this.products[this.product_id].id
+        // }
     },
     watch: {
-        product_id: function product_id(val, oldVal) {
+        product: function product(val, oldVal) {
             if (this.pricetype == '23') {
-                this.price = this.products[val].price;
+                this.price = this.product.price;
             } else {
-                this.price = this.products[val].price[eval(this.pricetype)];
+                this.price = this.product.price[eval(this.pricetype)];
             }
+        },
+        pricetype: function pricetype(val) {
+            this.fetch();
         }
     },
     methods: {
@@ -26995,9 +26998,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     created: function created() {
-        this.fetch();
-    },
-    updated: function updated() {
         this.fetch();
     }
 });
@@ -47511,8 +47511,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.product_id),
-      expression: "product_id"
+      value: (_vm.product),
+      expression: "product"
     }],
     staticClass: "form-control",
     attrs: {
@@ -47526,18 +47526,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           var val = "_value" in o ? o._value : o.value;
           return val
         });
-        _vm.product_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+        _vm.product = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
   }, [_c('option', {
     attrs: {
-      "value": "3",
+      "value": "",
       "selected": ""
     }
   }, [_vm._v("Producto")]), _vm._v(" "), _vm._l((_vm.products), function(product, index) {
     return _c('option', {
       domProps: {
-        "value": index
+        "value": product
       }
     }, [_vm._v("\n                    " + _vm._s(product.name) + "\n                ")])
   })], 2)]), _vm._v(" "), _c('input', {
@@ -47546,7 +47546,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "name": "types[]"
     },
     domProps: {
-      "value": _vm.type
+      "value": _vm.product.id
     }
   })]), _vm._v(" "), _c('td', [_c('input', {
     attrs: {
