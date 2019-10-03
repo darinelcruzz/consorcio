@@ -28,11 +28,6 @@
 <script>
 	export default {
 		props: ['client'],
-        data() {
-            return {
-                products: ''
-            }
-        },
         computed: {
             credit() {
                 if (this.client.credit == 1) {
@@ -40,22 +35,25 @@
                 } else {
                     return 'No'
                 }
-            }
-        },
-        created() {
-            let haystack = this.client.products
+            },
+            products() {
+                let haystack = this.client.products
+                let stringp = ''
 
-            if (haystack.includes('fresco')) {
-                this.products += 'Fresco | '
-            }
-            if (haystack.includes('vivo')) {
-                this.products += 'Vivo | '
-            }
-            if (haystack.includes('procesado')) {
-                this.products += 'Procesado | '
-            }
-            if (haystack.includes('cerdo')) {
-                this.products += 'Cerdo | '
+                if (haystack.includes('vivo')) {
+                    stringp += 'Vivo | '
+                }
+                if (haystack.includes('fresco')) {
+                    stringp += 'Fresco | '
+                }
+                if (haystack.includes('procesado')) {
+                    stringp += 'Procesado | '
+                }
+                if (haystack.includes('cerdo')) {
+                    stringp += 'Cerdo | '
+                }
+
+                return stringp
             }
         }
 	};
