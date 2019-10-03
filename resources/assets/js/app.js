@@ -23,6 +23,9 @@ Vue.component('solid-box', require('./components/lte/SolidBox.vue'));
 Vue.component('data-table', require('./components/lte/DataTable.vue'));
 Vue.component('data-table-com', require('./components/lte/SmallDataTable.vue'));
 
+Vue.component('dropdown', require('./components/lte/DropdownButton.vue'));
+Vue.component('ddi', require('./components/lte/DropdownItem.vue'));
+
 Vue.component('nav-tabs', require('./components/lte/NavTabsPane.vue'));
 Vue.component('client-info', require('./components/lte/ClientInfo.vue'));
 Vue.component('client-select', require('./components/ClientSelect.vue'));
@@ -31,6 +34,8 @@ Vue.component('client-credit', require('./components/ClientCredit.vue'));
 Vue.component('select2', require('./components/SelectTwo.vue'));
 Vue.component('sale', require('./components/Sale.vue'));
 Vue.component('sales-table', require('./components/SalesTable.vue'));
+Vue.component('client', require('./components/Client.vue'));
+Vue.component('clients-table', require('./components/ClientsTable.vue'));
 
 Vue.component('deposits-table', require('./components/DepositsTable.vue'));
 

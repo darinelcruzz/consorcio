@@ -23,5 +23,6 @@ Route::group(['prefix' => 'sales', 'as' => 'api.'], function () {
 Route::group(['prefix' => 'clients', 'as' => 'api.'], function () {
     $ctrl = 'Api\ClientController';
 
+    Route::get('all/{keyword?}', usesas($ctrl, 'show'));
     Route::get('/{product}', usesas($ctrl, 'index'));
 });

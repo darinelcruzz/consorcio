@@ -33,4 +33,17 @@ class ClientController extends Controller
 
         return $clients;
     }
+
+    function show($keyword = null)
+    {
+        if ($keyword != null) {
+            return Client::where('name', 'LIKE', "%$keyword%")
+                ->orWhere('email', 'LIKE', "%$keyword%")
+                ->orWhere('products', 'LIKE', "%$keyword%")
+                ->orWhere('address', 'LIKE', "%$keyword%")
+                ->paginate(10);
+        }
+
+        return Client::paginate(10);
+    }
 }
