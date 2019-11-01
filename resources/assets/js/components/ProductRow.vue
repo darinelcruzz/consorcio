@@ -53,18 +53,6 @@ export default {
         };
     },
     props: ['num', 'pricetype'],
-    computed: {
-        // products() {
-        //     if (this.pricetype == '23') {
-        //         return this.products.slice(6)
-        //     }
-
-        //     return this.products.slice(0, 6)
-        // },
-        // type() {
-        //     return this.products[this.product_id].id
-        // }
-    },
     watch: {
         product: function (val, oldVal) {
             if(this.pricetype == '23') {
@@ -87,6 +75,9 @@ export default {
         }
     },
     created() {
+        this.fetch()
+    },
+    updated() {
         this.fetch()
     },
 };

@@ -29,19 +29,8 @@ export default {
                 { name:'Kg', width: 'width: 15%' },
                 { name:'Cajas', width: 'width: 15%' },
             ],
-            products: [],
         };
     },
     props: ['pricetype'],
-
-    // created() {
-    //     let isRange = this.pricetype != '23' ? '1': '0';
-
-    //     console.log('/products/' + isRange);
-
-    //     axios.get('/products/' + isRange).then(response => {
-    //         this.products = response.data;
-    //     });
-    // }
 }
 </script>
