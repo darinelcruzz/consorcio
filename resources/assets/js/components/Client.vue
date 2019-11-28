@@ -4,7 +4,7 @@
         <td>
             <dropdown icon="cogs" color="warning">
                 <ddi icon="eye" :to="'/clientes/' + client.id">Detalles</ddi>
-                <ddi icon="edit" :to="'/clientes/editar/' + client.id">Editar</ddi>
+                <ddi v-if="auth == '1'" icon="edit" :to="'/clientes/editar/' + client.id">Editar</ddi>
             </dropdown>
         </td>
         <td>
@@ -27,7 +27,13 @@
 
 <script>
 	export default {
-		props: ['client'],
+		props: {
+            client: Object,
+            auth: {
+                type: String,
+                default: '',
+            }
+        },
         computed: {
             credit() {
                 if (this.client.credit == 1) {

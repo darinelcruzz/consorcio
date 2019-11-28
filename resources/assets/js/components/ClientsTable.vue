@@ -48,7 +48,7 @@
                 </thead>
 
                 <tbody>
-                    <tr v-for="(client, index) in clients" :key="index" is="client" :client="client"></tr>
+                    <tr v-for="(client, index) in clients" :key="index" is="client" :client="client" :auth="auth"></tr>
                 </tbody>
             </table>
         </div>
@@ -57,7 +57,13 @@
 
 <script>
 	export default {
-		props: ['color'],
+		props: {
+            color: String,
+            auth: {
+                type: String,
+                default: '',
+            }
+        },
 		data() {
 			return {
                 clients: [],

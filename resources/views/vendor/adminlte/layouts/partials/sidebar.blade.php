@@ -7,8 +7,10 @@
             <li class="header">MENÚ</li>
             @if (auth()->user()->level == 1)
                 @each('adminlte::layouts.partials.menu_items', trans('menus/one'), 'item')
-            @else
+            @elseif(auth()->user()->level == 2)
                 @each('adminlte::layouts.partials.menu_items', trans('menus/two'), 'item')
+            @else
+                @each('adminlte::layouts.partials.menu_items', trans('menus/three'), 'item')
             @endif
         </ul>
     </section>
