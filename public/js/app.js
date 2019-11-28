@@ -46633,7 +46633,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])])])])]), _vm._v(" "), _c('br'), _vm._v(" "), _c('div', {
     staticClass: "table-responsive"
   }, [_c('table', {
-    staticClass: "table table-striped table-bordered"
+    staticClass: "table table-striped table-bordered",
+    staticStyle: {
+      "height": "200px"
+    }
   }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.clients), function(client, index) {
     return _c("client", {
       key: index,
