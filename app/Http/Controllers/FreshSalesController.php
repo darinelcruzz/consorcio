@@ -47,14 +47,14 @@ class FreshSalesController extends Controller
         $sale->update([
             'status' => $request->credit == '0' ? 'pagado': 'credito',
             'credit' => $request->credit == '0' ? 0: 1,
-            'series' => substr($sale->date, 0, 4) == '2019' ? 'B': 'A',
+            'series' => substr($sale->date, 0, 4) == '2020' ? 'C': 'B',
             'days' => $days > 16 ? 15: $days
         ]);
 
         $sale->client->computeBalance();
         $sale->client->computeUnpaidNotes();
 
-        if (FreshSale::where('series', 'B')->count() == 1) {
+        if (FreshSale::where('series', 'C')->count() == 1) {
             $sale->update([
                 'folio' => 1
             ]);
@@ -102,7 +102,7 @@ class FreshSalesController extends Controller
     {
         $lastQ = FreshSale::all()->last();
         if ($lastQ) {
-            $lastY = fdate($lastQ->created_at, 'Y');
+            $lastY = fdate($lastQ->date, 'Y');
             if(date('Y') != $lastY) {
                 return 0;
             }
