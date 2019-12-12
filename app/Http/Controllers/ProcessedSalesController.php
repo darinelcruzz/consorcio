@@ -107,7 +107,7 @@ class ProcessedSalesController extends Controller
     {
         $lastQ = ProcessedSale::all()->last();
         if ($lastQ) {
-            $lastY = fdate($lastQ->date, 'Y');
+            $lastY = fdate($lastQ->date, 'Y', 'Y-m-d');
             if(date('Y') != $lastY) {
                 return 0;
             }
