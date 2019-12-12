@@ -1,4 +1,4 @@
-<data-table col="col-md-12" title="{{ $type }}" example="example{{ $example }}" color="box-{{ $color }}" collapsed="collapsed-box">
+<data-table col="col-md-12" title="{{ strtoupper(trans("nouns.$product")) }}" example="example{{ $loop->iteration }}" color="box-{{ $color }}" collapsed="collapsed-box">
 
     <template slot="header">
         <tr>
@@ -15,7 +15,7 @@
     </template>
 
     <template slot="body">
-        @foreach($client->$sale as $sale)
+        @foreach($client->{$product . 'sales'} as $sale)
             @if ($sale->status != 'cancelada')
                 <tr>
                     <td><b>{{ $sale->series }}</b>{{ substr("00000" . $sale->folio, -5) }}</td>

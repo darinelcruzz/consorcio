@@ -24,7 +24,6 @@ class ClientController extends Controller
         $this->validate($request, [
             'name' => 'required|unique:clients',
         ]);
-        
 
         Client::create([
             'name' => $request->name,
@@ -67,7 +66,9 @@ class ClientController extends Controller
 
     function show(Client $client)
     {
-        return view('clients.show', compact('client'));
+        $products = ['alive' => 'primary', 'fresh' => 'warning', 'pork' => 'baby', 'processed' => 'success'];
+        
+        return view('clients.show', compact('client', 'products'));
     }
 
     function destroy(Client $client)

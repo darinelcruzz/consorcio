@@ -35,6 +35,8 @@ class ReportController extends Controller
 
         $shippings = Shipping::whereBetween('date', [$request->startDate, $request->endDate])->get();
 
+        // dd($shippings);
+
         $start =new Date(strtotime($request->startDate));
         $end =new Date(strtotime($request->endDate));
         $range = $start->format('j/M/y'). ' - ' . $end->format('j/M/y');
