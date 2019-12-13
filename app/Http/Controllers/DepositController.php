@@ -54,7 +54,6 @@ class DepositController extends Controller
         $deposit = Deposit::create($request->except(['dif']));
 
         if ($request->amount == $request->dif) {
-
             switch ($request->type) {
                 case 'vivo':
                     $sale = AliveSale::find($request->sale_id); break;
