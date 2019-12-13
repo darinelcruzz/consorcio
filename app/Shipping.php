@@ -34,4 +34,15 @@ class Shipping extends Model
 
         return $colors[$this->product] ?? 'default';
     }
+
+    function getBoxesAttribute()
+    {
+        $boxes = 0;
+
+        foreach (unserialize($this->processed) as $product) {
+            $boxes += $product['q'];
+        }
+
+        return $boxes;
+    }
 }

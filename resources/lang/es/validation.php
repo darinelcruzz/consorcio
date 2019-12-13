@@ -186,6 +186,10 @@ return [
         'credit'                => 'crédito',
         'startDate'             => 'fecha inicio',
         'endDate'               => 'fecha termino',
+        'alive'                 => 'vivo',
+        'fresh'                 => 'fresco',
+        'pork'                  => 'cerdo',
+        'processed'             => 'procesado',
     ],
 
 ];
