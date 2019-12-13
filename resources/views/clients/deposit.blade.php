@@ -1,7 +1,7 @@
 {!! Form::open(['method' => 'POST', 'route' => 'deposit.store']) !!}
 
 <div class="input-group input-group-sm">
-    <input type="hidden" name="type" value="{{ strtolower($product) }}">
+    <input type="hidden" name="type" value="{{ strtolower(['alive' => 'vivo', 'fresh' => 'fresco', 'pork' => 'cerdo', 'processed' => 'procesado'][$product]) }}">
     <input type="hidden" name="sale_id" value="{{ $sale->id }}">
     <input type="hidden" name="user" value="{{ auth()->user()->name }}">
     <input type="hidden" name="dif" value="{{ $sale->amount - $sale->deposit_total }}">
