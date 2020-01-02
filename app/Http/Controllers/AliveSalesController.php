@@ -114,8 +114,10 @@ class AliveSalesController extends Controller
 
     function discard(Request $request)
     {
+        $lastSale = AliveSale::all()->last();
+
         AliveSale::create([
-            'folio' => $request->folio,
+            'folio' => $lastSale->folio + 1,
             'date' => $request->selected_date,
             'client_id' => 1,
             'status' => 'cancelada',

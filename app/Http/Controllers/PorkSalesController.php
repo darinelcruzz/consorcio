@@ -115,8 +115,10 @@ class PorkSalesController extends Controller
 
     function discard(Request $request)
     {
+        $lastSale = PorkSale::all()->last();
+
         PorkSale::create([
-            'folio' => $request->folio,
+            'folio' => $lastSale->folio + 1,
             'date' => $request->selected_date,
             'client_id' => 1,
             'status' => 'cancelada',
