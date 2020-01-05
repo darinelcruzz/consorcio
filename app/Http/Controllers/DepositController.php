@@ -53,24 +53,24 @@ class DepositController extends Controller
 
         $deposit = Deposit::create($request->except(['dif']));
 
-        if ($request->amount == $request->dif) {
+        if ($sale->status != 'pagado') {
             switch ($request->type) {
-                case 'vivo':
+                case 'vivo' || 'alive':
                     $sale = AliveSale::find($request->sale_id); break;
-                case 'fresco':
+                case 'fresco' || 'fresh':
                     $sale = FreshSale::find($request->sale_id); break;
-                case 'cerdo':
+                case 'cerdo' || 'pork':
                     $sale = PorkSale::find($request->sale_id); break;
-                case 'procesado':
+                case 'procesado' || 'processed':
                     $sale = ProcessedSale::find($request->sale_id); break;
             }
 
-            $sale->update([
-                'status'=> 'pagado'
-            ]);
-
             $sale->client->computeBalance();
             $sale->client->computeUnpaidNotes();
+
+            if (($sale->amount - $sale->deposit_total) == 0) {
+                $sale->update(['status' => 'pagado']);
+            }
 
             return redirect(route('client.show', ['client' => $sale->client_id]));
 

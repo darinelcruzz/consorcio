@@ -36,6 +36,8 @@ Vue.component('sale', require('./components/Sale.vue'));
 Vue.component('sales-table', require('./components/SalesTable.vue'));
 Vue.component('client', require('./components/Client.vue'));
 Vue.component('clients-table', require('./components/ClientsTable.vue'));
+Vue.component('client-sales', require('./components/ClientSales.vue'));
+Vue.component('client-sale', require('./components/ClientSale.vue'));
 
 Vue.component('deposits-table', require('./components/DepositsTable.vue'));
 

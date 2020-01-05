@@ -94,6 +94,11 @@ class Client extends Model
         return $sales > 0;
     }
 
+    function getTypesAttribute()
+    {
+        return unserialize($this->products);
+    }
+
     function computeUnpaidNotes()
     {
         $notes = 0;

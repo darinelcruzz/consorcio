@@ -22,12 +22,29 @@
     </row-woc>
 
     @foreach($products as $product => $color)
-        @includeWhen(count($client->{$product . 'sales'}) > 0, 'clients/sales')
-    @endforeach
+        @if(in_array(strtolower($product), $client->types))
+            <div class="row">
+                <div class="col-md-12">
+                    {{-- <solid-box color="{{ 'box-' . $color }}" title="{{ $product }}" collapsed>
+                        <client-sales :client="{{ $client->id }}" type="{{ $product }}" color="{{ $color }}"></client-sales>
+                    </solid-box> --}}
+                    <div class="box box-solid box-{{ $color }} collapsed-box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">{{ $product }}</h3>
+                            <div class="box-tools pull-right">
+                              <button class="btn btn-box-tool" data-widget="collapse">
+                                  <i class="fa fa-plus"></i>
+                              </button>
+                            </div>
+                        </div>
 
-    {{-- @includeWhen(count($client->freshsales) > 0, 'clients/sales', ['type' => 'FRESCO', 'color' => 'warning', 'sale' => 'freshsales', 'example' => '1'])
-    @includeWhen(count($client->alivesales) > 0, 'clients/sales', ['type' => 'VIVO', 'color' => 'primary', 'sale' => 'alivesales', 'example' => '2'])
-    @includeWhen(count($client->processedsales) > 0, 'clients/sales', ['type' => 'PROCESADO', 'color' => 'success', 'sale' => 'processedsales', 'example' => '3'])
-    @includeWhen(count($client->porksales) > 0, 'clients/sales', ['type' => 'CERDO', 'color' => 'baby', 'sale' => 'porksales', 'example' => '4']) --}}
+                        <div class="box-body">
+                            <client-sales :client="{{ $client->id }}" type="{{ $product }}" color="{{ $color }}"></client-sales>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+    @endforeach
 
 @endsection
