@@ -67,6 +67,8 @@ class ClientController extends Controller
     function show(Client $client)
     {
         $products = ['Vivo' => 'primary', 'Fresco' => 'warning', 'Cerdo' => 'baby', 'Procesado' => 'success'];
+
+        $client->computeUnpaidNotes();
         
         return view('clients.show', compact('client', 'products'));
     }
