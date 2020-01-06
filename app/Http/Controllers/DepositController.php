@@ -52,13 +52,13 @@ class DepositController extends Controller
         $this->validate($request, ['amount' => 'required']);
 
         switch ($request->type) {
-            case 'vivo' || 'alive':
+            case 'vivo':
                 $sale = AliveSale::find($request->sale_id); break;
-            case 'fresco' || 'fresh':
+            case 'fresco':
                 $sale = FreshSale::find($request->sale_id); break;
-            case 'cerdo' || 'pork':
+            case 'cerdo':
                 $sale = PorkSale::find($request->sale_id); break;
-            case 'procesado' || 'processed':
+            case 'procesado':
                 $sale = ProcessedSale::find($request->sale_id); break;
         }
 
