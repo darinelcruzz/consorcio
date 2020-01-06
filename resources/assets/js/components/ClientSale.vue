@@ -7,24 +7,30 @@
         <td>{{ sale.kg }}</td>
         <td>{{ sale.price ? sale.pricer.name: '' }}</td>
         <td>$ {{ sale.amount.toFixed(2) }}</td>
-        <td></td>
+        <td>$ {{ debt.toFixed(2) }}</td>
         <td>
-            <!-- {!! Form::open(['method' => 'POST', 'route' => 'deposit.store']) !!} -->
-
-            <div class="input-group input-group-sm">
-                <input type="hidden" name="type" :value="product">
+            <form method="post" action="/credito/abonar">
+                <input type="hidden" name="type" :value="names[product]">
                 <input type="hidden" name="sale_id" :value="sale.id">
-                <input type="hidden" name="user" value="2">
-                <input type="number" class="form-control" name="amount" min="0.01" value="0" step="0.01">
-                <span class="input-group-btn">
-                  <button type="submit" class="btn btn-success btn-flat btn-xs">
-                      <i class="fa fa-plus"></i>
-                  </button>
-                </span>
-            </div>
+                <input type="hidden" name="user" value="Valeria Gordillo">
+                <slot></slot>
+                <div v-if="debt > 0" class="input-group input-group-sm">
+                    <input type="number" class="form-control" name="amount" min="0.01" value="0" step="0.01">
+                    <span class="input-group-btn">
+                      <button type="submit" class="btn btn-success btn-flat btn-xs">
+                          <i class="fa fa-plus"></i>
+                      </button>
+                    </span>
+                </div>
+            </form>
         </td>
         <td>
-            <label :class="'label label-' + colors[sale.status]">{{ sale.status }}</label>
+            <label :class="'label label-' + colors[sale.status]">{{ sale.status.toUpperCase() }}</label>
+        </td>
+        <td>
+            <a :href="'/credito/detalles/' + names[product] + '/' + sale.id + '/' + sale.amount" class="btn btn-xs btn-info">
+                <i class="fa fa-eye"></i>
+            </a>
         </td>
     </tr>
 </template>
@@ -35,7 +41,19 @@
 		data() {
 			return {
 				colors: {'vencida': 'danger', 'cancelada': 'default', 'pagado': 'success', 'credito': 'warning'},
+                names: {'alive': 'vivo', 'fresh': 'fresco', 'pork': 'cerdo', 'processed': 'procesado'},
 			}
 		},
+        computed: {
+            debt() {
+                return this.sale.amount - this.sale.deposits.reduce((total, deposit) => {
+                    if (this.names[this.product] == deposit.type) {
+                        return total + deposit.amount
+                    }
+
+                    return total + 0
+                }, 0)
+            }
+        },
 	};
 </script>

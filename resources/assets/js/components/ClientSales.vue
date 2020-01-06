@@ -39,13 +39,16 @@
                     <th>Precio</th>
                     <th>Importe</th>
                     <th>Por pagar</th>
-                    <th>Abonar</th>
+                    <th style="width: 15%">Abonar</th>
                     <th>Estado</th>
+                    <th><i class="fa fa-eye"></i></th>
                 </tr>
             </thead>
 
             <tbody>
-                <tr v-for="(sale, index) in sales" :key="index" is="client-sale" :sale="sale" :product="types[type]"></tr>
+                <tr v-for="(sale, index) in sales" :key="index" is="client-sale" :sale="sale" :product="types[type]">
+                    <slot></slot>
+                </tr>
             </tbody>
         </table>
     </div>

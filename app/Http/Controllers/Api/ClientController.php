@@ -53,25 +53,25 @@ class ClientController extends Controller
         switch ($type) {
             case 'alive':
                 return AliveSale::where('client_id', $client)
-                    ->with(['client:id,name', 'pricer:id,name'])
+                    ->with(['client:id,name', 'pricer:id,name', 'deposits'])
                     ->orderBy('id', 'DESC')
                     ->paginate(10);
                 break;
             case 'fresh':
                 return FreshSale::where('client_id', $client)
-                    ->with(['client:id,name', 'pricer:id,name'])
+                    ->with(['client:id,name', 'pricer:id,name', 'deposits'])
                     ->orderBy('id', 'DESC')
                     ->paginate(10);
                 break;
             case 'pork':
                 return PorkSale::where('client_id', $client)
-                    ->with(['client:id,name', 'pricer:id,name'])
+                    ->with(['client:id,name', 'pricer:id,name', 'deposits'])
                     ->orderBy('id', 'DESC')
                     ->paginate(10);
                 break;
             case 'processed':
                 return ProcessedSale::where('client_id', $client)
-                    ->with(['client:id,name', 'pricer:id,name'])
+                    ->with(['client:id,name', 'pricer:id,name', 'deposits'])
                     ->orderBy('id', 'DESC')
                     ->paginate(10);
                 break;
@@ -88,25 +88,25 @@ class ClientController extends Controller
                 return AliveSale::where('client_id', $client)
                     ->where('folio', 'LIKE', "%$keyword%")
                     ->orWhere('status', 'LIKE', "%$keyword%")
-                    ->with(['client:id,name', 'pricer:id,name'])->orderBy('id', 'DESC')->paginate(10);
+                    ->with(['client:id,name', 'pricer:id,name', 'deposits'])->orderBy('id', 'DESC')->paginate(10);
                 break;
             case 'fresh':
                 return FreshSale::where('client_id', $client)
                     ->where('folio', 'LIKE', "%$keyword%")
                     ->orWhere('status', 'LIKE', "%$keyword%")
-                    ->with(['client:id,name', 'pricer:id,name'])->orderBy('id', 'DESC')->paginate(10);
+                    ->with(['client:id,name', 'pricer:id,name', 'deposits'])->orderBy('id', 'DESC')->paginate(10);
                 break;
             case 'pork':
                 return PorkSale::where('client_id', $client)
                     ->where('folio', 'LIKE', "%$keyword%")
                     ->orWhere('status', 'LIKE', "%$keyword%")
-                    ->with(['client:id,name', 'pricer:id,name'])->orderBy('id', 'DESC')->paginate(10);
+                    ->with(['client:id,name', 'pricer:id,name', 'deposits'])->orderBy('id', 'DESC')->paginate(10);
                 break;
             case 'processed':
                 return ProcessedSale::where('client_id', $client)
                     ->where('folio', 'LIKE', "%$keyword%")
                     ->orWhere('status', 'LIKE', "%$keyword%")
-                    ->with(['client:id,name', 'pricer:id,name'])->orderBy('id', 'DESC')->paginate(10);
+                    ->with(['client:id,name', 'pricer:id,name', 'deposits'])->orderBy('id', 'DESC')->paginate(10);
                 break;
             default:
                 return \Response::json(['success' => false]);

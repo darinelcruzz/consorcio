@@ -51,20 +51,21 @@ class DepositController extends Controller
     {
         $this->validate($request, ['amount' => 'required']);
 
-        $deposit = Deposit::create($request->except(['dif']));
+        switch ($request->type) {
+            case 'vivo' || 'alive':
+                $sale = AliveSale::find($request->sale_id); break;
+            case 'fresco' || 'fresh':
+                $sale = FreshSale::find($request->sale_id); break;
+            case 'cerdo' || 'pork':
+                $sale = PorkSale::find($request->sale_id); break;
+            case 'procesado' || 'processed':
+                $sale = ProcessedSale::find($request->sale_id); break;
+        }
 
         if ($sale->status != 'pagado') {
-            switch ($request->type) {
-                case 'vivo' || 'alive':
-                    $sale = AliveSale::find($request->sale_id); break;
-                case 'fresco' || 'fresh':
-                    $sale = FreshSale::find($request->sale_id); break;
-                case 'cerdo' || 'pork':
-                    $sale = PorkSale::find($request->sale_id); break;
-                case 'procesado' || 'processed':
-                    $sale = ProcessedSale::find($request->sale_id); break;
-            }
 
+            $deposit = Deposit::create($request->all());
+            
             $sale->client->computeBalance();
             $sale->client->computeUnpaidNotes();
 

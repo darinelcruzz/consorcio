@@ -25,9 +25,6 @@
         @if(in_array(strtolower($product), $client->types))
             <div class="row">
                 <div class="col-md-12">
-                    {{-- <solid-box color="{{ 'box-' . $color }}" title="{{ $product }}" collapsed>
-                        <client-sales :client="{{ $client->id }}" type="{{ $product }}" color="{{ $color }}"></client-sales>
-                    </solid-box> --}}
                     <div class="box box-solid box-{{ $color }} collapsed-box">
                         <div class="box-header with-border">
                             <h3 class="box-title">{{ $product }}</h3>
@@ -39,7 +36,9 @@
                         </div>
 
                         <div class="box-body">
-                            <client-sales :client="{{ $client->id }}" type="{{ $product }}" color="{{ $color }}"></client-sales>
+                            <client-sales :client="{{ $client->id }}" type="{{ $product }}" color="{{ $color }}">
+                                {!! csrf_field() !!}
+                            </client-sales>
                         </div>
                     </div>
                 </div>
