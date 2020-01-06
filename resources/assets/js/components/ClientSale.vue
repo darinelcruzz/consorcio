@@ -7,14 +7,15 @@
         <td>{{ sale.kg }}</td>
         <td>{{ sale.price ? sale.pricer.name: '' }}</td>
         <td>$ {{ sale.amount.toFixed(2) }}</td>
-        <td>$ {{ debt.toFixed(2) }}</td>
+        <td v-if="sale.status != 'pagado'">$ {{ debt.toFixed(2) }}</td>
+        <td v-else>$ 0.00</td>
         <td>
             <form method="post" action="/credito/abonar">
                 <input type="hidden" name="type" :value="names[product]">
                 <input type="hidden" name="sale_id" :value="sale.id">
                 <input type="hidden" name="user" value="Valeria Gordillo">
                 <slot></slot>
-                <div v-if="debt > 0" class="input-group input-group-sm">
+                <div v-if="sale.status != 'pagado'" class="input-group input-group-sm">
                     <input type="number" class="form-control" name="amount" min="0.01" value="0" step="0.01">
                     <span class="input-group-btn">
                       <button type="submit" class="btn btn-success btn-flat btn-xs">

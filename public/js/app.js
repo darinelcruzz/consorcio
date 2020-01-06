@@ -24990,6 +24990,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['sale', 'product'],
@@ -47655,7 +47656,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('tr', [_c('td', [_c('b', [_vm._v(_vm._s(_vm.sale.series))]), _vm._v(_vm._s(("00000" + _vm.sale.folio).slice(-5)) + "\n        ")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.sale.date))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.sale.kg))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.sale.price ? _vm.sale.pricer.name : ''))]), _vm._v(" "), _c('td', [_vm._v("$ " + _vm._s(_vm.sale.amount.toFixed(2)))]), _vm._v(" "), _c('td', [_vm._v("$ " + _vm._s(_vm.debt.toFixed(2)))]), _vm._v(" "), _c('td', [_c('form', {
+  return _c('tr', [_c('td', [_c('b', [_vm._v(_vm._s(_vm.sale.series))]), _vm._v(_vm._s(("00000" + _vm.sale.folio).slice(-5)) + "\n        ")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.sale.date))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.sale.kg))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.sale.price ? _vm.sale.pricer.name : ''))]), _vm._v(" "), _c('td', [_vm._v("$ " + _vm._s(_vm.sale.amount.toFixed(2)))]), _vm._v(" "), (_vm.sale.status != 'pagado') ? _c('td', [_vm._v("$ " + _vm._s(_vm.debt.toFixed(2)))]) : _c('td', [_vm._v("$ 0.00")]), _vm._v(" "), _c('td', [_c('form', {
     attrs: {
       "method": "post",
       "action": "/credito/abonar"
@@ -47682,7 +47683,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "name": "user",
       "value": "Valeria Gordillo"
     }
-  }), _vm._v(" "), _vm._t("default"), _vm._v(" "), (_vm.debt > 0) ? _c('div', {
+  }), _vm._v(" "), _vm._t("default"), _vm._v(" "), (_vm.sale.status != 'pagado') ? _c('div', {
     staticClass: "input-group input-group-sm"
   }, [_c('input', {
     staticClass: "form-control",
