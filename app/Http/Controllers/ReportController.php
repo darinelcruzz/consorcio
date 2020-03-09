@@ -111,13 +111,13 @@ class ReportController extends Controller
         elseif ($request->product_id == 5) {
 
             $sales = ProcessedSale::cutsReport($request->startDate, $request->endDate);
-            $boneless = $bone = $foot = $wings = $wing = $gizzard = $visors = $pickled = $marinated = $milanese = [];
+            $boneless = $bone = $foot = $wings = $wing = $gizzard = $visors = $pickled = $marinated = $milanese = $tf500 = [];
             foreach ($sales as $sale) {
                 foreach (unserialize($sale->products) as $p) {
                     $kg = isset($p['k']) ? $p['k']: 0;
 
                     $types = ['10' => 'boneless', '11' => 'bone', '12' => 'foot', '13' => 'wings', '14' => 'wing',
-                        '15' => 'gizzard', '16' => 'visors', '17' => 'pickled', '21' => 'milanese', '22' => 'marinated'];
+                        '15' => 'gizzard', '16' => 'visors', '17' => 'pickled', '21' => 'milanese', '22' => 'marinated', '24' => 'tf500'];
 
                     array_push(${$types[$p['i']]}, [ // ${$types[..]} devuelve $boneless, $bone...
                         'client' => $sale->client_id,
@@ -133,11 +133,12 @@ class ReportController extends Controller
                 'Pierna y Muslo' => collect($foot)->groupBy('client'),
                 'Alas picosas' => collect($wings)->groupBy('client'),
                 'Ala 1 y 2' => collect($wing)->groupBy('client'),
+                'Ala picosa TF500' => collect($tf500)->groupBy('client'),
                 'Molleja' => collect($gizzard)->groupBy('client'),
                 'Viscera mixta' => collect($visors)->groupBy('client'),
                 'Pollo Adobado' => collect($pickled)->groupBy('client'),
                 'Milanesa de pechuga' => collect($milanese)->groupBy('client'),
-                'Pechuga deshuesada marinada' => collect($marinated)->groupBy('client')
+                'Pechuga deshuesada marinada' => collect($marinated)->groupBy('client'),
             ];
 
             $product = 'Cortes';
