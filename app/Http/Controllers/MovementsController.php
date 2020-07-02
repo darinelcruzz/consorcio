@@ -24,7 +24,7 @@ class MovementsController extends Controller
         return view('products.movements', compact('adjustments', 'shippings', 'pork', 'alive', 'fresh', 'processed', 'processed_sh', 'from', 'to'));
     }
 
-    public function getProcessedSales($from, $to)
+    function getProcessedSales($from, $to)
     {
         $processed = ProcessedSale::where('status', '!=', 'cancelada')->whereBetween('date', [$from, $to])->get();
 
@@ -32,7 +32,7 @@ class MovementsController extends Controller
         $names = [
             '4' => 'Grande', '5' => 'Mediano', '6' => 'Chico', '7' => 'Junior', '8' => 'Petit', '9' => 'Mini',
             '10' => 'Pechuga sin hueso', '11' => 'Pechuga con hueso', '12' => 'Pierna y muslo', '13' => 'Alas picosas', '14' => 'Ala (1 y 2)', '15' => 'Molleja',
-            '16' => 'Víscera mixta', '17' => 'Pollo adobado', '21' => 'Milanesa de pechuga', '22' => 'Pechuga deshuesada marinada'
+            '16' => 'Víscera mixta', '17' => 'Pollo adobado', '21' => 'Milanesa de pechuga', '22' => 'Pechuga deshuesada marinada', '23' => 'Maxi', '24' => 'Ala picosa TF500'
         ];
 
         foreach ($processed as $sale) {
@@ -57,7 +57,7 @@ class MovementsController extends Controller
         $names = [
             '4' => 'Grande', '5' => 'Mediano', '6' => 'Chico', '7' => 'Junior', '8' => 'Petit', '9' => 'Mini',
             '10' => 'Pechuga sin hueso', '11' => 'Pechuga con hueso', '12' => 'Pierna y muslo', '13' => 'Alas picosas', '14' => 'Ala (1 y 2)', '15' => 'Molleja',
-            '16' => 'Víscera mixta', '17' => 'Pollo adobado', '21' => 'Milanesa de pechuga', '22' => 'Pechuga deshuesada marinada'
+            '16' => 'Víscera mixta', '17' => 'Pollo adobado', '21' => 'Milanesa de pechuga', '22' => 'Pechuga deshuesada marinada', '23' => 'Maxi', '24' => 'Ala picosa TF500'
         ];
 
         foreach ($processed as $sale) {

@@ -12,8 +12,16 @@ class AdjustmentController extends Controller
     {
         $date = Date::now()->format('Y-m-d');
         $products = Product::quantityWithNames();
-        $movements = Adjustment::all();
+        $movements = Adjustment::where('description', '!=', 'mortalidad')->get();
         return view('products.adjustments', compact('date', 'products', 'movements'));
+    }
+
+    function create()
+    {
+        $date = Date::now()->format('Y-m-d');
+        $count = Product::find(3)->quantity;
+        $movements = Adjustment::where('description', 'mortalidad')->get();
+        return view('adjustments.create', compact('date', 'movements', 'count'));
     }
 
     function store(Request $request)
@@ -33,7 +41,7 @@ class AdjustmentController extends Controller
         ]);
 
         $product->update([
-            'quantity' => $request->quantity
+            'quantity' => $request->description == 'mortalidad' ? $product->quantity - $request->quantity: $request->quantity
         ]);
 
         return back();

@@ -70,6 +70,10 @@ return [
                 'title' => 'Movimientos',
                 'route' => 'movement.index'
             ],
+            'mortality' => [
+                'title' => 'Mortalidad',
+                'route' => 'adjustment.create'
+            ],
         ]
     ],
 

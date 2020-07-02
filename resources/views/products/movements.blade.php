@@ -16,7 +16,7 @@
                         </div>
                         <div class="col-md-4">
                             <label for="dd"></label><br>
-                            {!! Form::submit('Buscar', ['class' => 'btn btn-black btn-block']) !!}
+                            {!! Form::submit('Buscar', ['class' => 'btn btn-warning btn-block']) !!}
                         </div>
                     </div>
                 {!! Form::close() !!}

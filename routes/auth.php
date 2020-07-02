@@ -98,6 +98,7 @@ Route::get('movimientos', usesas('MovementsController', 'index', 'movement.index
 Route::post('movimientos', usesas('MovementsController', 'index', 'movement.index'));
 
 Route::get('ajustes', usesas('AdjustmentController', 'index', 'adjustment.index'));
+Route::get('ajustes/mortalidad', usesas('AdjustmentController', 'create', 'adjustment.create'));
 Route::post('ajustes', usesas('AdjustmentController', 'store', 'adjustment.store'));
 
 // Prices
