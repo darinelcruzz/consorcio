@@ -94,13 +94,13 @@ class ClientController extends Controller
 
     function search($client, $type, $keyword)
     {
-        $keyword = substr($keyword, -4);
-        
+        $folio = substr($keyword, -4);
+
         switch ($type) {
             case 'alive':
                 return AliveSale::where('client_id', $client)
-                    ->where(function ($query) use ($keyword) {
-                        $query->where('folio', 'LIKE', "%$keyword%")
+                    ->where(function ($query) use ($keyword, $folio) {
+                        $query->where('folio', 'LIKE', "%$folio%")
                             ->orWhere('date', 'LIKE', "%$keyword%")
                             ->orWhere('status', 'LIKE', "%$keyword%");
                     })
@@ -108,8 +108,8 @@ class ClientController extends Controller
                 break;
             case 'fresh':
                 return FreshSale::where('client_id', $client)
-                    ->where(function ($query) use ($keyword) {
-                        $query->where('folio', 'LIKE', "%$keyword%")
+                    ->where(function ($query) use ($keyword, $folio) {
+                        $query->where('folio', 'LIKE', "%$folio%")
                             ->orWhere('date', 'LIKE', "%$keyword%")
                             ->orWhere('status', 'LIKE', "%$keyword%");
                     })
@@ -117,8 +117,8 @@ class ClientController extends Controller
                 break;
             case 'pork':
                 return PorkSale::where('client_id', $client)
-                    ->where(function ($query) use ($keyword) {
-                        $query->where('folio', 'LIKE', "%$keyword%")
+                    ->where(function ($query) use ($keyword, $folio) {
+                        $query->where('folio', 'LIKE', "%$folio%")
                             ->orWhere('date', 'LIKE', "%$keyword%")
                             ->orWhere('status', 'LIKE', "%$keyword%");
                     })
@@ -126,8 +126,8 @@ class ClientController extends Controller
                 break;
             case 'processed':
                 return ProcessedSale::where('client_id', $client)
-                    ->where(function ($query) use ($keyword) {
-                        $query->where('folio', 'LIKE', "%$keyword%")
+                    ->where(function ($query) use ($keyword, $folio) {
+                        $query->where('folio', 'LIKE', "%$folio%")
                             ->orWhere('date', 'LIKE', "%$keyword%")
                             ->orWhere('status', 'LIKE', "%$keyword%");
                     })

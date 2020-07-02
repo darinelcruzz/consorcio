@@ -47,6 +47,8 @@ class SaleController extends Controller
 
     function search($type, $keyword)
     {
+        $keyword = substr($keyword, -4);
+
     	switch ($type) {
     		case 'alive':
     			return AliveSale::where('folio', 'LIKE', "%$keyword%")
