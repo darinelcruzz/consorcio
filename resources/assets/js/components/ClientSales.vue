@@ -5,7 +5,7 @@
                 <div class="input-group input-group-sm">
                     <input type="text" v-model="keyword" class="form-control" @change="search">
                     <span class="input-group-btn">
-                      <button type="button" :class="'btn btn-' + color + ' btn-flat'">
+                      <button type="button" :class="'btn btn-' + color + ' btn-flat'" @click="search">
                           <i class="fa fa-search"></i>
                       </button>
                     </span>
@@ -89,31 +89,9 @@
                         this.pagination = pagination
                     })
             },
-            searchSales(page_url, keyword) {
-                page_url = '/api/sales/' + this.types[this.type] + '/' + keyword
-                console.log("page_url", page_url);
-                axios.get(page_url)
-                    .then((response) => {
-                        var salesReady = response.data.data.map((sale) => {
-                            sale.type = this.type;
-                            return sale
-                        })
-
-                        var pagination = {
-                            current_page: response.data.current_page,
-                            last_page: response.data.last_page,
-                            next_page_url: response.data.next_page_url,
-                            prev_page_url: response.data.prev_page_url,
-                            last_page_url: response.data.last_page_url,
-                            first_page_url: response.data.first_page_url,
-                        }
-
-                        this.sales = salesReady
-                        this.pagination = pagination
-                    })
-            },
             search() {
-                this.searchSales(this.pagination.current_page, this.keyword)
+                var page_url = '/api/clients/' + this.client + '/sales/' + this.types[this.type] + '/' + this.keyword
+                this.fetchSales(page_url)
             }
 		},
 		created() {

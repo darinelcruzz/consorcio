@@ -26729,6 +26729,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
 
             return stringp;
+        },
+        sales_count: function sales_count() {
+            return this.client.porksales.length + this.client.freshsales.length + this.client.processedsales.length + this.client.alivesales.length;
         }
     }
 });
@@ -26947,32 +26950,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.pagination = pagination;
             });
         },
-        searchSales: function searchSales(page_url, keyword) {
-            var _this2 = this;
-
-            page_url = '/api/sales/' + this.types[this.type] + '/' + keyword;
-            console.log("page_url", page_url);
-            axios.get(page_url).then(function (response) {
-                var salesReady = response.data.data.map(function (sale) {
-                    sale.type = _this2.type;
-                    return sale;
-                });
-
-                var pagination = {
-                    current_page: response.data.current_page,
-                    last_page: response.data.last_page,
-                    next_page_url: response.data.next_page_url,
-                    prev_page_url: response.data.prev_page_url,
-                    last_page_url: response.data.last_page_url,
-                    first_page_url: response.data.first_page_url
-                };
-
-                _this2.sales = salesReady;
-                _this2.pagination = pagination;
-            });
-        },
         search: function search() {
-            this.searchSales(this.pagination.current_page, this.keyword);
+            var page_url = '/api/clients/' + this.client + '/sales/' + this.types[this.type] + '/' + this.keyword;
+            this.fetchSales(page_url);
         }
     },
     created: function created() {
@@ -47427,6 +47407,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     class: 'btn btn-' + _vm.color + ' btn-flat',
     attrs: {
       "type": "button"
+    },
+    on: {
+      "click": _vm.search
     }
   }, [_c('i', {
     staticClass: "fa fa-search"
@@ -48833,7 +48816,9 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('tr', [_c('td', [_vm._v(_vm._s(_vm.client.id))]), _vm._v(" "), _c('td', [_c('dropdown', {
+  return _c('tr', [_c('td', {
+    style: (_vm.sales_count == 0 ? 'background-color: #ff1111; color: white;' : '')
+  }, [_vm._v(_vm._s(_vm.client.id))]), _vm._v(" "), _c('td', [_c('dropdown', {
     attrs: {
       "icon": "cogs",
       "color": "warning"

@@ -1,6 +1,6 @@
 <template>
 	<tr>
-        <td>{{ client.id }}</td>
+        <td :style=" sales_count == 0 ? 'background-color: #ff1111; color: white;': ''">{{ client.id }}</td>
         <td>
             <dropdown icon="cogs" color="warning">
                 <ddi icon="eye" :to="'/clientes/' + client.id">Detalles</ddi>
@@ -60,6 +60,9 @@
                 }
 
                 return stringp
+            },
+            sales_count() {
+                return this.client.porksales.length + this.client.freshsales.length + this.client.processedsales.length + this.client.alivesales.length
             }
         }
 	};

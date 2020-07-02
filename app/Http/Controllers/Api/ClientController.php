@@ -42,10 +42,21 @@ class ClientController extends Controller
                 ->orWhere('email', 'LIKE', "%$keyword%")
                 ->orWhere('products', 'LIKE', "%$keyword%")
                 ->orWhere('address', 'LIKE', "%$keyword%")
+                ->with([
+                    'porksales' => function ($query) { $query->where('date', '>', date('Y-m-d', time() - (8 * 24 * 60 * 60))); },
+                    'alivesales' => function ($query) { $query->where('date', '>', date('Y-m-d', time() - (8 * 24 * 60 * 60))); },
+                    'freshsales' => function ($query) { $query->where('date', '>', date('Y-m-d', time() - (8 * 24 * 60 * 60))); },
+                    'processedsales' => function ($query) { $query->where('date', '>', date('Y-m-d', time() - (8 * 24 * 60 * 60))); },
+                ])
                 ->paginate(10);
         }
 
-        return Client::paginate(10);
+        return Client::with([
+            'porksales' => function ($query) { $query->where('date', '>', date('Y-m-d', time() - (8 * 24 * 60 * 60))); },
+            'alivesales' => function ($query) { $query->where('date', '>', date('Y-m-d', time() - (8 * 24 * 60 * 60))); },
+            'freshsales' => function ($query) { $query->where('date', '>', date('Y-m-d', time() - (8 * 24 * 60 * 60))); },
+            'processedsales' => function ($query) { $query->where('date', '>', date('Y-m-d', time() - (8 * 24 * 60 * 60))); },
+        ])->paginate(10);
     }
 
     function sales($client, $type)
@@ -83,29 +94,43 @@ class ClientController extends Controller
 
     function search($client, $type, $keyword)
     {
+        $keyword = substr($keyword, -4);
+        
         switch ($type) {
             case 'alive':
                 return AliveSale::where('client_id', $client)
-                    ->where('folio', 'LIKE', "%$keyword%")
-                    ->orWhere('status', 'LIKE', "%$keyword%")
+                    ->where(function ($query) use ($keyword) {
+                        $query->where('folio', 'LIKE', "%$keyword%")
+                            ->orWhere('date', 'LIKE', "%$keyword%")
+                            ->orWhere('status', 'LIKE', "%$keyword%");
+                    })
                     ->with(['client:id,name', 'pricer:id,name', 'deposits'])->orderBy('id', 'DESC')->paginate(10);
                 break;
             case 'fresh':
                 return FreshSale::where('client_id', $client)
-                    ->where('folio', 'LIKE', "%$keyword%")
-                    ->orWhere('status', 'LIKE', "%$keyword%")
+                    ->where(function ($query) use ($keyword) {
+                        $query->where('folio', 'LIKE', "%$keyword%")
+                            ->orWhere('date', 'LIKE', "%$keyword%")
+                            ->orWhere('status', 'LIKE', "%$keyword%");
+                    })
                     ->with(['client:id,name', 'pricer:id,name', 'deposits'])->orderBy('id', 'DESC')->paginate(10);
                 break;
             case 'pork':
                 return PorkSale::where('client_id', $client)
-                    ->where('folio', 'LIKE', "%$keyword%")
-                    ->orWhere('status', 'LIKE', "%$keyword%")
+                    ->where(function ($query) use ($keyword) {
+                        $query->where('folio', 'LIKE', "%$keyword%")
+                            ->orWhere('date', 'LIKE', "%$keyword%")
+                            ->orWhere('status', 'LIKE', "%$keyword%");
+                    })
                     ->with(['client:id,name', 'pricer:id,name', 'deposits'])->orderBy('id', 'DESC')->paginate(10);
                 break;
             case 'processed':
                 return ProcessedSale::where('client_id', $client)
-                    ->where('folio', 'LIKE', "%$keyword%")
-                    ->orWhere('status', 'LIKE', "%$keyword%")
+                    ->where(function ($query) use ($keyword) {
+                        $query->where('folio', 'LIKE', "%$keyword%")
+                            ->orWhere('date', 'LIKE', "%$keyword%")
+                            ->orWhere('status', 'LIKE', "%$keyword%");
+                    })
                     ->with(['client:id,name', 'pricer:id,name', 'deposits'])->orderBy('id', 'DESC')->paginate(10);
                 break;
             default:
