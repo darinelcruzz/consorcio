@@ -53,6 +53,18 @@ class Client extends Model
         return $sales;
     }
 
+    function getMonthlySales($month)
+    {
+        $pork = $this->porksales->where('date', '>=', $month . '-01')->where('date', '<=', $month . '-31');
+        $fresh = $this->freshsales->where('date', '>=', $month . '-01')->where('date', '<=', $month . '-31');
+        $alive = $this->alivesales->where('date', '>=', $month . '-01')->where('date', '<=', $month . '-31');
+        $processed = $this->processedsales->where('date', '>=', $month . '-01')->where('date', '<=', $month . '-31');
+
+        $sales = $pork->concat($fresh)->concat($alive)->concat($processed);
+
+        return $sales->groupBy('date');
+    }
+
     function getIsMissingAttribute()
     {
         $recent = 0;

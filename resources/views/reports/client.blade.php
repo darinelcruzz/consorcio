@@ -35,6 +35,7 @@
     </style>
 </head>
 
+{{-- <body onload="window.print()"> --}}
 <body>
     <section class="invoice">
         <div class="row">
@@ -126,8 +127,8 @@
 
     </section>
 
-    @section('scripts')
+    {{-- @section('scripts')
         @include('adminlte::layouts.partials.scripts')
-    @show
+    @show --}}
 </body>
 </html>

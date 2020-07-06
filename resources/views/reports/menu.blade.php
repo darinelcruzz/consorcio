@@ -28,6 +28,28 @@
             {!! Form::close() !!}
         </solid-box>
 
+        <solid-box title="Formato calendario" color="box-warning"  collapsed="collapsed-box">
+            {!! Form::open(['method' => 'POST', 'route' => 'report.monthly']) !!}
+                {!! Field::select('client_id', $clients->toArray(), null,
+                    ['tpl' => 'templates/withicon', 'empty' => 'Seleccione un cliente'],
+                    ['icon' => 'user'])
+                !!}
+                <div class="form-group">
+                    <label style="font-weight: bold;">Mes</label>
+
+                    <div class="input-group date">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input name="month" type="month" class="form-control pull-right" value="{{ date('Y-m') }}">
+                    </div>
+                </div>
+            <div class="box-footer">
+                {!! Form::submit('Generar', ['class' => 'btn btn-warning btn-block']) !!}
+            </div>
+            {!! Form::close() !!}
+        </solid-box>
+
         <solid-box title="De Ventas" color="box-success"  collapsed="collapsed-box">
             {!! Form::open(['method' => 'POST', 'route' => 'report.sales']) !!}
             <div class="row">

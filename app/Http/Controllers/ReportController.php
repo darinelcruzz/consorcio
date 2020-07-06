@@ -30,13 +30,27 @@ class ReportController extends Controller
         return view('reports.client', compact('sales', 'client', 'range'));
     }
 
+    function monthly(Request $request)
+    {
+        $this->validate($request, ['client_id' => 'required', 'month' => 'required']);
+        $client = Client::find($request->client_id);
+        $month = new Date(strtotime($request->month));
+        $sales = $client->getMonthlySales($request->month);
+        $offset = date('w', strtotime($request->month));
+        $limit = date('t', strtotime($request->month));
+        $weeks = [0, 1, 2, 3, 4];
+
+        if (($offset == 6 || $offset == 5) && $limit > 29) {
+            array_push($weeks, 5);
+        }
+
+        return view('reports.monthly', compact('sales', 'client', 'month', 'offset', 'limit', 'weeks'));
+    }
+
     function shippings(Request $request)
     {
 
         $shippings = Shipping::whereBetween('date', [$request->startDate, $request->endDate])->get();
-
-        // dd($shippings);
-
         $start =new Date(strtotime($request->startDate));
         $end =new Date(strtotime($request->endDate));
         $range = $start->format('j/M/y'). ' - ' . $end->format('j/M/y');

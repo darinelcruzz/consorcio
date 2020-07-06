@@ -116,6 +116,7 @@ Route::group(['prefix' => 'reportes', 'as' => 'report.'], function () {
 
     Route::get('menu', usesas($ctrl, 'menu'));
     Route::post('cliente', usesas($ctrl, 'client'));
+    Route::post('calendario', usesas($ctrl, 'monthly'));
     Route::post('producto', usesas($ctrl, 'product'));
     Route::post('ventas', usesas($ctrl, 'sales'));
     Route::post('embarques', usesas($ctrl, 'shippings'));
