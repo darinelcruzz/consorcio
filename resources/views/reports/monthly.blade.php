@@ -97,13 +97,13 @@
 
                                                 foreach ($day as $sale) {
                                                     if ($sale instanceof App\AliveSale) {
-                                                        $products['alive'] += $sale->amount;
+                                                        $products['alive'] += $sale->quantity;
                                                     } else if ($sale instanceof App\FreshSale) {
-                                                        $products['fresh'] += $sale->amount;
+                                                        $products['fresh'] += $sale->quantity;
                                                     } else if ($sale instanceof App\ProcessedSale) {
-                                                        $products['processed'] += $sale->amount;
+                                                        $products['processed'] += $sale->quantity;
                                                     } else if ($sale instanceof App\PorkSale) {
-                                                        $products['pork'] += $sale->amount;
+                                                        $products['pork'] += $sale->quantity;
                                                     }
                                                 }
                                             @endphp
@@ -111,7 +111,7 @@
                                             @foreach($products as $key => $value)
                                                 @if($value != 0)
                                                     <span class="pull-right">
-                                                        <i class="fa fa-{{ $icons[$key] }}"></i> &nbsp;$ {{ number_format($value, 2) }}
+                                                        <i class="fa fa-{{ $icons[$key] }}"></i> &nbsp; {{ $value }} kg
                                                     </span><br>
                                                 @endif
                                             @endforeach
