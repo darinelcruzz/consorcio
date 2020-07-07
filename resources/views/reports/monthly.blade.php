@@ -111,7 +111,8 @@
                                             @foreach($products as $key => $value)
                                                 @if($value != 0)
                                                     <span class="pull-right">
-                                                        <i class="fa fa-{{ $icons[$key] }}"></i> &nbsp; {{ $value }} kg
+                                                        <i class="fa fa-{{ $icons[$key] }}"></i> &nbsp; {{ $value }} 
+                                                        {{ $key == 'processed' ? ' caja': ($key == 'pork' ? 'cerdo': 'pollo')}}{{ $value > 1 ? 's': '' }}
                                                     </span><br>
                                                 @endif
                                             @endforeach

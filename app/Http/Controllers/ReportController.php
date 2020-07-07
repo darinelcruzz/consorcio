@@ -11,7 +11,7 @@ class ReportController extends Controller
     function menu()
     {
         $date = Date::now()->format('Y-m-d');
-        $clients = Client::all()->pluck('name', 'id');
+        $clients = Client::orderBy('name')->pluck('name', 'id');
 
         return view('reports.menu', compact('date', 'clients'));
     }

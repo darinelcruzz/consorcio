@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="box-footer">
-                    {!! Form::submit('Generar', ['class' => 'btn btn-black btn-block']) !!}
+                    {!! Form::submit('Generar', ['class' => 'btn btn-success btn-block']) !!}
                 </div>
             {!! Form::close() !!}
         </solid-box>
@@ -61,13 +61,13 @@
                 </div>
             </div>
             <div class="box-footer">
-                {!! Form::submit('Generar', ['class' => 'btn btn-black btn-block']) !!}
+                {!! Form::submit('Generar', ['class' => 'btn btn-success btn-block']) !!}
             </div>
             {!! Form::close() !!}
         </solid-box>
     </div>
     <div class="col-md-6">
-            <solid-box title="Por Producto" color="box-success"  collapsed="collapsed-box">
+            <solid-box title="Por Producto" color="box-warning"  collapsed="collapsed-box">
                 {!! Form::open(['method' => 'POST', 'route' => 'report.product']) !!}
                     <div class="row">
                         <div class="col-md-6">
@@ -87,7 +87,7 @@
                         </div>
                     </div>
                     <div class="box-footer">
-                        {!! Form::submit('Generar', ['class' => 'btn btn-black btn-block']) !!}
+                        {!! Form::submit('Generar', ['class' => 'btn btn-warning btn-block']) !!}
                     </div>
                 {!! Form::close() !!}
             </solid-box>
@@ -102,7 +102,7 @@
                         </div>
                     </div>
                     <div class="box-footer">
-                        {!! Form::submit('Generar', ['class' => 'btn btn-black btn-block']) !!}
+                        {!! Form::submit('Generar', ['class' => 'btn btn-success btn-block']) !!}
                     </div>
                 {!! Form::close() !!}
             </solid-box>
