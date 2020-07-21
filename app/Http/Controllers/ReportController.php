@@ -33,9 +33,23 @@ class ReportController extends Controller
     function monthly(Request $request)
     {
         $this->validate($request, ['client_id' => 'required', 'month' => 'required']);
-        $client = Client::find($request->client_id);
+        
         $month = new Date(strtotime($request->month));
-        $sales = $client->getMonthlySales($request->month);
+        $client = Client::find($request->client_id);
+        
+        if ($request->client_id != '0') {
+            $sales = $client->getMonthlySales($request->month);
+        } else {
+            $pork = PorkSale::where('date', '>=', $request->month . '-01')->where('date', '<=', $request->month . '-31')->get();
+            $fresh = FreshSale::where('date', '>=', $request->month . '-01')->where('date', '<=', $request->month . '-31')->get();
+            $alive = AliveSale::where('date', '>=', $request->month . '-01')->where('date', '<=', $request->month . '-31')->get();
+            $processed = ProcessedSale::where('date', '>=', $request->month . '-01')->where('date', '<=', $request->month . '-31')->get();
+
+            $sales = $pork->concat($fresh)->concat($alive)->concat($processed)->groupBy('date');
+        }
+
+        // dd($sales);
+
         $offset = date('w', strtotime($request->month));
         $limit = date('t', strtotime($request->month));
         $weeks = [0, 1, 2, 3, 4];

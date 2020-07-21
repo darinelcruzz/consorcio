@@ -53,7 +53,7 @@
             </div>
             <div class="col-xs-4">
                 <h4 align="center">
-                    <b>{{ $client->name }}</b><br>
+                    <b>{{ $client ? $client->name: 'VENTAS'  }}</b><br>
                 </h4>
             </div>
             <div class="col-xs-4">

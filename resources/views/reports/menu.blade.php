@@ -30,7 +30,7 @@
 
         <solid-box title="Formato calendario" color="box-warning"  collapsed="collapsed-box">
             {!! Form::open(['method' => 'POST', 'route' => 'report.monthly']) !!}
-                {!! Field::select('client_id', $clients->toArray(), null,
+                {!! Field::select('client_id', ['0' => 'Todas las ventas'] + $clients->toArray(), null,
                     ['tpl' => 'templates/withicon', 'empty' => 'Seleccione un cliente'],
                     ['icon' => 'user'])
                 !!}
