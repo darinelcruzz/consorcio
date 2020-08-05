@@ -39,10 +39,10 @@ class DepositController extends Controller
 
     function credits()
     {
-        $alive = AliveSale::where('status', '!=', 'cancelada')->with('client:id,name')->get();
-        $fresh = FreshSale::where('status', '!=', 'cancelada')->with('client:id,name')->get();
-        $pork = PorkSale::where('status', '!=', 'cancelada')->with('client:id,name')->get();
-        $processed = ProcessedSale::where('status', '!=', 'cancelada')->with('client:id,name')->get();
+        $alive = AliveSale::where('status', '!=', 'cancelada')->where('series', 'C')->with('client:id,name')->get();
+        $fresh = FreshSale::where('status', '!=', 'cancelada')->where('series', 'C')->with('client:id,name')->get();
+        $pork = PorkSale::where('status', '!=', 'cancelada')->where('series', 'C')->with('client:id,name')->get();
+        $processed = ProcessedSale::where('status', '!=', 'cancelada')->where('series', 'C')->with('client:id,name')->get();
         $due = $this->getDueSales($alive, $fresh, $pork, $processed);
 
         return view('deposits.credits', compact('alive', 'fresh', 'pork', 'processed', 'due'));
@@ -65,7 +65,7 @@ class DepositController extends Controller
 
         if ($sale->status != 'pagado') {
 
-            $deposit = Deposit::create($request->all());
+            $sale->deposits()->create($request->all());
             
             $sale->client->computeBalance();
             $sale->client->computeUnpaidNotes();
