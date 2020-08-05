@@ -9,20 +9,25 @@ class Deposit extends Model
 {
     protected $guarded = [];
 
+    // function sale()
+    // {
+    //     if ($this->type == 'vivo') {
+    //          return $this->belongsTo(AliveSale::class, 'sale_id');
+    //      }
+    //      if ($this->type == 'cerdo') {
+    //          return $this->belongsTo(PorkSale::class, 'sale_id');
+    //      }
+    //      if ($this->type == 'fresco') {
+    //          return $this->belongsTo(FreshSale::class, 'sale_id');
+    //      }
+    //      if ($this->type == 'procesado') {
+    //          return $this->belongsTo(ProcessedSale::class, 'sale_id');
+    //      }
+    // }
+
     function sale()
     {
-        if ($this->type == 'vivo') {
-             return $this->belongsTo(AliveSale::class, 'sale_id');
-         }
-         if ($this->type == 'cerdo') {
-             return $this->belongsTo(PorkSale::class, 'sale_id');
-         }
-         if ($this->type == 'fresco') {
-             return $this->belongsTo(FreshSale::class, 'sale_id');
-         }
-         if ($this->type == 'procesado') {
-             return $this->belongsTo(ProcessedSale::class, 'sale_id');
-         }
+        return $this->morphTo();
     }
 
     function getNiceAmountAttribute()
@@ -38,18 +43,19 @@ class Deposit extends Model
 
     function getClientAttribute()
     {
-         if ($this->type == 'vivo') {
-             return AliveSale::find($this->sale_id)->client;
-         }
-         if ($this->type == 'cerdo') {
-             return PorkSale::find($this->sale_id)->client;
-         }
-         if ($this->type == 'fresco') {
-             return FreshSale::find($this->sale_id)->client;
-         }
-         if ($this->type == 'procesado') {
-             return ProcessedSale::find($this->sale_id)->client;
-         }
+         // if ($this->type == 'vivo') {
+         //     return AliveSale::find($this->sale_id)->client;
+         // }
+         // if ($this->type == 'cerdo') {
+         //     return PorkSale::find($this->sale_id)->client;
+         // }
+         // if ($this->type == 'fresco') {
+         //     return FreshSale::find($this->sale_id)->client;
+         // }
+         // if ($this->type == 'procesado') {
+         //     return ProcessedSale::find($this->sale_id)->client;
+         // }
+        return $this->sale->client;
     }
 
     function scopeSalesReport($query, $start, $end)

@@ -25,7 +25,8 @@ class PorkSale extends Model
 
     function deposits()
     {
-        return $this->hasMany(Deposit::class, 'sale_id');
+        // return $this->hasMany(Deposit::class, 'sale_id');
+        return $this->morphMany(Deposit::class, 'sale');
     }
 
     function getDepositTotalAttribute()

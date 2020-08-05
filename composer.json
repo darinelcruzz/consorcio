@@ -9,6 +9,7 @@
         "acacha/admin-lte-template-laravel": "4.*",
         "barryvdh/laravel-dompdf": "^0.8.0",
         "doctrine/dbal": "^2.5",
+        "itsgoingd/clockwork": "^4.1",
         "jenssegers/date": "^3.2",
         "laravel/dusk": "^1.0",
         "laravel/framework": "5.5.*",

@@ -10,7 +10,6 @@
                 <th>Venta</th>
                 <th>Días</th>
                 <th>Vencimiento</th>
-                <th>Estado</th>
                 <th>Importe</th>
             </tr>
         </template>
@@ -24,7 +23,6 @@
                     <td>{{ $row->short_date }}</td>
                     <td>{{ $row->days }}</td>
                     <td>{{ $row->dueDate }}</td>
-                    <td><label class="label label-{{ $row->statusColor }}">{{ strtoupper($row->status) }}</label></td>
                     <td>{{ $row->nice_amount }}</td>
                 </tr>
             @endforeach
@@ -32,7 +30,7 @@
 
         <template slot="footer">
             <tr>
-                <td colspan="6"></td>
+                <td colspan="5"></td>
                 <th>Total</th>
                 <td>$ {{ number_format(collect($due)->sum('amount'), 2) }}</td>
             </tr>
@@ -61,7 +59,7 @@
                         <td>{{ $row->short_date }}</td>
                         <td>{{ $row->days }}</td>
                         <td>{{ $row->dueDate }}</td>
-                        <td>{{ $row->status }}</td>
+                        <td><label class="label label-{{ $row->statusColor }}">{{ strtoupper($row->status) }}</label></td>
                         <td>{{ $row->nice_amount }}</td>
                     </tr>
                 @endif
@@ -99,7 +97,7 @@
                         <td>{{ $row->short_date }}</td>
                         <td>{{ $row->days }}</td>
                         <td>{{ $row->dueDate }}</td>
-                        <td>{{ $row->status }}</td>
+                        <td><label class="label label-{{ $row->statusColor }}">{{ strtoupper($row->status) }}</label></td>
                         <td>{{ $row->nice_amount }}</td>
                     </tr>
                 @endif
@@ -137,7 +135,7 @@
                         <td>{{ $row->short_date }}</td>
                         <td>{{ $row->days }}</td>
                         <td>{{ $row->dueDate }}</td>
-                        <td>{{ $row->status }}</td>
+                        <td><label class="label label-{{ $row->statusColor }}">{{ strtoupper($row->status) }}</label></td>
                         <td>{{ $row->nice_amount }}</td>
                     </tr>
                 @endif
@@ -175,7 +173,7 @@
                         <td>{{ $row->short_date }}</td>
                         <td>{{ $row->days }}</td>
                         <td>{{ $row->dueDate }}</td>
-                        <td>{{ $row->status }}</td>
+                        <td><label class="label label-{{ $row->statusColor }}">{{ strtoupper($row->status) }}</label></td>
                         <td>{{ $row->nice_amount }}</td>
                     </tr>
                 @endif

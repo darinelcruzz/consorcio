@@ -9,7 +9,8 @@ class DepositController extends Controller
 {
     function index()
     {
-        $deposits = Deposit::all();
+        // $deposits = Deposit::all();
+        $deposits = Deposit::with('sale.client')->get();
 
         return view('deposits.index', compact('deposits'));
     }
@@ -38,10 +39,10 @@ class DepositController extends Controller
 
     function credits()
     {
-        $alive = AliveSale::where('status', '!=', 'cancelada')->get();
-        $fresh = FreshSale::where('status', '!=', 'cancelada')->get();
-        $pork = PorkSale::where('status', '!=', 'cancelada')->get();
-        $processed = ProcessedSale::where('status', '!=', 'cancelada')->get();
+        $alive = AliveSale::where('status', '!=', 'cancelada')->with('client:id,name')->get();
+        $fresh = FreshSale::where('status', '!=', 'cancelada')->with('client:id,name')->get();
+        $pork = PorkSale::where('status', '!=', 'cancelada')->with('client:id,name')->get();
+        $processed = ProcessedSale::where('status', '!=', 'cancelada')->with('client:id,name')->get();
         $due = $this->getDueSales($alive, $fresh, $pork, $processed);
 
         return view('deposits.credits', compact('alive', 'fresh', 'pork', 'processed', 'due'));
@@ -106,5 +107,15 @@ class DepositController extends Controller
         }
 
         return $due;
+    }
+
+    function update($type)
+    {
+        $types = ['vivo' => 'App\AliveSale', 'fresco' => 'App\FreshSale', 'procesado' => 'App\ProcessedSale', 'cerdo' => 'App\PorkSale'];
+        Deposit::whereSaleType('')->whereType($type)->update([
+            'sale_type' => $types[$type]
+        ]);
+
+        return "LISTO PARA " . $type;
     }
 }

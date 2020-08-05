@@ -77,6 +77,7 @@ Route::group(['prefix' => 'credito', 'as' => 'deposit.'], function () {
     Route::get('abonos', usesas($ctrl, 'index'));
     Route::post('abonar', usesas($ctrl, 'store'));
     Route::get('detalles/{type}/{id}/{amount}', usesas($ctrl, 'details'));
+    Route::get('tipo/{type}', usesas($ctrl, 'update'));
 });
 
 // Shippings
