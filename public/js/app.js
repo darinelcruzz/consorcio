@@ -49378,7 +49378,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "number",
       "name": "amount",
       "min": "0.01",
-      "max": _vm.debt,
+      "max": _vm.debt.toFixed(2),
       "value": "0",
       "step": "0.01"
     }

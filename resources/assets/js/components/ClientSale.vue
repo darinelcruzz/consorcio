@@ -16,7 +16,7 @@
                 <input type="hidden" name="user" value="Valeria Gordillo">
                 <slot></slot>
                 <div v-if="sale.status != 'pagado'" class="input-group input-group-sm">
-                    <input type="number" class="form-control" name="amount" min="0.01" :max="debt" value="0" step="0.01">
+                    <input type="number" class="form-control" name="amount" min="0.01" :max="debt.toFixed(2)" value="0" step="0.01">
                     <span class="input-group-btn">
                       <button type="submit" class="btn btn-success btn-flat btn-xs">
                           <i class="fa fa-plus"></i>
