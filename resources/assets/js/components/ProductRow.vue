@@ -1,8 +1,6 @@
 <template lang="html">
     <tr>
-        <td>
-            {{ num }}
-        </td>
+        <td>{{ index + 1 }}</td>
         <td>
             <div class="form-group">
                 <select class="form-control" name="names[]" v-model="product">
@@ -52,13 +50,13 @@ export default {
             products: []
         };
     },
-    props: ['num', 'pricetype'],
+    props: ['item', 'pricetype', 'index'],
     watch: {
         product: function (val, oldVal) {
-            if(this.pricetype == '23') {
+            if(this.item.pricetype == '23') {
                 this.price = this.product.price;
             } else {
-                this.price = this.product.price[eval(this.pricetype)];
+                this.price = this.product.price[eval(this.item.pricetype)];
             }
         },
         pricetype: function (val) {
@@ -67,7 +65,7 @@ export default {
     },
     methods: {
         fetch() {
-            let isRange = this.pricetype != '23' ? '1': '0';
+            let isRange = this.item.pricetype != '23' ? '1': '0';
 
             axios.get('/products/' + isRange).then(response => {
                 this.products = response.data;

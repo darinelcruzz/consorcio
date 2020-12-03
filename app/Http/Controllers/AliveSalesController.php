@@ -13,7 +13,7 @@ class AliveSalesController extends Controller
 
     function __construct()
     {
-        $this->data = ['type' => 'alive', 'color' => 'primary', 'skin' => 'blue', 'tipo' => 'vivo'];
+        $this->data = ['type' => 'alive', 'color' => 'primary', 'skin' => 'blue', 'tipo' => 'vivo', 'product_id' => 3];
         $this->moreData = array_merge($this->data, [
             'clients' => Client::buyers('vivo'),
             'prices' => Price::pricesWithNames(3)

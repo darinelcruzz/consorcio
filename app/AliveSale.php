@@ -29,6 +29,11 @@ class AliveSale extends Model
         return $this->morphMany(Deposit::class, 'sale');
     }
 
+    function movements()
+    {
+        return $this->morphMany(Movement::class, 'movable');
+    }
+
     function getDepositTotalAttribute()
     {
         return $this->deposits->where('type', 'vivo')->sum('amount');

@@ -37,3 +37,32 @@ function drawHeader(...$titles)
     }
     echo "</tr></template>";
 }
+
+function getBoxesColor($type)
+{
+    return ['fresco' => 'warning', 'vivo' => 'primary', 'cerdo' => 'baby', 'procesado' => 'success'][$type] ?? 'warning';
+}
+
+function getPageColor($type)
+{
+    return ['fresco' => 'yellow', 'vivo' => 'blue', 'cerdo' => 'pink', 'procesado' => 'green'][$type] ?? 'yellow';
+}
+
+function getProductID($type)
+{
+    return ['fresco' => 2, 'vivo' => 3, 'cerdo' => 1, 'procesado' => 4][$type] ?? 2;
+}
+
+function getSaleModel($type)
+{
+    $model = ['fresco' => 'FreshSale', 'vivo' => 'AliveSale', 'cerdo' => 'PorkSale', 'procesado' => 'ProcessedSale'][$type] ?? 'AliveSale';
+    $namespacedModel = '\\App\\' . $model;
+    return $namespacedModel;
+}
+
+function getLastSale($type)
+{
+    $model = getSaleModel($type);
+    return $model::all()->last();
+}
+

@@ -7,11 +7,12 @@
                 </tr>
             </thead>
             <tbody>
-                <product-row :pricetype="pricetype" :num="1"></product-row>
+                <tr v-for="(item, index) in items" is="product-row" :index="index" :item="item"></tr>
+                <!-- <product-row :pricetype="pricetype" :num="1"></product-row>
                 <product-row :pricetype="pricetype" :num="2"></product-row>
                 <product-row :pricetype="pricetype" :num="3"></product-row>
                 <product-row :pricetype="pricetype" :num="4"></product-row>
-                <product-row :pricetype="pricetype" :num="5"></product-row>
+                <product-row :pricetype="pricetype" :num="5"></product-row> -->
             </tbody>
         </table>
     </div>
@@ -29,8 +30,11 @@ export default {
                 { name:'Kg', width: 'width: 15%' },
                 { name:'Cajas', width: 'width: 15%' },
             ],
+            items: [
+                {pricetype: this.pricetype},
+            ]
         };
     },
     props: ['pricetype'],
-}
+};
 </script>

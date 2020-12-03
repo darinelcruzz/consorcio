@@ -27321,8 +27321,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -27334,13 +27332,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
-    props: ['num', 'pricetype'],
+    props: ['item', 'pricetype', 'index'],
     watch: {
         product: function product(val, oldVal) {
-            if (this.pricetype == '23') {
+            if (this.item.pricetype == '23') {
                 this.price = this.product.price;
             } else {
-                this.price = this.product.price[eval(this.pricetype)];
+                this.price = this.product.price[eval(this.item.pricetype)];
             }
         },
         pricetype: function pricetype(val) {
@@ -27351,7 +27349,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         fetch: function fetch() {
             var _this = this;
 
-            var isRange = this.pricetype != '23' ? '1' : '0';
+            var isRange = this.item.pricetype != '23' ? '1' : '0';
 
             axios.get('/products/' + isRange).then(function (response) {
                 _this.products = response.data;
@@ -27391,11 +27389,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            header: [{ name: '#', width: 'width: 5%' }, { name: 'Producto', width: 'width: 35%' }, { name: 'Precio', width: 'width: 15%' }, { name: 'Cantidad', width: 'width: 15%' }, { name: 'Kg', width: 'width: 15%' }, { name: 'Cajas', width: 'width: 15%' }]
+            header: [{ name: '#', width: 'width: 5%' }, { name: 'Producto', width: 'width: 35%' }, { name: 'Precio', width: 'width: 15%' }, { name: 'Cantidad', width: 'width: 15%' }, { name: 'Kg', width: 'width: 15%' }, { name: 'Cajas', width: 'width: 15%' }],
+            items: [{ pricetype: this.pricetype }]
         };
     },
 
@@ -48218,32 +48218,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "align": "center"
       }
     }, [_vm._v(_vm._s(head.name))])
-  }))]), _vm._v(" "), _c('tbody', [_c('product-row', {
-    attrs: {
-      "pricetype": _vm.pricetype,
-      "num": 1
-    }
-  }), _vm._v(" "), _c('product-row', {
-    attrs: {
-      "pricetype": _vm.pricetype,
-      "num": 2
-    }
-  }), _vm._v(" "), _c('product-row', {
-    attrs: {
-      "pricetype": _vm.pricetype,
-      "num": 3
-    }
-  }), _vm._v(" "), _c('product-row', {
-    attrs: {
-      "pricetype": _vm.pricetype,
-      "num": 4
-    }
-  }), _vm._v(" "), _c('product-row', {
-    attrs: {
-      "pricetype": _vm.pricetype,
-      "num": 5
-    }
-  })], 1)])])
+  }))]), _vm._v(" "), _c('tbody', _vm._l((_vm.items), function(item, index) {
+    return _c("product-row", {
+      tag: "tr",
+      attrs: {
+        "index": index,
+        "item": item
+      }
+    })
+  }))])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -48258,7 +48241,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('tr', [_c('td', [_vm._v("\n        " + _vm._s(_vm.num) + "\n    ")]), _vm._v(" "), _c('td', [_c('div', {
+  return _c('tr', [_c('td', [_vm._v(_vm._s(_vm.index + 1))]), _vm._v(" "), _c('td', [_c('div', {
     staticClass: "form-group"
   }, [_c('select', {
     directives: [{

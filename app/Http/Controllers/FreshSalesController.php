@@ -13,7 +13,7 @@ class FreshSalesController extends Controller
 
     function __construct()
     {
-        $this->data = ['type' => 'fresh', 'color' => 'warning', 'skin' => 'yellow', 'tipo' => 'fresco'];
+        $this->data = ['type' => 'fresh', 'color' => 'warning', 'skin' => 'yellow', 'tipo' => 'fresco', 'product_id' => 2];
         $this->moreData = array_merge($this->data, [
             'clients' => Client::buyers('fresco'),
             'prices' => Price::pricesWithNames(2)
@@ -36,33 +36,34 @@ class FreshSalesController extends Controller
 
     function store(StorePAFSale $request)
     {
+        // dd($request->all());
         $lastSale = FreshSale::all()->last();
         $lastFolio = $lastSale->folio + 1;
         
         $sale = FreshSale::create($request->all());
-        $this->updateInventory($request->quantity);
+        $this->updateInventory($request->items[0]['quantity']);
         $days = $request->credit * 8;
 
 
-        $sale->update([
-            'status' => $request->credit == '0' ? 'pagado': 'credito',
-            'credit' => $request->credit == '0' ? 0: 1,
-            'series' => substr($sale->date, 0, 4) == '2020' ? 'C': 'B',
-            'days' => $days > 16 ? 15: $days
-        ]);
+        // $sale->update([
+        //     'status' => $request->credit == '0' ? 'pagado': 'credito',
+        //     'credit' => $request->credit == '0' ? 0: 1,
+        //     'series' => substr($sale->date, 0, 4) == '2020' ? 'C': 'B',
+        //     'days' => $days > 16 ? 15: $days
+        // ]);
 
         $sale->client->computeBalance();
         $sale->client->computeUnpaidNotes();
 
-        if (FreshSale::where('series', 'C')->count() == 1) {
-            $sale->update([
-                'folio' => 1
-            ]);
-        } else {
-            $sale->update([
-                'folio' => $lastFolio
-            ]);
-        }
+        // if (FreshSale::where('series', 'C')->count() == 1) {
+        //     $sale->update([
+        //         'folio' => 1
+        //     ]);
+        // } else {
+        //     $sale->update([
+        //         'folio' => $lastFolio
+        //     ]);
+        // }
 
         return redirect(route('fresh.index'));
     }
