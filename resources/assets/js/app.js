@@ -40,6 +40,7 @@ Vue.component('client-sales', require('./components/ClientSales.vue'));
 Vue.component('client-sale', require('./components/ClientSale.vue'));
 
 Vue.component('deposits-table', require('./components/DepositsTable.vue'));
+Vue.component('chicken-cuts', require('./components/ChickenCutsTable.vue'));
 
 
 const app = new Vue({

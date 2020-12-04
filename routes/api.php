@@ -28,3 +28,9 @@ Route::group(['prefix' => 'clients', 'as' => 'api.'], function () {
     Route::get('all/{keyword?}', usesas($ctrl, 'show'));
     Route::get('/{product}', usesas($ctrl, 'index'));
 });
+
+Route::group(['prefix' => 'prices', 'as' => 'api.'], function () {
+    $ctrl = 'Api\PriceController';
+    
+    Route::get('/{type}', usesas($ctrl, 'index'));
+});

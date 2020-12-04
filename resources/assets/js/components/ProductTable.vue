@@ -1,20 +1,46 @@
 <template lang="html">
     <div class="table-responsive">
-        <table class="table table-striped">
+        <table v-if="items.length > 0" class="table table-striped">
             <thead>
                 <tr>
-                    <th v-for="head in header" :style="head.width" align="center">{{ head.name }}</th>
+                    <th style="width: 5%;"><i class="fa fa-times"></i></th>
+                    <th style="width: 20%;">Producto</th>
+                    <th style="width: 15%;">Precio</th>
+                    <th style="width: 15%;">Cantidad</th>
+                    <th style="width: 15%;">Kg</th>
+                    <th style="width: 15%;">Cajas</th>
+                    <th style="width: 15%;">Importe</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, index) in items" is="product-row" :index="index" :item="item"></tr>
-                <!-- <product-row :pricetype="pricetype" :num="1"></product-row>
-                <product-row :pricetype="pricetype" :num="2"></product-row>
-                <product-row :pricetype="pricetype" :num="3"></product-row>
-                <product-row :pricetype="pricetype" :num="4"></product-row>
-                <product-row :pricetype="pricetype" :num="5"></product-row> -->
+                <tr v-for="(item, index) in items" is="product-row" :item="item" :index="index" :key="item.id"></tr>
             </tbody>
+            <tfoot>
+                <td colspan="2"></td>
+                <th><small>TOTALES</small></th>
+                <td style="text-align: center;">
+                    {{ chicken }}
+                    <input type="hidden" name="chickens" :value="chicken">
+                    <input type="hidden" name="quantity" :value="chicken">
+                </td>
+                <td style="text-align: center;">
+                    {{ kg }}
+                    <input type="hidden" name="kg" :value="kg">
+                </td>
+                <td style="text-align: center;">
+                    {{ boxes }}
+                    <input type="hidden" name="boxes" :value="boxes">
+                </td>
+                <td style="text-align: right;">
+                    {{ total.toFixed(2) }}
+                    <input type="hidden" name="amount" :value="total.toFixed(2)">
+                </td>
+            </tfoot>
         </table>
+
+        <div v-else>
+            <code>No se han agregado productos</code>
+        </div>
     </div>
 </template>
 
@@ -22,19 +48,57 @@
 export default {
     data() {
         return {
-            header: [
-                { name:'#', width: 'width: 5%' },
-                { name:'Producto', width: 'width: 35%' },
-                { name:'Precio', width: 'width: 15%' },
-                { name:'Cantidad', width: 'width: 15%' },
-                { name:'Kg', width: 'width: 15%' },
-                { name:'Cajas', width: 'width: 15%' },
-            ],
-            items: [
-                {pricetype: this.pricetype},
-            ]
+            items: [],
+            chickens: [],
+            kgs: [],
+            boxesT: [],
+            amounts: [],
         };
     },
-    props: ['pricetype'],
+    computed: { 
+        chicken() {
+            return this.chickens.reduce((total, item) => total + item.quantity, 0)
+        },
+        kg() {
+            return this.kgs.reduce((total, item) => total + item.quantity, 0)
+        },
+        boxes() {
+            return this.boxesT.reduce((total, item) => total + item.quantity, 0)
+        },
+        total() {
+            return this.amounts.reduce((total, item) => total + item.quantity, 0)
+        },
+    },
+    methods: {
+        add(item) {
+            this.items.push(item);
+            this.chickens.push({quantity: 1});
+            this.kgs.push({quantity: 1});
+            this.boxesT.push({quantity: 1});
+            this.amounts.push({quantity: item.price});
+        },
+        remove(index) {
+            this.items.splice(index, 1);
+            this.chickens.splice(index, 1);
+            this.kgs.splice(index, 1);
+            this.boxesT.splice(index, 1);
+            this.amounts.splice(index, 1);
+        },
+        update(index, value, type) {
+            console.log(index, value, type);
+            if(type == 'q') this.chickens[index].quantity = value;
+            if(type == 'k') this.kgs[index].quantity = value;
+            if(type == 'b') this.boxesT[index].quantity = value;
+            if(type == 't') this.amounts[index].quantity = value;
+        },
+    },
+    created() {
+        this.$root.$on('add-to-list', (item) => this.add(item));
+        this.$root.$on('remove-from-list', (index) => this.remove(index));
+        this.$root.$on('update-total', (data) => this.update(data[0], data[1], 't'));
+        this.$root.$on('update-kg', (data) => this.update(data[0], data[1], 'k'));
+        this.$root.$on('update-quantity', (data) => this.update(data[0], data[1], 'q'));
+        this.$root.$on('update-boxes', (data) => this.update(data[0], data[1], 'b'));
+    }
 };
 </script>

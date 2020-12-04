@@ -1,42 +1,26 @@
 <template lang="html">
     <tr>
-        <td>{{ index + 1 }}</td>
+        <td><a @click="remove" style="color:red;"><i class="fa fa-times"></i></a></td>
         <td>
-            <div class="form-group">
-                <select class="form-control" name="names[]" v-model="product">
-                    <option value="" selected>Producto</option>
-                    <option v-for="(product, index) in products" :value="product">
-                        {{ product.name }}
-                    </option>
-                </select>
-            </div>
-            <input type="hidden" name="types[]" :value="product.id">
+            {{ item.name }}
+            <input :name="'items[' + index + '][product_id]'" type="hidden" :value="item.id">
         </td>
-
         <td>
-            <input type="hidden" name="prices[]" :value="price">
-            <span class="pull-right">$ {{ price }}</span>
+            {{ item.price.toFixed(2) }}
+            <input :name="'items[' + index + '][price]'" type="hidden" :value="item.price">
         </td>
-
-        <td align="center">
-            <div class="form-group">
-                <input class="form-control" type="number" name="quantities[]" min="0" step="0.01"
-                    style="width:85px;" v-model="quantity">
-            </div>
-        </td>
-
-        <td align="center">
-            <div class="form-group">
-                <input class="form-control" type="number" name="kgs[]" min="0" step="0.01"
-                    style="width:85px;">
-            </div>
-        </td>
-
         <td>
-            <input class="form-control" type="number" name="packages[]" min="0" step="0.01"
-                style="width:85px;">
+            <input :name="'items[' + index + '][quantity]'" type="number" step="1" min="1" class="form-control" v-model.number="quantity">
         </td>
-
+        <td>
+            <input :name="'items[' + index + '][kg]'" type="number" step="0.01" min="0.01" class="form-control" v-model.number="kg">
+        </td>
+        <td>
+            <input :name="'items[' + index + '][boxes]'" type="number" step="1" min="1" class="form-control" v-model.number="boxes">
+        </td>
+        <td style="text-align: right;">
+            {{ total.toFixed(2) }}
+        </td>
     </tr>
 </template>
 
@@ -44,39 +28,35 @@
 export default {
     data() {
         return {
-            product: '',
-            quantity: 0,
-            price: 0,
-            products: []
+            quantity: 1,
+            boxes: 1,
+            kg: 1,
         };
     },
-    props: ['item', 'pricetype', 'index'],
+    props: ['item', 'index'],
+    computed: {
+        total() {
+            return this.item.price * this.quantity;
+        }
+    },
     watch: {
-        product: function (val, oldVal) {
-            if(this.item.pricetype == '23') {
-                this.price = this.product.price;
-            } else {
-                this.price = this.product.price[eval(this.item.pricetype)];
-            }
+        total(newVal) {
+            this.$root.$emit('update-total', [this.index, newVal]);
         },
-        pricetype: function (val) {
-            this.fetch()
+        quantity(newVal) {
+            this.$root.$emit('update-quantity', [this.index, newVal]);
+        },
+        kg(newVal) {
+            this.$root.$emit('update-kg', [this.index, newVal]);
+        },
+        boxes(newVal) {
+            this.$root.$emit('update-boxes', [this.index, newVal]);
         }
     },
     methods: {
-        fetch() {
-            let isRange = this.item.pricetype != '23' ? '1': '0';
-
-            axios.get('/products/' + isRange).then(response => {
-                this.products = response.data;
-            });
+        remove() {
+            this.$root.$emit('remove-from-list', this.index)
         }
-    },
-    created() {
-        this.fetch()
-    },
-    updated() {
-        this.fetch()
     },
 };
 </script>

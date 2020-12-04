@@ -21,6 +21,7 @@ class CreateMovementsTable extends Migration
             $table->unsignedInteger('product_id');
             $table->float('price')->default(0);
             $table->unsignedInteger('quantity')->default(1);
+            $table->unsignedInteger('boxes')->default(0);
             $table->float('kg')->default(0);
             
             $table->timestamps();
