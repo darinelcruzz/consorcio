@@ -49,6 +49,11 @@ const app = new Vue({
         selected_date: '',
         checked: [],
         price_id: '',
+        sale: {
+        	price: '',
+        	kg: 0,
+        	quantity: 0,
+        },
         shipp: '',
     },
 });

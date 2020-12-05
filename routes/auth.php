@@ -74,11 +74,11 @@ Route::group(['prefix' => 'ventas', 'as' => 'sale.'], function () {
 
     Route::get('agregar/{type}', usesas($ctrl, 'create'));
     Route::post('agregar/{type}', usesas($ctrl, 'store'));
-    Route::get('editar/{type}/{sale}', usesas($ctrl, 'edit'))->middleware('admin');
-    Route::post('editar/{type}/{sale}', usesas($ctrl, 'update'));
+    Route::get('editar/{type}/{id}', usesas($ctrl, 'edit'));
+    Route::post('editar/{type}/{id}', usesas($ctrl, 'update'));
     Route::post('descartar/{type}', usesas($ctrl, 'discard'));
+    Route::get('{type}/{id}', usesas($ctrl, 'show'));
     Route::get('{type}', usesas($ctrl, 'index'));
-    Route::get('{type}/{sale}', usesas($ctrl, 'show'));
 });
 
 // Deposits

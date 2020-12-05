@@ -31,10 +31,14 @@
                             !!}
                         </div>
                         <div class="col-md-6">
-                            {!! Field::select('items[0][price]', $prices->toArray(), null,
-                                ['label' => 'Precio', 'tpl' => 'templates/withicon','empty' => 'Seleccione un precio', 'v-model' => 'price_id'],
+                            {!! Field::select('price', $prices->toArray(), null,
+                                ['label' => 'Precio', 'tpl' => 'templates/withicon','empty' => 'Seleccione un precio', 'v-model.number' => 'sale.price'],
                                 ['icon' => 'money'])
                             !!}
+
+                            @foreach($prices2 as $id => $value)
+                                <input v-if="sale.price == {{ $id }}" type="hidden" name="items[0][price]" value="{{ $value }}">
+                            @endforeach
                         </div>
                     </div>
 
@@ -42,26 +46,34 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                {!! Field::number('items[0][quantity]', ['label' => 'Cantidad', 'tpl' => 'templates/withicon', 'step' => '0.01', 'min' => '0' ],
+                                {!! Field::number('quantity', ['label' => 'Cantidad', 'tpl' => 'templates/withicon', 'v-model.number' => 'sale.quantity', 'step' => '0.01', 'min' => '0' ],
                                     ['icon' => 'list-ol']) !!}
+                                    <input type="hidden" name="items[0][quantity]" :value="sale.quantity">
                             </div>
 
                             <div class="col-md-6">
-                                {!! Field::number('items[0][kg]', ['label' => 'Kg', 'tpl' => 'templates/withicon', 'step' => '0.01', 'min' => '0' ],
+                                {!! Field::number('kg', ['label' => 'Kg', 'tpl' => 'templates/withicon', 'v-model.number' => 'sale.kg', 'step' => '0.01', 'min' => '0' ],
                                     ['icon' => 'balance-scale']) !!}
+                                    <input type="hidden" name="items[0][kg]" :value="sale.kg">
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
-                                {!! Field::number('amount', ['tpl' => 'templates/withicon', 'step' => '0.01', 'min' => '0' ],
+                                {!! Field::number('amount', 0, ['tpl' => 'templates/withicon', 'step' => '0.01', 'min' => '0' ],
                                     ['icon' => 'usd']) !!}
                             </div>
+                            <div class="col-md-6">
+                                <client-credit></client-credit>
+                            </div>
                         </div>
-
+                    @else
+                        <div class="row">
+                            <div class="col-md-6">
+                                <client-credit></client-credit>
+                            </div>
+                        </div>
                     @endif
-
-                    <client-credit></client-credit>
 
                     <div class="row">
                         <div class="col-md-12">
@@ -73,13 +85,10 @@
                         <product-table></product-table>
                     @else
                         <input type="hidden" name="items[0][product_id]" value="{{ $product_id }}">
-                        <input type="hidden" name="quantity" value="0">
-                        <input type="hidden" name="kg" value="0">
                     @endif
 
                     <input type="hidden" name="folio" value="{{ $lastSale ? $folio: 1 }}">
                     <input type="hidden" name="series" value="{{ $series }}">
-                    <input type="hidden" name="price" :value="price_id">
                     <input type="hidden" name="days" value="0">
                     <input type="hidden" name="status" value="pagado">
                     
@@ -141,7 +150,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <solid-box color="box-{{ $color }}" title="Rangos o cortes">
-                            <chicken-cuts :type="price_id"></chicken-cuts>
+                            <chicken-cuts :type="sale.price"></chicken-cuts>
                         </solid-box>
                     </div>
                 </div>

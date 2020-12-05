@@ -25620,13 +25620,18 @@ Vue.component('deposits-table', __webpack_require__(90));
 Vue.component('chicken-cuts', __webpack_require__(83));
 
 var app = new Vue({
-  el: '#app',
-  data: {
-    selected_date: '',
-    checked: [],
-    price_id: '',
-    shipp: ''
-  }
+    el: '#app',
+    data: {
+        selected_date: '',
+        checked: [],
+        price_id: '',
+        sale: {
+            price: '',
+            kg: 0,
+            quantity: 0
+        },
+        shipp: ''
+    }
 });
 
 /***/ }),
@@ -27580,7 +27585,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: ['sale', 'admin', 'route'],
+	props: ['sale', 'admin', 'type'],
 	data: function data() {
 		return {
 			colors: { 'vencida': 'danger', 'cancelada': 'default', 'pagado': 'success', 'credito': 'warning' }
@@ -27651,13 +27656,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['type', 'admin', 'route', 'color'],
+    props: ['type', 'admin', 'color'],
     data: function data() {
         return {
             sales: [],
             pagination: {},
             keyword: '',
-            types: { 'Vivo': 'alive', 'Fresco': 'fresh', 'Cerdo': 'pork', 'Procesado': 'processed' }
+            types: { 'vivo': 'alive', 'fresco': 'fresh', 'cerdo': 'pork', 'procesado': 'processed' }
         };
     },
 
@@ -48065,7 +48070,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('tr', [_c('td', [_c('b', [_vm._v(_vm._s(_vm.sale.series == null ? 'B' : _vm.sale.series))]), _vm._v(_vm._s(("00000" + _vm.sale.folio).slice(-5)) + "\n            "), (_vm.sale.type == 'Procesado') ? _c('a', {
     attrs: {
-      "href": _vm.route + '/' + _vm.sale.id
+      "href": _vm.type + '/' + _vm.sale.id
     }
   }, [_c('i', {
     staticClass: "fa fa-eye"
@@ -48075,7 +48080,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v(_vm._s(_vm.sale.client.name))]), _vm._v(" "), (_vm.admin) ? _c('a', {
     attrs: {
-      "href": _vm.route + '/editar/' + _vm.sale.id
+      "href": 'editar/' + _vm.type + '/' + _vm.sale.id
     }
   }, [_c('i', {
     staticClass: "fa fa-pencil"
@@ -48118,10 +48123,10 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "row"
-  }, [(_vm.client.credit) ? _c('div', {
-    staticClass: "col-md-6"
-  }, [_vm._m(0)]) : _c('input', {
+    attrs: {
+      "id": "client_credit"
+    }
+  }, [(_vm.client.credit) ? _c('div', [_vm._m(0)]) : _c('input', {
     attrs: {
       "type": "hidden",
       "name": "credit",
@@ -49197,7 +49202,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "sale": sale,
         "admin": _vm.admin,
-        "route": _vm.route
+        "type": _vm.type
       }
     })
   }))])])

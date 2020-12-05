@@ -10,16 +10,11 @@ class PorkSaleObserver
     {
         $porkSale->movements()->createMany(request('items'));
 
-        foreach ($porkSale->movements as $movement) {
-        	$porkSale->update([
-        		'quantity' => $movement->quantity,
-        		'kg' => $movement->kg,
-        		'price' => $movement->price,
-        		'status' => request('credit') ? 'crédito': 'pagado',
-                'credit' => request('credit') == '0' ? 0: 1,
-        		'days' => request('credit') * 8 >= 16 ? 15: request('credit') * 8,
-        	]);
-        }
+    	$porkSale->update([
+    		'status' => request('credit') ? 'credito': 'pagado',
+            'credit' => request('credit') == '0' ? 0: 1,
+    		'days' => request('credit') * 8 >= 16 ? 15: request('credit') * 8,
+    	]);
     }
 
     function deleting(PorkSale $porkSale)

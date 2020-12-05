@@ -4,7 +4,7 @@ namespace App\Http\Composers;
 
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Route;
-use App\Price;
+use App\{Price, Client};
 use Jenssegers\Date\Date;
 
 class SalesComposer
@@ -18,9 +18,11 @@ class SalesComposer
         $view->skin = getPageColor($type);
         $view->product_id = getProductID($type);
         $view->prices = Price::pricesWithNames(getProductID($type));
+        $view->prices2 = Price::pluck('price', 'id')->toArray();
         $view->lastSale = $lastSale;
         $view->folio = $lastSale->folio + 1;
         $view->series = 'C';
+        $view->clients = Client::buyers($type);
 
         $view->validDates = [
             Date::now()->format('Y-m-d') => Date::now()->format('l\, j F Y'),

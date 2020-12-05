@@ -2,7 +2,7 @@
 	<tr>
         <td>
             <b>{{ sale.series == null ? 'B': sale.series }}</b>{{ ("00000" + sale.folio).slice(-5) }}
-            <a v-if="sale.type == 'Procesado'" :href="route + '/' + sale.id">
+            <a v-if="sale.type == 'Procesado'" :href="type + '/' + sale.id">
                 <i class="fa fa-eye"></i>
             </a>
         </td>
@@ -10,7 +10,7 @@
         <td>
             <div v-if="sale.status != 'cancelada'">
                 <a :href="'/clientes/' + sale.client.id">{{ sale.client.name }}</a>
-                <a v-if="admin" :href="route + '/editar/' + sale.id">
+                <a v-if="admin" :href="'editar/' + type + '/' + sale.id">
                     <i class="fa fa-pencil"></i>
                 </a>
             </div>
@@ -32,7 +32,7 @@
 
 <script>
 	export default {
-		props: ['sale', 'admin', 'route'],
+		props: ['sale', 'admin', 'type'],
 		data() {
 			return {
 				colors: {'vencida': 'danger', 'cancelada': 'default', 'pagado': 'success', 'credito': 'warning'},

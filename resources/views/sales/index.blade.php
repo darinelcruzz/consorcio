@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col-md-12">
             <solid-box title="{{ ucfirst($type) }}" color="box-{{ $color }}">
-                <sales-table type="{{ ucfirst($type) }}" :admin="1" route="{{ route("sale.index", $type) }}" color="{{ $color }}"></sales-table>
+                <sales-table type="{{ $type }}" :admin="1" color="{{ $color }}"></sales-table>
             </solid-box>
         </div>
     </div>

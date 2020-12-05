@@ -19,32 +19,35 @@ class SaleController extends Controller
 
     function store(Request $request, $type)
     {
-        dd($request->all());
-
-        $model = getSaleModel($type);
+        $model = getSaleModel($type); // dd($request->all());
 
         $model::create($request->except('items'));
 
         return redirect(route('sale.index', $type));
     }
 
-    function show(SaleMovement $saleMovement)
+    function show($type, $id)
     {
-        //
+        $model = getSaleModel($type); // dd($request->all());
+        $sale = $model::find($id);
+        return view('sales.edit', compact('sale', 'type'));
     }
 
-    function edit(SaleMovement $saleMovement)
+    function edit($type, $id)
     {
-        //
+        $model = getSaleModel($type); // dd($request->all());
+        $sale = $model::find($id);
+        return view('sales.edit', compact('sale', 'type'));
     }
 
-    function update(Request $request, SaleMovement $saleMovement)
+    function update(Request $request, $type, $id)
     {
-        //
+        dd($request->all());
+        return "TO DO: UPDATE PAGE";
     }
 
-    function destroy(SaleMovement $saleMovement)
+    function destroy($type, $id)
     {
-        //
+        return "TO DO: DESTROY PAGE";
     }
 }

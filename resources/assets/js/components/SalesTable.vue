@@ -47,7 +47,7 @@
             </thead>
 
             <tbody>
-                <tr v-for="(sale, index) in sales" :key="index" is="sale" :sale="sale" :admin="admin" :route="route"></tr>
+                <tr v-for="(sale, index) in sales" :key="index" is="sale" :sale="sale" :admin="admin" :type="type"></tr>
             </tbody>
         </table>
     </div>
@@ -55,13 +55,13 @@
 
 <script>
 	export default {
-		props: ['type', 'admin', 'route', 'color'],
+		props: ['type', 'admin', 'color'],
 		data() {
 			return {
                 sales: [],
 				pagination: {},
                 keyword: '',
-                types: {'Vivo': 'alive', 'Fresco': 'fresh', 'Cerdo': 'pork', 'Procesado': 'processed'},
+                types: {'vivo': 'alive', 'fresco': 'fresh', 'cerdo': 'pork', 'procesado': 'processed'},
 			}
 		},
 		methods: {
