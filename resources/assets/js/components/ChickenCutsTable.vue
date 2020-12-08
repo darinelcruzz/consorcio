@@ -34,8 +34,14 @@ export default {
         };
     },
     watch: {
-        type(val) {
+        type(newVal, oldVal) {
             this.fetch();
+            if (newVal == 23 || newVal <= 12 && oldVal == 23) {
+                this.$root.$emit('reset');
+            } else {
+                console.log(newVal, newVal + 32)
+                this.$root.$emit('update-price', newVal + 32);
+            }
         }
     },
     methods: {
@@ -50,6 +56,7 @@ export default {
     },
     created() {
         this.fetch();
+        this.type = 10;
     }
 };
 </script>

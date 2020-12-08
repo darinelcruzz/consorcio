@@ -136,7 +136,7 @@
                 </div><!-- /.box -->
             @endif
 
-            {!! Form::open(['method' => 'POST', 'route' => ['sale.discard', $type]]) !!}
+            {!! Form::open(['method' => 'POST', 'route' => ['sale.cancel', $type]]) !!}
                 <input type="hidden" name="selected_date" :value="selected_date">
                 <input type="hidden" name="folio" value="{{ $folio }}">
                 <div v-if="selected_date != ''">

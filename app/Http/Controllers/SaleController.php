@@ -30,7 +30,7 @@ class SaleController extends Controller
     {
         $model = getSaleModel($type); // dd($request->all());
         $sale = $model::find($id);
-        return view('sales.edit', compact('sale', 'type'));
+        return view('sales.show', compact('sale', 'type'));
     }
 
     function edit($type, $id)
@@ -42,12 +42,64 @@ class SaleController extends Controller
 
     function update(Request $request, $type, $id)
     {
-        dd($request->all());
-        return "TO DO: UPDATE PAGE";
+        $model = getSaleModel($type); //dd($request->all(), $model);
+        $sale = $model::find($id);
+        $sale->update($request->except('items') + [
+            'status' => request('days') != '0' ? 'credito': 'pagado',
+            'credit' => request('days') == '0' ? 0: 1,
+        ]);
+
+        return redirect(route('sale.index', $type));
     }
 
-    function destroy($type, $id)
+    function cancel(Request $request, $type)
     {
-        return "TO DO: DESTROY PAGE";
+        $model = getSaleModel($type); //dd($request->all(), $model);
+        $last = $model::all()->last();
+
+        $model::create([
+            'folio' => $last->folio + 1,
+            'series' => $last->series,
+            'date' => $request->selected_date,
+            'client_id' => 1,
+            'status' => 'cancelada',
+        ]);
+
+        return redirect(route('sale.index', $type));
+    }
+
+    function migrate($type)
+    {
+        $model = getSaleModel($type); //dd($request->all(), $model);
+        $sales = $model::where('series', 'C')->where('status', '!=', 'cancelada')->whereDoesntHave('movements')->get();
+        $id = getProductID($type);
+
+        if ($type == 'procesado') {
+            foreach ($sales as $sale) {
+                $items = [];
+                foreach (unserialize($sale->products) as $product) {
+                    // dd($product);
+                    array_push($items, [
+                        'product_id' => $product['i'],
+                        'quantity' => $product['q'],
+                        'kg' => $product['k'],
+                        'boxes' => $product['b'] ?? 0,
+                        'price' => $product['p'],
+                    ]);
+                }
+                $sale->movements()->createMany($items);
+            }
+        } else {
+            foreach ($sales as $sale) {
+                $sale->movements()->create([
+                    'product_id' => $id,
+                    'quantity' => $sale->quantity,
+                    'kg' => $sale->kg,
+                    'price' => Price::find($sale->price)->price,
+                ]);
+            }
+        }
+
+        return "TERMINADO: " . $type;
     }
 }

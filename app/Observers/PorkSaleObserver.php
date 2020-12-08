@@ -2,23 +2,29 @@
 
 namespace App\Observers;
 
-use App\PorkSale;
+use App\{PorkSale, Price};
 
 class PorkSaleObserver
 {
     function created(PorkSale $porkSale)
     {
-        $porkSale->movements()->createMany(request('items'));
+        if ($porkSale->status != 'cancelada') {
+            $porkSale->movements()->createMany(request('items'));
 
-    	$porkSale->update([
-    		'status' => request('credit') ? 'credito': 'pagado',
-            'credit' => request('credit') == '0' ? 0: 1,
-    		'days' => request('credit') * 8 >= 16 ? 15: request('credit') * 8,
-    	]);
+        	$porkSale->update([
+        		'status' => request('credit') ? 'credito': 'pagado',
+                'credit' => request('credit') == '0' ? 0: 1,
+        		'days' => request('credit') * 8 >= 16 ? 15: request('credit') * 8,
+        	]);
+        }
     }
 
-    function deleting(PorkSale $porkSale)
+    function updated(PorkSale $porkSale)
     {
-        //
+        $porkSale->movements()->update([
+            'price' => Price::find($porkSale->price)->price,
+            'quantity' => $porkSale->quantity,
+            'kg' => $porkSale->kg,
+        ]);
     }
 }

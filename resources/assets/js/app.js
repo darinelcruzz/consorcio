@@ -56,4 +56,13 @@ const app = new Vue({
         },
         shipp: '',
     },
+    methods: {
+        onChange(event) {
+            let price = Number(event.target.value);
+            if (price != 23) {
+                console.log(price + 32);
+                this.$root.$emit('update-price', price + 32)
+            }
+        }
+    }
 });

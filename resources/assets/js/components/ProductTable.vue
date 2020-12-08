@@ -46,6 +46,7 @@
 
 <script>
 export default {
+    props: ['stored'],
     data() {
         return {
             items: [],
@@ -84,8 +85,14 @@ export default {
             this.boxesT.splice(index, 1);
             this.amounts.splice(index, 1);
         },
+        reset() {
+            this.items = [];
+            this.chickens = [];
+            this.kgs = [];
+            this.boxesT = [];
+            this.amounts = [];
+        },
         update(index, value, type) {
-            console.log(index, value, type);
             if(type == 'q') this.chickens[index].quantity = value;
             if(type == 'k') this.kgs[index].quantity = value;
             if(type == 'b') this.boxesT[index].quantity = value;
@@ -95,10 +102,19 @@ export default {
     created() {
         this.$root.$on('add-to-list', (item) => this.add(item));
         this.$root.$on('remove-from-list', (index) => this.remove(index));
-        this.$root.$on('update-total', (data) => this.update(data[0], data[1], 't'));
-        this.$root.$on('update-kg', (data) => this.update(data[0], data[1], 'k'));
-        this.$root.$on('update-quantity', (data) => this.update(data[0], data[1], 'q'));
-        this.$root.$on('update-boxes', (data) => this.update(data[0], data[1], 'b'));
+        this.$root.$on('update-item', (data) => this.update(data[0], data[1], data[2]));
+        this.$root.$on('reset', () => this.reset());
+
+        if (this.stored) {
+            for (var i = this.stored.length - 1; i >= 0; i--) {
+                let item = this.stored[i];
+                this.items.push(item);
+                this.chickens.push({quantity: item.quantity});
+                this.kgs.push({quantity: item.kg});
+                this.boxesT.push({quantity: item.boxes});
+                this.amounts.push({quantity: item.quantity * item.price});
+            }
+        }
     }
 };
 </script>

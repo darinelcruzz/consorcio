@@ -25631,6 +25631,15 @@ var app = new Vue({
             quantity: 0
         },
         shipp: ''
+    },
+    methods: {
+        onChange: function onChange(event) {
+            var price = Number(event.target.value);
+            if (price != 23) {
+                console.log(price + 32);
+                this.$root.$emit('update-price', price + 32);
+            }
+        }
     }
 });
 
@@ -26710,8 +26719,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     watch: {
-        type: function type(val) {
+        type: function type(newVal, oldVal) {
             this.fetch();
+            if (newVal == 23 || newVal <= 12 && oldVal == 23) {
+                this.$root.$emit('reset');
+            } else {
+                console.log(newVal, newVal + 32);
+                this.$root.$emit('update-price', newVal + 32);
+            }
         }
     },
     methods: {
@@ -26728,6 +26743,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     created: function created() {
         this.fetch();
+        this.type = 10;
     }
 });
 
@@ -27388,26 +27404,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: ['item', 'index'],
     computed: {
         total: function total() {
-            return this.item.price * this.quantity;
+            return this.item.price * this.kg;
         }
     },
     watch: {
         total: function total(newVal) {
-            this.$root.$emit('update-total', [this.index, newVal]);
+            this.$root.$emit('update-item', [this.index, newVal, 't']);
         },
         quantity: function quantity(newVal) {
-            this.$root.$emit('update-quantity', [this.index, newVal]);
+            this.$root.$emit('update-item', [this.index, newVal, 'q']);
         },
         kg: function kg(newVal) {
-            this.$root.$emit('update-kg', [this.index, newVal]);
+            this.$root.$emit('update-item', [this.index, newVal, 'k']);
         },
         boxes: function boxes(newVal) {
-            this.$root.$emit('update-boxes', [this.index, newVal]);
+            this.$root.$emit('update-item', [this.index, newVal, 'b']);
         }
     },
     methods: {
         remove: function remove() {
             this.$root.$emit('remove-from-list', this.index);
+        }
+    },
+    created: function created() {
+        var _this = this;
+
+        this.$root.$on('update-price', function (price) {
+            _this.item.price = price;
+        });
+
+        if (this.item.quantity) {
+            this.quantity = this.item.quantity;
+            this.boxes = this.item.boxes;
+            this.kg = this.item.kg;
         }
     }
 });
@@ -27466,6 +27495,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['stored'],
     data: function data() {
         return {
             items: [],
@@ -27513,8 +27543,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.boxesT.splice(index, 1);
             this.amounts.splice(index, 1);
         },
+        reset: function reset() {
+            this.items = [];
+            this.chickens = [];
+            this.kgs = [];
+            this.boxesT = [];
+            this.amounts = [];
+        },
         update: function update(index, value, type) {
-            console.log(index, value, type);
             if (type == 'q') this.chickens[index].quantity = value;
             if (type == 'k') this.kgs[index].quantity = value;
             if (type == 'b') this.boxesT[index].quantity = value;
@@ -27530,18 +27566,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.$root.$on('remove-from-list', function (index) {
             return _this.remove(index);
         });
-        this.$root.$on('update-total', function (data) {
-            return _this.update(data[0], data[1], 't');
+        this.$root.$on('update-item', function (data) {
+            return _this.update(data[0], data[1], data[2]);
         });
-        this.$root.$on('update-kg', function (data) {
-            return _this.update(data[0], data[1], 'k');
+        this.$root.$on('reset', function () {
+            return _this.reset();
         });
-        this.$root.$on('update-quantity', function (data) {
-            return _this.update(data[0], data[1], 'q');
-        });
-        this.$root.$on('update-boxes', function (data) {
-            return _this.update(data[0], data[1], 'b');
-        });
+
+        if (this.stored) {
+            for (var i = this.stored.length - 1; i >= 0; i--) {
+                var item = this.stored[i];
+                this.items.push(item);
+                this.chickens.push({ quantity: item.quantity });
+                this.kgs.push({ quantity: item.kg });
+                this.boxesT.push({ quantity: item.boxes });
+                this.amounts.push({ quantity: item.quantity * item.price });
+            }
+        }
     }
 });
 
@@ -27588,7 +27629,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	props: ['sale', 'admin', 'type'],
 	data: function data() {
 		return {
-			colors: { 'vencida': 'danger', 'cancelada': 'default', 'pagado': 'success', 'credito': 'warning' }
+			labels: { 'vencida': 'danger', 'cancelada': 'default', 'pagado': 'success', 'credito': 'warning' },
+			colors: { 'vivo': 'primary', 'fresco': 'warning', 'procesado': 'success', 'cerdo': 'baby' }
 		};
 	}
 });
@@ -27599,6 +27641,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -27666,19 +27709,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
+    computed: {
+        pageUrl: function pageUrl() {
+            return '/api/sales/' + this.types[this.type] + '/' + this.keyword;
+        },
+        btnClass: function btnClass() {
+            return 'btn btn-' + this.color + ' btn-sm';
+        }
+    },
+    watch: {
+        keyword: function keyword(value) {
+            this.fetch();
+        }
+    },
     methods: {
-        fetchSales: function fetchSales(page_url) {
+        fetch: function fetch(page_url) {
             var _this = this;
 
-            page_url = page_url || '/api/sales/' + this.types[this.type];
-            console.log("page_url", page_url);
+            page_url = page_url || this.pageUrl;
+            console.log(page_url);
             axios.get(page_url).then(function (response) {
-                var salesReady = response.data.data.map(function (sale) {
-                    sale.type = _this.type;
-                    return sale;
+                _this.sales = response.data.data.map(function (product) {
+                    return product;
                 });
 
-                var pagination = {
+                _this.pagination = {
                     current_page: response.data.current_page,
                     last_page: response.data.last_page,
                     next_page_url: response.data.next_page_url,
@@ -27686,41 +27741,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     last_page_url: response.data.last_page_url,
                     first_page_url: response.data.first_page_url
                 };
-
-                _this.sales = salesReady;
-                _this.pagination = pagination;
             });
-        },
-        searchSales: function searchSales(page_url, keyword) {
-            var _this2 = this;
-
-            page_url = '/api/sales/' + this.types[this.type] + '/' + keyword;
-            console.log("page_url", page_url);
-            axios.get(page_url).then(function (response) {
-                var salesReady = response.data.data.map(function (sale) {
-                    sale.type = _this2.type;
-                    return sale;
-                });
-
-                var pagination = {
-                    current_page: response.data.current_page,
-                    last_page: response.data.last_page,
-                    next_page_url: response.data.next_page_url,
-                    prev_page_url: response.data.prev_page_url,
-                    last_page_url: response.data.last_page_url,
-                    first_page_url: response.data.first_page_url
-                };
-
-                _this2.sales = salesReady;
-                _this2.pagination = pagination;
-            });
-        },
-        search: function search() {
-            this.searchSales(this.pagination.current_page, this.keyword);
         }
     },
     created: function created() {
-        this.fetchSales();
+        this.fetch();
     }
 });
 
@@ -48068,25 +48093,52 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('tr', [_c('td', [_c('b', [_vm._v(_vm._s(_vm.sale.series == null ? 'B' : _vm.sale.series))]), _vm._v(_vm._s(("00000" + _vm.sale.folio).slice(-5)) + "\n            "), (_vm.sale.type == 'Procesado') ? _c('a', {
+  return _c('tr', [_c('td', [_c('b', [_vm._v(_vm._s(_vm.sale.series))]), _vm._v(_vm._s(("00000" + _vm.sale.folio).slice(-5)) + "\n        ")]), _vm._v(" "), _c('td', [_c('dropdown', {
     attrs: {
-      "href": _vm.type + '/' + _vm.sale.id
+      "icon": "cogs",
+      "color": _vm.colors[_vm.type]
     }
-  }, [_c('i', {
-    staticClass: "fa fa-eye"
-  })]) : _vm._e()]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.sale.date))]), _vm._v(" "), _c('td', [(_vm.sale.status != 'cancelada') ? _c('div', [_c('a', {
+  }, [(_vm.type == 'procesado') ? _c('ddi', {
+    attrs: {
+      "icon": "eye",
+      "to": _vm.type + '/' + _vm.sale.id
+    }
+  }, [_vm._v("Ver productos")]) : _vm._e(), _vm._v(" "), (_vm.admin) ? _c('ddi', {
+    attrs: {
+      "icon": "pencil",
+      "to": 'editar/' + _vm.type + '/' + _vm.sale.id
+    }
+  }, [_vm._v("Editar")]) : _vm._e()], 1)], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.sale.date))]), _vm._v(" "), _c('td', [(_vm.sale.status != 'cancelada') ? _c('div', [_c('a', {
     attrs: {
       "href": '/clientes/' + _vm.sale.client.id
     }
-  }, [_vm._v(_vm._s(_vm.sale.client.name))]), _vm._v(" "), (_vm.admin) ? _c('a', {
-    attrs: {
-      "href": 'editar/' + _vm.type + '/' + _vm.sale.id
+  }, [_vm._v(_vm._s(_vm.sale.client.name))])]) : _c('div', [_c('em', [_vm._v("N o     a p l i c a")])])]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "text-align": "center"
     }
-  }, [_c('i', {
-    staticClass: "fa fa-pencil"
-  })]) : _vm._e()]) : _c('div', [_c('em', [_vm._v("N o     a p l i c a")])])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.sale.quantity))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.sale.kg))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.sale.price ? _vm.sale.pricer.name : ''))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.sale.amount))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.sale.credit ? _vm.sale.days + ' días' : 'NO'))]), _vm._v(" "), _c('td', [_c('label', {
-    class: 'label label-' + _vm.colors[_vm.sale.status]
-  }, [_vm._v(_vm._s(_vm.sale.status))])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.sale.observations))])])
+  }, [_vm._v(_vm._s(_vm.sale.quantity || '/'))]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "text-align": "center"
+    }
+  }, [_vm._v(_vm._s(_vm.sale.kg || '/'))]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "text-align": "center"
+    }
+  }, [_vm._v(_vm._s(_vm.sale.price ? _vm.sale.pricer.name : '/'))]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "text-align": "right"
+    }
+  }, [_vm._v(_vm._s((Number(_vm.sale.amount)).toFixed(2)))]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "text-align": "center"
+    }
+  }, [_vm._v(_vm._s(_vm.sale.credit ? _vm.sale.days + ' días' : 'NO'))]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "text-align": "center"
+    }
+  }, [_c('label', {
+    class: 'label label-' + _vm.labels[_vm.sale.status]
+  }, [_vm._v(_vm._s(_vm.sale.status.toUpperCase()))])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.sale.observations))])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -49124,7 +49176,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": (_vm.keyword)
     },
     on: {
-      "change": _vm.search,
       "input": function($event) {
         if ($event.target.composing) { return; }
         _vm.keyword = $event.target.value
@@ -49144,25 +49195,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "btn-group"
   }, [_c('button', {
-    class: 'btn btn-' + _vm.color + ' btn-sm',
+    class: _vm.btnClass,
     attrs: {
       "disabled": !_vm.pagination.first_page_url
     },
     on: {
       "click": function($event) {
-        _vm.fetchSales(_vm.pagination.first_page_url)
+        _vm.fetch(_vm.pagination.first_page_url)
       }
     }
   }, [_c('i', {
     staticClass: "fa fa-angle-double-left"
   })]), _vm._v(" "), _c('button', {
-    class: 'btn btn-' + _vm.color + ' btn-sm',
+    class: _vm.btnClass,
     attrs: {
       "disabled": !_vm.pagination.prev_page_url
     },
     on: {
       "click": function($event) {
-        _vm.fetchSales(_vm.pagination.prev_page_url)
+        _vm.fetch(_vm.pagination.prev_page_url)
       }
     }
   }, [_c('i', {
@@ -49170,25 +49221,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-default btn-sm"
   }, [_vm._v("Página " + _vm._s(_vm.pagination.current_page) + " de " + _vm._s(_vm.pagination.last_page))]), _vm._v(" "), _c('button', {
-    class: 'btn btn-' + _vm.color + ' btn-sm',
+    class: _vm.btnClass,
     attrs: {
       "disabled": !_vm.pagination.next_page_url
     },
     on: {
       "click": function($event) {
-        _vm.fetchSales(_vm.pagination.next_page_url)
+        _vm.fetch(_vm.pagination.next_page_url)
       }
     }
   }, [_c('i', {
     staticClass: "fa fa-angle-right"
   })]), _vm._v(" "), _c('button', {
-    class: 'btn btn-' + _vm.color + ' btn-sm',
+    class: _vm.btnClass,
     attrs: {
       "disabled": !_vm.pagination.last_page_url
     },
     on: {
       "click": function($event) {
-        _vm.fetchSales(_vm.pagination.last_page_url)
+        _vm.fetch(_vm.pagination.last_page_url)
       }
     }
   }, [_c('i', {
@@ -49207,7 +49258,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })
   }))])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('tr', [_c('th', [_vm._v("Folio")]), _vm._v(" "), _c('th', [_vm._v("Fecha")]), _vm._v(" "), _c('th', [_vm._v("Cliente")]), _vm._v(" "), _c('th', [_vm._v("Cantidad")]), _vm._v(" "), _c('th', [_vm._v("Kg")]), _vm._v(" "), _c('th', [_vm._v("Precio")]), _vm._v(" "), _c('th', [_vm._v("Importe")]), _vm._v(" "), _c('th', [_vm._v("Crédito")]), _vm._v(" "), _c('th', [_vm._v("Estado")]), _vm._v(" "), _c('th', [_vm._v("Observaciones")])])])
+  return _c('thead', [_c('tr', [_c('th', [_vm._v("Folio")]), _vm._v(" "), _c('th', [_c('i', {
+    staticClass: "fa fa-cogs"
+  })]), _vm._v(" "), _c('th', [_vm._v("Fecha")]), _vm._v(" "), _c('th', [_vm._v("Cliente")]), _vm._v(" "), _c('th', [_vm._v("Cantidad")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "text-align": "center"
+    }
+  }, [_vm._v("KG")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "text-align": "center"
+    }
+  }, [_vm._v("Precio")]), _vm._v(" "), _c('th', [_vm._v("Importe")]), _vm._v(" "), _c('th', [_vm._v("Crédito")]), _vm._v(" "), _c('th', [_vm._v("Estado")]), _vm._v(" "), _c('th', [_vm._v("Observaciones")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

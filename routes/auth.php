@@ -16,59 +16,6 @@ Route::group(['prefix' => 'clientes', 'as' => 'client.'], function () {
     Route::get('{client}', usesas($ctrl, 'show'));
 });
 
-// Route::group(['prefix' => 'ventas/cerdo', 'as' => 'pork.'], function () {
-//     $ctrl = 'PorkSalesController';
-
-//     Route::get('/', usesas($ctrl, 'index'));
-//     Route::get('agregar', usesas($ctrl, 'create'));
-//     Route::post('agregar', usesas($ctrl, 'store'));
-//     Route::get('editar/{sale}', usesas($ctrl, 'edit'))->middleware('admin');
-//     Route::post('editar/{sale}', usesas($ctrl, 'update'));
-//     Route::post('descartar', usesas($ctrl, 'discard'));
-//     Route::get('rellenar', usesas($ctrl, 'fillfield'));
-// });
-
-// Route::group(['prefix' => 'ventas/vivo', 'as' => 'alive.'], function () {
-//     $ctrl = 'AliveSalesController';
-
-//     Route::get('/', usesas($ctrl, 'index'));
-//     Route::get('agregar', usesas($ctrl, 'create'));
-//     Route::post('agregar', usesas($ctrl, 'store'));
-//     Route::get('editar/{sale}', usesas($ctrl, 'edit'))->middleware('admin');
-//     Route::post('editar/{sale}', usesas($ctrl, 'update'));
-//     Route::post('descartar', usesas($ctrl, 'discard'));
-//     Route::get('rellenar', usesas($ctrl, 'fillfield'));
-// });
-
-// Route::group(['prefix' => 'ventas/fresco', 'as' => 'fresh.'], function () {
-//     $ctrl = 'FreshSalesController';
-
-//     Route::get('/', usesas($ctrl, 'index'));
-//     Route::get('agregar', usesas($ctrl, 'create'));
-//     Route::post('agregar', usesas($ctrl, 'store'));
-//     Route::get('editar/{sale}', usesas($ctrl, 'edit'))->middleware('admin');
-//     Route::post('editar/{sale}', usesas($ctrl, 'update'));
-//     Route::post('descartar', usesas($ctrl, 'discard'));
-//     Route::get('rellenar', usesas($ctrl, 'fillfield'));
-// });
-
-// Route::group(['prefix' => 'ventas/procesado', 'as' => 'processed.'], function () {
-//     $ctrl = 'ProcessedSalesController';
-
-//     Route::get('/', usesas($ctrl, 'index'));
-//     Route::get('agregar', usesas($ctrl, 'create'));
-//     Route::post('agregar', usesas($ctrl, 'store'));
-//     Route::get('editar/{sale}', usesas($ctrl, 'edit'))->middleware('admin');
-//     Route::post('editar/{sale}', usesas($ctrl, 'update'));
-//     Route::post('descartar', usesas($ctrl, 'discard'));
-//     Route::get('rellenar', usesas($ctrl, 'fillfield'));
-//     Route::get('agregar-kg/{processedsale}', usesas($ctrl, 'editKg'));
-//     Route::post('agregar-kg/{processedsale}', usesas($ctrl, 'storeKg'));
-//     Route::get('editar-productos/{processedsale}', usesas($ctrl, 'editProducts'));
-//     Route::post('editar-productos/{processedsale}', usesas($ctrl, 'storeProducts'));
-//     Route::get('{processedsale}', usesas($ctrl, 'show'));
-// });
-
 Route::group(['prefix' => 'ventas', 'as' => 'sale.'], function () {
     $ctrl = 'SaleController';
 
@@ -76,7 +23,8 @@ Route::group(['prefix' => 'ventas', 'as' => 'sale.'], function () {
     Route::post('agregar/{type}', usesas($ctrl, 'store'));
     Route::get('editar/{type}/{id}', usesas($ctrl, 'edit'));
     Route::post('editar/{type}/{id}', usesas($ctrl, 'update'));
-    Route::post('descartar/{type}', usesas($ctrl, 'discard'));
+    Route::post('cancelar/{type}', usesas($ctrl, 'cancel'));
+    Route::get('migrar/{type}', usesas($ctrl, 'migrate'));
     Route::get('{type}/{id}', usesas($ctrl, 'show'));
     Route::get('{type}', usesas($ctrl, 'index'));
 });

@@ -36,21 +36,21 @@ export default {
     props: ['item', 'index'],
     computed: {
         total() {
-            return this.item.price * this.quantity;
+            return this.item.price * this.kg;
         }
     },
     watch: {
         total(newVal) {
-            this.$root.$emit('update-total', [this.index, newVal]);
+            this.$root.$emit('update-item', [this.index, newVal, 't']);
         },
         quantity(newVal) {
-            this.$root.$emit('update-quantity', [this.index, newVal]);
+            this.$root.$emit('update-item', [this.index, newVal, 'q']);
         },
         kg(newVal) {
-            this.$root.$emit('update-kg', [this.index, newVal]);
+            this.$root.$emit('update-item', [this.index, newVal, 'k']);
         },
         boxes(newVal) {
-            this.$root.$emit('update-boxes', [this.index, newVal]);
+            this.$root.$emit('update-item', [this.index, newVal, 'b']);
         }
     },
     methods: {
@@ -58,5 +58,16 @@ export default {
             this.$root.$emit('remove-from-list', this.index)
         }
     },
+    created() {
+        this.$root.$on('update-price', (price) => {
+            this.item.price = price
+        });
+
+        if (this.item.quantity) {
+            this.quantity = this.item.quantity;
+            this.boxes = this.item.boxes;
+            this.kg = this.item.kg;
+        }
+    }
 };
 </script>
