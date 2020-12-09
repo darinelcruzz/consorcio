@@ -5,8 +5,11 @@
             {{ item.name }}
             <input :name="'items[' + index + '][product_id]'" type="hidden" :value="item.id">
         </td>
-        <td>
-            {{ item.price.toFixed(2) }}
+        <td v-if="model == 'envio'">
+            <input :name="'items[' + index + '][price]'" type="number" step="0.01" min="0.01" class="form-control" v-model.number="price">
+        </td>
+        <td v-else>
+            {{ price.toFixed(2) }}
             <input :name="'items[' + index + '][price]'" type="hidden" :value="item.price">
         </td>
         <td>
@@ -31,12 +34,13 @@ export default {
             quantity: 1,
             boxes: 1,
             kg: 1,
+            price: 1,
         };
     },
-    props: ['item', 'index'],
+    props: ['item', 'index', 'model'],
     computed: {
         total() {
-            return this.item.price * this.kg;
+            return this.price * this.kg;
         }
     },
     watch: {
@@ -55,12 +59,13 @@ export default {
     },
     methods: {
         remove() {
-            this.$root.$emit('remove-from-list', this.index)
+            this.$root.$emit('remove-from-list', this.index);
+            this.$root.$emit('enable', this.item.index);
         }
     },
     created() {
         this.$root.$on('update-price', (price) => {
-            this.item.price = price
+            this.price = price
         });
 
         if (this.item.quantity) {
@@ -68,6 +73,8 @@ export default {
             this.boxes = this.item.boxes;
             this.kg = this.item.kg;
         }
+
+        this.price = this.item.price;
     }
 };
 </script>

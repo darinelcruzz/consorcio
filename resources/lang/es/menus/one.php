@@ -27,16 +27,7 @@ return [
     'shippings' => [
         'title' => 'Embarques',
         'icon' => 'fa fa-truck',
-        'submenu' => [
-            'list' => [
-                'title' => 'Historial',
-                'route' => 'shipping.index'
-            ],
-            'add' => [
-                'title' => 'Agregar',
-                'route' => 'shipping.create'
-            ],
-        ]
+        'route' => 'shipping.index'
     ],
 
     'clients' => [

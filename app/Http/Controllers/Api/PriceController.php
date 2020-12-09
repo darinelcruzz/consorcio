@@ -12,17 +12,26 @@ class PriceController extends Controller
     {
         $items = [];
 
-        if ($type != 23) {
+        if ($type == 1) {
+            $products = Product::whereIn('id', [1, 3, 18, 19])->get();
+            foreach ($products as $product) {
+                if ($price = Price::where('product_id', $product->id)->first()) {
+                    array_push($items, ['id' => $product->id, 'name' => $product->name, 'price' => $price->price, 'enable' => true]);
+                } else {
+                    array_push($items, ['id' => $product->id, 'name' => $product->name, 'price' => $product->price, 'enable' => true]);
+                }                
+            }
+        } else if ($type == 23) {
+            $products =  Product::where('processed', 1)->where('price', '!=', 1)->get();
+            foreach ($products as $product) {
+                array_push($items, ['id' => $product->id, 'name' => $product->name, 'price' => $product->prices->first()->price, 'enable' => true]);
+            }
+        } else {
             $price =  Price::find($type);
             $products = Product::where('price', 1)->get();
             foreach ($products as $product) {
-                array_push($items, ['id' => $product->id, 'name' => $product->name, 'price' => $price->price]);
-            }
-        } else {
-            $products =  Product::where('processed', 1)->where('price', '!=', 1)->get();
-            foreach ($products as $product) {
-                array_push($items, ['id' => $product->id, 'name' => $product->name, 'price' => $product->prices->first()->price]);
-            }
+                array_push($items, ['id' => $product->id, 'name' => $product->name, 'price' => $price->price, 'enable' => true]);
+            }            
         }
 
         return $items;

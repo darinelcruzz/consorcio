@@ -34,6 +34,8 @@ Vue.component('client-credit', require('./components/ClientCredit.vue'));
 Vue.component('select2', require('./components/SelectTwo.vue'));
 Vue.component('sale', require('./components/Sale.vue'));
 Vue.component('sales-table', require('./components/SalesTable.vue'));
+Vue.component('shipping', require('./components/Shipping.vue'));
+Vue.component('shippings-table', require('./components/ShippingsTable.vue'));
 Vue.component('client', require('./components/Client.vue'));
 Vue.component('clients-table', require('./components/ClientsTable.vue'));
 Vue.component('client-sales', require('./components/ClientSales.vue'));

@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Schema;
 use Laravel\Dusk\DuskServiceProvider;
 use App\Http\Composers\SalesComposer;
-use App\{ProcessedSale, FreshSale, AliveSale, PorkSale};
-use App\Observers\{ProcessedSaleObserver, FreshSaleObserver, AliveSaleObserver, PorkSaleObserver};
+use App\{ProcessedSale, FreshSale, AliveSale, PorkSale, Shipping};
+use App\Observers\{ProcessedSaleObserver, FreshSaleObserver, AliveSaleObserver, PorkSaleObserver, ShippingObserver};
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -47,5 +47,6 @@ class AppServiceProvider extends ServiceProvider
         AliveSale::observe(AliveSaleObserver::class);
         FreshSale::observe(FreshSaleObserver::class);
         PorkSale::observe(PorkSaleObserver::class);
+        Shipping::observe(ShippingObserver::class);
     }
 }

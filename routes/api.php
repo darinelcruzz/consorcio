@@ -2,13 +2,6 @@
 
 use Illuminate\Http\Request;
 
-// Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
-//     //    Route::resource('task', 'TasksController');
-
-//     //Please do not remove this if you want adminlte:route and adminlte:link commands to works correctly.
-//     #adminlte_api_routes
-// });
-
 Route::group(['prefix' => 'sales', 'as' => 'api.'], function () {
     $ctrl = 'Api\SaleController';
 
@@ -31,6 +24,11 @@ Route::group(['prefix' => 'clients', 'as' => 'api.'], function () {
 
 Route::group(['prefix' => 'prices', 'as' => 'api.'], function () {
     $ctrl = 'Api\PriceController';
-    
     Route::get('/{type}', usesas($ctrl, 'index'));
+});
+
+Route::group(['prefix' => 'shippings', 'as' => 'api.'], function () {
+    $ctrl = 'Api\ShippingController';
+    Route::get('/', usesas($ctrl, 'index'));
+    Route::get('{keyword}', usesas($ctrl, 'search'));
 });

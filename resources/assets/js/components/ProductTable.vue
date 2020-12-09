@@ -13,7 +13,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, index) in items" is="product-row" :item="item" :index="index" :key="item.id"></tr>
+                <tr v-for="(item, index) in items" is="product-row" :item="item" :index="index" :key="item.id" :model="model"></tr>
             </tbody>
             <tfoot>
                 <td colspan="2"></td>
@@ -24,7 +24,7 @@
                     <input type="hidden" name="quantity" :value="chicken">
                 </td>
                 <td style="text-align: center;">
-                    {{ kg }}
+                    {{ kg.toFixed(2) }}
                     <input type="hidden" name="kg" :value="kg">
                 </td>
                 <td style="text-align: center;">
@@ -46,7 +46,7 @@
 
 <script>
 export default {
-    props: ['stored'],
+    props: ['stored', 'model'],
     data() {
         return {
             items: [],

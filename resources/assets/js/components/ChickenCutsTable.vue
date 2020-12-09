@@ -9,10 +9,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="item in items">
-                    <td>
-                        <a @click="add(item)"><i class="fa fa-plus"></i></a>
-                    </td>
+                <tr v-for="(item, index) in items">
+                    <td v-if="item.enable"><a @click="add(item, index)"><i class="fa fa-plus"></i></a></td>
+                    <td v-else><span style="color: gray;"><i class="fa fa-plus"></i></span></td>
                     <td>{{ item.name }}</td>
                     <td>{{ item.price.toFixed(2) }}</td>
                 </tr>
@@ -45,7 +44,9 @@ export default {
         }
     },
     methods: {
-        add(item) {
+        add(item, index) {
+            this.items[index].enable = false;
+            item.index = index;
             this.$root.$emit('add-to-list', item);
         },
         fetch() {
@@ -56,7 +57,7 @@ export default {
     },
     created() {
         this.fetch();
-        this.type = 10;
+        this.$root.$on('enable', (index) => this.items[index].enable = true)
     }
 };
 </script>
