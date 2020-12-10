@@ -21,7 +21,7 @@
         <td style="text-align: center;">{{ sale.quantity || '/' }}</td>
         <td style="text-align: center;">{{ sale.kg || '/' }}</td>
         <td style="text-align: center;">{{ sale.price ? sale.pricer.name: '/' }}</td>
-        <td style="text-align: right;">{{ (Number(sale.amount)).toFixed(2) }}</td>
+        <td style="text-align: right;">{{ formatNumber(sale.amount) }}</td>
         <td style="text-align: center;">{{ sale.credit ? sale.days + ' días': 'NO'}}</td>
         <td style="text-align: center;">
             <label :class="'label label-' + labels[sale.status]">{{ sale.status.toUpperCase() }}</label>
@@ -39,5 +39,11 @@
                 colors: {'vivo': 'primary', 'fresco': 'warning', 'procesado': 'success', 'cerdo': 'baby'},
 			}
 		},
+        methods: {
+            formatNumber(number) {
+                let formatter = new Intl.NumberFormat();
+                return formatter.format(number);
+            }
+        }
 	};
 </script>

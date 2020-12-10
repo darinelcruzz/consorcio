@@ -47,6 +47,7 @@ Route::group(['prefix' => 'embarques', 'as' => 'shipping.'], function () {
     Route::get('/', usesas($ctrl, 'index'));
     Route::get('agregar', usesas($ctrl, 'create'));
     Route::post('agregar', usesas($ctrl, 'store'));
+    Route::get('migrar', usesas($ctrl, 'migrate'));
     Route::get('editar/{shipping}', usesas($ctrl, 'edit'));
     Route::post('editar/{shipping}', usesas($ctrl, 'update'));
     Route::get('{shipping}', usesas($ctrl, 'show'));

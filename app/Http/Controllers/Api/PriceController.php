@@ -26,6 +26,12 @@ class PriceController extends Controller
             foreach ($products as $product) {
                 array_push($items, ['id' => $product->id, 'name' => $product->name, 'price' => $product->prices->first()->price, 'enable' => true]);
             }
+        } else if ($type == 20) {
+            $price =  Price::find(10);
+            $products = Product::where('price', 1)->get();
+            foreach ($products as $product) {
+                array_push($items, ['id' => $product->id, 'name' => $product->name, 'price' => $price->price, 'enable' => true]);
+            }
         } else {
             $price =  Price::find($type);
             $products = Product::where('price', 1)->get();

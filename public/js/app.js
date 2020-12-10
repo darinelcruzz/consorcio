@@ -27646,6 +27646,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			labels: { 'vencida': 'danger', 'cancelada': 'default', 'pagado': 'success', 'credito': 'warning' },
 			colors: { 'vivo': 'primary', 'fresco': 'warning', 'procesado': 'success', 'cerdo': 'baby' }
 		};
+	},
+
+	methods: {
+		formatNumber: function formatNumber(number) {
+			var formatter = new Intl.NumberFormat();
+			return formatter.format(number);
+		}
 	}
 });
 
@@ -48374,7 +48381,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "text-align": "right"
     }
-  }, [_vm._v(_vm._s((Number(_vm.sale.amount)).toFixed(2)))]), _vm._v(" "), _c('td', {
+  }, [_vm._v(_vm._s(_vm.formatNumber(_vm.sale.amount)))]), _vm._v(" "), _c('td', {
     staticStyle: {
       "text-align": "center"
     }

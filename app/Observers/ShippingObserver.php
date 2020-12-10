@@ -9,14 +9,17 @@ class ShippingObserver
     function created(Shipping $shipping)
     {
         $shipping->movements()->createMany(request('items'));
+        $movement = $shipping->movements->first();
 
         if ($shipping->product < 20) {
-            $movement = $shipping->movements->first();
-
             $shipping->update([
                 'product' => $movement->product->id,
                 'price' => $movement->price,
             ]);
+        }
+
+        if ($shipping->product == 20) {
+            $shipping->update(['price' => $movement->price]);
         }
     }
 

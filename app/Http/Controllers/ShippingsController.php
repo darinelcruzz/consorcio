@@ -59,7 +59,6 @@ class ShippingsController extends Controller
             'remission' => 'required',
             'date' => 'required',
             'provider' => 'required',
-            'product' => 'required',
             'observations' => 'required',
             'quantity' => 'required',
             'amount' => 'required',
@@ -68,5 +67,39 @@ class ShippingsController extends Controller
         $shipping->update($attributes);
 
         return redirect('embarques');
+    }
+
+    function migrate()
+    {
+        $shippings = Shipping::whereDoesntHave('movements')->get();
+
+        // dd($shippings);
+        
+        foreach ($shippings as $shipping) {
+            if ($shipping->product == '20') {
+                $items = [];
+                foreach (unserialize($shipping->processed) as $product) {
+                    // dd($product);
+                    array_push($items, [
+                        'product_id' => $product['i'],
+                        'quantity' => $product['q'],
+                        'kg' => $product['k'] ?? 0,
+                        'boxes' => $product['q'],
+                        'price' => $product['p'],
+                    ]);
+                }
+                $shipping->movements()->createMany($items);
+            } else {
+                $shipping->movements()->create([
+                    'product_id' => $shipping->product,
+                    'quantity' => $shipping->quantity,
+                    'kg' => 0,
+                    'boxes' => $shipping->quantity,
+                    'price' => $shipping->price,
+                ]);
+            }
+        }
+
+        return 'EMBARQUES MIGRADOS';
     }
 }

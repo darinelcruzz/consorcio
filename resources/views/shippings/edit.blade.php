@@ -28,8 +28,8 @@
                             !!}
                         </div>
                         <div class="col-md-6">
-                            {!! Field::select('product', [1 => 'No procesados', 20 => 'Rangos', 23 => 'Cortes'], $shipping->product >= 20 ?? 1,
-                                ['tpl' => 'templates/withicon', 'empty' => 'Escoja un producto'],
+                            {!! Field::select('product', [1 => 'No procesados', 20 => 'Rangos', 23 => 'Cortes'], $shipping->product >= 20 ? $shipping->product: 1,
+                                ['tpl' => 'templates/withicon', 'empty' => 'Escoja un producto', 'disabled' => 'true'],
                                 ['icon' => 'cutlery'])
                             !!}
                         </div>
