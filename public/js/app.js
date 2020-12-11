@@ -27507,6 +27507,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['stored', 'model'],
@@ -27516,7 +27527,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             chickens: [],
             kgs: [],
             boxesT: [],
-            amounts: []
+            amounts: [],
+            rounding: 0
         };
     },
 
@@ -27540,6 +27552,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.amounts.reduce(function (total, item) {
                 return total + item.quantity;
             }, 0);
+        },
+        amount: function amount() {
+            return this.total - this.rounding;
         }
     },
     methods: {
@@ -48703,7 +48718,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "model": _vm.model
       }
     })
-  })), _vm._v(" "), _c('tfoot', [_c('td', {
+  })), _vm._v(" "), _c('tfoot', [_c('tr', [_c('td', {
     attrs: {
       "colspan": "2"
     }
@@ -48711,7 +48726,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "text-align": "center"
     }
-  }, [_vm._v("\n                " + _vm._s(_vm.chicken) + "\n                "), _c('input', {
+  }, [_vm._v("\n                    " + _vm._s(_vm.chicken) + "\n                    "), _c('input', {
     attrs: {
       "type": "hidden",
       "name": "chickens"
@@ -48731,7 +48746,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "text-align": "center"
     }
-  }, [_vm._v("\n                " + _vm._s(_vm.kg.toFixed(2)) + "\n                "), _c('input', {
+  }, [_vm._v("\n                    " + _vm._s(_vm.kg.toFixed(2)) + "\n                    "), _c('input', {
     attrs: {
       "type": "hidden",
       "name": "kg"
@@ -48743,7 +48758,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "text-align": "center"
     }
-  }, [_vm._v("\n                " + _vm._s(_vm.boxes) + "\n                "), _c('input', {
+  }, [_vm._v("\n                    " + _vm._s(_vm.boxes) + "\n                    "), _c('input', {
     attrs: {
       "type": "hidden",
       "name": "boxes"
@@ -48755,15 +48770,48 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "text-align": "right"
     }
-  }, [_vm._v("\n                " + _vm._s(_vm.total.toFixed(2)) + "\n                "), _c('input', {
+  }, [_vm._v(_vm._s(_vm.total.toFixed(2)))])]), _vm._v(" "), _c('tr', [_c('td', {
     attrs: {
-      "type": "hidden",
-      "name": "amount"
+      "colspan": "5"
+    }
+  }), _vm._v(" "), _vm._m(2), _vm._v(" "), _c('td', [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model.number",
+      value: (_vm.rounding),
+      expression: "rounding",
+      modifiers: {
+        "number": true
+      }
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "name": "amount",
+      "type": "number",
+      "step": "0.01",
+      "min": "0"
     },
     domProps: {
-      "value": _vm.total.toFixed(2)
+      "value": (_vm.rounding)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.rounding = _vm._n($event.target.value)
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
     }
-  })])])]) : _c('div', [_c('code', [_vm._v("No se han agregado productos")])])])
+  })])]), _vm._v(" "), _c('tr', [_c('td', {
+    attrs: {
+      "colspan": "5"
+    }
+  }), _vm._v(" "), _vm._m(3), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "text-align": "right"
+    }
+  }, [_vm._v(_vm._s(_vm.amount.toFixed(2)))])])])]) : _c('div', [_c('code', [_vm._v("No se han agregado productos")])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', [_c('th', {
     staticStyle: {
@@ -48798,6 +48846,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Importe")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('th', [_c('small', [_vm._v("TOTALES")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('th', [_c('small', [_vm._v("AJUSTE")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('th', [_c('small', [_vm._v("IMPORTE TOTAL")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

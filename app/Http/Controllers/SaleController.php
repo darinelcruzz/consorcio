@@ -85,6 +85,7 @@ class SaleController extends Controller
                         'kg' => $product['k'],
                         'boxes' => $product['b'] ?? 0,
                         'price' => $product['p'],
+                        'created_at' => $sale->date
                     ]);
                 }
                 $sale->movements()->createMany($items);
@@ -96,6 +97,7 @@ class SaleController extends Controller
                     'quantity' => $sale->quantity,
                     'kg' => $sale->kg,
                     'price' => Price::find($sale->price)->price,
+                    'created_at' => $sale->date
                 ]);
             }
         }

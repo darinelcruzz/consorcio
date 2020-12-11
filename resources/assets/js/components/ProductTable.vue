@@ -16,25 +16,36 @@
                 <tr v-for="(item, index) in items" is="product-row" :item="item" :index="index" :key="item.id" :model="model"></tr>
             </tbody>
             <tfoot>
-                <td colspan="2"></td>
-                <th><small>TOTALES</small></th>
-                <td style="text-align: center;">
-                    {{ chicken }}
-                    <input type="hidden" name="chickens" :value="chicken">
-                    <input type="hidden" name="quantity" :value="chicken">
-                </td>
-                <td style="text-align: center;">
-                    {{ kg.toFixed(2) }}
-                    <input type="hidden" name="kg" :value="kg">
-                </td>
-                <td style="text-align: center;">
-                    {{ boxes }}
-                    <input type="hidden" name="boxes" :value="boxes">
-                </td>
-                <td style="text-align: right;">
-                    {{ total.toFixed(2) }}
-                    <input type="hidden" name="amount" :value="total.toFixed(2)">
-                </td>
+                <tr>
+                    <td colspan="2"></td>
+                    <th><small>TOTALES</small></th>
+                    <td style="text-align: center;">
+                        {{ chicken }}
+                        <input type="hidden" name="chickens" :value="chicken">
+                        <input type="hidden" name="quantity" :value="chicken">
+                    </td>
+                    <td style="text-align: center;">
+                        {{ kg.toFixed(2) }}
+                        <input type="hidden" name="kg" :value="kg">
+                    </td>
+                    <td style="text-align: center;">
+                        {{ boxes }}
+                        <input type="hidden" name="boxes" :value="boxes">
+                    </td>
+                    <td style="text-align: right;">{{ total.toFixed(2) }}</td>
+                </tr>
+                <tr>
+                    <td colspan="5"></td>
+                    <th><small>AJUSTE</small></th>
+                    <td>
+                        <input name="amount" type="number" step="0.01" min="0" class="form-control" v-model.number="rounding">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5"></td>
+                    <th><small>IMPORTE TOTAL</small></th>
+                    <td style="text-align: right;">{{ amount.toFixed(2) }}</td>
+                </tr>
             </tfoot>
         </table>
 
@@ -54,6 +65,7 @@ export default {
             kgs: [],
             boxesT: [],
             amounts: [],
+            rounding: 0,
         };
     },
     computed: { 
@@ -68,6 +80,9 @@ export default {
         },
         total() {
             return this.amounts.reduce((total, item) => total + item.quantity, 0)
+        },
+        amount() {
+            return this.total - this.rounding;
         },
     },
     methods: {
