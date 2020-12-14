@@ -24,15 +24,14 @@ class WelcomeController extends Controller
 
     function changeToExpired($sales)
     {
-
         foreach ($sales as $sale) {
-            if(date('Y-m-d') >= date('Y-m-d', strtotime("$sale->date + $sale->days days"))){
+            if(date('Y-m-d') >= date('Y-m-d', strtotime("$sale->date" . " $sale->days days"))){
                 $sale->update([
                     'status' => 'vencida'
                 ]);
             }
         }
-    return;
+        return;
     }
 
     function writeSeries($type)

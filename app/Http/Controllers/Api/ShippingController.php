@@ -17,7 +17,11 @@ class ShippingController extends Controller
 
     function search($keyword) 
     {
-        return Shipping::where('remission', 'LIKE', "%$keyword%")
+        return Shipping::whereHas('productr', function ($query) use ($keyword) {
+                $query->where('name', 'like', "%$keyword%")
+                    ->orWhere('name', 'like', "%$keyword%");
+            })
+            ->orWhere('remission', 'LIKE', "%$keyword%")
             ->orWhere('date', 'LIKE', "%$keyword%")
             ->orWhere('provider', 'LIKE', "%$keyword%")
             ->orderBy('id', 'DESC')
