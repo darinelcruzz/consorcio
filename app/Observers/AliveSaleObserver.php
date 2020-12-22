@@ -21,10 +21,12 @@ class AliveSaleObserver
 
     function updated(AliveSale $aliveSale)
     {
-        $aliveSale->movements()->update([
-            'price' => Price::find($aliveSale->price)->price,
-            'quantity' => $aliveSale->quantity,
-            'kg' => $aliveSale->kg,
-        ]);
+        if ($aliveSale != 'vencida') {
+            $aliveSale->movements()->update([
+                'price' => Price::find($aliveSale->price)->price,
+                'quantity' => $aliveSale->quantity,
+                'kg' => $aliveSale->kg,
+            ]);
+        }
     }
 }

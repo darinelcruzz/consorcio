@@ -66,3 +66,9 @@ function getLastSale($type)
     return $model::all()->last();
 }
 
+function getYearCount($type, $year)
+{
+    $model = getSaleModel($type);
+    return $model::whereYear('date', $year)->count();
+}
+

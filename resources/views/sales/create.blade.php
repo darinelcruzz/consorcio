@@ -6,7 +6,7 @@
 
         <div class="col-md-7">
 
-            <solid-box title="Introduzca los datos de la venta"
+            <solid-box title="Introduzca los datos de la venta {{ $yearCount}}"
                 color="box-{{ $color }}">
                 {!! Form::open(['method' => 'POST', 'route' => ['sale.store', $type]]) !!}
 
@@ -15,11 +15,22 @@
                             <client-select product="{{ $type }}"></client-select>
                         </div>
 
-                        <div class="col-md-6">
-                            {!! Field::number('folio', $lastSale ? $folio: 1,
+                        <div v-if="selected_date.substring(7) == '21' && 0 == {{ $yearCount }}" class="col-md-6">
+                            {!! Field::text('folio', 1,
                                 ['disabled' => '', 'tpl' => 'templates/withicon'],
                                 ['icon' => 'barcode'])
                             !!}
+                            <input type="hidden" name="folio" value="{{ 1 }}">
+                            <input type="hidden" name="series" value="{{ $nextSeries }}">
+                        </div>
+
+                        <div v-else class="col-md-6">
+                            {!! Field::text('folio', $lastSale ? $folio: 1,
+                                ['disabled' => '', 'tpl' => 'templates/withicon'],
+                                ['icon' => 'barcode'])
+                            !!}
+                            <input type="hidden" name="folio" value="{{ $lastSale ? $folio: 1 }}">
+                            <input type="hidden" name="series" value="{{ $series }}">
                         </div>
                     </div>
 
@@ -87,8 +98,6 @@
                         <input type="hidden" name="items[0][product_id]" value="{{ $product_id }}">
                     @endif
 
-                    <input type="hidden" name="folio" value="{{ $lastSale ? $folio: 1 }}">
-                    <input type="hidden" name="series" value="{{ $series }}">
                     <input type="hidden" name="days" value="0">
                     <input type="hidden" name="status" value="pagado">
                     

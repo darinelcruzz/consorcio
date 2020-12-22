@@ -24,9 +24,11 @@ class ProcessedSaleObserver
         $items = request('items');
         $i = 0;
 
-        foreach ($processedSale->movements as $movement) {
-            $movement->update($items[$i]);
-            $i += 1;
+        if ($items) {
+            foreach ($processedSale->movements as $movement) {
+                $movement->update($items[$i]);
+                $i += 1;
+            }
         }
     }
 }

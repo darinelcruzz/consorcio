@@ -21,10 +21,12 @@ class FreshSaleObserver
 
     function updated(FreshSale $freshSale)
     {
-        $freshSale->movements()->update([
-            'price' => Price::find($freshSale->price)->price,
-            'quantity' => $freshSale->quantity,
-            'kg' => $freshSale->kg,
-        ]);
+        if ($freshSale != 'vencida') {
+            $freshSale->movements()->update([
+                'price' => Price::find($freshSale->price)->price,
+                'quantity' => $freshSale->quantity,
+                'kg' => $freshSale->kg,
+            ]);            
+        }
     }
 }

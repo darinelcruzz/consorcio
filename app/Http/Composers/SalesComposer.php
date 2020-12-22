@@ -21,7 +21,9 @@ class SalesComposer
         $view->prices2 = Price::pluck('price', 'id')->toArray();
         $view->lastSale = $lastSale;
         $view->folio = $lastSale->folio + 1;
-        $view->series = 'C';
+        $view->series = $lastSale->series;
+        $view->nextSeries = chr(ord($lastSale->series) + 1);
+        $view->yearCount = getYearCount($type, 2021);
         $view->clients = Client::buyers($type);
 
         $view->validDates = [
