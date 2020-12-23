@@ -27518,9 +27518,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['stored', 'model'],
+    props: ['stored', 'model', 'samount'],
     data: function data() {
         return {
             items: [],
@@ -27554,7 +27557,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }, 0);
         },
         amount: function amount() {
-            return this.total - this.rounding;
+            return this.total + this.rounding;
         }
     },
     methods: {
@@ -27677,6 +27680,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -27887,6 +27892,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -48770,7 +48777,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "text-align": "right"
     }
-  }, [_vm._v(_vm._s(_vm.total.toFixed(2)))])]), _vm._v(" "), _c('tr', [_c('td', {
+  }, [_vm._v("\n                    " + _vm._s(_vm.total.toFixed(2)) + "\n                    "), _c('input', {
+    attrs: {
+      "name": "amount",
+      "type": "hidden"
+    },
+    domProps: {
+      "value": _vm.amount
+    }
+  })])]), _vm._v(" "), _c('tr', [_c('td', {
     attrs: {
       "colspan": "5"
     }
@@ -48786,10 +48801,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "form-control",
     attrs: {
-      "name": "amount",
       "type": "number",
-      "step": "0.01",
-      "min": "0"
+      "step": "0.01"
     },
     domProps: {
       "value": (_vm.rounding)
@@ -49117,7 +49130,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fa fa-search"
-  })])])])])]), _vm._v(" "), _c('br'), _vm._v(" "), _c('table', {
+  })])])])])]), _vm._v(" "), _c('br'), _vm._v(" "), _c('div', {
+    staticClass: "table-responsive"
+  }, [_c('table', {
     staticClass: "table table-striped table-bordered"
   }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.shippings), function(shipping, index) {
     return _c("shipping", {
@@ -49127,7 +49142,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "shipping": shipping
       }
     })
-  }))])])
+  }))])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', [_c('th', [_vm._v("#")]), _vm._v(" "), _c('th', [_c('i', {
     staticClass: "fa fa-cogs"
@@ -49768,7 +49783,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fa fa-angle-double-right"
-  })])])])]), _vm._v(" "), _c('br'), _vm._v(" "), _c('table', {
+  })])])])]), _vm._v(" "), _c('br'), _vm._v(" "), _c('div', {
+    staticClass: "table-responsive"
+  }, [_c('table', {
     staticClass: "table table-striped table-bordered"
   }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.sales), function(sale, index) {
     return _c("sale", {
@@ -49780,7 +49797,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "type": _vm.type
       }
     })
-  }))])])
+  }))])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', [_c('th', [_vm._v("Folio")]), _vm._v(" "), _c('th', [_c('i', {
     staticClass: "fa fa-cogs"

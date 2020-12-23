@@ -32,13 +32,16 @@
                         {{ boxes }}
                         <input type="hidden" name="boxes" :value="boxes">
                     </td>
-                    <td style="text-align: right;">{{ total.toFixed(2) }}</td>
+                    <td style="text-align: right;">
+                        {{ total.toFixed(2) }}
+                        <input name="amount" type="hidden" :value="amount">
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="5"></td>
                     <th><small>AJUSTE</small></th>
                     <td>
-                        <input name="amount" type="number" step="0.01" min="0" class="form-control" v-model.number="rounding">
+                        <input type="number" step="0.01" class="form-control" v-model.number="rounding">
                     </td>
                 </tr>
                 <tr>
@@ -57,7 +60,7 @@
 
 <script>
 export default {
-    props: ['stored', 'model'],
+    props: ['stored', 'model', 'samount'],
     data() {
         return {
             items: [],
@@ -82,7 +85,7 @@ export default {
             return this.amounts.reduce((total, item) => total + item.quantity, 0)
         },
         amount() {
-            return this.total - this.rounding;
+            return this.total + this.rounding;
         },
     },
     methods: {

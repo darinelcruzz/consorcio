@@ -30,26 +30,28 @@
             </div>
         </div>
         <br>
-        <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th><i class="fa fa-cogs"></i></th>
-                    <th>Fecha</th>
-                    <th>Remisión</th>
-                    <th>Proveedor</th>
-                    <th style="text-align: center;">Producto</th>
-                    <th style="text-align: center;">Cantidad</th>
-                    <th>Precio</th>
-                    <th>Importe</th>
-                    <th style="width: 25%">Observaciones</th>
-                </tr>
-            </thead>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th><i class="fa fa-cogs"></i></th>
+                        <th>Fecha</th>
+                        <th>Remisión</th>
+                        <th>Proveedor</th>
+                        <th style="text-align: center;">Producto</th>
+                        <th style="text-align: center;">Cantidad</th>
+                        <th>Precio</th>
+                        <th>Importe</th>
+                        <th style="width: 25%">Observaciones</th>
+                    </tr>
+                </thead>
 
-            <tbody>
-                <tr v-for="(shipping, index) in shippings" :key="index" is="shipping" :shipping="shipping"></tr>
-            </tbody>
-        </table>
+                <tbody>
+                    <tr v-for="(shipping, index) in shippings" :key="index" is="shipping" :shipping="shipping"></tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 

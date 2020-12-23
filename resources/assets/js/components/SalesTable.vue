@@ -30,27 +30,29 @@
             </div>
         </div>
         <br>
-        <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>Folio</th>
-                    <th><i class="fa fa-cogs"></i></th>
-                    <th>Fecha</th>
-                    <th>Cliente</th>
-                    <th>Cantidad</th>
-                    <th style="text-align: center;">KG</th>
-                    <th style="text-align: center;">Precio</th>
-                    <th>Importe</th>
-                    <th>Crédito</th>
-                    <th>Estado</th>
-                    <th>Observaciones</th>
-                </tr>
-            </thead>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Folio</th>
+                        <th><i class="fa fa-cogs"></i></th>
+                        <th>Fecha</th>
+                        <th>Cliente</th>
+                        <th>Cantidad</th>
+                        <th style="text-align: center;">KG</th>
+                        <th style="text-align: center;">Precio</th>
+                        <th>Importe</th>
+                        <th>Crédito</th>
+                        <th>Estado</th>
+                        <th>Observaciones</th>
+                    </tr>
+                </thead>
 
-            <tbody>
-                <tr v-for="(sale, index) in sales" :key="index" is="sale" :sale="sale" :admin="admin" :type="type"></tr>
-            </tbody>
-        </table>
+                <tbody>
+                    <tr v-for="(sale, index) in sales" :key="index" is="sale" :sale="sale" :admin="admin" :type="type"></tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 
