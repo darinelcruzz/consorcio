@@ -142,16 +142,16 @@ class Client extends Model
 
     function getRealBalanceAttribute()
     {
-        $balance = $this->alivesales->where('credit', 1)->where('status', '!=' ,'pagado')->sum(function ($sale) {
+        $balance = $this->alivesales->where('credit', 1)->where('status', 'credito')->sum(function ($sale) {
                         return $sale->amount - $sale->deposit_total;
                     }) +
-                    $this->porksales->where('credit', 1)->where('status', '!=' ,'pagado')->sum(function ($sale) {
+                    $this->porksales->where('credit', 1)->where('status', 'credito')->sum(function ($sale) {
                         return $sale->amount - $sale->deposit_total;
                     }) +
-                    $this->freshsales->where('credit', 1)->where('status', '!=' ,'pagado')->sum(function ($sale) {
+                    $this->freshsales->where('credit', 1)->where('status', 'credito')->sum(function ($sale) {
                         return $sale->amount - $sale->deposit_total;
                     }) +
-                    $this->processedsales->where('credit', 1)->where('status', '!=' ,'pagado')->sum(function ($sale) {
+                    $this->processedsales->where('credit', 1)->where('status', 'credito')->sum(function ($sale) {
                         return $sale->amount - $sale->deposit_total;
                     });
 
