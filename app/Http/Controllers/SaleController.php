@@ -68,10 +68,15 @@ class SaleController extends Controller
         return redirect(route('sale.index', $type));
     }
 
-    function migrate($type)
+    function migrate($type, $series, $month)
     {
         $model = getSaleModel($type); //dd($request->all(), $model);
-        $sales = $model::where('series', 'C')->where('status', '!=', 'cancelada')->whereDoesntHave('movements')->get();
+        $sales = $model::where('series', $series)
+            ->whereMonth('date', $month)
+            ->where('status', '!=', 'cancelada')
+            ->whereDoesntHave('movements')
+            ->get();
+
         $id = getProductID($type);
 
         if ($type == 'procesado') {
@@ -102,6 +107,6 @@ class SaleController extends Controller
             }
         }
 
-        return "TERMINADO: " . $type;
+        return "TERMINADO: " . $type . ", $month de la serie $series";
     }
 }

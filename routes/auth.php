@@ -24,7 +24,7 @@ Route::group(['prefix' => 'ventas', 'as' => 'sale.'], function () {
     Route::get('editar/{type}/{id}', usesas($ctrl, 'edit'));
     Route::post('editar/{type}/{id}', usesas($ctrl, 'update'));
     Route::post('cancelar/{type}', usesas($ctrl, 'cancel'));
-    Route::get('migrar/{type}', usesas($ctrl, 'migrate'));
+    Route::get('migrar/{type}/{series}/{month}', usesas($ctrl, 'migrate'));
     Route::get('{type}/{id}', usesas($ctrl, 'show'));
     Route::get('{type}', usesas($ctrl, 'index'));
 });
