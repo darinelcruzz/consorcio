@@ -76,7 +76,7 @@
                         @foreach ($clients as $client => $movements)
                             <tr>
                                 <td>{{ $client }}</td>
-                                <td>{{ 'ubicacion' }}</td>
+                                <td>{{ App\Client::where('name', $client)->first()->address }}</td>
                                 <td align="right">{{ $movements->sum('quantity') }}</td>
                                 <td align="right">{{ $movements->sum('kg') }}</td>
                                 <td align="right">{{ number_format($movements->sum(function ($m) {return $m->kg * $m->price;}), 2) }}</td>
