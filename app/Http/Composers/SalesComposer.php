@@ -18,6 +18,7 @@ class SalesComposer
         $view->skin = getPageColor($type);
         $view->product_id = getProductID($type);
         $view->prices = Price::pricesWithNames(getProductID($type));
+        $view->pricesAlt = Price::pluck('price', 'id')->toArray();
         $view->prices2 = Price::where('name', '!=', 'Cortes')->pricesWithNames(getProductID($type));
         $view->lastSale = $lastSale;
         $view->folio = $lastSale->folio + 1;

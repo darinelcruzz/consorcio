@@ -47,7 +47,7 @@
                                 ['icon' => 'money'])
                             !!}
 
-                            @foreach($prices2 as $id => $value)
+                            @foreach($pricesAlt as $id => $value)
                                 <input v-if="sale.price == {{ $id }}" type="hidden" name="items[0][price]" value="{{ $value }}">
                             @endforeach
                         </div>

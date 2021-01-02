@@ -19,7 +19,7 @@ class SaleController extends Controller
 
     function store(Request $request, $type)
     {
-        $model = getSaleModel($type); // dd($request->all());
+        $model = getSaleModel($type); //dd($request->all());
 
         $model::create($request->except('items'));
 
