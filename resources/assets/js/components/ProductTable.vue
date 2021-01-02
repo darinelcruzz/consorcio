@@ -6,10 +6,9 @@
                     <th style="width: 5%;"><i class="fa fa-times"></i></th>
                     <th style="width: 20%;">Producto</th>
                     <th style="width: 15%;">Precio</th>
-                    <th style="width: 15%;">Cantidad</th>
-                    <th style="width: 15%;">Kg</th>
-                    <th style="width: 15%;">Cajas</th>
-                    <th style="width: 15%;">Importe</th>
+                    <th style="width: 15%;">{{ unit }}</th>
+                    <th style="width: 15%; text-align: center;">Kg</th>
+                    <th style="width: 15%; text-align: right;">Importe</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,11 +25,7 @@
                     </td>
                     <td style="text-align: center;">
                         {{ kg.toFixed(2) }}
-                        <input type="hidden" name="kg" :value="kg">
-                    </td>
-                    <td style="text-align: center;">
-                        {{ boxes }}
-                        <input type="hidden" name="boxes" :value="boxes">
+                        <input v-if="model != 'envio'" type="hidden" name="kg" :value="kg">
                     </td>
                     <td style="text-align: right;">
                         {{ total.toFixed(2) }}
@@ -38,14 +33,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="5"></td>
+                    <td colspan="4"></td>
                     <th><small>AJUSTE</small></th>
                     <td>
                         <input type="number" step="0.01" class="form-control" v-model.number="rounding">
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="5"></td>
+                    <td colspan="4"></td>
                     <th><small>IMPORTE TOTAL</small></th>
                     <td style="text-align: right;">{{ amount.toFixed(2) }}</td>
                 </tr>
@@ -87,6 +82,9 @@ export default {
         amount() {
             return this.total + this.rounding;
         },
+        unit() {
+            return this.items[0].id < 10 ? 'Pollos': 'Cajas';
+        }
     },
     methods: {
         add(item) {
@@ -125,13 +123,14 @@ export default {
 
         if (this.stored) {
             for (var i = this.stored.length - 1; i >= 0; i--) {
-                let item = this.stored[i];
+                var item = this.stored[i];
                 this.items.push(item);
                 this.chickens.push({quantity: item.quantity});
                 this.kgs.push({quantity: item.kg});
                 this.boxesT.push({quantity: item.boxes});
                 this.amounts.push({quantity: item.quantity * item.price});
             }
+            // this.$root.$emit('set-price', item.id < 23 ? item.id: 23)
         }
     }
 };

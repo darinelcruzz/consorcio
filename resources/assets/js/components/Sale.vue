@@ -6,7 +6,7 @@
         <td>
             <dropdown icon="cogs" :color="colors[type]">
                 <ddi v-if="type == 'procesado'" icon="eye" :to="type + '/' + sale.id">Ver productos</ddi>
-                <ddi v-if="admin" icon="pencil" :to="'editar/' + type + '/' + sale.id">Editar</ddi>
+                <ddi v-if="admin == 1" icon="pencil" :to="'editar/' + type + '/' + sale.id">Editar</ddi>
             </dropdown>
         </td>
         <td>{{ sale.date }}</td>

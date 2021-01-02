@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Movement;
+use App\{Movement, Product};
 
 class MovementObserver
 {
@@ -30,6 +30,17 @@ class MovementObserver
         $new = $movement->quantity;
         $movement->product->update([
             'quantity' => $current + ($movement->movable_type == 'App\Shipping' ? $new: -$new)
+        ]);
+    }
+
+    function deleting(Movement $movement)
+    {
+        $id = $movement->getOriginal('product_id');
+        $quantity = $movement->getOriginal('quantity');
+        $model = $movement->getOriginal('movable_type');
+        $product = Product::find($id);
+        $product->update([
+            'quantity' => $product->quantity + ($model == 'App\Shipping' ? -$quantity: $quantity)
         ]);
     }
 }

@@ -15,7 +15,7 @@
                 <em><small>CERDO</small></em>
             </span>
             <span v-else :class="'badge bg-' + badgeColors[shipping.product]">
-                <em><small>{{ shipping.productr.name.toUpperCase() }}</small></em>
+                <em><small>{{ shipping.product >= 20 ? 'PROCESADO' : shipping.productr.name.toUpperCase() }}</small></em>
             </span>
         </td>
         <td style="text-align: center;">{{ shipping.quantity }}</td>
@@ -30,7 +30,7 @@
 		props: ['shipping'],
 		data() {
 			return {
-                badgeColors: {'20': 'green', '3': 'blue', '1': 'fuchsia', '18': 'purple'},
+                badgeColors: {'20': 'green', '3': 'blue', '1': 'fuchsia', '18': 'purple', '23': 'green'},
 			}
 		},
         computed: {

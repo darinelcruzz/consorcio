@@ -37,7 +37,7 @@
                         <th>#</th>
                         <th><i class="fa fa-cogs"></i></th>
                         <th>Fecha</th>
-                        <th>Remisión</th>
+                        <th>Remisión/Factura</th>
                         <th>Proveedor</th>
                         <th style="text-align: center;">Producto</th>
                         <th style="text-align: center;">Cantidad</th>

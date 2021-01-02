@@ -30,12 +30,21 @@
                                 ['icon' => 'calendar'])
                             !!}
                         </div>
-                        <div class="col-md-6">
-                            {!! Field::select('price', $prices->toArray(), $sale->price,
-                                ['tpl' => 'templates/withicon','empty' => 'Seleccione un precio', 'v-on:change' => 'onChange($event)'],
-                                ['icon' => 'money'])
-                            !!}
-                        </div>
+                        @if($sale->price >= 10)
+                            <div class="col-md-6">
+                                {!! Field::select('price', $prices->toArray(), $sale->price,
+                                    ['tpl' => 'templates/withicon','empty' => 'Seleccione un precio', 'disabled'],
+                                    ['icon' => 'money'])
+                                !!}
+                            </div>
+                        @else
+                            <div class="col-md-6">
+                                {!! Field::select('price', $prices->toArray(), $sale->price,
+                                    ['tpl' => 'templates/withicon','empty' => 'Seleccione un precio'],
+                                    ['icon' => 'money'])
+                                !!}
+                            </div>
+                        @endif
                     </div>
 
                      @if ($type != 'procesado')
@@ -106,6 +115,14 @@
             </solid-box>
 
         </div>
+
+        @if($type == 'procesado')
+            <div class="col-md-5">
+                <solid-box color="box-{{ $color }}" title="Rangos o cortes">
+                    <chicken-cuts type="{{ $sale->price }}"></chicken-cuts>
+                </solid-box>
+            </div>
+        @endif
 
     </div>
 @endsection

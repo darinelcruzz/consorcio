@@ -11,19 +11,33 @@
                         <tr>
                             <th>Producto</th>
                             <th>Precio</th>
-                            <th>Cajas</th>
+                            <th>Pollos/Cajas</th>
+                            <th>Kg</th>
+                            <th>Importe</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        @foreach (unserialize($shipping->processed) as $product)
+                        @foreach ($shipping->movements as $movement)
                             <tr>
-                                <td>{{ App\Product::find($product['i'])->name }}</td>
-                                <td>{{ '$ ' . number_format($product['p'], 2) }}</td>
-                                <td>{{ $product['q'] }}</td>
+                                <td>{{ $movement->product->name }}</td>
+                                <td>{{ number_format($movement->price, 2) }}</td>
+                                <td>{{ $movement->quantity }}</td>
+                                <td>{{ $movement->kg }}</td>
+                                <td style="text-align: right;">{{ number_format($movement->price * $movement->kg, 2) }}</td>
                             </tr>
                         @endforeach
                     </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th>Totales</th>
+                            <th>{{ $shipping->movements->sum('quantity') }}</th>
+                            <th>{{ $shipping->movements->sum('kg') }}</th>
+                            <th style="text-align: right;">{{ number_format($shipping->movements->sum(function ($m) { return $m->price * $m->kg;}), 2) }}</th>
+                        </tr>
+                    </tfoot>
                 </table>
 
             </solid-box>

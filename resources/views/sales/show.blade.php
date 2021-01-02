@@ -32,11 +32,10 @@
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th>Corte/Rango</th>
+                            <th>Producto</th>
                             <th>Precio</th>
-                            <th>Cantidad</th>
+                            <th>{{ $sale->price < 23 ? 'Pollos': 'Cajas' }}</th>
                             <th>Kg</th>
-                            <th>Cajas</th>
                             <th>Importe</th>
                         </tr>
                     </thead>
@@ -48,7 +47,6 @@
                                 <td style="text-align: center;">{{ number_format($movement->price, 2) }}</td>
                                 <td style="text-align: center;">{{ $movement->quantity }}</td>
                                 <td style="text-align: center;">{{ $movement->kg }}</td>
-                                <td style="text-align: center;">{{ $movement->boxes }}</td>
                                 <td style="text-align: center;">{{ number_format($movement->price * $movement->kg, 2) }}</td>
                             </tr>
                         @endforeach
@@ -60,7 +58,6 @@
                             <th><small>TOTAL</small></th>
                             <th style="text-align: center;">{{ $sale->movements->sum('quantity') }}</th>
                             <th style="text-align: center;">{{ $sale->movements->sum('kg') }}</th>
-                            <th style="text-align: center;">{{ $sale->movements->sum('boxes') }}</th>
                             <th style="text-align: center;">{{ number_format($sale->amount, 2) }}</th>
                         </tr>
                     </tfoot>

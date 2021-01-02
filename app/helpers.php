@@ -55,7 +55,17 @@ function getProductID($type)
 
 function getSaleModel($type)
 {
-    $model = ['fresco' => 'FreshSale', 'vivo' => 'AliveSale', 'cerdo' => 'PorkSale', 'procesado' => 'ProcessedSale'][$type] ?? 'AliveSale';
+    $model = [
+        'fresco' => 'FreshSale',
+        'fresh' => 'FreshSale',
+        'vivo' => 'AliveSale',
+        'alive' => 'AliveSale',
+        'cerdo' => 'PorkSale',
+        'pork' => 'PorkSale',
+        'procesado' => 'ProcessedSale',
+        'processed' => 'ProcessedSale'
+    ][$type] ?? 'AliveSale';
+
     $namespacedModel = '\\App\\' . $model;
     return $namespacedModel;
 }

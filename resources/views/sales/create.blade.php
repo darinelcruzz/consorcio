@@ -15,7 +15,7 @@
                             <client-select product="{{ $type }}"></client-select>
                         </div>
 
-                        <div v-if="selected_date.substring(7) == '21' && 0 == {{ $yearCount }}" class="col-md-6">
+                        <div v-if="selected_date.substring(2, 4) == '21' && 0 == {{ $yearCount }}" class="col-md-6">
                             {!! Field::text('folio', 1,
                                 ['disabled' => '', 'tpl' => 'templates/withicon'],
                                 ['icon' => 'barcode'])

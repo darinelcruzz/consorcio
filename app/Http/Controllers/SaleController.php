@@ -49,6 +49,10 @@ class SaleController extends Controller
             'credit' => request('days') == '0' ? 0: 1,
         ]);
 
+        if ($type == 'procesado') {
+            return redirect(route('sale.show', [$type, $id]));
+        }
+
         return redirect(route('sale.index', $type));
     }
 

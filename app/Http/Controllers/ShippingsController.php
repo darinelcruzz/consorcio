@@ -25,6 +25,7 @@ class ShippingsController extends Controller
 
     function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'items' => 'required|array|min:1',
         ]);
@@ -33,10 +34,12 @@ class ShippingsController extends Controller
             'remission' => 'required',
             'date' => 'required',
             'provider' => 'required',
-            'product' => 'required',
             'observations' => 'required',
-            'quantity' => 'required',
             'amount' => 'required',
+            'quantity' => 'sometimes|required',
+            'kg' => 'sometimes|required',
+            'product' => 'sometimes|required',
+            'price' => 'sometimes|required',
         ]);
 
         $shipping = Shipping::create($attributes);
@@ -51,6 +54,7 @@ class ShippingsController extends Controller
 
     function update(Request $request, Shipping $shipping)
     {
+        // dd($request->all());
         $request->validate([
             'items' => 'required|array|min:1',
         ]);
@@ -60,11 +64,17 @@ class ShippingsController extends Controller
             'date' => 'required',
             'provider' => 'required',
             'observations' => 'required',
-            'quantity' => 'required',
             'amount' => 'required',
+            'quantity' => 'sometimes|required',
+            'kg' => 'sometimes|required',
+            'product' => 'sometimes|required',
+            'price' => 'sometimes|required',
         ]);
 
-        $shipping->update($attributes);
+        $shipping->update([
+            'quantity' => $shipping->product < 20 ? $request->items[0]['quantity']: $request->quantity,
+            'price' => $request->items[0]['price'],
+        ] + $attributes);
 
         return redirect('embarques');
     }

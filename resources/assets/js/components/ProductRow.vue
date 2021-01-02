@@ -18,9 +18,9 @@
         <td>
             <input :name="'items[' + index + '][kg]'" type="number" step="0.01" min="0.01" class="form-control" v-model.number="kg">
         </td>
-        <td>
+        <!-- <td>
             <input :name="'items[' + index + '][boxes]'" type="number" step="1" min="1" class="form-control" v-model.number="boxes">
-        </td>
+        </td> -->
         <td style="text-align: right;">
             {{ total.toFixed(2) }}
         </td>
@@ -74,7 +74,7 @@ export default {
             this.kg = this.item.kg;
         }
 
-        this.price = this.item.price;
+        this.price = this.model == 'envio' ? 0: this.item.price;
     }
 };
 </script>

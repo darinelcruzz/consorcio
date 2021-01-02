@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -63,8 +62,11 @@ const app = new Vue({
             let price = Number(event.target.value);
             if (price != 23) {
                 console.log(price + 32);
-                this.$root.$emit('update-price', price + 32)
+                this.$root.$emit('update-price', price)
             }
         }
+    },
+    created() {
+        this.$root.$on('set-price', (price) => this.sale.price = price)
     }
 });

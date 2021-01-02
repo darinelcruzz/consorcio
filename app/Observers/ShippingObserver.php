@@ -11,9 +11,10 @@ class ShippingObserver
         $shipping->movements()->createMany(request('items'));
         $movement = $shipping->movements->first();
 
-        if ($shipping->product < 20) {
+        if ($shipping->product == null) {
             $shipping->update([
                 'product' => $movement->product->id,
+                'quantity' => $movement->quantity,
                 'price' => $movement->price,
             ]);
         }
@@ -26,11 +27,13 @@ class ShippingObserver
     function updated(Shipping $shipping)
     {
         $items = request('items');
-        $i = 0;
 
-        foreach ($shipping->movements as $movement) {
-            $movement->update($items[$i]);
-            $i += 1;
+        if ($items) {
+            foreach ($shipping->movements as $movement) {
+                $movement->delete();
+            }
+
+            $shipping->movements()->createMany($items);
         }
     }
 }

@@ -30,17 +30,18 @@ export default {
     data() {
         return {
             items: [],
+            price: 0
         };
     },
     watch: {
         type(newVal, oldVal) {
             this.fetch();
-            if (newVal == 23 || newVal <= 12 && oldVal == 23) {
-                this.$root.$emit('reset');
-            } else {
-                console.log(newVal, newVal + 32)
-                this.$root.$emit('update-price', newVal + 32);
-            }
+            this.$root.$emit('reset');
+            // if (newVal == 23 || newVal <= 12 && oldVal == 23) {
+            //     this.$root.$emit('reset');
+            // } else {
+            //     this.$root.$emit('update-price', this.price);
+            // }
         }
     },
     methods: {
@@ -52,12 +53,14 @@ export default {
         fetch() {
             axios.get('/api/prices/' + this.type).then(response => {
                 this.items = response.data
+                this.price = this.items[0].price
             });
         }
     },
     created() {
         this.fetch();
         this.$root.$on('enable', (index) => this.items[index].enable = true)
+        // this.$root.$on('disable', (index) => this.items[index].enable = false)
     }
 };
 </script>
