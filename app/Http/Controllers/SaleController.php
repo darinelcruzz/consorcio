@@ -91,7 +91,7 @@ class SaleController extends Controller
                     array_push($items, [
                         'product_id' => $product['i'],
                         'quantity' => $product['q'],
-                        'kg' => $product['k'],
+                        'kg' => $product['k'] ?? 0,
                         'boxes' => $product['b'] ?? 0,
                         'price' => $product['p'],
                         'created_at' => $sale->date
