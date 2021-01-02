@@ -190,6 +190,8 @@ return [
         'fresh'                 => 'fresco',
         'pork'                  => 'cerdo',
         'processed'             => 'procesado',
+        'start'             => 'inicio',
+        'end'             => 'final',
     ],
 
 ];

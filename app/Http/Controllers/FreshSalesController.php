@@ -13,7 +13,7 @@ class FreshSalesController extends Controller
 
     function __construct()
     {
-        $this->data = ['type' => 'fresh', 'color' => 'warning', 'skin' => 'yellow', 'tipo' => 'fresco'];
+        $this->data = ['type' => 'fresh', 'color' => 'warning', 'skin' => 'yellow', 'tipo' => 'fresco', 'product_id' => 2];
         $this->moreData = array_merge($this->data, [
             'clients' => Client::buyers('fresco'),
             'prices' => Price::pricesWithNames(2)
@@ -36,11 +36,12 @@ class FreshSalesController extends Controller
 
     function store(StorePAFSale $request)
     {
+        // dd($request->all());
         $lastSale = FreshSale::all()->last();
         $lastFolio = $lastSale->folio + 1;
         
         $sale = FreshSale::create($request->all());
-        $this->updateInventory($request->quantity);
+        $this->updateInventory($request->items[0]['quantity']);
         $days = $request->credit * 8;
 
 

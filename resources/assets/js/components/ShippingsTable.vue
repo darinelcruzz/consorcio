@@ -1,16 +1,6 @@
 <template>
-	<div id="sales_table">
+	<div id="shippings_table">
         <div class="row">
-            <div class="col-md-2 pull-right">
-                <div class="input-group input-group-sm">
-                    <input type="text" v-model="keyword" class="form-control">
-                    <span class="input-group-btn">
-                      <button type="button" :class="'btn btn-' + color + ' btn-flat'">
-                          <i class="fa fa-search"></i>
-                      </button>
-                    </span>
-                </div>
-            </div>
             <div class="col-md-4">
                 <div class="btn-group">
                     <button @click="fetch(pagination.first_page_url)" :disabled="!pagination.first_page_url" :class="btnClass">
@@ -28,28 +18,37 @@
                     </button>
                 </div>
             </div>
+            <div class="col-md-4 pull-right">
+                <div class="input-group input-group-sm">
+                    <input type="text" v-model="keyword" class="form-control">
+                    <span class="input-group-btn">
+                      <button type="button" :class="'btn btn-warning btn-flat'">
+                          <i class="fa fa-search"></i>
+                      </button>
+                    </span>
+                </div>
+            </div>
         </div>
         <br>
         <div class="table-responsive">
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th>Folio</th>
+                        <th>#</th>
                         <th><i class="fa fa-cogs"></i></th>
                         <th>Fecha</th>
-                        <th>Cliente</th>
-                        <th>Cantidad</th>
-                        <th style="text-align: center;">KG</th>
-                        <th style="text-align: center;">Precio</th>
+                        <th>Remisión/Factura</th>
+                        <th>Proveedor</th>
+                        <th style="text-align: center;">Producto</th>
+                        <th style="text-align: center;">Cantidad</th>
+                        <th>Precio</th>
                         <th>Importe</th>
-                        <th>Crédito</th>
-                        <th>Estado</th>
-                        <th>Observaciones</th>
+                        <th style="width: 25%">Observaciones</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr v-for="(sale, index) in sales" :key="index" is="sale" :sale="sale" :admin="admin" :type="type"></tr>
+                    <tr v-for="(shipping, index) in shippings" :key="index" is="shipping" :shipping="shipping"></tr>
                 </tbody>
             </table>
         </div>
@@ -58,22 +57,18 @@
 
 <script>
 	export default {
-		props: ['type', 'admin', 'color'],
 		data() {
 			return {
-                sales: [],
+                shippings: [],
 				pagination: {},
                 keyword: '',
-                types: {'vivo': 'alive', 'fresco': 'fresh', 'cerdo': 'pork', 'procesado': 'processed'},
+                btnClass: 'btn btn-warning btn-sm',
 			}
 		},
         computed: {
             pageUrl() {
-                return '/api/sales/' + this.types[this.type] + '/' + this.keyword;
+                return '/api/shippings/' + this.keyword;
             },
-            btnClass() {
-                return 'btn btn-' + this.color + ' btn-sm';
-            }
         },
         watch: {
             keyword(value) {
@@ -85,7 +80,7 @@
                 page_url = page_url || this.pageUrl;
                 console.log(page_url);
                 axios.get(page_url).then((response) => {
-                    this.sales = response.data.data.map((product) => product)
+                    this.shippings = response.data.data.map((results) => results)
 
                     this.pagination = {
                         current_page: response.data.current_page,

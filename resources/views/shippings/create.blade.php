@@ -5,18 +5,18 @@
     {!! Form::open(['method' => 'POST', 'route' => 'shipping.store']) !!}
     <div class="row">
 
-        <div class="col-md-6">
+        <div class="col-md-8">
 
             <solid-box title="Introduzca los datos del embarque"
                 color="box-warning">
                     <div class="row">
                         <div class="col-md-6">
-                            {!! Field::text('remission', ['tpl' => 'templates/withicon', 'maxlength' => '10'],
+                            {!! Field::text('remission', ['label' => 'Remisión/Factura', 'tpl' => 'templates/withicon', 'maxlength' => '10', 'ph' => 'ejemplo: 9081726354'],
                                 ['icon' => 'barcode']) !!}
                         </div>
 
                         <div class="col-md-6">
-                            {!! Field::date('date', $today,['tpl' => 'templates/withicon'], ['icon' => 'calendar']) !!}
+                            {!! Field::date('date', date('Y-m-d'), ['tpl' => 'templates/withicon'], ['icon' => 'calendar']) !!}
                         </div>
                     </div>
 
@@ -28,31 +28,45 @@
                             !!}
                         </div>
                         <div class="col-md-6">
-                            {!! Field::select('product', $products->toArray(), null,
-                                ['tpl' => 'templates/withicon', 'empty' => 'Escoja un producto', 'v-model' => 'shipp'],
+                            {!! Field::select('items[0][product_id]', 
+                                [1 => 'Cerdo', 3 => 'Pollo vivo', 18 => 'Alimento cerdo', 19 => 'Alimento pollo', 20 => 'Rangos', 23 => 'Cortes'], null,
+                                ['label' => 'Producto', 'tpl' => 'templates/withicon', 'empty' => 'Escoja un producto', 'v-model.number' => 'shipp'],
                                 ['icon' => 'cutlery'])
                             !!}
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div v-if="shipp < 20 && shipp != ''" class="row">
                         <div class="col-md-6">
-                            {!! Field::number('quantity', ['tpl' => 'templates/withicon', 'min' => '0', 'step' => '0.01'],
-                                ['icon' => 'list-ol']) !!}
+                            {!! Field::number('items[0][quantity]', 1,
+                                [ 'label' => 'Cantidad', 'tpl' => 'templates/withicon', 'step' => '1', 'min' => '1'],
+                                ['icon' => 'list-ol'])
+                            !!}
+                        </div>
+                        <div class="col-md-6">
+                            {!! Field::number('items[0][kg]', 1,
+                                ['label' => 'Kilogramos', 'tpl' => 'templates/withicon', 'step' => '0.01', 'min' => '0.01'],
+                                ['icon' => 'balance-scale'])
+                            !!}
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div v-if="shipp < 20 && shipp != ''" class="row">
                         <div class="col-md-6">
-                            {!! Field::number('price', ['tpl' => 'templates/withicon', 'min' => '0', 'step' => '0.01'],
-                                ['icon' => 'money']) !!}
+                            {!! Field::number('items[0][price]', 0,
+                                ['label' => 'Precio', 'tpl' => 'templates/withicon', 'step' => '0.01', 'min' => '0.01'],
+                                ['icon' => 'usd'])
+                            !!}
                         </div>
-
                         <div class="col-md-6">
-                            {!! Field::number('amount', ['tpl' => 'templates/withicon', 'min' => '0', 'step' => '0.01'],
-                                ['icon' => 'usd']) !!}
+                            {!! Field::number('amount', 0,
+                                ['tpl' => 'templates/withicon', 'step' => '0.01', 'min' => '0.01'],
+                                ['icon' => 'money'])
+                            !!}
                         </div>
                     </div>
+
+                    <input v-if="shipp >= 20" type="hidden" name="product" :value="shipp">
 
                     <div class="row">
                         <div class="col-md-12">
@@ -60,77 +74,25 @@
                         </div>
                     </div>
 
-                    <template v-if="shipp != 20">
-                        {!! Form::submit('Agregar', ['class' => 'btn btn-warning pull-right']) !!}
-                    </template>
+                    <product-table v-if="shipp >= 20" model="envio"></product-table>
+                    @foreach($errors->get('items') as $message)
+                        <h5><code><em>NO AGREGASTE NINGÚN PRODUCTO</em></code></h5>
+                    @endforeach
+
+                    {!! Form::submit('Agregar', ['class' => 'btn btn-warning pull-right']) !!}
+                
+                {!! Form::close() !!}
 
             </solid-box>
 
         </div>
 
-        <div v-if="shipp == 20" class="col-md-6">
-            <solid-box title="Procesado" color="box-warning">
-                <table id="example6" class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>Producto</th>
-                            <th>Cajas</th>
-                            <th>Precio</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($ranges->slice(6) as $product)
-                            <tr>
-                                <td>
-                                    <input type="hidden" name="pproducts[]" value="{{ $product->id }}">
-                                    {{ $product->name}}
-                                </td>
-                                <td>
-                                    {!! Field::number('quantities[]', 0, ['tpl' => 'templates/nolabel', 'min' => '0', 'step' => '0.01']) !!}
-                                </td>
-                                <td>
-                                    {!! Field::number('prices[]', 0, ['tpl' => 'templates/nolabel', 'min' => '0', 'step' => '0.01']) !!}
-                                </td>
-                            </tr>
-                        @endforeach
-
-                        @foreach ($ranges->slice(0, 6) as $product)
-                            <tr>
-                                <td>
-                                    <input type="hidden" name="pproducts[]" value="{{ $product->id }}">
-                                    {{ $product->name}}
-                                </td>
-                                <td>
-                                    {!! Field::number('quantities[]', 0, ['tpl' => 'templates/nolabel', 'min' => '0', 'step' => '0.01']) !!}
-                                </td>
-                                <td>
-                                    {!! Field::number('prices[]', 0, ['tpl' => 'templates/nolabel', 'min' => '0', 'step' => '0.01']) !!}
-                                </td>
-                            </tr>
-                        @endforeach
-
-                        @foreach ($cuts as $product)
-                            <tr>
-                                <td>
-                                    <input type="hidden" name="pproducts[]" value="{{ $product->id }}">
-                                    {{ $product->name}}
-                                </td>
-                                <td>
-                                    {!! Field::number('quantities[]', 0, ['tpl' => 'templates/nolabel', 'min' => '0', 'step' => '0.01']) !!}
-                                </td>
-                                <td>
-                                    {!! Field::number('prices[]', 0, ['tpl' => 'templates/nolabel', 'min' => '0', 'step' => '0.01']) !!}
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-
-                {!! Form::submit('Agregar', ['class' => 'btn btn-warning pull-right']) !!}
+        <div class="col-md-4" v-if="shipp >= 20">
+            <solid-box color="box-warning" title="Productos">
+                <chicken-cuts :type="shipp"></chicken-cuts>
             </solid-box>
         </div>
 
     </div>
-    {!! Form::close() !!}
 
 @endsection

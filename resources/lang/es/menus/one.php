@@ -7,19 +7,19 @@ return [
         'submenu' => [
             'alive' => [
                 'title' => 'Vivo',
-                'route' => 'alive.index'
+                'route' => ['sale.index', 'vivo']
             ],
             'fresh' => [
                 'title' => 'Fresco',
-                'route' => 'fresh.index'
+                'route' => ['sale.index', 'fresco']//'fresh.index'
             ],
             'pork' => [
                 'title' => 'Cerdo',
-                'route' => 'pork.index'
+                'route' => ['sale.index', 'cerdo']//'pork.index'
             ],
             'processed' => [
                 'title' => 'Procesado',
-                'route' => 'processed.index'
+                'route' => ['sale.index', 'procesado']//'processed.index'
             ],
         ]
     ],
@@ -27,16 +27,7 @@ return [
     'shippings' => [
         'title' => 'Embarques',
         'icon' => 'fa fa-truck',
-        'submenu' => [
-            'list' => [
-                'title' => 'Historial',
-                'route' => 'shipping.index'
-            ],
-            'add' => [
-                'title' => 'Agregar',
-                'route' => 'shipping.create'
-            ],
-        ]
+        'route' => 'shipping.index'
     ],
 
     'clients' => [

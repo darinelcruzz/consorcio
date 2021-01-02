@@ -7,42 +7,26 @@ use Jenssegers\Date\Date;
 
 class Shipping extends Model
 {
-    protected $fillable = [
-        'remission', 'date', 'provider', 'product', 'processed',
-        'quantity', 'price', 'amount', 'observations'
-    ];
+    protected $guarded = [];
 
     function productr()
     {
         return $this->belongsTo(Product::class, 'product');
     }
 
-    function getProviderNameAttribute()
+    function movements()
     {
-        return ucfirst($this->provider == '1' ? 'buenaventura': $this->provider);
+        return $this->morphMany(Movement::class, 'movable');
     }
 
-    function getShortDateAttribute()
+    function getProductsAttribute()
     {
-        $fdate = new Date(strtotime($this->date));
-        return $fdate->format('D, j/M/Y');
-    }
+        $items = [];
 
-    function getBadgeColorAttribute()
-    {
-        $colors = ['20' => 'green', '3' => 'blue', '1' => 'fuchsia', '18' => 'fuchsia', '19' => 'purple'];
-
-        return $colors[$this->product] ?? 'default';
-    }
-
-    function getBoxesAttribute()
-    {
-        $boxes = 0;
-
-        foreach (unserialize($this->processed) as $product) {
-            $boxes += $product['q'];
+        foreach ($this->movements as $m) {
+            array_push($items, ['id' => $m->product_id, 'name' => $m->product->name, 'price' => $m->price, 'quantity' => $m->quantity, 'boxes' => $m->boxes, 'kg' => $m->kg]);
         }
 
-        return $boxes;
+        return $items;
     }
 }

@@ -8,23 +8,20 @@
             {!! Form::open(['method' => 'POST', 'route' => 'report.client']) !!}
                 <div class="row">
                     <div class="col-md-6">
-                        {!! Field::date('startDate', $date) !!}
+                        {!! Field::date('start', $date, ['tpl' => 'templates/withicon'], ['icon' => 'calendar']) !!}
                     </div>
                     <div class="col-md-6">
-                        {!! Field::date('endDate', $date) !!}
+                        {!! Field::date('end', $date, ['tpl' => 'templates/withicon'], ['icon' => 'calendar-o']) !!}
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        {!! Field::select('client_id', $clients->toArray(), null,
-                            ['tpl' => 'templates/withicon', 'empty' => 'Seleccione un cliente'],
-                            ['icon' => 'user'])
-                        !!}
-                    </div>
-                </div>
-                <div class="box-footer">
-                    {!! Form::submit('Generar', ['class' => 'btn btn-success btn-block']) !!}
-                </div>
+
+                {!! Field::select('client_id', $clients->toArray(), null,
+                    ['tpl' => 'templates/withicon', 'empty' => 'Seleccione un cliente'],
+                    ['icon' => 'user'])
+                !!}
+
+                {!! Form::submit('Generar', ['class' => 'btn btn-success btn-block']) !!}
+
             {!! Form::close() !!}
         </solid-box>
 
@@ -54,10 +51,10 @@
             {!! Form::open(['method' => 'POST', 'route' => 'report.sales']) !!}
             <div class="row">
                 <div class="col-md-6">
-                    {!! Field::date('startDate', $date) !!}
+                    {!! Field::date('start', $date) !!}
                 </div>
                 <div class="col-md-6">
-                    {!! Field::date('endDate', $date) !!}
+                    {!! Field::date('end', $date) !!}
                 </div>
             </div>
             <div class="box-footer">
@@ -71,10 +68,10 @@
                 {!! Form::open(['method' => 'POST', 'route' => 'report.product']) !!}
                     <div class="row">
                         <div class="col-md-6">
-                            {!! Field::date('startDate', $date) !!}
+                            {!! Field::date('start', $date) !!}
                         </div>
                         <div class="col-md-6">
-                            {!! Field::date('endDate', $date) !!}
+                            {!! Field::date('end', $date) !!}
                         </div>
                     </div>
                     <div class="row">
@@ -95,10 +92,10 @@
                 {!! Form::open(['method' => 'POST', 'route' => 'report.shippings']) !!}
                     <div class="row">
                         <div class="col-md-6">
-                            {!! Field::date('startDate', $date) !!}
+                            {!! Field::date('start', $date) !!}
                         </div>
                         <div class="col-md-6">
-                            {!! Field::date('endDate', $date) !!}
+                            {!! Field::date('end', $date) !!}
                         </div>
                     </div>
                     <div class="box-footer">

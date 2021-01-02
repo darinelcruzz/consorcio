@@ -1,6 +1,6 @@
 <template>
-	<div class="row">
-        <div v-if="client.credit"  class="col-md-6">
+	<div id="client_credit">
+        <div v-if="client.credit">
             <div class="form-group">
 	          	<label for="client_id" class="control-label">
 			        <b>Crédito</b>

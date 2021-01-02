@@ -126,9 +126,5 @@
         </div>
 
     </section>
-
-    {{-- @section('scripts')
-        @include('adminlte::layouts.partials.scripts')
-    @show --}}
 </body>
 </html>

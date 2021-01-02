@@ -10,9 +10,7 @@ class ShippingsController extends Controller
 {
     function index()
     {
-        $shippings = Shipping::all();
-
-        return view('shippings.index', compact('shippings'));
+        return view('shippings.index');
     }
 
     function show(Shipping $shipping)
@@ -22,131 +20,96 @@ class ShippingsController extends Controller
 
     function create()
     {
-        $today = Date::now();
-
-        $products = Product::where([
-            ['processed', '!=', 1],
-            ['name', '!=', 'Pollo fresco']
-        ])->pluck('name', 'id');
-
-        $ranges = Product::where('processed', 1)->where('price', 1)->get();
-        $cuts = Product::where('processed', 1)->where('price', 0)->get();
-
-        return view('shippings.create', compact('today', 'products', 'ranges', 'cuts'));
+        return view('shippings.create');
     }
 
     function store(Request $request)
     {
-        $this->validate($request, [
+        // dd($request->all());
+        $request->validate([
+            'items' => 'required|array|min:1',
+        ]);
+
+        $attributes = $request->validate([
             'remission' => 'required',
             'date' => 'required',
             'provider' => 'required',
-            'product' => 'required',
-            'quantity' => 'required',
-            'price' => 'required',
+            'observations' => 'required',
             'amount' => 'required',
-            'pproducts' => 'sometimes|required'
+            'quantity' => 'sometimes|required',
+            'kg' => 'sometimes|required',
+            'product' => 'sometimes|required',
+            'price' => 'sometimes|required',
         ]);
 
-        $shipping = Shipping::create($request->all());
-
-        if ($request->product != 20) {
-            $product = Product::find($request->product);
-
-            $product->update([
-                'quantity' => $product->quantity + $request->quantity
-            ]);
-        } else {
-            $products = [];
-
-            for ($i = 0; $i < count($request->quantities); $i++) {
-                $product = [];
-                if($request->quantities[$i] > 0) {
-                    $product['i'] =  $request->pproducts[$i];
-                    $product['p'] =  $request->prices[$i];
-                    $product['q'] =  $request->quantities[$i];
-                    array_push($products, $product);
-
-                    $pproduct = Product::find($request->pproducts[$i]);
-                    $pproduct->update([
-                        'quantity' => $pproduct->quantity + $request->quantities[$i]
-                    ]);
-                }
-            }
-
-            $shipping->update([
-                'processed' => serialize($products)
-            ]);
-        }
+        $shipping = Shipping::create($attributes);
 
         return redirect('embarques');
     }
 
     function edit(Shipping $shipping)
     {
-        $products = Product::where([
-            ['processed', '!=', 1],
-            ['name', '!=', 'Pollo fresco']
-        ])->pluck('name', 'id');
-
-        return view('shippings.edit', compact('products', 'shipping'));
+        return view('shippings.edit', compact('shipping'));
     }
 
     function update(Request $request, Shipping $shipping)
     {
-        $this->validate($request, [
+        // dd($request->all());
+        $request->validate([
+            'items' => 'required|array|min:1',
+        ]);
+
+        $attributes = $request->validate([
             'remission' => 'required',
             'date' => 'required',
             'provider' => 'required',
-            'product' => 'required',
-            'quantity' => 'required',
-            'price' => 'required',
+            'observations' => 'required',
             'amount' => 'required',
-            'pproducts' => 'sometimes|required'
+            'quantity' => 'sometimes|required',
+            'kg' => 'sometimes|required',
+            'product' => 'sometimes|required',
+            'price' => 'sometimes|required',
         ]);
 
-        if ($request->product != 20) {
-
-            $product = Product::find($request->product);
-
-            $product->update(['quantity' => $product->quantity - $shipping->quantity + $request->quantity]);
-
-            $shipping->update($request->all());
-
-        } else {
-            $products = [];
-            $processed = unserialize($shipping->processed);
-
-            for ($i = 0; $i < count($processed); $i++) {
-                $item = [];
-                if($request->quantities[$i] > 0) {
-                    $item['i'] =  $request->pproducts[$i];
-                    $item['p'] =  $request->prices[$i];
-                    $item['q'] =  $request->quantities[$i];
-                    array_push($products, $item);
-
-                    $product = Product::find(intval($request->pproducts[$i]));
-                    // dd($product->quantity, $processed[$i]['q'], $request->quantities[$i]);
-                    $product->update([
-                        'quantity' => ($product->quantity - $processed[$i]['q'] + $request->quantities[$i])
-                    ]);
-                }
-            }
-
-            $shipping->update($request->all());
-
-            $shipping->update([
-                'processed' => serialize($products)
-            ]);
-        }
+        $shipping->update([
+            'quantity' => $shipping->product < 20 ? $request->items[0]['quantity']: $request->quantity,
+            'price' => $request->items[0]['price'],
+        ] + $attributes);
 
         return redirect('embarques');
     }
 
-    function updateInventory($product, $oldQuantity, $newQuantity)
+    function migrate()
     {
-        $quantity = $product->quantity + $oldQuantity - $newQuantity;
+        $shippings = Shipping::whereDoesntHave('movements')->get();
 
-        $product->update(['quantity' => $quantity]);
+        // dd($shippings);
+        
+        foreach ($shippings as $shipping) {
+            if ($shipping->product == '20') {
+                $items = [];
+                foreach (unserialize($shipping->processed) as $product) {
+                    // dd($product);
+                    array_push($items, [
+                        'product_id' => $product['i'],
+                        'quantity' => $product['q'],
+                        'kg' => $product['k'] ?? 0,
+                        'boxes' => $product['q'],
+                        'price' => $product['p'],
+                    ]);
+                }
+                $shipping->movements()->createMany($items);
+            } else {
+                $shipping->movements()->create([
+                    'product_id' => $shipping->product,
+                    'quantity' => $shipping->quantity,
+                    'kg' => 0,
+                    'boxes' => $shipping->quantity,
+                    'price' => $shipping->price,
+                ]);
+            }
+        }
+
+        return 'EMBARQUES MIGRADOS';
     }
 }

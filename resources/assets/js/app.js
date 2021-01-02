@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -34,12 +33,15 @@ Vue.component('client-credit', require('./components/ClientCredit.vue'));
 Vue.component('select2', require('./components/SelectTwo.vue'));
 Vue.component('sale', require('./components/Sale.vue'));
 Vue.component('sales-table', require('./components/SalesTable.vue'));
+Vue.component('shipping', require('./components/Shipping.vue'));
+Vue.component('shippings-table', require('./components/ShippingsTable.vue'));
 Vue.component('client', require('./components/Client.vue'));
 Vue.component('clients-table', require('./components/ClientsTable.vue'));
 Vue.component('client-sales', require('./components/ClientSales.vue'));
 Vue.component('client-sale', require('./components/ClientSale.vue'));
 
 Vue.component('deposits-table', require('./components/DepositsTable.vue'));
+Vue.component('chicken-cuts', require('./components/ChickenCutsTable.vue'));
 
 
 const app = new Vue({
@@ -48,6 +50,23 @@ const app = new Vue({
         selected_date: '',
         checked: [],
         price_id: '',
+        sale: {
+        	price: '',
+        	kg: 0,
+        	quantity: 0,
+        },
         shipp: '',
     },
+    methods: {
+        onChange(event) {
+            let price = Number(event.target.value);
+            if (price != 23) {
+                console.log(price + 32);
+                this.$root.$emit('update-price', price)
+            }
+        }
+    },
+    created() {
+        this.$root.$on('set-price', (price) => this.sale.price = price)
+    }
 });

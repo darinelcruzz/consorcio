@@ -64,18 +64,24 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($shippings as $row)
+                        @php
+                            $date = ''
+                        @endphp
+                        @foreach ($shippings as $shipping)
                             <tr>
-                                <td>{{ $row->short_date }}</td>
-                                <td>{{ $row->productr->name }}</td>
+                                <td>{{ $shipping->date != $date ? date('d/m/Y', strtotime($shipping->date)): '' }}</td>
+                                <td>{{ $shipping->productr->name }}</td>
                                 <td style="text-align: right;">
-                                    {{ number_format($row->quantity) }}</td>
-                                    {{-- {{ $row->product == '20' ? number_format($row->boxes) : number_format($row->quantity) }}</td> --}}
+                                    {{ number_format($shipping->quantity) }}</td>
+                                    {{-- {{ $shipping->product == '20' ? number_format($shipping->boxes) : number_format($shipping->quantity) }}</td> --}}
                                 <td style="text-align: right;">
-                                    $ {{ number_format($row->price, 2) }}
+                                    $ {{ number_format($shipping->price, 2) }}
                                 </td>
-                                <td style="text-align: center;">{{ $row->observations }}</td>
+                                <td style="text-align: center;">{{ $shipping->observations }}</td>
                             </tr>
+                            @php
+                                $date = $shipping->date;
+                            @endphp
                         @endforeach
                     </tbody>
                 </table>
@@ -83,9 +89,5 @@
         </div>
 
     </section>
-
-    @section('scripts')
-        @include('adminlte::layouts.partials.scripts')
-    @show
 </body>
 </html>

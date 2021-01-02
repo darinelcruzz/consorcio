@@ -1,44 +1,29 @@
 <template lang="html">
     <tr>
+        <td><a @click="remove" style="color:red;"><i class="fa fa-times"></i></a></td>
         <td>
-            {{ num }}
+            {{ item.name }}
+            <input :name="'items[' + index + '][product_id]'" type="hidden" :value="item.id">
+        </td>
+        <td v-if="model == 'envio'">
+            <input :name="'items[' + index + '][price]'" type="number" step="0.01" min="0.01" class="form-control" v-model.number="price">
+        </td>
+        <td v-else>
+            {{ price.toFixed(2) }}
+            <input :name="'items[' + index + '][price]'" type="hidden" :value="item.price">
         </td>
         <td>
-            <div class="form-group">
-                <select class="form-control" name="names[]" v-model="product">
-                    <option value="" selected>Producto</option>
-                    <option v-for="(product, index) in products" :value="product">
-                        {{ product.name }}
-                    </option>
-                </select>
-            </div>
-            <input type="hidden" name="types[]" :value="product.id">
+            <input :name="'items[' + index + '][quantity]'" type="number" step="1" min="1" class="form-control" v-model.number="quantity">
         </td>
-
         <td>
-            <input type="hidden" name="prices[]" :value="price">
-            <span class="pull-right">$ {{ price }}</span>
+            <input :name="'items[' + index + '][kg]'" type="number" step="0.01" min="0.01" class="form-control" v-model.number="kg">
         </td>
-
-        <td align="center">
-            <div class="form-group">
-                <input class="form-control" type="number" name="quantities[]" min="0" step="0.01"
-                    style="width:85px;" v-model="quantity">
-            </div>
+        <!-- <td>
+            <input :name="'items[' + index + '][boxes]'" type="number" step="1" min="1" class="form-control" v-model.number="boxes">
+        </td> -->
+        <td style="text-align: right;">
+            {{ total.toFixed(2) }}
         </td>
-
-        <td align="center">
-            <div class="form-group">
-                <input class="form-control" type="number" name="kgs[]" min="0" step="0.01"
-                    style="width:85px;">
-            </div>
-        </td>
-
-        <td>
-            <input class="form-control" type="number" name="packages[]" min="0" step="0.01"
-                style="width:85px;">
-        </td>
-
     </tr>
 </template>
 
@@ -46,39 +31,50 @@
 export default {
     data() {
         return {
-            product: '',
-            quantity: 0,
-            price: 0,
-            products: []
+            quantity: 1,
+            boxes: 1,
+            kg: 1,
+            price: 1,
         };
     },
-    props: ['num', 'pricetype'],
+    props: ['item', 'index', 'model'],
+    computed: {
+        total() {
+            return this.price * this.kg;
+        }
+    },
     watch: {
-        product: function (val, oldVal) {
-            if(this.pricetype == '23') {
-                this.price = this.product.price;
-            } else {
-                this.price = this.product.price[eval(this.pricetype)];
-            }
+        total(newVal) {
+            this.$root.$emit('update-item', [this.index, newVal, 't']);
         },
-        pricetype: function (val) {
-            this.fetch()
+        quantity(newVal) {
+            this.$root.$emit('update-item', [this.index, newVal, 'q']);
+        },
+        kg(newVal) {
+            this.$root.$emit('update-item', [this.index, newVal, 'k']);
+        },
+        boxes(newVal) {
+            this.$root.$emit('update-item', [this.index, newVal, 'b']);
         }
     },
     methods: {
-        fetch() {
-            let isRange = this.pricetype != '23' ? '1': '0';
-
-            axios.get('/products/' + isRange).then(response => {
-                this.products = response.data;
-            });
+        remove() {
+            this.$root.$emit('remove-from-list', this.index);
+            this.$root.$emit('enable', this.item.index);
         }
     },
     created() {
-        this.fetch()
-    },
-    updated() {
-        this.fetch()
-    },
+        this.$root.$on('update-price', (price) => {
+            this.price = price
+        });
+
+        if (this.item.quantity) {
+            this.quantity = this.item.quantity;
+            this.boxes = this.item.boxes;
+            this.kg = this.item.kg;
+        }
+
+        this.price = this.model == 'envio' ? 0: this.item.price;
+    }
 };
 </script>

@@ -21,8 +21,23 @@ class ProcessedSale extends Model
 
     function deposits()
     {
-        // return $this->hasMany(Deposit::class, 'sale_id');
         return $this->morphMany(Deposit::class, 'sale');
+    }
+
+    function movements()
+    {
+        return $this->morphMany(Movement::class, 'movable');
+    }
+
+    function getCutsAndRangesAttribute()
+    {
+        $items = [];
+
+        foreach ($this->movements as $m) {
+            array_push($items, ['id' => $m->product_id, 'name' => $m->product->name, 'price' => $m->price, 'quantity' => $m->quantity, 'boxes' => $m->boxes, 'kg' => $m->kg]);
+        }
+
+        return $items;
     }
 
     function getDepositTotalAttribute()

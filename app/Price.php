@@ -43,7 +43,7 @@ class Price extends Model
     function scopePricesWithNames($query, $id)
     {
         return $query->where('product_id', $id)
-                    ->selectRaw('id, CONCAT(name, " - $", price) as nameprice')
+                    ->selectRaw('id, CONCAT(name, " (", price, ")") as nameprice')
                     ->pluck('nameprice', 'id');
     }
 

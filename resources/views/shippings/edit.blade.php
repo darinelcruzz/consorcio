@@ -5,13 +5,13 @@
     {!! Form::open(['method' => 'POST', 'route' => ['shipping.update', $shipping]]) !!}
     <div class="row">
 
-        <div class="col-md-6">
+        <div class="col-md-8">
 
-            <solid-box title="Modificar los datos del embarque"
+            <solid-box title="Introduzca los datos del embarque"
                 color="box-warning">
                     <div class="row">
                         <div class="col-md-6">
-                            {!! Field::text('remission', $shipping->remission, ['tpl' => 'templates/withicon', 'maxlength' => '10'],
+                            {!! Field::text('remission', $shipping->remission, ['tpl' => 'templates/withicon', 'maxlength' => '10', 'ph' => 'ejemplo: 9081726354'],
                                 ['icon' => 'barcode']) !!}
                         </div>
 
@@ -28,33 +28,45 @@
                             !!}
                         </div>
                         <div class="col-md-6">
-                            {!! Field::select('product', $products->toArray(), $shipping->product,
+                            {!! Field::select('product', [1 => 'Cerdo', 3 => 'Pollo vivo', 18 => 'Alimento cerdo', 19 => 'Alimento pollo', 20 => 'Rangos', 23 => 'Cortes'], $shipping->product,
                                 ['tpl' => 'templates/withicon', 'empty' => 'Escoja un producto', 'disabled' => 'true'],
                                 ['icon' => 'cutlery'])
                             !!}
+                            <input type="hidden" name="items[0][product_id]" value="{{ $shipping->product }}">
+                        </div>
+                    </div>
 
-                            <input type="hidden" name="product" value="{{ $shipping->product }}">
+                    @if($shipping->product < 20)
+                    <div class="row">
+                        <div class="col-md-6">
+                            {!! Field::number('items[0][quantity]', $shipping->quantity,
+                                [ 'label' => 'Cantidad', 'tpl' => 'templates/withicon', 'step' => '1', 'min' => '1'],
+                                ['icon' => 'list-ol'])
+                            !!}
+                        </div>
+                        <div class="col-md-6">
+                            {!! Field::number('items[0][kg]', $shipping->movements->first()->kg ?? 0,
+                                ['label' => 'Kilogramos', 'tpl' => 'templates/withicon', 'step' => '0.01', 'min' => '0.01'],
+                                ['icon' => 'balance-scale'])
+                            !!}
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6">
-                            {!! Field::number('quantity', $shipping->quantity, ['tpl' => 'templates/withicon', 'min' => '0', 'step' => '0.01'],
-                                ['icon' => 'list-ol']) !!}
+                            {!! Field::number('items[0][price]', $shipping->price,
+                                ['label' => 'Precio', 'tpl' => 'templates/withicon', 'step' => '0.01', 'min' => '0.01'],
+                                ['icon' => 'usd'])
+                            !!}
+                        </div>
+                        <div class="col-md-6">
+                            {!! Field::number('amount', $shipping->amount,
+                                ['tpl' => 'templates/withicon', 'step' => '0.01', 'min' => '0.01'],
+                                ['icon' => 'money'])
+                            !!}
                         </div>
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            {!! Field::number('price', $shipping->price, ['tpl' => 'templates/withicon', 'min' => '0', 'step' => '0.01'],
-                                ['icon' => 'money']) !!}
-                        </div>
-
-                        <div class="col-md-6">
-                            {!! Field::number('amount', $shipping->amount, ['tpl' => 'templates/withicon', 'min' => '0', 'step' => '0.01'],
-                                ['icon' => 'usd']) !!}
-                        </div>
-                    </div>
+                    @endif
 
                     <div class="row">
                         <div class="col-md-12">
@@ -62,48 +74,23 @@
                         </div>
                     </div>
 
-                    @if($shipping->product != '20')
-                        {!! Form::submit('Agregar', ['class' => 'btn btn-warning pull-right']) !!}
-                    @endif
+                    <product-table v-if="{{ $shipping->product }} >= 20" :stored="{{ json_encode($shipping->products) }}" model="envio"></product-table>
+
+                    {!! Form::submit('EDITAR', ['class' => 'btn btn-warning pull-right']) !!}
+                
+                {!! Form::close() !!}
 
             </solid-box>
 
         </div>
 
-        @if($shipping->product == '20')
-        <div class="col-md-6">
-            <solid-box title="Procesado" color="box-warning">
-                <table id="example6" class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>Producto</th>
-                            <th>Cajas</th>
-                            <th>Precio</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (unserialize($shipping->processed) as $product)
-                            <tr>
-                                <td>
-                                    <input type="hidden" name="pproducts[]" value="{{ $product['i'] }}">
-                                    {{ App\Product::find($product['i'])->name }}
-                                </td>
-                                <td>
-                                    {!! Field::number('quantities[]', $product['q'], ['tpl' => 'templates/nolabel', 'min' => '0', 'step' => '0.01']) !!}
-                                </td>
-                                <td>
-                                    {!! Field::number('prices[]', $product['p'], ['tpl' => 'templates/nolabel', 'min' => '0', 'step' => '0.01']) !!}
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-
-                {!! Form::submit('Agregar', ['class' => 'btn btn-warning pull-right']) !!}
+        @if($shipping->product >= 20)
+        <div class="col-md-4">
+            <solid-box color="box-warning" title="Productos">
+                <chicken-cuts type="{{ $shipping->product}}"></chicken-cuts>
             </solid-box>
         </div>
         @endif
     </div>
-    {!! Form::close() !!}
 
 @endsection
