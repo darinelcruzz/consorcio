@@ -17,4 +17,9 @@ class Movement extends Model
     {
         return $this->morphTo();
     }
+
+    function processed_sale()
+    {
+    	return $this->belongsTo(ProcessedSale::class, 'movable_id')->where('movable_type', 'App\ProcessedSale');
+    }
 }
