@@ -79,12 +79,12 @@
                                 <td>{{ App\Client::where('name', $client)->first()->address }}</td>
                                 <td align="right">{{ $movements->sum('quantity') }}</td>
                                 <td align="right">{{ $movements->sum('kg') }}</td>
-                                <td align="right">{{ number_format($movements->sum('price'), 2) }}</td>
+                                <td align="right">{{ number_format($movements->sum(function ($m) {return $m->kg * $m->price;}), 2) }}</td>
                             </tr>
                             @php
                             $totalQ += $movements->sum('quantity');
                             $totalK += $movements->sum('kg');
-                            $totalA += $movements->sum('price');
+                            $totalA += $movements->sum(function ($m) {return $m->kg * $m->price;});
                             @endphp
                         @endforeach
                     </tbody>
