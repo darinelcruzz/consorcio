@@ -20,6 +20,6 @@ class Movement extends Model
 
     function processed_sale()
     {
-    	return $this->belongsTo(ProcessedSale::class, 'movable_id')->where('movable_type', 'App\ProcessedSale');
+    	return $this->belongsTo(ProcessedSale::class, 'movable_id');
     }
 }
