@@ -103,6 +103,21 @@
                     </div>
                 {!! Form::close() !!}
             </solid-box>
+            <solid-box title="Precios" color="box-warning"  collapsed="collapsed-box">
+                {!! Form::open(['method' => 'POST', 'route' => 'report.prices']) !!}
+                    <div class="row">
+                        <div class="col-md-6">
+                            {!! Field::date('start', $date) !!}
+                        </div>
+                        <div class="col-md-6">
+                            {!! Field::date('end', $date) !!}
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        {!! Form::submit('Generar', ['class' => 'btn btn-warning btn-block']) !!}
+                    </div>
+                {!! Form::close() !!}
+            </solid-box>
     </div>
 </div>
 

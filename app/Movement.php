@@ -18,8 +18,23 @@ class Movement extends Model
         return $this->morphTo();
     }
 
+    function alive_sale()
+    {
+    	return $this->belongsTo(AliveSale::class, 'movable_id');
+    }
+
+    function fresh_sale()
+    {
+        return $this->belongsTo(FreshSale::class, 'movable_id');
+    }
+
     function processed_sale()
     {
-    	return $this->belongsTo(ProcessedSale::class, 'movable_id');
+        return $this->belongsTo(ProcessedSale::class, 'movable_id');
+    }
+
+    function pork_sale()
+    {
+        return $this->belongsTo(PorkSale::class, 'movable_id');
     }
 }

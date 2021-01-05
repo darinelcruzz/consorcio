@@ -112,4 +112,31 @@ class ReportController extends Controller
         return view('reports.product', compact('products', 'product', 'range'));
     }
 
+    function prices(ReportRequest $request)
+    {
+        $range = date('d/m/Y', strtotime($request->start)) . ' - ' . date('d/m/Y', strtotime($request->end));
+
+        $data = Movement::whereHas('alive_sale', function ($query) use ($request) {
+                $query->whereBetween('date', [$request->start, $request->end]);                    
+            })
+            ->orWhereHas('fresh_sale', function ($query) use ($request) {
+                $query->whereBetween('date', [$request->start, $request->end]);                    
+            })
+            ->orWhereHas('pork_sale', function ($query) use ($request) {
+                $query->whereBetween('date', [$request->start, $request->end]);                    
+            })
+            ->orWhereHas('processed_sale', function ($query) use ($request) {
+                $query->whereBetween('date', [$request->start, $request->end]);                    
+            })
+            ->with('product', 'movable.client:id,name')
+            ->get()
+            ->groupBy(['product.name', function ($item) {
+                return (string) $item->price;
+            }], $preservedKeys = true);
+
+        // dd($data);
+
+        return view('reports.prices', compact('data', 'range'));
+    }
+
 }
