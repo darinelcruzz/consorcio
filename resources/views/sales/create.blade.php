@@ -6,7 +6,7 @@
 
         <div class="col-md-7">
 
-            <solid-box title="Introduzca los datos de la venta {{ $yearCount}}"
+            <solid-box title="Introduzca los datos de la venta {{ $lastSale ? $folio: 1 }}"
                 color="box-{{ $color }}">
                 {!! Form::open(['method' => 'POST', 'route' => ['sale.store', $type]]) !!}
 

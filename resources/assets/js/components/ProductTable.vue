@@ -29,7 +29,7 @@
                     </td>
                     <td style="text-align: right;">
                         {{ total.toFixed(2) }}
-                        <input name="amount" type="hidden" :value="amount">
+                        <input name="amount" type="hidden" :value="amount.toFixed(2)">
                     </td>
                 </tr>
                 <tr>
