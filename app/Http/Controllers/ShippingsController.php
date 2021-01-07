@@ -34,7 +34,7 @@ class ShippingsController extends Controller
             'remission' => 'required',
             'date' => 'required',
             'provider' => 'required',
-            'observations' => 'required',
+            'observations' => 'nullable',
             'amount' => 'required',
             'quantity' => 'sometimes|required',
             'kg' => 'sometimes|required',
