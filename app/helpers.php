@@ -53,6 +53,18 @@ function getProductID($type)
     return ['fresco' => 2, 'vivo' => 3, 'cerdo' => 1, 'procesado' => 4][$type] ?? 2;
 }
 
+function getModelName($type)
+{
+    $models = [
+        'App\FreshSale' => 'fresco',
+        'App\AliveSale' => 'vivo',
+        'App\PorkSale' => 'cerdo',
+        'App\ProcessedSale' => 'procesado',
+    ];
+
+    return $models[$type];
+}
+
 function getSaleModel($type)
 {
     $model = [

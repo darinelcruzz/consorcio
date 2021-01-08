@@ -128,9 +128,18 @@ class ReportController extends Controller
             ->orWhereHas('processed_sale', function ($query) use ($request) {
                 $query->whereBetween('date', [$request->start, $request->end]);                    
             })
+            ->whereNotIn('product_id', [4, 5, 6, 7, 8, 9, 23])
             ->with('product', 'movable.client:id,name')
+            ->orderBy('product_id')
             ->get()
-            ->groupBy(['product.name', function ($item) {
+            // ->groupBy(['product.price', 'product.name', 'price']);
+            ->groupBy(['product.price', function ($item) {
+                if ($item->product->price == 4) {
+                    return $item->product->price;
+                }
+                return $item->product->name;
+            }, function ($item)
+            {
                 return (string) $item->price;
             }], $preservedKeys = true);
 
