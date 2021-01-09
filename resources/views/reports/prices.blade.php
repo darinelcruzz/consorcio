@@ -45,7 +45,7 @@
             </div>
             <div class="col-xs-5">
                 <h4 align="center">
-                    <b>VENTAS</b><br>
+                    <b>REPORTE DE PRECIOS</b><br>
                         {{ $range }}
                 </h4>
             </div>

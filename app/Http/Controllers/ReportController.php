@@ -114,7 +114,7 @@ class ReportController extends Controller
 
     function prices(ReportRequest $request)
     {
-        $range = date('d/m/Y', strtotime($request->start)) . ' - ' . date('d/m/Y', strtotime($request->end));
+        $range = "Del " . date('d/m/Y', strtotime($request->start)) . ' al ' . date('d/m/Y', strtotime($request->end));
 
         $data = Movement::whereHas('alive_sale', function ($query) use ($request) {
                 $query->whereBetween('date', [$request->start, $request->end]);                    
