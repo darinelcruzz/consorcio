@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             {!! Field::select('client_id', $clients, $sale->client_id,
-                                ['tpl' => 'templates/withicon', 'empty' => 'Seleccione un cliente', 'disabled' => 'true'],
+                                ['tpl' => 'templates/withicon', 'empty' => 'Seleccione un cliente'],
                                 ['icon' => 'user'])
                             !!}
                         </div>

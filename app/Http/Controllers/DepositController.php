@@ -39,13 +39,18 @@ class DepositController extends Controller
 
     function credits()
     {
-        $alive = AliveSale::where('status', '!=', 'cancelada')->where('series', 'C')->with('client:id,name')->get();
-        $fresh = FreshSale::where('status', '!=', 'cancelada')->where('series', 'C')->with('client:id,name')->get();
-        $pork = PorkSale::where('status', '!=', 'cancelada')->where('series', 'C')->with('client:id,name')->get();
-        $processed = ProcessedSale::where('status', '!=', 'cancelada')->where('series', 'C')->with('client:id,name')->get();
-        $due = $this->getDueSales($alive, $fresh, $pork, $processed);
+        $products = [
+            'vivo' => AliveSale::where('status', 'credito')->with('client:id,name')->get(),
+            'fresco' => FreshSale::where('status', 'credito')->with('client:id,name')->get(),
+            'procesado' => ProcessedSale::where('status', 'credito')->with('client:id,name')->get(),
+            'cerdo' => PorkSale::where('status', 'credito')->with('client:id,name')->get(),
+        ];
 
-        return view('deposits.credits', compact('alive', 'fresh', 'pork', 'processed', 'due'));
+        $due = $this->getDueSales($products['vivo'], $products['vivo'], $products['vivo'], $products['vivo']);
+
+        $colors = ['vivo' => 'primary', 'fresco' => 'warning', 'procesado' => 'success', 'cerdo' => 'baby'];
+
+        return view('deposits.credits', compact('products', 'due', 'colors'));
     }
 
     function store(Request $request)
@@ -85,25 +90,17 @@ class DepositController extends Controller
     {
         $due = [];
 
-        foreach ($alive as $sale) {
-            if ($sale->status == 'vencida') {
-                array_push($due, $sale);
-            }
+        foreach (AliveSale::where('status', 'vencida')->with('client:id,name')->get() as $sale) {
+            array_push($due, $sale);
         }
-        foreach ($fresh as $sale) {
-            if ($sale->status == 'vencida') {
-                array_push($due, $sale);
-            }
+        foreach (FreshSale::where('status', 'vencida')->with('client:id,name')->get() as $sale) {
+            array_push($due, $sale);
         }
-        foreach ($pork as $sale) {
-            if ($sale->status == 'vencida') {
-                array_push($due, $sale);
-            }
+        foreach (ProcessedSale::where('status', 'vencida')->with('client:id,name')->get() as $sale) {
+            array_push($due, $sale);
         }
-        foreach ($processed as $sale) {
-            if ($sale->status == 'vencida') {
-                array_push($due, $sale);
-            }
+        foreach (PorkSale::where('status', 'vencida')->with('client:id,name')->get() as $sale) {
+            array_push($due, $sale);
         }
 
         return $due;
