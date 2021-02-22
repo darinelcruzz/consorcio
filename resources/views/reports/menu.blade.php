@@ -62,6 +62,28 @@
             </div>
             {!! Form::close() !!}
         </solid-box>
+
+        <solid-box title="De Compras" color="box-warning"  collapsed="collapsed-box">
+            {!! Form::open(['method' => 'POST', 'route' => 'report.purchases']) !!}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label style="font-weight: bold;">Mes</label>
+
+                        <div class="input-group date">
+                          <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                          </div>
+                          <input name="month" type="month" class="form-control pull-right" value="{{ date('Y-m') }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                {!! Form::submit('Generar', ['class' => 'btn btn-warning btn-block']) !!}
+            </div>
+            {!! Form::close() !!}
+        </solid-box>
     </div>
     <div class="col-md-6">
             <solid-box title="Por Producto" color="box-warning"  collapsed="collapsed-box">

@@ -37,4 +37,9 @@ class Movement extends Model
     {
         return $this->belongsTo(PorkSale::class, 'movable_id');
     }
+
+    function shipping()
+    {
+        return $this->belongsTo(Shipping::class, 'movable_id');
+    }
 }

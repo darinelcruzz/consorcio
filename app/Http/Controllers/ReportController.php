@@ -148,4 +148,23 @@ class ReportController extends Controller
         return view('reports.prices', compact('data', 'range'));
     }
 
+    function purchases(Request $request)
+    {
+        $year = substr($request->month, 0, 4);
+        $month = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'][intval(substr($request->month, 5, 2))];
+
+        $data = Movement::where('movable_type', 'App\Shipping')
+                ->whereHas('shipping', function ($query) use ($request) {
+                    $query->whereMonth('date', substr($request->month, 5, 2))                  
+                        ->whereYear('date', substr($request->month, 0, 4));                    
+                })
+                ->with('product', 'shipping')
+                ->get()
+                ->groupBy('product.name');
+
+        // dd($data);
+
+        return view('reports.purchases', compact('data', 'year', 'month'));
+    }
+
 }

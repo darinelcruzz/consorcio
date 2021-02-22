@@ -9,6 +9,10 @@ class Shipping extends Model
 {
     protected $guarded = [];
 
+    protected $casts = [
+        'date' => 'datetime:Y-m-d',
+    ];
+
     function productr()
     {
         return $this->belongsTo(Product::class, 'product');
