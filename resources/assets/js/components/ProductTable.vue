@@ -12,7 +12,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, index) in items" is="product-row" :item="item" :index="index" :key="item.id" :model="model"></tr>
+                <tr v-for="(item, index) in items" is="product-row" :item="item" :index="index" :key="item.id" :model="model" :extraordinary="extraordinary"></tr>
             </tbody>
             <tfoot>
                 <tr>
@@ -55,7 +55,7 @@
 
 <script>
 export default {
-    props: ['stored', 'model', 'samount'],
+    props: ['stored', 'model', 'samount', 'extraordinary'],
     data() {
         return {
             items: [],

@@ -54,6 +54,7 @@ const app = new Vue({
         	price: '',
         	kg: 0,
         	quantity: 0,
+            isExtraordinary: 0
         },
         shipp: '',
     },

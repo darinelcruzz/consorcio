@@ -8,6 +8,9 @@
         <td v-if="model == 'envio'">
             <input :name="'items[' + index + '][price]'" type="number" step="0.01" min="0.01" class="form-control" v-model.number="price">
         </td>
+        <td v-else-if="extraordinary == 1">
+            <input :name="'items[' + index + '][price]'" type="number" v-model.number="price" min="0" step="0.01" class="form-control">
+        </td>
         <td v-else>
             {{ price.toFixed(2) }}
             <input :name="'items[' + index + '][price]'" type="hidden" :value="item.price">
@@ -37,7 +40,7 @@ export default {
             price: 1,
         };
     },
-    props: ['item', 'index', 'model'],
+    props: ['item', 'index', 'model', 'extraordinary'],
     computed: {
         total() {
             return this.price * this.kg;

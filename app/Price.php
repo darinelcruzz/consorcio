@@ -43,6 +43,9 @@ class Price extends Model
     function scopePricesWithNames($query, $id)
     {
         return $query->where('product_id', $id)
+                    ->when($id < 4, function ($query) {
+                        $query->orWhere('name', 'Extraordinario');
+                    })
                     ->selectRaw('id, CONCAT(name, " (", price, ")") as nameprice')
                     ->pluck('nameprice', 'id');
     }

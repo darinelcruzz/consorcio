@@ -162,8 +162,6 @@ class ReportController extends Controller
                 ->get()
                 ->groupBy('product.name');
 
-        // dd($data);
-
         return view('reports.purchases', compact('data', 'year', 'month'));
     }
 

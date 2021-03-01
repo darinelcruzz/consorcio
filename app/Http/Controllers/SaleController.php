@@ -21,7 +21,7 @@ class SaleController extends Controller
     {
         $model = getSaleModel($type); //dd($request->all());
 
-        $model::create($request->except('items'));
+        $model::create($request->except('items', 'extraordinary'));
 
         return redirect(route('sale.index', $type));
     }

@@ -70,6 +70,10 @@
                         </div>
 
                         <div class="row">
+                            <div v-if="sale.price == 28" class="col-md-6">
+                                {!! Field::number('items[0][price]', 0, ['label'=> 'Precio unitario', 'tpl' => 'templates/withicon', 'step' => '0.01', 'min' => '0' ],
+                                    ['icon' => 'usd']) !!}
+                            </div>
                             <div class="col-md-6">
                                 {!! Field::number('amount', 0, ['tpl' => 'templates/withicon', 'step' => '0.01', 'min' => '0' ],
                                     ['icon' => 'usd']) !!}
@@ -86,15 +90,25 @@
                         </div>
                     @endif
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            {!! Field::text('observations', ['tpl' => 'templates/withicon'], ['icon' => 'eye']) !!}
-                        </div>
-                    </div>
-
                     @if ($type == 'procesado')
-                        <product-table></product-table>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {!! Field::text('observations', ['tpl' => 'templates/withicon'], ['icon' => 'eye']) !!}
+                            </div>
+                            <div class="col-md-6">
+                                {!! Field::select('extraordinary', ['No', 'Sí'], 0,
+                                    ['label' => '¿Extraordinario?', 'tpl' => 'templates/withicon','empty' => 'Seleccione una opción', 'v-model' => 'sale.isExtraordinary'],
+                                    ['icon' => 'question'])
+                                !!}
+                            </div>
+                        </div>
+                        <product-table :extraordinary="sale.isExtraordinary"></product-table>
                     @else
+                        <div class="row">
+                            <div class="col-md-12">
+                                {!! Field::text('observations', ['tpl' => 'templates/withicon'], ['icon' => 'eye']) !!}
+                            </div>
+                        </div>
                         <input type="hidden" name="items[0][product_id]" value="{{ $product_id }}">
                     @endif
 

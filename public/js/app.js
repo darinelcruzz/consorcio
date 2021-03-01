@@ -25629,7 +25629,8 @@ var app = new Vue({
         sale: {
             price: '',
             kg: 0,
-            quantity: 0
+            quantity: 0,
+            isExtraordinary: 0
         },
         shipp: ''
     },
@@ -27410,6 +27411,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -27421,7 +27425,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
-    props: ['item', 'index', 'model'],
+    props: ['item', 'index', 'model', 'extraordinary'],
     computed: {
         total: function total() {
             return this.price * this.kg;
@@ -27527,7 +27531,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['stored', 'model', 'samount'],
+    props: ['stored', 'model', 'samount', 'extraordinary'],
     data: function data() {
         return {
             items: [],
@@ -48752,7 +48756,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "item": item,
         "index": index,
-        "model": _vm.model
+        "model": _vm.model,
+        "extraordinary": _vm.extraordinary
       }
     })
   })), _vm._v(" "), _c('tfoot', [_c('tr', [_c('td', {
@@ -48904,6 +48909,35 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "number",
       "step": "0.01",
       "min": "0.01"
+    },
+    domProps: {
+      "value": (_vm.price)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.price = _vm._n($event.target.value)
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
+    }
+  })]) : (_vm.extraordinary == 1) ? _c('td', [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model.number",
+      value: (_vm.price),
+      expression: "price",
+      modifiers: {
+        "number": true
+      }
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "name": 'items[' + _vm.index + '][price]',
+      "type": "number",
+      "min": "0",
+      "step": "0.01"
     },
     domProps: {
       "value": (_vm.price)
