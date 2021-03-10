@@ -50,51 +50,82 @@
                 </h4>
             </div>
         </div>
-
-        @foreach($data as $number => $products)
-            @foreach ($products as $product => $prices)
-                <div class="row">
-                    <div class="col-xs-12">
-                        <table class="table" id="ordered{{ $loop->iteration}}">
-                            @if($loop->parent->iteration == 1)
-                                <thead>
-                                    <tr>
-                                        <th width="40%">Producto</th>
-                                        <th class="text-center" width="20%">Cantidad</th>
-                                        <th class="text-center" width="20%">Kg</th>
-                                        <th class="text-center" width="20%">Precio</th>
-                                    </tr>
-                                </thead>
-                            @endif
-                            @php
-                            $totalQ = $totalK = 0;
-                            @endphp
-                            <tbody>
-                                @foreach ($prices as $price => $movements)
-                                    <tr>
-                                        <td width="40%">{{ $loop->iteration == 1 ? strtoupper($product == 4 ? 'pollo procesado': $product): '' }}</td>
-                                        <td align="center" width="20%">{{ $movements->sum('quantity') }}</td>
-                                        <td align="center" width="20%">{{ number_format($movements->sum('kg'), 2) }}</td>
-                                        <td align="center" width="20%">{{ number_format((float) $price, 2) }}</td>
-                                    </tr>
-                                    @php
-                                    $totalQ += $movements->sum('quantity');
-                                    $totalK += $movements->sum('kg');
-                                    @endphp
-                                @endforeach
-                            </tbody>
-                            <tfoot>
+        @foreach (['cerdo' => 'pork', 'pollo vivo' => 'alive', 'pollo fresco' => 'fresh', 'procesado' => 'processed'] as $product => $prices)
+            <div class="row">
+                <div class="col-xs-12">
+                    <table class="table" id="ordered{{ $loop->iteration}}">
+                        @if($loop->iteration == 1)
+                            <thead>
                                 <tr>
-                                    <th style="text-align: right;"></th>
-                                    <td align="center"><b>{{ $totalQ }}</b></td>
-                                    <td align="center"><b>{{ number_format($totalK, 2) }}</b></td>
-                                    <td></td>
+                                    <th width="40%">Producto</th>
+                                    <th class="text-center" width="20%">Cantidad</th>
+                                    <th class="text-center" width="20%">Kg</th>
+                                    <th class="text-center" width="20%">Precio</th>
                                 </tr>
-                            </tfoot>
-                        </table>
-                    </div>
+                            </thead>
+                        @endif
+                        @php
+                        $totalQ = $totalK = 0;
+                        @endphp
+                        <tbody>
+                            @foreach ($$prices as $price => $movements)
+                                <tr>
+                                    <td width="40%">{{ $loop->iteration == 1 ? strtoupper($product == 4 ? 'pollo procesado': $product): '' }}</td>
+                                    <td align="center" width="20%">{{ $movements->sum('quantity') }}</td>
+                                    <td align="center" width="20%">{{ number_format($movements->sum('kg'), 2) }}</td>
+                                    <td align="center" width="20%">{{ number_format((float) $price, 2) }}</td>
+                                </tr>
+                                @php
+                                $totalQ += $movements->sum('quantity');
+                                $totalK += $movements->sum('kg');
+                                @endphp
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th style="text-align: right;"></th>
+                                <td align="center"><b>{{ $totalQ }}</b></td>
+                                <td align="center"><b>{{ number_format($totalK, 2) }}</b></td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
-            @endforeach
+            </div>
+        @endforeach
+
+        @foreach ($cuts as $product => $prices)
+            <div class="row">
+                <div class="col-xs-12">
+                    <table class="table" id="ordered{{ $loop->iteration}}">
+                        @php
+                        $totalQ = $totalK = 0;
+                        @endphp
+                        <tbody>
+                            @foreach ($prices as $price => $movements)
+                                <tr>
+                                    <td width="40%">{{ $loop->iteration == 1 ? strtoupper($product == 4 ? 'pollo procesado': $product): '' }}</td>
+                                    <td align="center" width="20%">{{ $movements->sum('quantity') }}</td>
+                                    <td align="center" width="20%">{{ number_format($movements->sum('kg'), 2) }}</td>
+                                    <td align="center" width="20%">{{ number_format((float) $price, 2) }}</td>
+                                </tr>
+                                @php
+                                $totalQ += $movements->sum('quantity');
+                                $totalK += $movements->sum('kg');
+                                @endphp
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th style="text-align: right;"></th>
+                                <td align="center"><b>{{ $totalQ }}</b></td>
+                                <td align="center"><b>{{ number_format($totalK, 2) }}</b></td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
         @endforeach
     </section>
 </body>

@@ -116,36 +116,74 @@ class ReportController extends Controller
     {
         $range = "Del " . date('d/m/Y', strtotime($request->start)) . ' al ' . date('d/m/Y', strtotime($request->end));
 
-        $data = Movement::whereHas('alive_sale', function ($query) use ($request) {
-                $query->whereBetween('date', [$request->start, $request->end]);                    
+        $pork = Movement::whereYear('created_at', substr($request->start, 0, 4))
+            // ->whereMonth('created_at', substr($request->start, 5, 2))
+            ->whereHas('pork_sale', function($query) use($request) {
+                $query->whereBetween('date', [$request->start, $request->end])
+                    ->where('status', '!=', 'cancelada');
             })
-            ->orWhereHas('fresh_sale', function ($query) use ($request) {
-                $query->whereBetween('date', [$request->start, $request->end]);                    
-            })
-            ->orWhereHas('pork_sale', function ($query) use ($request) {
-                $query->whereBetween('date', [$request->start, $request->end]);                    
-            })
-            ->orWhereHas('processed_sale', function ($query) use ($request) {
-                $query->whereBetween('date', [$request->start, $request->end]);                    
-            })
-            ->whereNotIn('product_id', [4, 5, 6, 7, 8, 9, 23])
-            ->with('product', 'movable.client:id,name')
-            ->orderBy('product_id')
+            ->with('product')
+            ->orderBy('price')
             ->get()
-            // ->groupBy(['product.price', 'product.name', 'price']);
-            ->groupBy(['product.price', function ($item) {
-                if ($item->product->price == 4) {
-                    return $item->product->price;
-                }
-                return $item->product->name;
-            }, function ($item)
-            {
+            ->groupBy(function ($item) {
                 return (string) $item->price;
-            }], $preservedKeys = true);
+            });
 
-        // dd($data);
+        $alive = Movement::whereYear('created_at', substr($request->start, 0, 4))
+            // ->whereMonth('created_at', substr($request->start, 5, 2))
+            ->whereHas('alive_sale', function($query) use($request) {
+                $query->whereBetween('date', [$request->start, $request->end])
+                    ->where('status', '!=', 'cancelada');
+            })
+            ->with('product')
+            ->orderBy('price')
+            ->get()
+            ->groupBy(function ($item) {
+                return (string) $item->price;
+            });
 
-        return view('reports.prices', compact('data', 'range'));
+        $fresh = Movement::whereYear('created_at', substr($request->start, 0, 4))
+            // ->whereMonth('created_at', substr($request->start, 5, 2))
+            ->whereHas('fresh_sale', function($query) use($request) {
+                $query->whereBetween('date', [$request->start, $request->end])
+                    ->where('status', '!=', 'cancelada');
+            })
+            ->with('product')
+            ->orderBy('price')
+            ->get()
+            ->groupBy(function ($item) {
+                return (string) $item->price;
+            });
+
+        $processed = Movement::whereYear('created_at', substr($request->start, 0, 4))
+            ->whereHas('processed_sale', function($query) use($request) {
+                $query->whereBetween('date', [$request->start, $request->end])
+                    ->where('status', '!=', 'cancelada');
+            })
+            ->where('product_id', '<', 10)
+            ->with('product')
+            ->get()
+            ->groupBy(function ($item) {
+                return (string) $item->price;
+            });
+
+        $cuts = Movement::whereYear('created_at', substr($request->start, 0, 4))
+            ->whereHas('processed_sale', function($query) use($request) {
+                $query->whereBetween('date', [$request->start, $request->end])
+                    ->where('status', '!=', 'cancelada');
+            })
+            ->where('product_id', '>=', 10)
+            ->with('product')
+            ->get()
+            ->groupBy([function ($item) {
+                return  $item->product->name;
+            }, function ($item) {
+                return (string) $item->price;
+            }]);
+
+        // dd($cuts);
+
+        return view('reports.prices', compact('pork', 'alive', 'fresh', 'processed', 'cuts', 'range'));
     }
 
     function purchases(Request $request)
