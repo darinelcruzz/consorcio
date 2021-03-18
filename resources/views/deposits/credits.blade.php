@@ -19,7 +19,7 @@
                 <tr>
                     <td><b>{{ $sale->series }}</b>{{ substr("00000" . $sale->folio, -5) }}</td>
                     <td style="text-align: center;"><label class="label label-{{ $sale->typeColor }}">{{ strtoupper($sale->type) }}</label></td>
-                    <td><a href="{{ route('client.show', $sale->client) }}"> {{ $sale->client->name }}</a></td>
+                    <td><a href="{{ route('client.show', $sale->client) }}">{{ $sale->client ? $sale->client->name: 'No existe' }}</a></td>
                     <td>{{ $sale->short_date }}</td>
                     <td>{{ $sale->days }}</td>
                     <td>{{ $sale->dueDate }}</td>
@@ -44,6 +44,7 @@
             <tr>
                 <th>Folio</th>
                 <th>Cliente</th>
+                <th>Estado</th>
                 <th>Venta</th>
                 <th>Días</th>
                 <th>Vencimiento</th>
@@ -55,7 +56,8 @@
             @foreach($sales as $sale)
                 <tr>
                     <td><b>{{ $sale->series }}</b>{{ substr("00000" . $sale->folio, -5) }}</td>
-                    <td><a href="{{ route('client.show', $sale->client) }}"> {{ $sale->client->name }}</a></td>
+                    <td><a href="{{ route('client.show', $sale->client) }}"> {{ $sale->client ? $sale->client->name: 'No existe' }}</a></td>
+                    <td><label class="label label-{{ $sale->status == 'vencida' ? 'danger': $colors[$product] }}">{{ strtoupper($sale->status) }}</label></td>
                     <td>{{ $sale->short_date }}</td>
                     <td>{{ $sale->days }}</td>
                     <td>{{ $sale->dueDate }}</td>

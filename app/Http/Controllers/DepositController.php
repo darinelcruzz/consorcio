@@ -40,10 +40,10 @@ class DepositController extends Controller
     function credits()
     {
         $products = [
-            'vivo' => AliveSale::where('status', 'credito')->with('client:id,name')->get(),
-            'fresco' => FreshSale::where('status', 'credito')->with('client:id,name')->get(),
-            'procesado' => ProcessedSale::where('status', 'credito')->with('client:id,name')->get(),
-            'cerdo' => PorkSale::where('status', 'credito')->with('client:id,name')->get(),
+            'vivo' => AliveSale::where('status', 'credito')->orWhere('status', 'vencida')->with('client:id,name')->get(),
+            'fresco' => FreshSale::where('status', 'credito')->orWhere('status', 'vencida')->with('client:id,name')->get(),
+            'procesado' => ProcessedSale::where('status', 'credito')->orWhere('status', 'vencida')->with('client:id,name')->get(),
+            'cerdo' => PorkSale::where('status', 'credito')->orWhere('status', 'vencida')->with('client:id,name')->get(),
         ];
 
         $due = $this->getDueSales($products['vivo'], $products['vivo'], $products['vivo'], $products['vivo']);
