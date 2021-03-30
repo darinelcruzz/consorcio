@@ -19,6 +19,21 @@ class SaleController extends Controller
 
     function store(Request $request, $type)
     {
+        $request->validate([
+            "client_id" => 'required',
+            "folio" => 'required',
+            "series" => 'required',
+            "date" => 'required',
+            "price" => 'required',
+            "items" => 'array|min:1|required',
+            "quantity" => 'required',
+            "kg" => 'required',
+            "amount" => 'required',
+            "credit" => 'required',
+            "days" => 'required',
+            "status" => 'required'
+        ]);
+
         $model = getSaleModel($type); //dd($request->all());
 
         $model::create($request->except('items', 'extraordinary'));
