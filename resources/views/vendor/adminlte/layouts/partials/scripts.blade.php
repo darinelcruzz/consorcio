@@ -109,6 +109,14 @@ $(function () {
       "language": language
     });
 
+    $(".ordered-by-quantity").DataTable({
+      "order":[[ 3 , "desc"]],
+      "language": language,
+      "searching":false,
+      "paging":false,
+      "info":false,
+    });
+
     $("#ordered1").DataTable({
       "order":[[ 4 , "desc"]],
       "language": language,

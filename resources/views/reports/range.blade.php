@@ -1,7 +1,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>CAP</title>
+    <title>Reporte | Rangos</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="{{ asset('/plugins/select2.min.css') }}">
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('/plugins/dataTables.bootstrap.css') }}">
+
+    <link rel="icon" href="{{ asset('/img/Logo.ico') }}" />
 
     <style>
         th, td, p, address, h5 {
@@ -57,7 +59,7 @@
         </h4>
         <div class="row">
             <div class="col-xs-12">
-                <table class="table" id="ordered{{ $loop->iteration}}">
+                <table class="table ordered-by-quantity">
                     <thead>
                         <tr>
                             <th class="text-center" width="35%" >Cliente</th>
@@ -102,5 +104,9 @@
         </div>
         @endforeach
     </section>
+
+    @section('scripts')
+        @include('adminlte::layouts.partials.scripts')
+    @show
 </body>
 </html>
