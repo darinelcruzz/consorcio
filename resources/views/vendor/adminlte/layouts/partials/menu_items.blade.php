@@ -1,5 +1,5 @@
 @if (empty($item['submenu']))
-    <li @if (!empty($item['class'])) class="{{ $item['class'] }}" @endif>
+    <li class="treeview">
         @if (is_array($item['route']))
             <a href="{{ route($item['route'][0], $item['route'][1]) }}">
                 <i class="{{ $item['icon'] }}"></i><span>{{ $item['title'] }}</span>
