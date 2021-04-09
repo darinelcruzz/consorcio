@@ -36,7 +36,7 @@
                     <td colspan="4"></td>
                     <th><small>AJUSTE</small></th>
                     <td>
-                        <input type="number" step="0.01" class="form-control" v-model.number="rounding" :max="0.99" :min="-0.09">
+                        <input type="number" step="0.01" class="form-control" v-model.number="rounding" :max="0.99" :min="-0.99">
                     </td>
                 </tr>
                 <tr>

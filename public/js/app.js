@@ -47123,7 +47123,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "number",
       "step": "0.01",
       "max": 0.99,
-      "min": -0.09
+      "min": -0.99
     },
     domProps: {
       "value": (_vm.rounding)
