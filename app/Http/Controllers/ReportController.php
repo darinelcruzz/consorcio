@@ -197,6 +197,7 @@ class ReportController extends Controller
                 $query->whereBetween('date', [$request->start, $request->end]);
             })
             ->with('product')
+            ->orderBy('product_id')
             ->get()
             ->groupBy([function ($item) {
                 return  $item->product->name;

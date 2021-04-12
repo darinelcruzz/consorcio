@@ -103,6 +103,17 @@
             <div class="row">
                 <div class="col-xs-12">
                     <table class="table" id="ordered{{ $loop->iteration}}">
+                        @if($type == 'compras' && $loop->iteration == 1)
+                            <thead>
+                                <tr>
+                                    <th width="40%">Producto</th>
+                                    <th class="text-center" width="20%">Cantidad</th>
+                                    <th class="text-center" width="20%">Kg</th>
+                                    <th class="text-center" width="20%">Precio</th>
+                                </tr>
+                            </thead>
+                        @endif
+
                         @php
                         $totalQ = $totalK = 0;
                         @endphp
