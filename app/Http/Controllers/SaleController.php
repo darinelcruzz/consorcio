@@ -34,9 +34,14 @@ class SaleController extends Controller
             "status" => 'required'
         ]);
 
-        $model = getSaleModel($type); //dd($request->all());
+        $model = getSaleModel($type); 
+        // dd(request('items'));
 
-        $model::create($request->except('items', 'extraordinary'));
+        $model::create($request->except('items', 'extraordinary') + [
+            'status' => request('credit') ? 'credito': 'pagado',
+            'credit' => request('credit') == '0' ? 0: 1,
+            'days' => request('credit') * 8 >= 16 ? 15: request('credit') * 8
+        ]);
 
         return redirect(route('sale.index', $type));
     }

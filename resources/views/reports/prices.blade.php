@@ -50,6 +50,9 @@
                 </h4>
             </div>
         </div>
+
+        @if($type == 'ventas')
+
         @foreach (['cerdo' => 'pork', 'pollo vivo' => 'alive', 'pollo fresco' => 'fresh', 'procesado' => 'processed'] as $product => $prices)
             <div class="row">
                 <div class="col-xs-12">
@@ -93,6 +96,8 @@
                 </div>
             </div>
         @endforeach
+
+        @endif
 
         @foreach ($cuts as $product => $prices)
             <div class="row">

@@ -114,7 +114,15 @@ class ReportController extends Controller
 
     function prices(ReportRequest $request)
     {
+        $request->validate([
+            'type' => 'required'
+        ]);
+
         $range = "Del " . date('d/m/Y', strtotime($request->start)) . ' al ' . date('d/m/Y', strtotime($request->end));
+
+        $type = $request->type;
+
+        if ($request->type == 'ventas') {
 
         $pork = Movement::whereYear('created_at', substr($request->start, 0, 4))
             // ->whereMonth('created_at', substr($request->start, 5, 2))
@@ -180,10 +188,24 @@ class ReportController extends Controller
             }, function ($item) {
                 return (string) $item->price;
             }]);
+            
+            return view('reports.prices', compact('type', 'pork', 'alive', 'fresh', 'processed', 'cuts', 'range'));
+        }
 
-        // dd($cuts);
+        $cuts = Movement::whereYear('created_at', substr($request->start, 0, 4))
+            ->whereHas('shipping', function($query) use($request) {
+                $query->whereBetween('date', [$request->start, $request->end]);
+            })
+            ->with('product')
+            ->get()
+            ->groupBy([function ($item) {
+                return  $item->product->name;
+            }, function ($item) {
+                return (string) $item->price;
+            }]);
+            
+        return view('reports.prices', compact('type', 'cuts', 'range'));
 
-        return view('reports.prices', compact('pork', 'alive', 'fresh', 'processed', 'cuts', 'range'));
     }
 
     function purchases(Request $request)

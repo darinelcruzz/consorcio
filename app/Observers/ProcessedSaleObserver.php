@@ -10,12 +10,6 @@ class ProcessedSaleObserver
     {
         if ($processedSale->status != 'cancelada') {
             $processedSale->movements()->createMany(request('items'));
-
-            $processedSale->update([
-                'status' => request('credit') ? 'credito': 'pagado',
-                'credit' => request('credit') == '0' ? 0: 1,
-                'days' => request('credit') * 8 >= 16 ? 15: request('credit') * 8
-            ]);
         }
     }
 
