@@ -118,7 +118,7 @@ class ReportController extends Controller
             'type' => 'required'
         ]);
 
-        $range = "Del " . date('d/m/Y', strtotime($request->start)) . ' al ' . date('d/m/Y', strtotime($request->end));
+        $range = "del " . date('d/m/Y', strtotime($request->start)) . ' al ' . date('d/m/Y', strtotime($request->end));
 
         $type = $request->type;
 

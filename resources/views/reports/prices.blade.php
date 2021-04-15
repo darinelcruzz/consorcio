@@ -46,7 +46,7 @@
             <div class="col-xs-5">
                 <h4 align="center">
                     <b>REPORTE DE PRECIOS</b><br>
-                        {{ $range }}
+                        {{ ucfirst($type) }} {{ $range }}
                 </h4>
             </div>
         </div>
@@ -107,7 +107,7 @@
                             <thead>
                                 <tr>
                                     <th width="40%">Producto</th>
-                                    <th class="text-center" width="20%">Cantidad</th>
+                                    <th class="text-center" width="20%">Pollos/Cajas</th>
                                     <th class="text-center" width="20%">Kg</th>
                                     <th class="text-center" width="20%">Precio</th>
                                 </tr>
@@ -121,7 +121,11 @@
                             @foreach ($prices as $price => $movements)
                                 <tr>
                                     <td width="40%">{{ $loop->iteration == 1 ? strtoupper($product == 4 ? 'pollo procesado': $product): '' }}</td>
-                                    <td align="center" width="20%">{{ $movements->sum('quantity') }}</td>
+                                    @if($movements->first()->product_id < 10)
+                                        <td align="center" width="20%">{{ $movements->sum('quantity') }}</td>
+                                    @else
+                                        <td align="center" width="20%"></td>
+                                    @endif
                                     <td align="center" width="20%">{{ number_format($movements->sum('kg'), 2) }}</td>
                                     <td align="center" width="20%">{{ number_format((float) $price, 2) }}</td>
                                 </tr>
@@ -131,14 +135,16 @@
                                 @endphp
                             @endforeach
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <th style="text-align: right;"></th>
-                                <td align="center"><b>{{ $totalQ }}</b></td>
-                                <td align="center"><b>{{ number_format($totalK, 2) }}</b></td>
-                                <td></td>
-                            </tr>
-                        </tfoot>
+                        @if($movements->first()->product_id < 10)
+                            <tfoot>
+                                <tr>
+                                    <th style="text-align: right;"></th>
+                                    <td align="center"><b>{{ $totalQ }}</b></td>
+                                    <td align="center"><b>{{ number_format($totalK, 2) }}</b></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        @endif
                     </table>
                 </div>
             </div>
