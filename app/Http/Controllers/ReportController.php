@@ -200,10 +200,12 @@ class ReportController extends Controller
             ->orderBy('product_id')
             ->get()
             ->groupBy([function ($item) {
-                return  $item->product->name;
+                return $item->product->price == 4 ? (string) $item->product->price: $item->product->name;
             }, function ($item) {
                 return (string) $item->price;
             }]);
+
+        // dd($cuts);
             
         return view('reports.prices', compact('type', 'cuts', 'range'));
 
