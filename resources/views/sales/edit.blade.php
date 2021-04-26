@@ -52,7 +52,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 {!! Field::number('quantity', $sale->quantity,
-                                    ['label' => 'Pollos', 'tpl' => 'templates/withicon', 'min' => '0' ],
+                                    ['label' => 'Cantidad', 'tpl' => 'templates/withicon', 'min' => '0' ],
                                     ['icon' => 'list-ol']) !!}
                             </div>
 
