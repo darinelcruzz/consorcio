@@ -124,12 +124,15 @@ class ReportController extends Controller
 
         if ($request->type == 'ventas') {
 
+        $pork_sales = PorkSale::where('date', '>=', $request->start)->where('date', '<=', $request->end)->where('status', '!=', 'cancelada')->get();
+        $first_pork_sale_id = $pork_sales->first()->id;
+        $last_pork_sale_id = $pork_sales->last()->id;
+
+        // dd($first_pork_sale_id, $last_pork_sale_id);
+
         $pork = Movement::whereYear('created_at', substr($request->start, 0, 4))
-            // ->whereMonth('created_at', substr($request->start, 5, 2))
-            ->whereHas('pork_sale', function($query) use($request) {
-                $query->whereBetween('date', [$request->start, $request->end])
-                    ->where('status', '!=', 'cancelada');
-            })
+            ->where('movable_type', 'App\PorkSale')
+            ->whereBetween('movable_id', [$first_pork_sale_id, $last_pork_sale_id])
             ->with('product')
             ->orderBy('price')
             ->get()
@@ -138,9 +141,10 @@ class ReportController extends Controller
             });
 
         $alive = Movement::whereYear('created_at', substr($request->start, 0, 4))
-            // ->whereMonth('created_at', substr($request->start, 5, 2))
+            ->whereMonth('created_at', substr($request->start, 5, 2))
             ->whereHas('alive_sale', function($query) use($request) {
-                $query->whereBetween('date', [$request->start, $request->end])
+                $query->where('date', '>=', $request->start)
+                    ->where('date', '<=', $request->end)
                     ->where('status', '!=', 'cancelada');
             })
             ->with('product')
@@ -151,9 +155,9 @@ class ReportController extends Controller
             });
 
         $fresh = Movement::whereYear('created_at', substr($request->start, 0, 4))
-            // ->whereMonth('created_at', substr($request->start, 5, 2))
             ->whereHas('fresh_sale', function($query) use($request) {
-                $query->whereBetween('date', [$request->start, $request->end])
+                $query->where('date', '>=', $request->start)
+                    ->where('date', '<=', $request->end)
                     ->where('status', '!=', 'cancelada');
             })
             ->with('product')
@@ -165,7 +169,8 @@ class ReportController extends Controller
 
         $processed = Movement::whereYear('created_at', substr($request->start, 0, 4))
             ->whereHas('processed_sale', function($query) use($request) {
-                $query->whereBetween('date', [$request->start, $request->end])
+                $query->where('date', '>=', $request->start)
+                    ->where('date', '<=', $request->end)
                     ->where('status', '!=', 'cancelada');
             })
             ->where('product_id', '<', 10)
@@ -177,7 +182,8 @@ class ReportController extends Controller
 
         $cuts = Movement::whereYear('created_at', substr($request->start, 0, 4))
             ->whereHas('processed_sale', function($query) use($request) {
-                $query->whereBetween('date', [$request->start, $request->end])
+                $query->where('date', '>=', $request->start)
+                    ->where('date', '<=', $request->end)
                     ->where('status', '!=', 'cancelada');
             })
             ->where('product_id', '>=', 10)
@@ -194,7 +200,9 @@ class ReportController extends Controller
 
         $cuts = Movement::whereYear('created_at', substr($request->start, 0, 4))
             ->whereHas('shipping', function($query) use($request) {
-                $query->whereBetween('date', [$request->start, $request->end]);
+                $query->where('date', '>=', $request->start)
+                    ->where('date', '<=', $request->end)
+                    ->where('status', '!=', 'cancelada');
             })
             ->with('product')
             ->orderBy('product_id')
