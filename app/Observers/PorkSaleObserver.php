@@ -16,9 +16,9 @@ class PorkSaleObserver
     function updated(PorkSale $porkSale)
     {
         if ($porkSale != 'vencida') {
-            $price = $porkSale->movements()->first()->price;
+            // $price = $porkSale->movements()->first()->price;
             $porkSale->movements()->update([
-                'price' => $porkSale->price == 28 ? $price: Price::find($porkSale->price)->price,
+                // 'price' => $porkSale->price == 28 ? request('price'): Price::find($porkSale->price)->price,
                 'quantity' => $porkSale->quantity,
                 'kg' => $porkSale->kg,
             ]);

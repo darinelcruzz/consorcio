@@ -30,7 +30,7 @@
                                 ['icon' => 'calendar'])
                             !!}
                         </div>
-                        @if($sale->price >= 10)
+                        @if($sale->price >= 10 && $sale->price == 28)
                             <div class="col-md-6">
                                 {!! Field::select('price', $prices->toArray(), $sale->price,
                                     ['tpl' => 'templates/withicon','empty' => 'Seleccione un precio', 'disabled'],

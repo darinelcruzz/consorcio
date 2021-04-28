@@ -17,7 +17,7 @@ class AliveSaleObserver
     {
         if ($aliveSale != 'vencida') {
             $aliveSale->movements()->update([
-                'price' => Price::find($aliveSale->price)->price,
+                // 'price' => Price::find($aliveSale->price)->price,
                 'quantity' => $aliveSale->quantity,
                 'kg' => $aliveSale->kg,
             ]);

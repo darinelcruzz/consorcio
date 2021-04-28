@@ -124,86 +124,47 @@ class ReportController extends Controller
 
         if ($request->type == 'ventas') {
 
-        $pork_sales = PorkSale::where('date', '>=', $request->start)->where('date', '<=', $request->end)->where('status', '!=', 'cancelada')->get();
-        $first_pork_sale_id = $pork_sales->first()->id;
-        $last_pork_sale_id = $pork_sales->last()->id;
+            foreach (['App\PorkSale' => 'pork', 'App\AliveSale' => 'alive', 'App\FreshSale' => 'fresh', 'App\ProcessedSale' => 'processed'] as $model => $name) {
+                $sales = $model::where('date', '>=', $request->start)->where('date', '<=', $request->end)->where('status', '!=', 'cancelada')->get();
+                $first_sale_id = $sales->first()->id;
+                $last_sale_id = $sales->last()->id;
+                
+                $$name = Movement::whereYear('created_at', substr($request->start, 0, 4))
+                    ->where('movable_type', $model)
+                    ->whereBetween('movable_id', [$first_sale_id, $last_sale_id])
+                    ->when($model == 'ProcessedSale', function ($query) {
+                        $query->where('product_id', '<', 10);
+                    })
+                    ->with('product')
+                    ->orderBy('price')
+                    ->get()
+                    ->groupBy(function ($item) {
+                        return (string) $item->price;
+                    });
+            }
 
-        // dd($first_pork_sale_id, $last_pork_sale_id);
-
-        $pork = Movement::whereYear('created_at', substr($request->start, 0, 4))
-            ->where('movable_type', 'App\PorkSale')
-            ->whereBetween('movable_id', [$first_pork_sale_id, $last_pork_sale_id])
-            ->with('product')
-            ->orderBy('price')
-            ->get()
-            ->groupBy(function ($item) {
-                return (string) $item->price;
-            });
-
-        $alive = Movement::whereYear('created_at', substr($request->start, 0, 4))
-            ->whereMonth('created_at', substr($request->start, 5, 2))
-            ->whereHas('alive_sale', function($query) use($request) {
-                $query->where('date', '>=', $request->start)
-                    ->where('date', '<=', $request->end)
-                    ->where('status', '!=', 'cancelada');
-            })
-            ->with('product')
-            ->orderBy('price')
-            ->get()
-            ->groupBy(function ($item) {
-                return (string) $item->price;
-            });
-
-        $fresh = Movement::whereYear('created_at', substr($request->start, 0, 4))
-            ->whereHas('fresh_sale', function($query) use($request) {
-                $query->where('date', '>=', $request->start)
-                    ->where('date', '<=', $request->end)
-                    ->where('status', '!=', 'cancelada');
-            })
-            ->with('product')
-            ->orderBy('price')
-            ->get()
-            ->groupBy(function ($item) {
-                return (string) $item->price;
-            });
-
-        $processed = Movement::whereYear('created_at', substr($request->start, 0, 4))
-            ->whereHas('processed_sale', function($query) use($request) {
-                $query->where('date', '>=', $request->start)
-                    ->where('date', '<=', $request->end)
-                    ->where('status', '!=', 'cancelada');
-            })
-            ->where('product_id', '<', 10)
-            ->with('product')
-            ->get()
-            ->groupBy(function ($item) {
-                return (string) $item->price;
-            });
-
-        $cuts = Movement::whereYear('created_at', substr($request->start, 0, 4))
-            ->whereHas('processed_sale', function($query) use($request) {
-                $query->where('date', '>=', $request->start)
-                    ->where('date', '<=', $request->end)
-                    ->where('status', '!=', 'cancelada');
-            })
-            ->where('product_id', '>=', 10)
-            ->with('product')
-            ->get()
-            ->groupBy([function ($item) {
-                return  $item->product->name;
-            }, function ($item) {
-                return (string) $item->price;
-            }]);
+            $cuts = Movement::whereYear('created_at', substr($request->start, 0, 4))
+                ->where('movable_type', 'App\ProcessedSale')
+                ->whereBetween('movable_id', [$first_sale_id, $last_sale_id])
+                ->where('product_id', '>=', 10)
+                ->with('product')
+                ->get()
+                ->groupBy([function ($item) {
+                    return  $item->product->name;
+                }, function ($item) {
+                    return (string) $item->price;
+                }]);
             
             return view('reports.prices', compact('type', 'pork', 'alive', 'fresh', 'processed', 'cuts', 'range'));
         }
 
+        $shippings = Shipping::where('date', '>=', $request->start)->where('date', '<=', $request->end)->get();
+                $first_id = $shippings->first()->id;
+                $last_id = $shippings->last()->id;
+
         $cuts = Movement::whereYear('created_at', substr($request->start, 0, 4))
-            ->whereHas('shipping', function($query) use($request) {
-                $query->where('date', '>=', $request->start)
-                    ->where('date', '<=', $request->end)
-                    ->where('status', '!=', 'cancelada');
-            })
+            ->where('movable_type', 'App\Shipping')
+            ->whereBetween('movable_id', [$first_id, $last_id])
             ->with('product')
             ->orderBy('product_id')
             ->get()

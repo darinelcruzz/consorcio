@@ -17,7 +17,7 @@ class FreshSaleObserver
     {
         if ($freshSale != 'vencida') {
             $freshSale->movements()->update([
-                'price' => Price::find($freshSale->price)->price,
+                // 'price' => Price::find($freshSale->price)->price,
                 'quantity' => $freshSale->quantity,
                 'kg' => $freshSale->kg,
             ]);            
