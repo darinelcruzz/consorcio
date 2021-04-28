@@ -132,9 +132,7 @@ class ReportController extends Controller
                 $$name = Movement::whereYear('created_at', substr($request->start, 0, 4))
                     ->where('movable_type', $model)
                     ->whereBetween('movable_id', [$first_sale_id, $last_sale_id])
-                    ->when($model == 'ProcessedSale', function ($query) {
-                        $query->where('product_id', '<', 10);
-                    })
+                    ->where('product_id', '<=', 10)
                     ->with('product')
                     ->orderBy('price')
                     ->get()
@@ -148,6 +146,7 @@ class ReportController extends Controller
                 ->whereBetween('movable_id', [$first_sale_id, $last_sale_id])
                 ->where('product_id', '>=', 10)
                 ->with('product')
+                ->orderBy('price')
                 ->get()
                 ->groupBy([function ($item) {
                     return  $item->product->name;
