@@ -75,8 +75,9 @@
                                     ['icon' => 'usd']) !!}
                             </div>
                             <div class="col-md-6">
-                                {!! Field::number('amount', 0, ['tpl' => 'templates/withicon', 'step' => '0.01', 'min' => '0' ],
+                                {!! Field::number('amount', 0, ['tpl' => 'templates/withicon', 'step' => '0.01', 'min' => '0', 'v-model.number' => 'sale.amount'],
                                     ['icon' => 'usd']) !!}
+                                <p v-if="sale.amount > 0" class="help-block"><code>Asegurarse de los datos (¿@{{ (sale.amount / sale.kg).toFixed(2) }} el kilo?)</code></p>
                             </div>
                             <div class="col-md-6">
                                 <client-credit></client-credit>

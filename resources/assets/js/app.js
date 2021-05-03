@@ -51,7 +51,8 @@ const app = new Vue({
         checked: [],
         price_id: '',
         sale: {
-        	price: '',
+        	amount: 0,
+            price: '',
         	kg: 0,
         	quantity: 0,
             isExtraordinary: 0
