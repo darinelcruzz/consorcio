@@ -112,7 +112,7 @@
                 {!! Form::close() !!}
             </solid-box>
 
-            <solid-box title="Precios" color="box-warning"  collapsed="collapsed-box">
+            <solid-box title="Contabilidad" color="box-warning"  collapsed="collapsed-box">
                 {!! Form::open(['method' => 'POST', 'route' => 'report.prices']) !!}
                     {!! Field::select('type', ['ventas' => 'De ventas', 'compras' => 'De compras'], null, ['empty' => 'Seleccione el reporte']) !!}
                     <div class="row">

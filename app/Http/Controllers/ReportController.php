@@ -157,13 +157,11 @@ class ReportController extends Controller
             return view('reports.prices', compact('type', 'pork', 'alive', 'fresh', 'processed', 'cuts', 'range'));
         }
 
-        $shippings = Shipping::where('date', '>=', $request->start)->where('date', '<=', $request->end)->get();
-                $first_id = $shippings->first()->id;
-                $last_id = $shippings->last()->id;
+        $shippings = Shipping::where('date', '>=', $request->start)->where('date', '<=', $request->end)->pluck('id');
 
         $cuts = Movement::whereYear('created_at', substr($request->start, 0, 4))
             ->where('movable_type', 'App\Shipping')
-            ->whereBetween('movable_id', [$first_id, $last_id])
+            ->whereIn('movable_id', $shippings)
             ->with('product')
             ->orderBy('product_id')
             ->get()
@@ -172,8 +170,6 @@ class ReportController extends Controller
             }, function ($item) {
                 return (string) $item->price;
             }]);
-
-        // dd($cuts);
             
         return view('reports.prices', compact('type', 'cuts', 'range'));
 
@@ -182,16 +178,16 @@ class ReportController extends Controller
     function purchases(Request $request)
     {
         $year = substr($request->month, 0, 4);
-        $month = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'][intval(substr($request->month, 5, 2))];
+        $month = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'][intval(substr($request->month, 5, 2)) - 1];
 
-        $data = Movement::where('movable_type', 'App\Shipping')
-                ->whereHas('shipping', function ($query) use ($request) {
-                    $query->whereMonth('date', substr($request->month, 5, 2))                  
-                        ->whereYear('date', substr($request->month, 0, 4));                    
-                })
-                ->with('product', 'shipping')
-                ->get()
-                ->groupBy('product.name');
+        $shippings = Shipping::where('date', '>=', $request->month . '-01')->where('date', '<=', $request->month . '-31')->pluck('id');
+
+        $data = Movement::whereYear('created_at', $year)
+            ->where('movable_type', 'App\Shipping')
+            ->whereIn('movable_id', $shippings)
+            ->with('product', 'shipping')
+            ->get()
+            ->groupBy('product.name');
 
         return view('reports.purchases', compact('data', 'year', 'month'));
     }
