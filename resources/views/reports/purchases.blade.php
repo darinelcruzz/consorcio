@@ -37,7 +37,7 @@
     </style>
 </head>
 
-<body>
+<body onload="window.print()">
     <section class="invoice">
         <div class="row">
             <div class="col-xs-4">
@@ -69,7 +69,7 @@
                             <tr>
                                 <td>{{ $product }}</td>
                                 <td align="right">{{ number_format($movements->sum('quantity')) }}</td>
-                                <td align="right">{{ number_format($movements->sum('kg')) }}</td>
+                                <td align="right">{{ number_format($movements->sum('kg'), 2) }}</td>
                             </tr>
                         @endforeach
                     </tbody>

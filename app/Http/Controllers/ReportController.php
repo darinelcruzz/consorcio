@@ -186,6 +186,7 @@ class ReportController extends Controller
             ->where('movable_type', 'App\Shipping')
             ->whereIn('movable_id', $shippings)
             ->with('product', 'shipping')
+            ->orderBy('product_id')
             ->get()
             ->groupBy('product.name');
 
