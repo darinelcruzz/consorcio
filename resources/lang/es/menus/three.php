@@ -27,42 +27,77 @@ return [
     'shippings' => [
         'title' => 'Embarques',
         'icon' => 'fa fa-truck',
-        'route' => 'shipping.index'
+        'submenu' => [
+            'index' => [
+                'title' => 'Historial',
+                'route' => 'shipping.index'
+            ]
+        ]
     ],
 
     'clients' => [
         'title' => 'Clientes',
         'icon' => 'fa fa-user',
-        'route' => 'client.index'
+        'submenu' => [
+            'index' => [
+                'title' => 'Lista',
+                'route' => 'client.index'
+            ]
+        ]
     ],
 
     'inventory' => [
         'title' => 'Inventario',
         'icon' => 'fa fa-pie-chart',
-        'route' => 'product.index'
+        'submenu' => [
+            'index' => [
+                'title' => 'Productos',
+                'route' => 'product.index'
+            ]
+        ]
     ],
 
     'credit' => [
         'title' => 'Crédito',
         'icon' => 'fa fa-credit-card',
-        'route' => 'deposit.credits'
+        'submenu' => [
+            'index' => [
+                'title' => 'Ventas',
+                'route' => 'deposit.credits'
+            ]
+        ]
     ],
 
     'prices' => [
         'title' => 'Precios',
         'icon' => 'fa fa-dollar',
-        'route' => 'price.index'
+        'submenu' => [
+            'index' => [
+                'title' => 'Lista',
+                'route' => 'price.index'
+            ]
+        ]
     ],
 
     'reports' => [
         'title' => 'Reportes',
         'icon' => 'fa fa-line-chart',
-        'route' => 'report.menu'
+        'submenu' => [
+            'index' => [
+                'title' => 'Menú',
+                'route' => 'report.menu'
+            ]
+        ]
     ],
 
     'logout' => [
-        'title' => 'Cerrar Sesión',
+        'title' => 'Sesión',
         'icon' => 'fa fa-sign-out',
-        'route' => 'getout',
+        'submenu' => [
+            'index' => [
+                'title' => 'Salir',
+                'route' => 'getout',
+            ]
+        ]
     ],
 ];

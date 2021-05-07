@@ -72,18 +72,33 @@ return [
     'prices' => [
         'title' => 'Precios',
         'icon' => 'fa fa-dollar',
-        'route' => 'price.index'
+        'submenu' => [
+            'index' => [
+                'title' => 'Lista',
+                'route' => 'price.index'
+            ]
+        ]
     ],
 
     'reports' => [
         'title' => 'Reportes',
         'icon' => 'fa fa-line-chart',
-        'route' => 'report.menu'
+        'submenu' => [
+            'index' => [
+                'title' => 'Menú',
+                'route' => 'report.menu'
+            ]
+        ]
     ],
 
     'logout' => [
-        'title' => 'Cerrar Sesión',
+        'title' => 'Sesión',
         'icon' => 'fa fa-sign-out',
-        'route' => 'getout',
+        'submenu' => [
+            'index' => [
+                'title' => 'Salir',
+                'route' => 'getout',
+            ]
+        ]
     ],
 ];

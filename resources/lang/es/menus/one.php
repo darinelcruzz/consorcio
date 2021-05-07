@@ -27,7 +27,12 @@ return [
     'shippings' => [
         'title' => 'Embarques',
         'icon' => 'fa fa-truck',
-        'route' => 'shipping.index'
+        'submenu' => [
+            'index' => [
+                'title' => 'Historial',
+                'route' => 'shipping.index'
+            ]
+        ]
     ],
 
     'clients' => [
@@ -86,13 +91,23 @@ return [
     'reports' => [
         'title' => 'Reportes',
         'icon' => 'fa fa-line-chart',
-        'route' => 'report.menu'
+        'submenu' => [
+            'menu' => [
+                'title' => 'Menú',
+                'route' => 'report.menu'
+            ]
+        ]
     ],
 
     'prices' => [
         'title' => 'Precios',
         'icon' => 'fa fa-dollar',
-        'route' => 'price.index'
+        'submenu' => [
+            'index' => [
+                'title' => 'Lista',
+                'route' => 'price.index'
+            ]
+        ]
     ],
 
     'users' => [
@@ -111,8 +126,13 @@ return [
     ],
 
     'logout' => [
-        'title' => 'Cerrar Sesión',
+        'title' => 'Sesión',
         'icon' => 'fa fa-sign-out',
-        'route' => 'getout',
+        'submenu' => [
+            'index' => [
+                'title' => 'Salir',
+                'route' => 'getout',
+            ]
+        ]
     ],
 ];
