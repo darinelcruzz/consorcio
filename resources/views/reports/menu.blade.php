@@ -90,7 +90,7 @@
                 {!! Form::close() !!}
             </solid-box>
 
-            <solid-box title="De Compras" color="box-success"  collapsed="collapsed-box">
+            {{-- <solid-box title="De Compras" color="box-success"  collapsed="collapsed-box">
                 {!! Form::open(['method' => 'POST', 'route' => 'report.purchases']) !!}
                 <div class="row">
                     <div class="col-md-12">
@@ -110,11 +110,11 @@
                     {!! Form::submit('Generar', ['class' => 'btn btn-warning btn-block']) !!}
                 </div>
                 {!! Form::close() !!}
-            </solid-box>
+            </solid-box> --}}
 
-            <solid-box title="Contabilidad" color="box-warning"  collapsed="collapsed-box">
+            <solid-box title="Contabilidad" color="box-success"  collapsed="collapsed-box">
                 {!! Form::open(['method' => 'POST', 'route' => 'report.prices']) !!}
-                    {!! Field::select('type', ['ventas' => 'De ventas', 'compras' => 'De compras'], null, ['empty' => 'Seleccione el reporte']) !!}
+                    {!! Field::select('type', ['ventas' => 'De ventas', 'compras' => 'De compras'], 'ventas', ['empty' => 'Seleccione el reporte']) !!}
                     <div class="row">
                         <div class="col-md-6">
                             {!! Field::date('start', $date) !!}
@@ -124,7 +124,7 @@
                         </div>
                     </div>
                     <div class="box-footer">
-                        {!! Form::submit('Generar', ['class' => 'btn btn-warning btn-block']) !!}
+                        {!! Form::submit('Generar', ['class' => 'btn btn-success btn-block']) !!}
                     </div>
                 {!! Form::close() !!}
             </solid-box>
