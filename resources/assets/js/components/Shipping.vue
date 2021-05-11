@@ -18,8 +18,8 @@
                 <em><small>{{ shipping.product >= 20 ? 'PROCESADO' : shipping.productr.name.toUpperCase() }}</small></em>
             </span>
         </td>
-        <td style="text-align: center;">{{ shipping.quantity }}</td>
-        <td style="text-align: center;">{{ shipping.movements[0].kg }}</td>
+        <td style="text-align: center;">{{ shipping.movements.reduce((total, item) => total + item.quantity, 0) }}</td>
+        <td style="text-align: center;">{{ shipping.movements.reduce((total, item) => total + item.kg, 0).toFixed(2) }}</td>
         <td style="text-align: center;">{{ formatNumber(shipping.price) }}</td>
         <td style="text-align: right;">{{ formatNumber(shipping.amount) }}</td>
         <td>{{ shipping.observations }}</td>

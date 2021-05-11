@@ -49637,11 +49637,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "text-align": "center"
     }
-  }, [_vm._v(_vm._s(_vm.shipping.quantity))]), _vm._v(" "), _c('td', {
+  }, [_vm._v(_vm._s(_vm.shipping.movements.reduce(function (total, item) { return total + item.quantity; }, 0)))]), _vm._v(" "), _c('td', {
     staticStyle: {
       "text-align": "center"
     }
-  }, [_vm._v(_vm._s(_vm.shipping.movements[0].kg))]), _vm._v(" "), _c('td', {
+  }, [_vm._v(_vm._s(_vm.shipping.movements.reduce(function (total, item) { return total + item.kg; }, 0).toFixed(2)))]), _vm._v(" "), _c('td', {
     staticStyle: {
       "text-align": "center"
     }
