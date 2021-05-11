@@ -92,12 +92,11 @@ class ReportController extends Controller
         }
 
         elseif ($request->product_id >= 4) {
+            $psales = ProcessedSale::where('date', '>=', $request->start)->where('date', '<=', $request->end)->where('status', '!=', 'cancelada')->pluck('id');
             $data = Movement::where('movable_type', 'App\ProcessedSale')
                 ->whereIn('product_id', $request->product_id == 4 ? [4, 5, 6, 7, 8, 9, 23]: [10, 11, 12, 13, 14, 15, 16, 17, 21, 22, 24])
+                ->whereIn('movable_id', $psales)
                 ->with('product', 'processed_sale', 'movable.client:id,name')
-                ->whereHas('processed_sale', function ($query) use ($request) {
-                    $query->whereBetween('date', [$request->start, $request->end]);                    
-                })
                 ->get()
                 ->groupBy(['product.name', function ($item) {
                     return $item->movable->client->name;
