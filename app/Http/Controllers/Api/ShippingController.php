@@ -11,7 +11,7 @@ class ShippingController extends Controller
     function index() 
     {
         return Shipping::orderBy('id', 'DESC')
-            ->with('productr:id,name')
+            ->with('productr:id,name', 'movements')
             ->paginate(10);
     }
 
@@ -25,7 +25,7 @@ class ShippingController extends Controller
             ->orWhere('date', 'LIKE', "%$keyword%")
             ->orWhere('provider', 'LIKE', "%$keyword%")
             ->orderBy('id', 'DESC')
-            ->with('productr:id,name')
+            ->with('productr:id,name', 'movements')
             ->paginate(10);
     }
 }

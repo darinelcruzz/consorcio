@@ -41,6 +41,7 @@
                         <th>Proveedor</th>
                         <th style="text-align: center;">Producto</th>
                         <th style="text-align: center;">Cantidad</th>
+                        <th style="text-align: center;">KG</th>
                         <th>Precio</th>
                         <th>Importe</th>
                         <th style="width: 25%">Observaciones</th>

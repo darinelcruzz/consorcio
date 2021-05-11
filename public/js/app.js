@@ -27877,6 +27877,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['shipping'],
@@ -27905,6 +27906,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -49156,7 +49158,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "text-align": "center"
     }
-  }, [_vm._v("Cantidad")]), _vm._v(" "), _c('th', [_vm._v("Precio")]), _vm._v(" "), _c('th', [_vm._v("Importe")]), _vm._v(" "), _c('th', {
+  }, [_vm._v("Cantidad")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "text-align": "center"
+    }
+  }, [_vm._v("KG")]), _vm._v(" "), _c('th', [_vm._v("Precio")]), _vm._v(" "), _c('th', [_vm._v("Importe")]), _vm._v(" "), _c('th', {
     staticStyle: {
       "width": "25%"
     }
@@ -49632,6 +49638,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "text-align": "center"
     }
   }, [_vm._v(_vm._s(_vm.shipping.quantity))]), _vm._v(" "), _c('td', {
+    staticStyle: {
+      "text-align": "center"
+    }
+  }, [_vm._v(_vm._s(_vm.shipping.movements[0].kg))]), _vm._v(" "), _c('td', {
     staticStyle: {
       "text-align": "center"
     }

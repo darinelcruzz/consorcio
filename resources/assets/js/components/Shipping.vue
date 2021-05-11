@@ -19,6 +19,7 @@
             </span>
         </td>
         <td style="text-align: center;">{{ shipping.quantity }}</td>
+        <td style="text-align: center;">{{ shipping.movements[0].kg }}</td>
         <td style="text-align: center;">{{ formatNumber(shipping.price) }}</td>
         <td style="text-align: right;">{{ formatNumber(shipping.amount) }}</td>
         <td>{{ shipping.observations }}</td>
