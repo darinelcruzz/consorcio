@@ -76,6 +76,8 @@ class ShippingsController extends Controller
             'price' => $request->items[0]['price'],
         ] + $attributes);
 
+        $shipping->touch();
+
         return redirect('embarques');
     }
 
