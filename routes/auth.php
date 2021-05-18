@@ -88,9 +88,10 @@ Route::group(['prefix' => 'reportes', 'as' => 'report.'], function () {
 
 // Reports
 Route::group(['prefix' => 'graficas', 'as' => 'chart.'], function () {
-    $ctrl = 'ReportController';
+    $ctrl = 'ChartsController';
 
-    Route::get('index', usesas($ctrl, 'index'));
+    Route::get('/', usesas($ctrl, 'index'));
+    Route::post('/', usesas($ctrl, 'index'));
 });
 
 // Usuarios
