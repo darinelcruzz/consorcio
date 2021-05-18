@@ -95,6 +95,10 @@ return [
             'menu' => [
                 'title' => 'Menú',
                 'route' => 'report.menu'
+            ],
+            'charts' => [
+                'title' => 'Gráficas',
+                'route' => 'chart.index'
             ]
         ]
     ],

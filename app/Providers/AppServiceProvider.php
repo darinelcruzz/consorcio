@@ -5,7 +5,6 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Schema;
-use Laravel\Dusk\DuskServiceProvider;
 use App\Http\Composers\SalesComposer;
 use App\{ProcessedSale, FreshSale, AliveSale, PorkSale, Shipping, Movement};
 use App\Observers\{ProcessedSaleObserver, FreshSaleObserver, AliveSaleObserver, PorkSaleObserver, ShippingObserver, MovementObserver};
@@ -31,9 +30,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if ($this->app->environment('local', 'testing')) {
-            $this->app->register(DuskServiceProvider::class);
-        }
+
     }
 
     protected function registerViewComposers()

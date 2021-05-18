@@ -86,6 +86,13 @@ Route::group(['prefix' => 'reportes', 'as' => 'report.'], function () {
     Route::post('embarques', usesas($ctrl, 'shippings'));
 });
 
+// Reports
+Route::group(['prefix' => 'graficas', 'as' => 'chart.'], function () {
+    $ctrl = 'ReportController';
+
+    Route::get('index', usesas($ctrl, 'index'));
+});
+
 // Usuarios
 Route::group(['prefix' => 'usuarios', 'as' => 'user.'], function () {
     $ctrl = 'UserController';
