@@ -29,17 +29,17 @@ class ChartsController extends Controller
 
     	$salesChart = new SalesTotal;
     	$salesChart->labels($pork->keys());
-    	$salesChart->dataset('Cerdo', 'line', $pork->map(function ($time) {return $time->sum('amount');})->values())->options(['borderColor' => '#ee76a0', 'fill' => false]);
-    	$salesChart->dataset('Vivo', 'line', $alive->map(function ($time) {return $time->sum('amount');})->values())->options(['borderColor' => '#3c8dbc', 'fill' => false]);
-    	$salesChart->dataset('Fresco', 'line', $fresh->map(function ($time) {return $time->sum('amount');})->values())->options(['borderColor' => '#f39c12', 'fill' => false]);
-    	$salesChart->dataset('Procesado', 'line', $processed->map(function ($time) {return $time->sum('amount');})->values())->options(['borderColor' => '#00a65a', 'fill' => false]);
+    	$salesChart->dataset('Cerdo', 'line', $pork->map(function ($time) {return $time->sum('quantity');})->values())->options(['borderColor' => '#ee76a0', 'fill' => false]);
+    	$salesChart->dataset('Vivo', 'line', $alive->map(function ($time) {return $time->sum('quantity');})->values())->options(['borderColor' => '#3c8dbc', 'fill' => false]);
+    	$salesChart->dataset('Fresco', 'line', $fresh->map(function ($time) {return $time->sum('quantity');})->values())->options(['borderColor' => '#f39c12', 'fill' => false]);
+    	$salesChart->dataset('Procesado', 'line', $processed->map(function ($time) {return $time->sum('quantity');})->values())->options(['borderColor' => '#00a65a', 'fill' => false]);
 
     	$kgChart = new TotalKg;
     	$kgChart->labels($pork->keys());
-    	$kgChart->dataset('Cerdo', 'line', $pork->map(function ($time) {return $time->sum('kg');})->values())->options(['borderColor' => '#ee76a0', 'fill' => false]);
-    	$kgChart->dataset('Vivo', 'line', $alive->map(function ($time) {return $time->sum('kg');})->values())->options(['borderColor' => '#3c8dbc', 'fill' => false]);
-    	$kgChart->dataset('Fresco', 'line', $fresh->map(function ($time) {return $time->sum('kg');})->values())->options(['borderColor' => '#f39c12', 'fill' => false]);
-    	$kgChart->dataset('Procesado', 'line', $processed->map(function ($time) {return $time->sum('kg');})->values())->options(['borderColor' => '#00a65a', 'fill' => false]);
+    	$kgChart->dataset('Cerdo', 'line', $pork->map(function ($time) {return round($time->sum('kg'), 2);})->values())->options(['borderColor' => '#ee76a0', 'fill' => false]);
+    	$kgChart->dataset('Vivo', 'line', $alive->map(function ($time) {return round($time->sum('kg'), 2);})->values())->options(['borderColor' => '#3c8dbc', 'fill' => false]);
+    	$kgChart->dataset('Fresco', 'line', $fresh->map(function ($time) {return round($time->sum('kg'), 2);})->values())->options(['borderColor' => '#f39c12', 'fill' => false]);
+    	$kgChart->dataset('Procesado', 'line', $processed->map(function ($time) {return round($time->sum('kg'), 2);})->values())->options(['borderColor' => '#00a65a', 'fill' => false]);
 
     	return view('charts.index', compact('salesChart', 'kgChart', 'start', 'end', 'interval'));
     }

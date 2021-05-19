@@ -23,7 +23,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <solid-box color="box-danger" title="Montos totales">
+            <solid-box color="box-danger" title="Ventas totales">
                 {{ $salesChart->container() }}               
             </solid-box>
 
