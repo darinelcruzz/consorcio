@@ -23,7 +23,7 @@ class ChartsController extends Controller
             	->where('status', '!=', 'cancelada')
             	->get()
             	->groupBy(function ($item) use ($interval) {
-            		return fdate($item->date, $interval, 'Y-m-d');
+            		return date($interval, strtotime($item->date));
             	});
         }
 
