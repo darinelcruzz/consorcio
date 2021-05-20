@@ -162,11 +162,7 @@
                                 @foreach ($prices as $price => $movements)
                                     <tr>
                                         <td width="40%">{{ $loop->iteration == 1 ? strtoupper($product == 4 ? 'pollo procesado': $product): '' }}</td>
-                                        @if($movements->first()->product_id < 10)
-                                            <td align="center" width="20%">{{ $movements->sum('quantity') }}</td>
-                                        @else
-                                            <td align="center" width="20%"></td>
-                                        @endif
+                                        <td align="center" width="20%">{{ $movements->sum('quantity') }}</td>
                                         <td align="center" width="20%">{{ number_format($movements->sum('kg'), 2) }}</td>
                                         <td align="center" width="20%">{{ number_format((float) $price, 2) }}</td>
                                     </tr>
