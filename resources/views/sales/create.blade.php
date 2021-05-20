@@ -149,7 +149,7 @@
                             <tbody>
                                 <tr>
                                     <td><b>{{ $lastSale->series }}</b>{{ substr("00000" . $lastSale->folio, -5) }}</td>
-                                    <td>{{ $lastSale->client->name or 'Cancelada'}}</td>
+                                    <td>{{ $lastSale->client->name ?? 'Cancelada'}}</td>
                                     <td>{{ date('d/m/y', strtotime($lastSale->date)) }}</td>
                                     <td style="text-align: center;">{{ $lastSale->quantity }}</td>
                                     <td style="text-align: right;">{{ number_format($lastSale->amount, 2) }}</td>
