@@ -12,8 +12,12 @@ class ReportController extends Controller
     function menu()
     {
         $clients = Client::orderBy('name')->pluck('name', 'id');
+        $pork = Client::where('credit', 1)->buyers('cerdo');
+        $alive = Client::where('credit', 1)->buyers('vivo');
+        $fresh = Client::where('credit', 1)->buyers('fresco');
+        $processed = Client::where('credit', 1)->buyers('procesado');
         $date = date('Y-m-d');
-        return view('reports.menu', compact('clients', 'date'));
+        return view('reports.menu', compact('clients', 'date', 'pork', 'alive', 'fresh', 'processed'));
     }
 
     function client(ReportRequest $request)
@@ -190,6 +194,23 @@ class ReportController extends Controller
             ->groupBy('product.name');
 
         return view('reports.purchases', compact('data', 'year', 'month'));
+    }
+
+    function debt(Request $request)
+    {
+        $type = $request->product;
+        $models = ['cerdo' => 'App\PorkSale', 'vivo' => 'App\AliveSale', 'fresco' => 'App\FreshSale', 'procesado' => 'App\ProcessedSale'];
+        $model = $models[$type];
+        $salesByClient = $model::whereYear('created_at', now())
+            ->whereIn('client_id', $request->clientes)
+            ->where('status', 'credito')
+            ->with('client')
+            ->get()
+            ->groupBy('client.name');
+
+        // ddd($request->all(), $salesByClients);
+
+        return view('reports.debt', compact('salesByClient', 'type'));
     }
 
 }

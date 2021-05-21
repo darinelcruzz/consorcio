@@ -128,6 +128,44 @@
                     </div>
                 {!! Form::close() !!}
             </solid-box>
+
+            <solid-box title="Cobranza" color="box-warning"  collapsed="collapsed-box">
+                {!! Form::open(['method' => 'POST', 'route' => 'report.debt']) !!}
+                    {!! Field::select('product', 
+                        ['cerdo' => 'Cerdo', 'vivo' => 'Pollo vivo', 'fresco' => 'Pollo fresco', 'procesado' => 'Pollo procesado'],
+                        'cerdo', 
+                        ['empty' => 'Seleccione el producto', 'v-model' => 'shipp'])
+                    !!}
+
+                    <div v-if="shipp == 'cerdo' || shipp == ''" class="form-group">
+                    {!! Field::select('clientes[]', $pork, null, 
+                        ['label' => 'Clientes cerdo', 'empty' => 'Seleccione el producto', 'multiple' => 'multiple', 'class' => 'form-control select2', 'style' => 'width: 100%; color: black;'])
+                    !!}
+                    </div>
+
+                    <div v-if="shipp == 'vivo'" class="form-group">
+                    {!! Field::select('clientes[]', $alive, null, 
+                        ['label' => 'Clientes vivo', 'empty' => 'Seleccione el producto', 'multiple' => 'multiple', 'class' => 'form-control select2', 'style' => 'width: 100%; color: black;'])
+                    !!}
+                    </div>
+
+                    <div v-if="shipp == 'fresco'" class="form-group">
+                    {!! Field::select('clientes[]', $fresh, null, 
+                        ['label' => 'Clientes fresco', 'empty' => 'Seleccione el producto', 'multiple' => 'multiple', 'class' => 'form-control select2', 'style' => 'width: 100%; color: black;'])
+                    !!}
+                    </div>
+
+                    <div v-if="shipp == 'procesado'" class="form-group">
+                    {!! Field::select('clientes[]', $processed, null, 
+                        ['label' => 'Clientes procesado', 'empty' => 'Seleccione el producto', 'multiple' => 'multiple', 'class' => 'form-control select2', 'style' => 'width: 100%; color: black;'])
+                    !!}
+                    </div>
+
+                    <div class="box-footer">
+                        {!! Form::submit('Generar', ['class' => 'btn btn-warning btn-block']) !!}
+                    </div>
+                {!! Form::close() !!}
+            </solid-box>
     </div>
 </div>
 

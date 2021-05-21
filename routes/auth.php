@@ -84,6 +84,7 @@ Route::group(['prefix' => 'reportes', 'as' => 'report.'], function () {
     Route::post('ventas', usesas($ctrl, 'sales'));
     Route::post('compras', usesas($ctrl, 'purchases'));
     Route::post('embarques', usesas($ctrl, 'shippings'));
+    Route::post('cobranza', usesas($ctrl, 'debt'));
 });
 
 // Reports
