@@ -27,6 +27,8 @@ class ChartsController extends Controller
             	});
         }
 
+        // ddd($pork);
+
     	$salesChart = new SalesTotal;
     	$salesChart->labels($pork->keys());
     	$salesChart->dataset('Cerdo', 'line', $pork->map(function ($time) {return $time->sum('quantity');})->values())->options(['borderColor' => '#ee76a0', 'fill' => false]);

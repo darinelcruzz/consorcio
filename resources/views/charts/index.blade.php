@@ -12,7 +12,7 @@
             {!! Field::date('end', $end) !!}
             </div>
             <div class="col-md-3">
-                {!! Field::select('interval', ['d' => 'Diario', 'M' => 'Mensual', 'Y' => 'Anual'], $interval, ['label' => 'Tiempo', 'empty' => 'Seleccione el intervalo']) !!}
+                {!! Field::select('interval', ['d M' => 'Diario', '\S\e\m\a\n\a W' => 'Semanal', 'M' => 'Mensual', 'Y' => 'Anual'], $interval, ['label' => 'Tiempo', 'empty' => 'Seleccione el intervalo']) !!}
             </div>
             <div class="col-md-3">
                 <label for="">&nbsp;</label>
