@@ -35,7 +35,7 @@
     </style>
 </head>
 
-<body>
+<body onload="window.print()">
     <section class="invoice">
         <div class="row">
             <div class="col-xs-4">
@@ -53,20 +53,23 @@
 
         <div class="row">
             <div class="col-xs-12">
-                <table class="table" id="ordered">
-                    <thead>
-                        <tr>
-                            <th>Cliente</th>
-                            <th>Fecha</th>
-                            <th style="text-align: center;">Folio</th>
-                            <th style="text-align: right;">Importe</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($salesByClient as $client => $sales)
+                @foreach ($salesByClient as $client => $sales)
+                    <table class="table" id="ordered">
+                        <tbody>
                             @foreach($sales as $sale)
+                                @if($loop->first)
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3">{{ $client }}</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th style="text-align: center;">Folio</th>
+                                            <th style="text-align: right;">Importe</th>
+                                        </tr>
+                                    </thead>
+                                @endif
                                 <tr>
-                                    <td>{{ $loop->first ? $client: '' }}</td>
                                     <td>{{ date('d-m-y', strtotime($sale->date)) }}</td>
                                     <td style="text-align: center;">
                                         {{ substr(str_repeat(0, 4) . $sale->folio, - 4) }}<b>{{ $sale->series }}</b>
@@ -76,13 +79,9 @@
                                     </td>
                                 </tr>
                             @endforeach
-                            <tr>
-                                <td colspan="3"></td>
-                                <th style="text-align: right;">{{ number_format($sales->sum('amount'), 2) }}</th>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                @endforeach
             </div>
         </div>
 

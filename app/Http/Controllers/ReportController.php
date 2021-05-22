@@ -203,7 +203,8 @@ class ReportController extends Controller
         $model = $models[$type];
         $salesByClient = $model::whereYear('created_at', now())
             ->whereIn('client_id', $request->clientes)
-            ->where('status', 'credito')
+            ->where('status', '!=', 'pagado')
+            ->where('status', '!=', 'cancelada')
             ->with('client')
             ->get()
             ->groupBy('client.name');
