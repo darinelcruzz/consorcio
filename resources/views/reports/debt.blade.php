@@ -52,29 +52,33 @@
         <div class="row">
             <div class="col-xs-12">
                 @foreach ($salesByClient as $client => $sales)
-                    <table class="table" id="ordered">
+                    <table class="table">
                         <tbody>
-                            @foreach($sales as $sale)
+                            {{-- @dd($sales->sortBy('date')) --}}
+                            @foreach($sales->sortBy('date') as $sale)
                                 @if($loop->first)
                                     <thead>
                                         <tr>
-                                            <th colspan="3">{{ $client }}</th>
+                                            <th colspan="4">{{ $client }}</th>
                                         </tr>
                                         <tr>
                                             <th>Fecha</th>
                                             <th style="text-align: center;">Folio</th>
                                             <th style="text-align: right;">Importe</th>
+                                            <th style="width: 60%">&nbsp;</th>
                                         </tr>
                                     </thead>
                                 @endif
                                 <tr>
                                     <td>{{ date('d-m-y', strtotime($sale->date)) }}</td>
                                     <td style="text-align: center;">
-                                        {{ substr(str_repeat(0, 4) . $sale->folio, - 4) }}<b>{{ $sale->series }}</b>{{ ['cerdo' => '', 'vivo' => '/V', 'fresco' => '/F', 'procesado' => ''][$sale->type] }}
+                                        {{ substr(str_repeat(0, 4) . $sale->folio, - 4) }}<b>{{ $sale->series }}</b>
+                                        <em>{{ ['cerdo' => '', 'vivo' => 'V', 'fresco' => 'F', 'procesado' => ''][$sale->type] }}</em>
                                     </td>
                                     <td style="text-align: right;">
                                         {{ number_format($sale->amount, 2) }}
                                     </td>
+                                    <td></td>
                                 </tr>
                             @endforeach
                         </tbody>

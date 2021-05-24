@@ -209,6 +209,7 @@ class ReportController extends Controller
             ->where('status', '!=', 'pagado')
             ->where('status', '!=', 'cancelada')
             ->with('client')
+            ->orderBy('date')
             ->get();
 
         if ($type == 'vivo') {
@@ -217,6 +218,7 @@ class ReportController extends Controller
                 ->where('status', '!=', 'pagado')
                 ->where('status', '!=', 'cancelada')
                 ->with('client')
+                ->orderBy('date')
                 ->get();
 
             $salesByClient = $salesByClient->concat($fresh);
