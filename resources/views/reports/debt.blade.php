@@ -19,8 +19,6 @@
 
     <!-- iCheck for checkboxes and radio inputs -->
     <link rel="stylesheet" href="{{ asset('/plugins/iCheck/all.css') }}">
-    <!-- Select2 -->
-    <link rel="stylesheet" href="{{ asset('/plugins/select2.min.css') }}">
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('/plugins/dataTables.bootstrap.css') }}">
 
@@ -45,7 +43,7 @@
             </div>
             <div class="col-xs-5">
                 <h4 align="center">
-                    <b>ADEUDOS {{ strtoupper($type) }}</b><br>
+                    <b>ADEUDOS {{ strtoupper($type) . ($type == 'vivo' ? ' | FRESCO': '') }}</b><br>
                     {{ now()->format('d/m/Y') }}
                 </h4>
             </div>
@@ -72,7 +70,7 @@
                                 <tr>
                                     <td>{{ date('d-m-y', strtotime($sale->date)) }}</td>
                                     <td style="text-align: center;">
-                                        {{ substr(str_repeat(0, 4) . $sale->folio, - 4) }}<b>{{ $sale->series }}</b>
+                                        {{ substr(str_repeat(0, 4) . $sale->folio, - 4) }}<b>{{ $sale->series }}</b>{{ ['cerdo' => '', 'vivo' => '/V', 'fresco' => '/F', 'procesado' => ''][$sale->type] }}
                                     </td>
                                     <td style="text-align: right;">
                                         {{ number_format($sale->amount, 2) }}

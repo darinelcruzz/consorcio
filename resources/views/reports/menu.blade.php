@@ -90,28 +90,6 @@
                 {!! Form::close() !!}
             </solid-box>
 
-            {{-- <solid-box title="De Compras" color="box-success"  collapsed="collapsed-box">
-                {!! Form::open(['method' => 'POST', 'route' => 'report.purchases']) !!}
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label style="font-weight: bold;">Mes</label>
-
-                            <div class="input-group date">
-                              <div class="input-group-addon">
-                                <i class="fa fa-calendar"></i>
-                              </div>
-                              <input name="month" type="month" class="form-control pull-right" value="{{ date('Y-m') }}">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="box-footer">
-                    {!! Form::submit('Generar', ['class' => 'btn btn-warning btn-block']) !!}
-                </div>
-                {!! Form::close() !!}
-            </solid-box> --}}
-
             <solid-box title="Contabilidad" color="box-success"  collapsed="collapsed-box">
                 {!! Form::open(['method' => 'POST', 'route' => 'report.prices']) !!}
                     {!! Field::select('type', ['ventas' => 'De ventas', 'compras' => 'De compras'], 'ventas', ['empty' => 'Seleccione el reporte']) !!}
@@ -132,7 +110,7 @@
             <solid-box title="Cobranza" color="box-warning"  collapsed="collapsed-box">
                 {!! Form::open(['method' => 'POST', 'route' => 'report.debt']) !!}
                     {!! Field::select('product', 
-                        ['cerdo' => 'Cerdo', 'vivo' => 'Pollo vivo', 'fresco' => 'Pollo fresco', 'procesado' => 'Pollo procesado'],
+                        ['cerdo' => 'Cerdo', 'vivo' => 'Pollo vivo y fresco', 'procesado' => 'Pollo procesado'],
                         'cerdo', 
                         ['empty' => 'Seleccione el producto', 'v-model' => 'shipp'])
                     !!}
@@ -143,22 +121,20 @@
                     !!}
                     </div>
 
-                    <div v-if="shipp == 'vivo'" class="form-group">
+                    <div v-else-if="shipp == 'vivo'" class="form-group">
                     {!! Field::select('clientes[]', $alive, null, 
                         ['label' => 'Clientes vivo', 'empty' => 'Seleccione el producto', 'multiple' => 'multiple', 'class' => 'form-control select2', 'style' => 'width: 100%; color: black;'])
                     !!}
                     </div>
 
-                    <div v-if="shipp == 'fresco'" class="form-group">
-                    {!! Field::select('clientes[]', $fresh, null, 
-                        ['label' => 'Clientes fresco', 'empty' => 'Seleccione el producto', 'multiple' => 'multiple', 'class' => 'form-control select2', 'style' => 'width: 100%; color: black;'])
-                    !!}
-                    </div>
-
-                    <div v-if="shipp == 'procesado'" class="form-group">
+                    <div v-else-if="shipp == 'procesado'" class="form-group">
                     {!! Field::select('clientes[]', $processed, null, 
                         ['label' => 'Clientes procesado', 'empty' => 'Seleccione el producto', 'multiple' => 'multiple', 'class' => 'form-control select2', 'style' => 'width: 100%; color: black;'])
                     !!}
+                    </div>
+
+                    <div v-else>
+                        <code>Elige un producto/s</code>
                     </div>
 
                     <div class="box-footer">

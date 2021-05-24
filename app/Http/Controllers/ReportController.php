@@ -13,11 +13,13 @@ class ReportController extends Controller
     {
         $clients = Client::orderBy('name')->pluck('name', 'id');
         $pork = Client::where('credit', 1)->buyers('cerdo');
-        $alive = Client::where('credit', 1)->buyers('vivo');
-        $fresh = Client::where('credit', 1)->buyers('fresco');
+        $alive = Client::orderBy('name', 'asc')->get()
+            ->filter(function ($item) {
+                return preg_match('(vivo|fresco)', $item->products) === 1;
+            })->pluck('name', 'id')->toArray();
         $processed = Client::where('credit', 1)->buyers('procesado');
         $date = date('Y-m-d');
-        return view('reports.menu', compact('clients', 'date', 'pork', 'alive', 'fresh', 'processed'));
+        return view('reports.menu', compact('clients', 'date', 'pork', 'alive', 'processed'));
     }
 
     function client(ReportRequest $request)
@@ -201,15 +203,27 @@ class ReportController extends Controller
         $type = $request->product;
         $models = ['cerdo' => 'App\PorkSale', 'vivo' => 'App\AliveSale', 'fresco' => 'App\FreshSale', 'procesado' => 'App\ProcessedSale'];
         $model = $models[$type];
+        
         $salesByClient = $model::whereYear('created_at', now())
             ->whereIn('client_id', $request->clientes)
             ->where('status', '!=', 'pagado')
             ->where('status', '!=', 'cancelada')
             ->with('client')
-            ->get()
-            ->groupBy('client.name');
+            ->get();
 
-        // ddd($request->all(), $salesByClients);
+        if ($type == 'vivo') {
+            $fresh = \App\FreshSale::whereYear('created_at', now())
+                ->whereIn('client_id', $request->clientes)
+                ->where('status', '!=', 'pagado')
+                ->where('status', '!=', 'cancelada')
+                ->with('client')
+                ->get();
+
+            $salesByClient = $salesByClient->concat($fresh);
+        }
+
+        // ddd($salesByClient->groupBy('client.name'));
+        $salesByClient = $salesByClient->groupBy('client.name');
 
         return view('reports.debt', compact('salesByClient', 'type'));
     }

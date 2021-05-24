@@ -20,7 +20,7 @@
                     <td><b>{{ $sale->series }}</b>{{ substr("00000" . $sale->folio, -5) }}</td>
                     <td style="text-align: center;"><label class="label label-{{ $sale->typeColor }}">{{ strtoupper($sale->type) }}</label></td>
                     <td><a href="{{ route('client.show', $sale->client) }}">{{ $sale->client ? $sale->client->name: 'No existe' }}</a></td>
-                    <td>{{ $sale->short_date }}</td>
+                    <td>{{ date('j \d\e M, Y', strtotime($sale->date)) }}</td>
                     <td>{{ $sale->days }}</td>
                     <td>{{ $sale->dueDate }}</td>
                     <td style="text-align: right;">{{ number_format($sale->amount, 2) }}</td>
