@@ -22,7 +22,7 @@
                     <td><a href="{{ route('client.show', $sale->client) }}">{{ $sale->client ? $sale->client->name: 'No existe' }}</a></td>
                     <td>{{ date('j \d\e M, Y', strtotime($sale->date)) }}</td>
                     <td>{{ $sale->days }}</td>
-                    <td>{{ $sale->dueDate }}</td>
+                    <td>{{ date('j \d\e M, Y', strtotime($sale->date) + 60*60*24*$sale->days) }}</td>
                     <td style="text-align: right;">{{ number_format($sale->amount, 2) }}</td>
                 </tr>
             @endforeach
@@ -58,9 +58,9 @@
                     <td><b>{{ $sale->series }}</b>{{ substr("00000" . $sale->folio, -5) }}</td>
                     <td><a href="{{ route('client.show', $sale->client) }}"> {{ $sale->client ? $sale->client->name: 'No existe' }}</a></td>
                     <td><label class="label label-{{ $sale->status == 'vencida' ? 'danger': $colors[$product] }}">{{ strtoupper($sale->status) }}</label></td>
-                    <td>{{ $sale->short_date }}</td>
+                    <td>{{ date('j \d\e M, Y', strtotime($sale->date)) }}</td>
                     <td>{{ $sale->days }}</td>
-                    <td>{{ $sale->dueDate }}</td>
+                    <td>{{ date('j \d\e M, Y', strtotime($sale->date) + 60*60*24*$sale->days) }}</td>
                     <td style="text-align: right;">{{ number_format($sale->amount, 2) }}</td>
                 </tr>
             @endforeach
