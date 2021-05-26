@@ -130,13 +130,11 @@ class ReportController extends Controller
         if ($request->type == 'ventas') {
 
             foreach (['App\PorkSale' => 'pork', 'App\AliveSale' => 'alive', 'App\FreshSale' => 'fresh', 'App\ProcessedSale' => 'processed'] as $model => $name) {
-                $sales = $model::where('date', '>=', $request->start)->where('date', '<=', $request->end)->where('status', '!=', 'cancelada')->get();
-                $first_sale_id = $sales->first()->id;
-                $last_sale_id = $sales->last()->id;
+                $sales = $model::whereBetween('date', [$request->start, $request->end])->where('status', '!=', 'cancelada')->pluck('id');
                 
                 $$name = Movement::whereYear('created_at', substr($request->start, 0, 4))
                     ->where('movable_type', $model)
-                    ->whereBetween('movable_id', [$first_sale_id, $last_sale_id])
+                    ->whereIn('movable_id', $sales)
                     ->where('product_id', '<=', 10)
                     ->with('product')
                     ->orderBy('price')
@@ -148,7 +146,7 @@ class ReportController extends Controller
 
             $cuts = Movement::whereYear('created_at', substr($request->start, 0, 4))
                 ->where('movable_type', 'App\ProcessedSale')
-                ->whereBetween('movable_id', [$first_sale_id, $last_sale_id])
+                ->whereIn('movable_id', $sales)
                 ->where('product_id', '>=', 10)
                 ->with('product')
                 ->orderBy('price')
