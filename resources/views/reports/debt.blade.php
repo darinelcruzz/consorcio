@@ -44,7 +44,11 @@
             <div class="col-xs-5">
                 <h4 align="center">
                     <big>COBRANZA {{ strtoupper($type) . ($type == 'vivo' ? ' | FRESCO': '') }}</big><br><br>
-                    {{ mb_strtoupper('para ' . \Date::now()->addDays(date('l') == 'Saturday' ? 2: 1)->format('l d \d\e F \d\e Y'), 'UTF-8') }}
+                    @php
+                        setlocale(LC_TIME, "ES_es")
+                    @endphp
+                    {{-- {{ mb_strtoupper('para ' . now()->setLocale('ES_es')->addDays(date('l') == 'Saturday' ? 2: 1)->format('l d \d\e F \d\e Y'), 'UTF-8') }}<br> --}}
+                    {{ mb_strtoupper('para ' . strftime('%A %d de %B de %Y', time() + (60*60*24*(date('l') == 'Saturday' ? 2: 1))), 'UTF-8') }}
                 </h4>
             </div>
         </div>
