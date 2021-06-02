@@ -43,8 +43,8 @@
             </div>
             <div class="col-xs-5">
                 <h4 align="center">
-                    <b>ADEUDOS {{ strtoupper($type) . ($type == 'vivo' ? ' | FRESCO': '') }}</b><br>
-                    {{ now()->format('d/m/Y') }}
+                    <big>COBRANZA {{ strtoupper($type) . ($type == 'vivo' ? ' | FRESCO': '') }}</big><br><br>
+                    {{ mb_strtoupper('para ' . \Date::now()->addDays(date('l') == 'Saturday' ? 2: 1)->format('l d \d\e F \d\e Y'), 'UTF-8') }}
                 </h4>
             </div>
         </div>
