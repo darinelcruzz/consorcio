@@ -201,6 +201,15 @@ class ReportController extends Controller
         $type = $request->product;
         $models = ['cerdo' => 'App\PorkSale', 'vivo' => 'App\AliveSale', 'fresco' => 'App\FreshSale', 'procesado' => 'App\ProcessedSale'];
         $model = $models[$type];
+
+        $months = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+        $month = date('n') - 1;
+        $weekdays = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'];
+        $weekday = date('N');
+        $day = date('d', time() + (60*60*24*($weekday == 6 ? 2: 1)));
+        $year = date('Y');
+
+        $date = "para $weekdays[$weekday] $day de $months[$month] de $year";
         
         $salesByClient = $model::whereYear('created_at', now())
             ->whereIn('client_id', $request->clientes)
@@ -225,7 +234,7 @@ class ReportController extends Controller
         // ddd($salesByClient->groupBy('client.name'));
         $salesByClient = $salesByClient->groupBy('client.name');
 
-        return view('reports.debt', compact('salesByClient', 'type'));
+        return view('reports.debt', compact('salesByClient', 'type', 'date'));
     }
 
 }
