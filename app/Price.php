@@ -36,7 +36,7 @@ class Price extends Model
 
     public function getDate($date)
     {
-        $fdate = date('d/m/Y', trtotime($this->$date));
+        $fdate = date('d/m/Y', strtotime($this->$date));
         return $fdate;
     }
 
