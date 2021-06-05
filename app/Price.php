@@ -36,8 +36,8 @@ class Price extends Model
 
     public function getDate($date)
     {
-        $fdate = new Date(strtotime($this->$date));
-        return $fdate->format('D, j/M/Y');
+        $fdate = date('d/m/Y', trtotime($this->$date));
+        return $fdate;
     }
 
     function scopePricesWithNames($query, $id)
