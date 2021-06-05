@@ -16,11 +16,13 @@ class AliveSaleObserver
     function updated(AliveSale $aliveSale)
     {
         if ($aliveSale != 'vencida') {
-            $aliveSale->movements()->update([
-                // 'price' => Price::find($aliveSale->price)->price,
-                'quantity' => $aliveSale->quantity,
-                'kg' => $aliveSale->kg,
-            ]);
+            if (request('origin') == 'edit') {
+                $aliveSale->movements()->update([
+                    'price' => $aliveSale->price == 28 ? request('price'): Price::find($aliveSale->price)->price,
+                    'quantity' => $aliveSale->quantity,
+                    'kg' => $aliveSale->kg,
+                ]);
+            }
         }
     }
 }

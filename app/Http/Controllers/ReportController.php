@@ -209,7 +209,7 @@ class ReportController extends Controller
         $day = date('d', time() + (60*60*24*($weekday == 6 ? 2: 1)));
         $year = date('Y');
 
-        $date = "para $weekdays[$weekday] $day de $months[$month] de $year";
+        $date = "para " . $weekdays[$weekday == 6 ? 0: $weekday] . " $day de $months[$month] de $year";
         
         $salesByClient = $model::whereYear('created_at', now())
             ->whereIn('client_id', $request->clientes)

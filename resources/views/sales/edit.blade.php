@@ -111,6 +111,8 @@
                         <i class="fa fa-save"></i> &nbsp;&nbsp;&nbsp; CAMBIAR
                     </button>
 
+                    <input type="hidden" name="origin" value="edit">
+
                 {!! Form::close() !!}
             </solid-box>
 

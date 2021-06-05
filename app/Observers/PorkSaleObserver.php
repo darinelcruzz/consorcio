@@ -17,11 +17,13 @@ class PorkSaleObserver
     {
         if ($porkSale != 'vencida') {
             // $price = $porkSale->movements()->first()->price;
-            $porkSale->movements()->update([
-                // 'price' => $porkSale->price == 28 ? request('price'): Price::find($porkSale->price)->price,
-                'quantity' => $porkSale->quantity,
-                'kg' => $porkSale->kg,
-            ]);
+            if (request('origin') == 'edit') {
+                $porkSale->movements()->update([
+                    'price' => $porkSale->price == 28 ? request('price'): Price::find($porkSale->price)->price,
+                    'quantity' => $porkSale->quantity,
+                    'kg' => $porkSale->kg,
+                ]);
+            }
         }
     }
 }
