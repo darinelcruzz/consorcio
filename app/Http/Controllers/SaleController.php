@@ -76,6 +76,24 @@ class SaleController extends Controller
         return redirect(route('sale.index', $type));
     }
 
+    function search(Request $request)
+    {
+        $request->validate(['note' => 'required|regex:/^[a-zA-Z]+-[0-9]+-[a-zA-Z]$/']);
+
+        // dd('validado');
+        list($type, $folio, $series) = explode('-', strtolower($request->note));
+
+        $model = getSaleModel($type);
+
+        $sale = $model::where('folio', $folio)->where('series', strtoupper($series))->first();
+
+        if($sale) {
+            return redirect(route('client.show', [$sale->client, $type]));
+        }
+
+        return back();
+    }
+
     function cancel(Request $request, $type)
     {
         $model = getSaleModel($type); //dd($request->all(), $model);

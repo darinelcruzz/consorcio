@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/inicio', usesas('WelcomeController', 'home'));
+Route::get('/inicio', usesas('WelcomeController', 'home'))->name('home');
 Route::get('/series/{type}', usesas('WelcomeController', 'writeSeries'));
 Route::get('/series2/{type}', usesas('WelcomeController', 'writeSeriesTwo'));
 
@@ -13,7 +13,7 @@ Route::group(['prefix' => 'clientes', 'as' => 'client.'], function () {
     Route::get('editar/{client}', usesas($ctrl, 'edit'));
     Route::post('editar', usesas($ctrl, 'update'));
     Route::get('eliminar/{client}', usesas($ctrl, 'destroy'));
-    Route::get('{client}', usesas($ctrl, 'show'));
+    Route::get('{client}/{type?}', usesas($ctrl, 'show'));
 });
 
 Route::group(['prefix' => 'ventas', 'as' => 'sale.'], function () {
@@ -25,6 +25,7 @@ Route::group(['prefix' => 'ventas', 'as' => 'sale.'], function () {
     Route::post('editar/{type}/{id}', usesas($ctrl, 'update'));
     Route::post('cancelar/{type}', usesas($ctrl, 'cancel'));
     Route::get('migrar/{type}/{series}/{month}', usesas($ctrl, 'migrate'));
+    Route::post('buscar', usesas($ctrl, 'search'));
     Route::get('{type}/{id}', usesas($ctrl, 'show'));
     Route::get('{type}', usesas($ctrl, 'index'));
 });

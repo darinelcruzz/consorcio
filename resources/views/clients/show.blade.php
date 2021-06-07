@@ -25,7 +25,7 @@
         @if(in_array(strtolower($product), $client->types))
             <div class="row">
                 <div class="col-md-12">
-                    <div class="box box-solid box-{{ $color }} collapsed-box">
+                    <div class="box box-solid box-{{ $color }}{{ $type == strtolower($product) ? '': ' collapsed-box'}}">
                         <div class="box-header with-border">
                             <h3 class="box-title">{{ $product }}</h3>
                             <div class="box-tools pull-right">

@@ -64,13 +64,13 @@ class ClientController extends Controller
         return redirect(route('client.index'));
     }
 
-    function show(Client $client)
+    function show(Client $client, $type = null)
     {
         $products = ['Vivo' => 'primary', 'Fresco' => 'warning', 'Cerdo' => 'baby', 'Procesado' => 'success'];
 
         $client->computeUnpaidNotes();
         
-        return view('clients.show', compact('client', 'products'));
+        return view('clients.show', compact('client', 'products', 'type'));
     }
 
     function destroy(Client $client)
