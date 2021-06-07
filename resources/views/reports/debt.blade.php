@@ -44,10 +44,6 @@
             <div class="col-xs-5">
                 <h4 align="center">
                     <big>COBRANZA {{ strtoupper($type) . ($type == 'vivo' ? ' | FRESCO': '') }}</big><br><br>
-                    @php
-                        setlocale(LC_TIME, "ES_es")
-                    @endphp
-                    {{-- {{ mb_strtoupper('para ' . now()->setLocale('ES_es')->addDays(date('l') == 'Saturday' ? 2: 1)->format('l d \d\e F \d\e Y'), 'UTF-8') }}<br> --}}
                     {{ strtoupper($date) }}
                 </h4>
             </div>
@@ -55,11 +51,11 @@
 
         <div class="row">
             <div class="col-xs-12">
-                @foreach ($salesByClient as $client => $sales)
+                @foreach ($salesByClient as $client => $concatSales)
                     <table class="table">
                         <tbody>
-                            {{-- @dd($sales->sortBy('date')) --}}
-                            @foreach($sales->sortBy('date') as $sale)
+                            {{-- @dd($sales->groupBy('date')) --}}
+                            @foreach($concatSales->groupBy('date') as $date => $sales)
                                 @if($loop->first)
                                     <thead>
                                         <tr>
@@ -73,17 +69,25 @@
                                         </tr>
                                     </thead>
                                 @endif
-                                <tr>
-                                    <td>{{ date('d-m-y', strtotime($sale->date)) }}</td>
-                                    <td style="text-align: center;">
-                                        {{ substr(str_repeat(0, 4) . $sale->folio, - 4) }}<b>{{ $sale->series }}</b>
-                                        <em>{{ ['cerdo' => '', 'vivo' => 'V', 'fresco' => 'F', 'procesado' => ''][$sale->type] }}</em>
-                                    </td>
-                                    <td style="text-align: right;">
-                                        {{ number_format($sale->amount, 2) }}
-                                    </td>
-                                    <td></td>
-                                </tr>
+                                @foreach($sales as $sale)
+                                    <tr>
+                                        <td>
+                                            @if($loop->first)
+                                                <strong>{{ date('d-m-y', strtotime($sale->date)) }}</strong>
+                                            @else
+                                                {{ date('d-m-y', strtotime($sale->date)) }}
+                                            @endif
+                                        </td>
+                                        <td style="text-align: center;">
+                                            {{ substr(str_repeat(0, 4) . $sale->folio, - 4) }}<b>{{ $sale->series }}</b>
+                                            <em>{{ ['cerdo' => '', 'vivo' => 'V', 'fresco' => 'F', 'procesado' => ''][$sale->type] }}</em>
+                                        </td>
+                                        <td style="text-align: right;">
+                                            {{ number_format($sale->amount, 2) }}
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                @endforeach
                             @endforeach
                         </tbody>
                     </table>
@@ -92,5 +96,6 @@
         </div>
 
     </section>
+
 </body>
 </html>
