@@ -64,7 +64,7 @@ class SaleController extends Controller
     {
         $model = getSaleModel($type); //dd($request->all(), $model);
         $sale = $model::find($id);
-        $sale->update($request->except('items') + [
+        $sale->update($request->except('items', 'origin') + [
             'status' => request('days') != '0' ? 'credito': 'pagado',
             'credit' => request('days') == '0' ? 0: 1,
         ]);
