@@ -41,9 +41,12 @@
                     <img width="160px" src="{{ asset('/img/LogoHorizontal.png') }}">
                 </left>
             </div>
-            <div class="col-xs-5">
+            <div class="col-xs-8">
                 <h4 align="center">
                     <big>COBRANZA {{ strtoupper($type) . ($type == 'vivo' ? ' | FRESCO': '') }}</big><br><br>
+                    PARA 
+                    <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>, 
+                    <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
                     {{ strtoupper($date) }}
                 </h4>
             </div>
@@ -73,9 +76,10 @@
                                     <tr>
                                         <td>
                                             @if($loop->first)
-                                                <strong>{{ date('d-m-y', strtotime($sale->date)) }}</strong>
-                                            @else
                                                 {{ date('d-m-y', strtotime($sale->date)) }}
+                                            {{-- <strong>{{ date('d-m-y', strtotime($sale->date)) }}</strong> --}}
+                                            @else
+                                                {{-- {{ date('d-m-y', strtotime($sale->date)) }} --}}
                                             @endif
                                         </td>
                                         <td style="text-align: center;">
@@ -91,6 +95,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <hr><br>
                 @endforeach
             </div>
         </div>

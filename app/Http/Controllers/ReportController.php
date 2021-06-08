@@ -204,19 +204,19 @@ class ReportController extends Controller
 
         $months = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
         $month = date('n') - 1;
-        $weekdays = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'];
-        $weekday = date('N');
-        $day = date('d', time() + (60*60*24*($weekday == 6 ? 2: 1)));
+        // $weekdays = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'];
+        // $weekday = date('N');
+        // $day = date('d', time() + (60*60*24*($weekday == 6 ? 2: 1)));
         $year = date('Y');
 
-        $date = "para " . $weekdays[$weekday == 6 ? 0: $weekday] . " $day de $months[$month] de $year";
+        // $date = "para " . $weekdays[$weekday == 6 ? 0: $weekday] . " $day de $months[$month] de $year";
+        $date = "de $months[$month] de $year";
         
         $salesByClient = $model::whereYear('created_at', now())
             ->whereIn('client_id', $request->clientes)
             ->where('status', '!=', 'pagado')
             ->where('status', '!=', 'cancelada')
             ->with('client')
-            ->orderBy('date')
             ->get();
 
         if ($type == 'vivo') {
@@ -225,14 +225,13 @@ class ReportController extends Controller
                 ->where('status', '!=', 'pagado')
                 ->where('status', '!=', 'cancelada')
                 ->with('client')
-                ->orderBy('date')
                 ->get();
 
             $salesByClient = $salesByClient->concat($fresh);
         }
 
         // ddd($salesByClient->groupBy('client.name'));
-        $salesByClient = $salesByClient->groupBy('client.name');
+        $salesByClient = $salesByClient->groupBy('client.name')->sortBy('client.name');
 
         return view('reports.debt', compact('salesByClient', 'type', 'date'));
     }
