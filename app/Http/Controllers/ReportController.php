@@ -231,7 +231,7 @@ class ReportController extends Controller
         }
 
         // ddd($salesByClient->groupBy('client.name'));
-        $salesByClient = $salesByClient->groupBy('client.name')->sortBy('client.name');
+        $salesByClient = $salesByClient->sortBy('client.name')->groupBy('client.name');
 
         return view('reports.debt', compact('salesByClient', 'type', 'date'));
     }
