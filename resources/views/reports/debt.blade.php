@@ -58,7 +58,7 @@
                     <table class="table">
                         <tbody>
                             {{-- @dd($sales->groupBy('date')) --}}
-                            @foreach($concatSales->groupBy('date') as $date => $sales)
+                            @foreach($concatSales->sortBy('date')->groupBy('date') as $date => $sales)
                                 @if($loop->first)
                                     <thead>
                                         <tr>
