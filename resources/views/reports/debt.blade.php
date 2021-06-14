@@ -72,7 +72,7 @@
                                         </tr>
                                     </thead>
                                 @endif
-                                @foreach($sales as $sale)
+                                @foreach($sales->sortBy('folio') as $sale)
                                     <tr>
                                         <td>
                                             @if($loop->first)
